@@ -12,6 +12,7 @@ build_input_arguments <-  function(input1,
   {
     formula = input1
     formula_list <- as.list(formula)
+
     if ((length(formula) != 3L) || (length(formula[[3]]) != 1L))
       stop("'formula' is incorrect. Please specify as 'x~y'.")
 
