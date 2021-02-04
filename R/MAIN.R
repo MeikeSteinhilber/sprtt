@@ -1,5 +1,14 @@
-#This is just a test for Git
-#second Try
+######################################################################
+#                                                                    #
+# sprt package                                                       #
+# master thesis project                                              #
+# master thesis title: "..."                                         #
+# author: meike steinhilber                                          #
+#                                                                    #
+# The generic function in this package provides the implementation   #
+# of sequnetial t-tests.                                             #
+#                                                                    #
+######################################################################
 
-x <- rnorm(50)
-y <- rnorm(50)
+
+
