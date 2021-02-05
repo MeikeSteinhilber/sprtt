@@ -1,86 +1,62 @@
-build_input_arguments <-  function(input1,
-                                   y = NULL,
-                                   data = NULL,
-                                   mu,
-                                   d,
-                                   alpha,
-                                   power,
-                                   alternative,
-                                   paired) {
-  # formula input ----
-  if (class(input1) == "formula")
-  {
-    formula = input1
-    formula_list <- as.list(formula)
-
-    if ((length(formula) != 3L) || (length(formula[[3]]) != 1L))
-      stop("'formula' is incorrect. Please specify as 'x~y'.")
-
-      temp <- model.frame(formula, data)
-      x <- temp[, 1]
-
-      if (formula_list[[3]] == 1) {
-        y = 1
-      } else {
-        y <- temp[, 2]
-      }
-
-    if(length(unique(y))!=2 && (y != 1))
-      stop(paste("Grouping factorn must contain exactly two levels."))
-    if(paired){
-      if(!(table(y)[[1]]==table(y)[[2]]))
-        stop("Unequal number of observations per group. Independent samples?")
-    }else{
-      if(length(x)<3)
-        stop("SPRT for two independent samples requires at least 3 observations.")
-    }
-
-    if(y != 1){
-      sd.check <- tapply(x, INDEX=y, FUN=sd)
-      sd.check <- ifelse(is.na(sd.check), 0, sd.check)
-      if(max(sd.check) == 0)
-        stop("Can't perform SPRT on constant data.")
-    }
-
-  }#ENDif_formula
-
-  # x, y input ----
-  if (class(input1) != "formula")
-  {
-    x <- input1
-  }
-
-  if(!is.null(y)){whichNA <- is.na(x) | is.na(y)
-  x <- x[!whichNA]
-  y <- y[!whichNA]
-  }else {
-    x <- na.omit(x)
-    }
-
-
-  if (is.null(y) || (y == 1)) {
-    one_sample = TRUE
-  } else{
-    one_sample = FALSE
-  }
-  if (alternative == "two.sided") {
-    one_sided = FALSE
-  } else{
-    one_sided = TRUE
-  }
-
-  input_arguments <- new(
-    "input_arguments",
-    x = x,
-    y = y,
-    mu = mu,
-    d = d,
-    alpha = alpha,
-    power = power,
-    alternative = alternative,
-    paired = paired,
-    one_sample = one_sample,
-    one_sided = one_sided
-  )
-  input_arguments
-}
+# setGeneric("build_input_arguments",
+#            function(input1, ...)
+#              standardGeneric("build_input_arguments"))
+#
+# setMethod("build_input_arguments",
+#           signature(input1 = "numeric"),
+#           function(input1,
+#                    y,
+#                    mu,
+#                    d,
+#                    alpha,
+#                    power,
+#                    alternative,
+#                    paired,
+#                    ...) {
+#             input_arguments <- new(
+#               "input_arguments",
+#               x = delete_na(x = input1, y, wanted = "x"),
+#               y = delete_na(x = input1, y, wanted = "y"),
+#               mu = mu,
+#               d = d,
+#               alpha = alpha,
+#               power = power,
+#               alternative = alternative,
+#               paired = paired,
+#               one_sample = get_one_sample(y, alternative),
+#               one_sided = get_one_sided(alternative)
+#             )
+#             input_arguments
+#           })
+#
+#
+# setMethod("build_input_arguments",
+#           signature(input1 = "formula"),
+#           function(input1,
+#                    data,
+#                    mu,
+#                    d,
+#                    alpha,
+#                    power,
+#                    alternative,
+#                    paired,
+#                    ...) {
+#             x = extract_formula(formula = input1, data = data, paired = paired, wanted = "x")
+#             y = extract_formula(formula = input1, data = data, paired = paired, wanted = "y")
+#
+#             input_arguments <- new(
+#               "input_arguments",
+#               x = delete_na(x, y, wanted = "x"),
+#               y = delete_na(x, y, wanted = "y"),
+#               mu = mu,
+#               d = d,
+#               alpha = alpha,
+#               power = power,
+#               alternative = alternative,
+#               paired = paired,
+#               one_sample = get_one_sample(y, alternative),
+#               one_sided = get_one_sided(alternative)
+#             )
+#             input_arguments
+#
+#           })
