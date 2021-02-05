@@ -7,7 +7,7 @@ build_input_arguments <-  function(input1,
                                    power,
                                    alternative,
                                    paired) {
-  # check and convert formula input
+  # formula input ----
   if (class(input1) == "formula")
   {
     formula = input1
@@ -26,6 +26,28 @@ build_input_arguments <-  function(input1,
         y <- temp[, 2]
       }
     }
+
+    if(length(unique(y))!=2)
+      stop(paste("Grouping factor", names(temp)[2], "must contain exactly two levels."))
+    if(paired){
+      if(!(table(y)[[1]]==table(y)[[2]]))
+        stop("Unequal number of observations per group. Independent samples?")
+    }else{
+      if(length(x)<3)
+        stop("SPRT for two independent samples requires at least 3 observations.")
+    }
+
+    sd.check <- tapply(x, INDEX=y, FUN=sd)
+    sd.check <- ifelse(is.na(sd.check), 0, sd.check)
+    if(max(sd.check) == 0)
+      stop("Can't perform SPRT on constant data.")
+
+  }#ENDif_formula
+
+  # x, y input ----
+  if (class(input1) != "formula")
+  {
+    x <- input1
   }
 
   if(!is.null(y)){whichNA <- is.na(x) | is.na(y)

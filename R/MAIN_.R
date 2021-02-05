@@ -11,7 +11,7 @@
 #######################################################################################
 #MAIN Function
 setGeneric("seq_ttest",
-           function(input1, ...) standardGeneric("seq_ttest"))
+           function(input1, ...) standardGeneric("seq_ttest")) #the same name necessary
 
 setMethod("seq_ttest",
           signature = "numeric",
