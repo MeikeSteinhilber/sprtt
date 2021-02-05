@@ -14,7 +14,7 @@ setGeneric("seq_ttest",
            function(input1, ...) standardGeneric("seq_ttest")) #the same name necessary
 
 setMethod("seq_ttest",
-          signature = "numeric",
+          signature(input1 = "numeric"),
           function(input1,
                    y = NULL,
                    mu = 0,
@@ -34,11 +34,10 @@ setMethod("seq_ttest",
                                                     alternative = alternative,
                                                     paired = paired)
             input_arguments
-          }
-)
+          })
 
 setMethod("seq_ttest",
-          signature = c("formula"),
+          signature(input1 = "formula"),
           function(input1,
                    data = NULL,
                    mu = 0,

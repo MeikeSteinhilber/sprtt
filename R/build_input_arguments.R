@@ -16,7 +16,6 @@ build_input_arguments <-  function(input1,
     if ((length(formula) != 3L) || (length(formula[[3]]) != 1L))
       stop("'formula' is incorrect. Please specify as 'x~y'.")
 
-    if (!is.null(data)) {
       temp <- model.frame(formula, data)
       x <- temp[, 1]
 
@@ -25,10 +24,9 @@ build_input_arguments <-  function(input1,
       } else {
         y <- temp[, 2]
       }
-    }
 
-    if(length(unique(y))!=2)
-      stop(paste("Grouping factor", names(temp)[2], "must contain exactly two levels."))
+    if(length(unique(y))!=2 && (y != 1))
+      stop(paste("Grouping factorn must contain exactly two levels."))
     if(paired){
       if(!(table(y)[[1]]==table(y)[[2]]))
         stop("Unequal number of observations per group. Independent samples?")
@@ -37,10 +35,12 @@ build_input_arguments <-  function(input1,
         stop("SPRT for two independent samples requires at least 3 observations.")
     }
 
-    sd.check <- tapply(x, INDEX=y, FUN=sd)
-    sd.check <- ifelse(is.na(sd.check), 0, sd.check)
-    if(max(sd.check) == 0)
-      stop("Can't perform SPRT on constant data.")
+    if(y != 1){
+      sd.check <- tapply(x, INDEX=y, FUN=sd)
+      sd.check <- ifelse(is.na(sd.check), 0, sd.check)
+      if(max(sd.check) == 0)
+        stop("Can't perform SPRT on constant data.")
+    }
 
   }#ENDif_formula
 
