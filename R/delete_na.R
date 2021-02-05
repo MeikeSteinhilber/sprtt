@@ -1,8 +1,11 @@
 delete_na <- function(x, y = NULL, wanted = NULL) {
-  if (!is.null(y)) {
+  if (!is.null(y) && (length(y) > 1)) {
     whichNA <- is.na(x) | is.na(y)
     x <- x[!whichNA]
     y <- y[!whichNA]
+  } else if (y == 1 || (is.null(y))) {
+    whichNA <- is.na(x)
+    x <- x[!whichNA]
   } else {
     x <- na.omit(x)
   }

@@ -27,6 +27,8 @@ setMethod("seq_ttest",
                    ...) {
             input_arguments <- new(
               "input_arguments",
+              one_sample = get_one_sample(y, alternative),
+              one_sided = get_one_sided(alternative),
               x = delete_na(x = input1, y, wanted = "x"),
               y = delete_na(x = input1, y, wanted = "y"),
               mu = mu,
@@ -34,9 +36,7 @@ setMethod("seq_ttest",
               alpha = alpha,
               power = power,
               alternative = alternative,
-              paired = paired,
-              one_sample = get_one_sample(y, alternative),
-              one_sided = get_one_sided(alternative)
+              paired = paired
             )
             input_arguments
           })
@@ -57,6 +57,8 @@ setMethod("seq_ttest",
 
             input_arguments <- new(
               "input_arguments",
+              one_sample = get_one_sample(y, alternative),
+              one_sided = get_one_sided(alternative),
               x = delete_na(x, y, wanted = "x"),
               y = delete_na(x, y, wanted = "y"),
               mu = mu,
@@ -64,9 +66,7 @@ setMethod("seq_ttest",
               alpha = alpha,
               power = power,
               alternative = alternative,
-              paired = paired,
-              one_sample = get_one_sample(y, alternative),
-              one_sided = get_one_sided(alternative)
+              paired = paired
             )
             input_arguments
           })
