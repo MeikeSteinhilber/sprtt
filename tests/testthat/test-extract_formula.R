@@ -1,12 +1,79 @@
 context("extract_formula: Correct extraction of the formula.")
+library(stats)
+library(base)
 
+test_that("extract_formula: random data: Correct activation of errors", {
+  x <- rnorm(10)
+  y <- rnorm(10)
+  z <- rnorm(10)
+  data <- data.frame(x, y, z)
 
-test_that("extract_formula: Correct activation of errors", {
+  formula <- x ~ y + z
+  expect_error(
+    extract_formula(formula, data, paired = F),
+    "'formula' is incorrect")
 
+  formula <- x ~ y
+  expect_error(
+    extract_formula(formula, data, paired = F),
+    "Grouping factor must contain exactly two levels.")
+})
 
+test_that("extract_formula: effect in data: Correct activation of errors", {
+  x <- rnorm(10)
+  y <- as.factor(sample(c(1,2), 50, replace = TRUE))
+  x <- ifelse(y == 1, x + 0.8, x)
+  data <- data.frame(x, y)
+  formula <- x ~ y
+
+  expect_error(
+    extract_formula(formula, data, paired = T, wanted = "x"),
+    "Unequal number of observations per group. Independent samples?")
+
+  data$x <- rep(5,10)
+  expect_error(
+    extract_formula(formula, data, paired = F),
+    "Can't perform SPRT on constant data.")
+
+  x <- c(5,8)
+  y <- c(1,2)
+  data <- data.frame(x,y)
+  expect_error(
+    extract_formula(formula, data, paired = F),
+    "SPRT for two independent samples requires at least 3 observations.")
 
 })
 
+
+test_that("extract_formula: effect in data: data are correct", {
+
+  x <- rnorm(10)
+  y <- as.factor(sample(c(1,2), 50, replace = TRUE))
+  x <- ifelse(y == 1, x + 0.8, x)
+  data <- data.frame(x, y)
+  formula <- x ~ y
+
+  formula <- x ~ 1
+  x_test <- extract_formula(formula, data, paired = F, wanted = "x")
+  y_test <- extract_formula(formula, data, paired = F, wanted = "y")
+  expect_equal(x_test, x)
+  expect_equal(y_test, 1)
+
+  formula <- x ~ y
+  x_test <- extract_formula(formula, data, paired = F, wanted = "x")
+  y_test <- extract_formula(formula, data, paired = F, wanted = "y")
+  x_y <- extract_formula(formula, data, paired = F)
+  expect_equal(x_test, x)
+  expect_equal(y_test, y)
+  expect_equal(x_y, list(x,y))
+
+})
+
+
+# test_that("", {
+#
+#
+# })
 
 # expect_warning(log(0))
 # expect_error(1 / 2)

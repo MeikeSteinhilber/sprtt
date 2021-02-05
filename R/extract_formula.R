@@ -1,4 +1,4 @@
-extract_formula <- function(formula, data, paired, wanted = NULL) {
+extract_formula <- function(formula, data, paired, wanted = "both") {
   formula_list <- as.list(formula)
 
   #check formula
