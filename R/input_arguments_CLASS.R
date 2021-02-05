@@ -30,7 +30,7 @@ setMethod("initialize", signature = "input_arguments",
               stop("Invalid argument <alpha>: Probabilities must be in ]0;1[.")
             if(!(.Object@power > 0 && .Object@power < 1))
               stop("Invalid argument <power>: Probabilities must be in ]0;1[.")
-            if(d <= 0)
+            if(.Object@d <= 0)
               stop("Invalid argument <d>: Must be greater than 0.")
             if(length(.Object@one_sample) == 0)
               stop("Invalid argument <one_sample>: Error in class input_arguments.")
