@@ -4,8 +4,8 @@ get_one_sample <- function(y, alternative) {
     one_sample = TRUE
   } else{
     one_sample = FALSE
-    one_sample
   }
+  one_sample
 }
 
 get_one_sided <- function(alternative) {
