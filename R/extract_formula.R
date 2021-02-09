@@ -12,6 +12,7 @@ extract_formula <- function(formula, data, paired, wanted = "both") {
   } else {
     y <- temp[, 2]
   }
+
   #check input
   if (length(unique(y)) != 2 && (length(y) != 1))
     stop(paste("Grouping factor must contain exactly two levels."))
