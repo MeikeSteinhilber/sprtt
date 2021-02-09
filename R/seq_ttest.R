@@ -10,8 +10,7 @@
 #                                                                                     #
 #######################################################################################
 #MAIN Function
-setGeneric("seq_ttest",
-           function(input1,
+seq_ttest <- function(input1,
                     y = NULL,
                     data = NULL,
                     mu = 0,
@@ -20,29 +19,14 @@ setGeneric("seq_ttest",
                     power = 0.95,
                     alternative = "two.sided",
                     paired = FALSE,
-                    ...)
-             standardGeneric("seq_ttest")) #the same name necessary
+                    ...){
+  input_arguments <- build_input_arguments(input1, y, data,  mu, d, alpha,
+                                           power, alternative, paired
+  )
+  input_arguments
+}
 
-setMethod("seq_ttest",
-          signature(input1 = "numeric"),
-          function(input1,
-                   ...) {
-            input_arguments <- build_input_arguments(input1, y, data,  mu, d, alpha,
-                                                     power, alternative, paired
-                                                     )
-            input_arguments
-          })
 
-setMethod("seq_ttest",
-          signature(input1 = "formula"),
-          function(input1,
-                    ...) {
-            input_arguments <- build_input_arguments(input1, y, data,  mu, d, alpha,
-                                                     power, alternative, paired
-                                                     )
-            input_arguments
-          })
-
-#######################################################################################
+########################################################################################
 
 
