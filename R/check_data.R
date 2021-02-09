@@ -52,6 +52,3 @@ setMethod("check_data",
                 stop("SPRT for two independent samples requires at least 3 observations.")
             }
           })
-
-
-

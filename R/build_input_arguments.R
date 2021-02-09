@@ -4,10 +4,12 @@ build_input_arguments <- function(input1, y = NULL, data = NULL,
     x <- extract_formula(formula = input1, data = data, paired = paired, wanted = "x")
     y <- extract_formula(formula = input1, data = data, paired = paired, wanted = "y")
     check_data(input1, x, y, paired)
+
   }else if(class(input1) == "numeric"){
     x <- input1
     check_data(input1, x, y, paired)
   }
+
   one_sample <- get_one_sample(y)
   one_sided <- get_one_sided(alternative)
   x <- delete_na(x, y, one_sample, paired, wanted = "x")

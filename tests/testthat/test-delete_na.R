@@ -1,5 +1,4 @@
 context("delete_na: Correct deletion of the missing values in the data.")
-library(sprt)
 
 test_that("delete_na: with similar NAs in x and y", {
   x <- c(1:5,NA,NA,6:10)
