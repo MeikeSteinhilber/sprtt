@@ -3,10 +3,10 @@ build_input_arguments <- function(input1, y = NULL, data = NULL,
   if(class(input1) == "formula"){
     x <- extract_formula(formula = input1, data = data, paired = paired, wanted = "x")
     y <- extract_formula(formula = input1, data = data, paired = paired, wanted = "y")
-    check_data_formula(x, y, paired)
+    check_data(input1, x, y, paired)
   }else if(class(input1) == "numeric"){
     x <- input1
-    check_data_numeric(x, y, paired)
+    check_data(input1, x, y, paired)
   }
   one_sample <- get_one_sample(y)
   one_sided <- get_one_sided(alternative)

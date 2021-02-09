@@ -1,4 +1,3 @@
-
 get_one_sample <- function(y) {
   if (is.null(y) || (y == 1)) {
     one_sample = TRUE
