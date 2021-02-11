@@ -1,4 +1,4 @@
-check_constant_data <- function(x, y, paired) {
+check_constant_data <- function(x, y, paired = NULL) {
   message = "Can't perform SPRT on constant data."
 
   if(!is.null(y) && !is.factor(y)){
@@ -7,7 +7,7 @@ check_constant_data <- function(x, y, paired) {
     if (!(max(sd.check) > 0))
       stop(message)
 
-  }else if (!is.null(y) && y[1] != 1) {
+  }else if (!is.null(y) && length(y) != 1) {
     sd.check <- tapply(x, INDEX = y, FUN = sd)
     sd.check <- ifelse(is.na(sd.check), 0, sd.check)
     if (max(sd.check) == 0)

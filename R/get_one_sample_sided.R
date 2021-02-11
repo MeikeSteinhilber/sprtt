@@ -1,5 +1,5 @@
 get_one_sample <- function(y) {
-  if (is.null(y) || (y == 1)) {
+  if (is.null(y) || (length(y) == 1)) {
     one_sample = TRUE
   } else{
     one_sample = FALSE
@@ -10,8 +10,10 @@ get_one_sample <- function(y) {
 get_one_sided <- function(alternative) {
   if (alternative == "two.sided") {
     one_sided = FALSE
-  } else{
+  } else if (alternative == "less" || alternative == "greater"){
     one_sided = TRUE
+  } else {
+    stop("Argument alternative must be 'two.sided', 'less', or 'greater'.")
   }
   one_sided
 }

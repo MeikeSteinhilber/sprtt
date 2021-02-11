@@ -1,14 +1,60 @@
+context("get_one_sample: Check correct output.")
+test_that("get_one_sample: Check correct output.", {
+
+  y <- NULL
+  expect_equal(
+    get_one_sample(y),
+    TRUE
+  )
+  y <- 1
+  expect_equal(
+    get_one_sample(y),
+    TRUE
+  )
+  y <- 2
+  expect_equal(
+    get_one_sample(y),
+    TRUE
+  )
+  y <- c(1,2,3)
+  expect_equal(
+    get_one_sample(y),
+    FALSE
+  )
+  y <- list(1,2,3)
+  expect_equal(
+    get_one_sample(y),
+    FALSE
+  )
+
+})
+
+context("get_one_sided: Check correct output.")
+test_that("get_one_sided: Check correct output.", {
+
+    expect_equal(
+    get_one_sided(alternative = "two.sided"),
+    FALSE
+  )
+  expect_equal(
+    get_one_sided(alternative = "less"),
+    TRUE
+  )
+  expect_equal(
+    get_one_sided(alternative = "greater"),
+    TRUE
+  )
+  expect_error(
+    get_one_sided(alternative = "test")
+  )
+
+})
+
+
+
 # test_that("", {
 #
 #
 # })
 
-# expect_warning(log(0))
-# expect_error(1 / 2)
-# expect_message(library(mgcv), "This is mgcv")
-# expect_equal(str_length("a"), 1)
-# expect_identical(10, 10 + 1e-7)
-# expect_match(string, "Testing")
-# expect_is() #checks that an object inherit()s from a specified class
-# expect_true()
-# expect_false()
+

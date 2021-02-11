@@ -8,6 +8,8 @@ build_input_arguments <- function(input1, y = NULL, data = NULL,
   }else if(class(input1) == "numeric"){
     x <- input1
     check_data(input1, x, y, paired)
+  } else {
+    stop("The class of the input1 argument hast to be either 'formula' or 'numeric'.")
   }
 
   one_sample <- get_one_sample(y)
