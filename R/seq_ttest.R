@@ -9,7 +9,7 @@
 #     of sequential t-tests.                                                          #
 #                                                                                     #
 #######################################################################################
-#MAIN Function
+
 seq_ttest <- function(input1,
                     y = NULL,
                     data = NULL,
@@ -20,10 +20,14 @@ seq_ttest <- function(input1,
                     alternative = "two.sided",
                     paired = FALSE,
                     ...){
-  input_arguments <- build_input_arguments(input1, y, data,  mu, d, alpha,
+  ttest_arguments <- build_ttest_arguments(input1, y, data,  mu, d, alpha,
                                            power, alternative, paired
   )
-  input_arguments
+  ttest_arguments
+
+  # ttest_results <- compute_seq_ttest(ttest_arguments)
+  # print_results(ttest_results)
+  # visualize_results(ttest_results)
 }
 
 

@@ -1,4 +1,4 @@
-build_input_arguments <- function(input1, y = NULL, data = NULL,
+build_ttest_arguments <- function(input1, y = NULL, data = NULL,
                                   mu, d, alpha, power, alternative, paired){
   if(class(input1) == "formula"){
     x <- extract_formula(formula = input1, data = data, paired = paired, wanted = "x")
