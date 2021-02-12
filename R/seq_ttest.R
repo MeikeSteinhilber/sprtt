@@ -23,11 +23,11 @@ seq_ttest <- function(input1,
   ttest_arguments <- build_ttest_arguments(input1, y, data,  mu, d, alpha,
                                            power, alternative, paired
   )
-  ttest_arguments
+  seq_ttest_results <- calc_seq_ttest(ttest_arguments)
+  seq_ttest_results
 
-  # ttest_results <- compute_seq_ttest(ttest_arguments)
-  # print_results(ttest_results)
-  # visualize_results(ttest_results)
+  # print_results(seq_ttest_results)
+  # visualize_results(seq_ttest_results)
 }
 
 

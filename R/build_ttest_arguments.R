@@ -17,7 +17,7 @@ build_ttest_arguments <- function(input1, y = NULL, data = NULL,
   x <- delete_na(x, y, one_sample, paired, wanted = "x")
   y <- delete_na(x, y, one_sample, paired, wanted = "y")
 
-  input_arguments <- new("input_arguments",
+  ttest_arguments <- new("ttest_arguments",
                          x = x,
                          y = y,
                          mu = mu,
@@ -29,5 +29,5 @@ build_ttest_arguments <- function(input1, y = NULL, data = NULL,
                          one_sample = one_sample,
                          one_sided = one_sided
   )
-  input_arguments
+  ttest_arguments
 }

@@ -4,7 +4,7 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 # setClassUnion("data.frameORnull", c("data.frame","NULL"))
 
 
-setClass("input_arguments",
+setClass("ttest_arguments",
          slots = c(
            x = "numeric",
            y = "numericORnull",
@@ -19,7 +19,7 @@ setClass("input_arguments",
            one_sided = "logical"
          ))
 
-setMethod("initialize", signature = "input_arguments",
+setMethod("initialize", signature = "ttest_arguments",
           function(.Object, ...) { # .Object is necessary and can not replaced by x
             .Object <- callNextMethod() # necessary line
 
