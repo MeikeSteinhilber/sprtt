@@ -6,22 +6,21 @@ setMethod("check_data",
           signature(input1 = "numeric"),
           function(input1, x, y, paired) {
 
-            check_constant_data(x, y, paired)
+            x.name <- deparse(substitute(x))
+            if (!is.numeric(x))
+              stop(paste("Invalid argument:",  x.name, "must be numeric."))
 
             if (!is.null(y)) {
-              x.name <- deparse(substitute(x))
               y.name <- deparse(substitute(y))
               data.name <- paste(x.name, "and", y.name)
-              if (!(is.atomic(x) && is.null(dim(x))))
-                warning(paste(x.name, "is not a vector. This might have caused problems."),
-                        call. = F)
-              if (!(is.atomic(y) && is.null(dim(y))))
-                warning(paste(y.name, "is not a vector. This might have caused problems."),
-                        call. = F)
+              # if (!(is.atomic(x) && is.null(dim(x)) ))
+              #   warning(paste(x.name, "is not a vector. This might have caused problems."),
+              #           call. = F)
+              # if (!(is.atomic(y) && is.null(dim(y)) ))
+              #   warning(paste(y.name, "is not a vector. This might have caused problems."),
+              #           call. = F)
               if (is.factor(y))
                 stop("Is y a grouping factor? Use formula interface x ~ y.")
-              if (!is.numeric(x))
-                stop(paste("Invalid argument:",  x.name, "must be numeric."))
               if (!is.numeric(y))
                 stop(paste("Invalid argument:",  y.name, "must be numeric."))
               if (!paired && (length(x) + length(y) < 3))
@@ -29,19 +28,16 @@ setMethod("check_data",
               if (!is.logical(paired))
                 stop("Invalid argument <paired>: Must be logical.")
 
-            }else{
-              data.name <- deparse(substitute(x))
-              if (!is.numeric(x))
-                stop(paste("Invalid argument:",  data.name, "must be numeric."))
-            }
-          })
+            check_constant_data(x, y, paired)
+          }})
 
 setMethod("check_data",
           signature(input1 = "formula"),
           function(input1, x, y, paired) {
+            y.name <- deparse(substitute(y))
 
-            check_constant_data(x, y, paired)
-
+            if (!is.factor(y) && (length(y) != 1))
+              stop(paste(y.name, "must be a grouping factor or '1'."))
             if (length(unique(y)) != 2 && (length(y) != 1))
               stop(paste("Grouping factor must contain exactly two levels."))
             if (paired) {
@@ -51,4 +47,5 @@ setMethod("check_data",
               if (length(x) < 3)
                 stop("SPRT for two independent samples requires at least 3 observations.")
             }
+            check_constant_data(x, y, paired)
           })
