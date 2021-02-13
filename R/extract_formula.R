@@ -9,7 +9,12 @@ extract_formula <- function(formula, data, paired, wanted = "both") {
     y = 1
   } else {
     y <- temp[, 2]
+    x_temp <- x[y == levels(y)[1]]
+    y_temp <- x[y == levels(y)[2]]
+    x <- x_temp
+    y <- y_temp
   }
+
 
   #get wanted output
   if (wanted == "x") {

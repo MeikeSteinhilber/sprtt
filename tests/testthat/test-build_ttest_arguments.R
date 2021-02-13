@@ -69,8 +69,11 @@ test_that("build_ttest_arguments: numeric", {
 
 test_that("build_ttest_arguments: formula", {
   input1 <- a~b
-  a <- rnorm(10)
-  b <- as.factor(sample(c(1,2), 10, replace = TRUE))
+  a_1 <- rnorm(5)
+  a_2 <- rnorm(5)
+  a <- c(a_1, a_2)
+  b <- as.factor(c(rep(1,5),rep(2,5)))
+
   mu <- 0
   d <- 0.8
   alpha <- .05
@@ -79,8 +82,8 @@ test_that("build_ttest_arguments: formula", {
   paired <- FALSE
   test <- build_ttest_arguments(input1, y = NULL, data = NULL,
                         mu, d, alpha, power, alternative, paired)
-  expect_identical(test@x, a)
-  expect_identical(test@y, b)
+  expect_identical(test@x, a_1)
+  expect_identical(test@y, a_2)
   expect_identical(test@mu, mu)
   expect_identical(test@d, d)
   expect_identical(test@alpha, alpha)

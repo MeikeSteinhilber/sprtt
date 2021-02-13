@@ -4,6 +4,7 @@ build_seq_ttest_results <- function(t_statistic,
                                     likelihoods,
                                     boundaries,
                                     decision){
+
   if(length(t_statistic$estimate) > 1){
     mean_y <- t_statistic$estimate[[2]]
   } else{
