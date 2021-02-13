@@ -9,6 +9,14 @@ extract_formula <- function(formula, data, paired, wanted = "both") {
     y = 1
   } else {
     y <- temp[, 2]
+    if (!is.factor(y) && (length(y) != 1))
+      stop(paste(y.name, "must be a grouping factor or '1'."))
+    if (length(unique(y)) != 2 && (length(y) != 1))
+      stop(paste("Grouping factor must contain exactly two levels."))
+    if (paired) {
+      if (!(table(y)[[1]] == table(y)[[2]]))
+        stop("Unequal number of observations per group. Independent samples?")
+    }
     x_temp <- x[y == levels(y)[1]]
     y_temp <- x[y == levels(y)[2]]
     x <- x_temp

@@ -1,14 +1,21 @@
+library(SPRTPackage)
+
+context("seq_ttest: test main function")
+
+test_that("seq_ttest: comparison results with original script from m. schnuerch", {
+  x <- rnorm(20)
+  d <- 0.8
+  results_original <- SPRTPackage::SPRT(x = x, d = d)
+  results_new <- sprt::seq_ttest(x, d = d)
+
+  expect_equal(results_new@likelihood_ratio,
+               results_original$statistic[[1]])
+
+
+})
+
 # test_that("", {
 #
 #
 # })
 
-# expect_warning(log(0))
-# expect_error(1 / 2)
-# expect_message(library(mgcv), "This is mgcv")
-# expect_equal(str_length("a"), 1)
-# expect_identical(10, 10 + 1e-7)
-# expect_match(string, "Testing")
-# expect_is() #checks that an object inherit()s from a specified class
-# expect_true()
-# expect_false()

@@ -99,18 +99,19 @@ test_that("build_ttest_arguments: formula", {
   data <- data.frame(a,c,b)
   test <- build_ttest_arguments(input1, y = NULL, data,
                         mu, d, alpha, power, alternative, paired)
-  expect_identical(test@x, a)
-  expect_identical(test@y, b)
+  expect_identical(test@x, a_1)
+  expect_identical(test@y, a_2)
 
-  a <- c(NA, 1:4, NA, NA, 5:10, NA)
-  b <- as.factor(rep(c(1,2), 7))
+  a_1 <- c(NA, 1:5, NA)
+  a_2 <- c(NA, 6:10, NA)
+  a <- c(a_1, a_2)
+  b <- as.factor(c(rep(1,7),rep(2,7)))
 
   data <- data.frame(a,b)
   test <- build_ttest_arguments(input1, y = NULL, data,
                                 mu, d, alpha, power, alternative, paired)
-  expect_identical(test@x, 1:10)
-  expect_identical(test@y,
-                   as.factor(rep(c(2,1), 5)))
+  expect_identical(test@x, 1:5)
+  expect_identical(test@y, 6:10)
 
 })
 
