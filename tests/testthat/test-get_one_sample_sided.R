@@ -1,3 +1,4 @@
+#* @testing get_one_sample
 context("get_one_sample: Check correct output.")
 test_that("get_one_sample: Check correct output.", {
 
@@ -29,6 +30,7 @@ test_that("get_one_sample: Check correct output.", {
 
 })
 
+#* @testing get_one_sided
 context("get_one_sided: Check correct output.")
 test_that("get_one_sided: Check correct output.", {
 

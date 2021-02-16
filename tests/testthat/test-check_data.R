@@ -1,3 +1,4 @@
+#* @testing check_data
 context("check_data: check correct behaviour")
 
 test_that("check_data: numeric: Correct activation of errors", {

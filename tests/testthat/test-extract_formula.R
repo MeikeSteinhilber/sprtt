@@ -1,3 +1,4 @@
+#* @testing extract_formula
 context("extract_formula: Correct extraction of the formula.")
 library(stats)
 library(base)

@@ -1,3 +1,5 @@
+#* @testing build_ttest_arguments
+
 library(base)
 
 context("build_ttest_arguments: Check structure of the class object")

@@ -1,3 +1,4 @@
+#* @testing check_formula
 context("check_formula: Correct error messages.")
 
 test_that("check_formula: Correct error messages", {

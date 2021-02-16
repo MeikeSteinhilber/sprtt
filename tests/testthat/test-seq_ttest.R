@@ -1,3 +1,6 @@
+#* @testing seq_ttest
+#*
+
 # HELP FUNCTIONS ----------------------------------------------------------
 
 .sprt.lr <- function(x, y, mu, d, type, alt){

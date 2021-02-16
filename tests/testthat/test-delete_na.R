@@ -1,3 +1,4 @@
+#* @testing delete_na
 context("delete_na: Correct deletion of the missing values in the data.")
 
 test_that("delete_na: with similar NAs in x and y", {
