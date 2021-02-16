@@ -16,7 +16,8 @@ setClass("ttest_arguments",
            alternative = "character",
            paired = "logical",
            one_sample = "logical",
-           one_sided = "logical"
+           one_sided = "logical",
+           data_name = "character"
          ))
 
 setMethod("initialize", signature = "ttest_arguments",

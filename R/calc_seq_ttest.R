@@ -15,6 +15,7 @@ calc_seq_ttest <- function(ttest_arguments){
                                      boundaries = boundaries)
 
   seq_ttest_results <- build_seq_ttest_results(t_statistic,
+                                               ttest_arguments,
                                                df,
                                                non_centrality_parameter,
                                                likelihoods,

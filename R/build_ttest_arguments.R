@@ -1,5 +1,6 @@
 build_ttest_arguments <- function(input1, y = NULL, data = NULL,
-                                  mu, d, alpha, power, alternative, paired){
+                                  mu, d, alpha, power, alternative, paired, data_name){
+
   if(class(input1) == "formula"){
     x <- extract_formula(formula = input1, data = data, paired = paired, wanted = "x")
     y <- extract_formula(formula = input1, data = data, paired = paired, wanted = "y")
@@ -27,7 +28,8 @@ build_ttest_arguments <- function(input1, y = NULL, data = NULL,
                          alternative = alternative,
                          paired = paired,
                          one_sample = one_sample,
-                         one_sided = one_sided
+                         one_sided = one_sided,
+                         data_name = data_name
   )
   ttest_arguments
 }
