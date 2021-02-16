@@ -1,7 +1,7 @@
 Package: sprt
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.0.011
+Version: 0.0.0.012
 Author: person(given = "Meike",
                family = "Steinhilber",
                role = c("aut", "cre"),
