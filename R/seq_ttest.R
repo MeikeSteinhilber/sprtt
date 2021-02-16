@@ -14,9 +14,8 @@
 #' @importFrom methods callNextMethod new
 
 #---- MAIN FUNCTION
-#' Sequential t-Tests
-#'
-#' Performs one and two sample sequential t-tests on vectors of data.
+#' @title Sequential t-Tests#'
+#' @description Performs one and two sample sequential t-tests on vectors of data.#'
 #'
 #' @param input1 Works with two classes: 'numeric' and 'formula'. Therfore you can
 #' write 'x' or 'x~y'.

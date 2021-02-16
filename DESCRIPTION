@@ -1,6 +1,6 @@
 Package: sprt
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Sequential Probability Ratio Tests: Using t-Statistic
 Version: 0.0.0.012
 Author: person(given = "Meike",
                family = "Steinhilber",
