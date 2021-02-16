@@ -10,10 +10,10 @@
 #                                                                                     #
 #######################################################################################
 #--- GENERAL SETTINGS
+#' @import stats
+#' @importFrom methods callNextMethod new
 
-
-
-
+#---- MAIN FUNCTION
 #' Sequential t-Tests
 #'
 #' Performs one and two sample sequential t-tests on vectors of data.
@@ -39,9 +39,6 @@
 #'
 #' @return
 #' @export
-#',
-#' @import stats
-#' @importFrom methods callNextMethod new
 #'
 #' @examples
 seq_ttest <- function(input1,
