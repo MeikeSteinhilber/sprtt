@@ -1,11 +1,25 @@
 Package: sprt
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Version: 0.0.0.011
+Author: person(given = "Meike",
+               family = "Steinhilber",
+               role = c("aut", "cre"),
+               email = "Meike.Steinhilber@aol.com"
+               )
+Maintainer: The package maintainer <Meike.Steinhilber@aol.com>
+Description: 'seq_ttest' is a function that implements Abraham Wald’s (1947)
+      Sequential Probability Ratio Test (SPRT) for the test of a normal
+      mean (difference) with unknown variance in R (R Core Team, 2018).
+      It performs sequential t tests developed by Rushton (1950, 1952)
+      and Hajnal (1961), based on the SPRT. Specifically, sprt.t.test
+      performs one-sample, two-sample, and paired t tests for testing
+      one- and two-sided hypotheses.
+      The test is to be applied to the data during the sampling process,
+      ideally after each observation. At any stage, it will return a
+      decision to either continue sampling or terminate and accept one of
+      the specified hypotheses. For more information on the SPRT t test,
+      see Schnuerch & Erdfelder (2019).
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
