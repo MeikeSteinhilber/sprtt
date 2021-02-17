@@ -12,9 +12,10 @@ test_that("build_seq_ttest_arguments: errors", {
   power <- .80
   alternative <- "two.sided"
   paired <- FALSE
+  data_name <- "testname"
   expect_error(
     build_seq_ttest_arguments(input1, y = NULL, data = NULL,
-                          mu, d, alpha, power, alternative, paired),
+                          mu, d, alpha, power, alternative, paired, data_name),
     "argument hast to be either 'formula' or 'numeric'"
   )
 })

@@ -1,29 +1,71 @@
 #* @testing check_formula
 context("check_formula: Correct error messages.")
 
-test_that("check_formula: Correct error messages", {
+test_that("check_formula: Check structure: Correct error messages", {
+  x <- 1:10
+  y <- as.factor(c(rep(1,5), rep(2,5)))
+  data <- data.frame(x, z = x, y)
+  formula <- x~y
+  paired = FALSE
 
   expect_error(
-    check_formula(formula = NULL),
+    check_formula(formula = NULL, data, paired),
     "'formula' is incorrect."
   )
   expect_error(
-    check_formula(formula = x~y+z),
+    check_formula(formula = x~y+z, data, paired),
     "'formula' is incorrect."
+  )
+
+})
+
+test_that("check_formula: Check y: Correct messages", {
+
+  x <- 1:10
+  y_2 <- as.factor(c(rep(1,5), rep(2,5)))
+  y_3 <- as.factor(c(rep(1,4), rep(2,5), 3))
+  formula <- x~y
+  paired = FALSE
+
+  data <- data.frame(x, y = rep(c(2,1), 5))
+  expect_warning(
+    check_formula(formula, data, paired),
+    "is not a factor"
+  )
+
+  data <- data.frame(x, y = y_3)
+  expect_error(
+    check_formula(formula, data, paired),
+    "contain exactly two levels"
+  )
+
+  data <- data.frame(x, y = y_2)
+  formula <- x ~ 5
+  expect_error(
+    check_formula(formula, data, paired)
   )
 
 })
 
 test_that("check_formula: silent behaviour: no errors occur", {
 
+  x <- 1:10
+  y <- as.factor(c(rep(1,5), rep(2,5)))
+  z <- 1:10
+  data <- data.frame(x, z, y)
+  formula <- x~y
+  paired = FALSE
+
   expect_silent(
-    check_formula(formula = x~y)
+    check_formula(formula = x~y, data, paired)
   )
   expect_silent(
-    check_formula(formula = a ~ b)
+    check_formula(formula = x ~ 1, data, paired)
   )
+
+  data <- data.frame(a = x, c = z, b = y, paired)
   expect_silent(
-    check_formula(formula = x ~ 1)
+    check_formula(formula = a ~ b, data, paired)
   )
 
 })
