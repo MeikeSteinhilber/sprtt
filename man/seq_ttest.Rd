@@ -45,5 +45,5 @@ initial letter.}
 \item{paired}{a logical indicating whether you want a paired t-test.}
 }
 \description{
-Performs one and two sample sequential t-tests on vectors of data.#'
+Performs one and two sample sequential t-tests on vectors of data.
 }
