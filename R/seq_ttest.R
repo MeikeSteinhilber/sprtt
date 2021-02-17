@@ -14,8 +14,8 @@
 #' @importFrom methods callNextMethod new
 
 #---- MAIN FUNCTION
-#' @title Sequential t-Tests#'
-#' @description Performs one and two sample sequential t-tests on vectors of data.#'
+#' @title Sequential t-Tests
+#' @description Performs one and two sample sequential t-tests on vectors of data.
 #'
 #' @param input1 Works with two classes: 'numeric' and 'formula'. Therfore you can
 #' write 'x' or 'x~y'.
@@ -36,10 +36,10 @@
 #' initial letter.
 #' @param paired a logical indicating whether you want a paired t-test.
 #'
-#' @return
+# #' @return
 #' @export
 #'
-#' @examples
+# #' @examples
 seq_ttest <- function(input1,
                     y = NULL,
                     data = NULL,
@@ -50,6 +50,7 @@ seq_ttest <- function(input1,
                     alternative = "two.sided",
                     paired = FALSE
                     ){
+
   input1_name <- deparse(substitute(input1))
   if(!is.null(y)){
     y_name <- deparse(substitute(y))
@@ -59,10 +60,9 @@ seq_ttest <- function(input1,
   }
 
   # data_name <- get_data_name(input1, y)
-
-  ttest_arguments <- build_ttest_arguments(input1, y, data,  mu, d, alpha,
-                                           power, alternative, paired, data_name)
-  seq_ttest_results <- calc_seq_ttest(ttest_arguments)
+  seq_ttest_arguments <- build_seq_ttest_arguments(input1, y, data,  mu, d, alpha, power,
+                                           alternative, paired, data_name)
+  seq_ttest_results <- calc_seq_ttest(seq_ttest_arguments)
   seq_ttest_results
 
   # visualize_results(seq_ttest_results)

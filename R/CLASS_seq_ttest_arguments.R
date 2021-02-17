@@ -4,7 +4,7 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 # setClassUnion("data.frameORnull", c("data.frame","NULL"))
 
 
-setClass("ttest_arguments",
+setClass("seq_ttest_arguments",
          slots = c(
            x = "numeric",
            y = "numericORnull",
@@ -16,11 +16,11 @@ setClass("ttest_arguments",
            alternative = "character",
            paired = "logical",
            one_sample = "logical",
-           one_sided = "logical",
+           # one_sided = "logical",
            data_name = "character"
          ))
 
-setMethod("initialize", signature = "ttest_arguments",
+setMethod("initialize", signature = "seq_ttest_arguments",
           function(.Object, ...) { # .Object is necessary and can not replaced by x
             .Object <- callNextMethod() # necessary line
 
@@ -35,8 +35,8 @@ setMethod("initialize", signature = "ttest_arguments",
               stop("Invalid argument <d>: Must be greater than 0.")
             if(length(.Object@one_sample) == 0)
               stop("Invalid argument <one_sample>: Error in class input_arguments.")
-            if(length(.Object@one_sided) == 0)
-              stop("Invalid argument <one_sided>: Error in class input_arguments.")
+            # if(length(.Object@one_sided) == 0)
+            #   stop("Invalid argument <one_sided>: Error in class input_arguments.")
 
             # missing data in x or y
             if(length(.Object@x) < 2)

@@ -1,4 +1,4 @@
-build_ttest_arguments <- function(input1, y = NULL, data = NULL,
+build_seq_ttest_arguments <- function(input1, y = NULL, data = NULL,
                                   mu, d, alpha, power, alternative, paired, data_name){
 
   if(class(input1) == "formula"){
@@ -14,11 +14,11 @@ build_ttest_arguments <- function(input1, y = NULL, data = NULL,
   }
 
   one_sample <- get_one_sample(y)
-  one_sided <- get_one_sided(alternative)
+  # one_sided <- get_one_sided(alternative)
   x <- delete_na(x, y, one_sample, paired, wanted = "x")
   y <- delete_na(x, y, one_sample, paired, wanted = "y")
 
-  ttest_arguments <- new("ttest_arguments",
+  seq_ttest_arguments <- new("seq_ttest_arguments",
                          x = x,
                          y = y,
                          mu = mu,
@@ -28,8 +28,8 @@ build_ttest_arguments <- function(input1, y = NULL, data = NULL,
                          alternative = alternative,
                          paired = paired,
                          one_sample = one_sample,
-                         one_sided = one_sided,
+                         # one_sided = one_sided,
                          data_name = data_name
   )
-  ttest_arguments
+  seq_ttest_arguments
 }

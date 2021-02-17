@@ -1,5 +1,6 @@
 setClassUnion("numericORnull", c("numeric","NULL"))
 
+
 #' @exportClass seq_ttest_results
 setClass("seq_ttest_results",
          slots = c(

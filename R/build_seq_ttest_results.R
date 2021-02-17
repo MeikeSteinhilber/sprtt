@@ -1,5 +1,5 @@
 build_seq_ttest_results <- function(t_statistic,
-                                    ttest_arguments,
+                                    seq_ttest_arguments,
                                     df,
                                     non_centrality_parameter,
                                     likelihoods,
@@ -13,24 +13,29 @@ build_seq_ttest_results <- function(t_statistic,
   }
 
   seq_ttest_results <- new("seq_ttest_results",
-                           t_value = as.vector(t_statistic$statistic),
-                           df = df,
-                           p_value = t_statistic$p.value,
-                           mean_x = t_statistic$estimate[[1]],
-                           mean_y = mean_y,
-                           alternative = ttest_arguments@alternative,
-                           ttest_method = t_statistic$method,
-                           data_name = ttest_arguments@data_name,
-                           non_centrality_parameter = non_centrality_parameter,
-                           likelihood_1 = likelihoods$likelihood_1,
-                           likelihood_2 = likelihoods$likelihood_2,
                            likelihood_ratio = likelihoods$ratio,
+                           decision = decision,
                            A_boundary = boundaries$A,
                            B_boundary = boundaries$B,
-                           d = ttest_arguments@d,
-                           mu = ttest_arguments@mu,
-                           one_sample = ttest_arguments@one_sample,
-                           decision = decision
+
+                           d = seq_ttest_arguments@d,
+                           mu = seq_ttest_arguments@mu,
+
+                           likelihood_1 = likelihoods$likelihood_1,
+                           likelihood_2 = likelihoods$likelihood_2,
+                           non_centrality_parameter = non_centrality_parameter,
+                           t_value = as.vector(t_statistic$statistic),
+                           p_value = t_statistic$p.value,
+                           df = df,
+
+                           mean_x = t_statistic$estimate[[1]],
+                           mean_y = mean_y,
+
+                           alternative = seq_ttest_arguments@alternative,
+                           one_sample = seq_ttest_arguments@one_sample,
+
+                           ttest_method = t_statistic$method,
+                           data_name = seq_ttest_arguments@data_name
   )
   seq_ttest_results
 }

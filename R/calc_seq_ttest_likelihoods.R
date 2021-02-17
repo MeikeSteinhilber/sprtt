@@ -1,8 +1,8 @@
-calc_seq_ttest_likelihoods <- function(ttest_arguments, t_statistic, df, non_centrality_parameter, wanted = NULL){
+calc_seq_ttest_likelihoods <- function(seq_ttest_arguments, t_statistic, df, non_centrality_parameter, wanted = NULL){
   t_val <- t_statistic$statistic[[1]]
   ncp <- non_centrality_parameter
 
-  if(ttest_arguments@alternative == "two.sided"){
+  if(seq_ttest_arguments@alternative == "two.sided"){
     likelihood_1 <- df(t_val^2, df1 = 1, df2 = df, ncp = ncp^2)
     likelihood_2 <- df(t_val^2, df1 = 1, df2 = df)
 

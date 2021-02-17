@@ -30,27 +30,27 @@ test_that("get_one_sample: Check correct output.", {
 
 })
 
-#* @testing get_one_sided
-context("get_one_sided: Check correct output.")
-test_that("get_one_sided: Check correct output.", {
-
-    expect_equal(
-    get_one_sided(alternative = "two.sided"),
-    FALSE
-  )
-  expect_equal(
-    get_one_sided(alternative = "less"),
-    TRUE
-  )
-  expect_equal(
-    get_one_sided(alternative = "greater"),
-    TRUE
-  )
-  expect_error(
-    get_one_sided(alternative = "test")
-  )
-
-})
+# #* @testing get_one_sided
+# context("get_one_sided: Check correct output.")
+# test_that("get_one_sided: Check correct output.", {
+#
+#     expect_equal(
+#     get_one_sided(alternative = "two.sided"),
+#     FALSE
+#   )
+#   expect_equal(
+#     get_one_sided(alternative = "less"),
+#     TRUE
+#   )
+#   expect_equal(
+#     get_one_sided(alternative = "greater"),
+#     TRUE
+#   )
+#   expect_error(
+#     get_one_sided(alternative = "test")
+#   )
+#
+# })
 
 
 

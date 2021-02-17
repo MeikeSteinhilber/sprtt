@@ -1,5 +1,3 @@
-
-
 check_data <- function(input1, x, y, paired) {
 
             x.name <- deparse(substitute(x))

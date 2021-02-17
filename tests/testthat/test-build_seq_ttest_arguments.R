@@ -1,10 +1,10 @@
-#* @testing build_ttest_arguments
+#* @testing build_seq_ttest_arguments
 
 library(base)
 
-context("build_ttest_arguments: Check structure of the class object")
+context("build_seq_ttest_arguments: Check structure of the class object")
 
-test_that("build_ttest_arguments: errors", {
+test_that("build_seq_ttest_arguments: errors", {
   input1 <- TRUE
   mu <- 0
   d <- 0.8
@@ -13,13 +13,13 @@ test_that("build_ttest_arguments: errors", {
   alternative <- "two.sided"
   paired <- FALSE
   expect_error(
-    build_ttest_arguments(input1, y = NULL, data = NULL,
+    build_seq_ttest_arguments(input1, y = NULL, data = NULL,
                           mu, d, alpha, power, alternative, paired),
     "argument hast to be either 'formula' or 'numeric'"
   )
 })
 
-test_that("build_ttest_arguments: numeric", {
+test_that("build_seq_ttest_arguments: numeric", {
   input1 <- rnorm(10)
   mu <- 0
   d <- 0.8
@@ -28,7 +28,7 @@ test_that("build_ttest_arguments: numeric", {
   alternative <- "two.sided"
   paired <- FALSE
   data_name <- "test name"
-  test <- build_ttest_arguments(input1, y = NULL, data = NULL,
+  test <- build_seq_ttest_arguments(input1, y = NULL, data = NULL,
                                     mu, d, alpha, power, alternative, paired, data_name)
   expect_identical(test@x, input1)
   expect_identical(test@y, NULL)
@@ -39,13 +39,13 @@ test_that("build_ttest_arguments: numeric", {
   expect_identical(test@alternative, alternative)
   expect_identical(test@paired, paired)
   expect_identical(test@one_sample, TRUE)
-  expect_identical(test@one_sided, FALSE)
+  # expect_identical(test@one_sided, FALSE)
 
 
   y <- rnorm(10)
   alternative <- "less"
   paired <- FALSE
-  test <- build_ttest_arguments(input1, y, data = NULL,
+  test <- build_seq_ttest_arguments(input1, y, data = NULL,
                                 mu, d, alpha, power, alternative, paired, data_name)
   expect_identical(test@x, input1)
   expect_identical(test@y, y)
@@ -56,21 +56,21 @@ test_that("build_ttest_arguments: numeric", {
   expect_identical(test@alternative, alternative)
   expect_identical(test@paired, paired)
   expect_identical(test@one_sample, FALSE)
-  expect_identical(test@one_sided, TRUE)
+  # expect_identical(test@one_sided, TRUE)
 
   y <- rnorm(10)
   alternative <- "greater"
   paired <- TRUE
-  test <- build_ttest_arguments(input1, y = NULL, data = NULL,
+  test <- build_seq_ttest_arguments(input1, y = NULL, data = NULL,
                                 mu, d, alpha, power, alternative, paired, data_name)
 
   expect_identical(test@alternative, alternative)
   expect_identical(test@one_sample, TRUE)
-  expect_identical(test@one_sided, TRUE)
+  # expect_identical(test@one_sided, TRUE)
 
 })
 
-test_that("build_ttest_arguments: formula", {
+test_that("build_seq_ttest_arguments: formula", {
   input1 <- a~b
   a_1 <- rnorm(5)
   a_2 <- rnorm(5)
@@ -84,7 +84,7 @@ test_that("build_ttest_arguments: formula", {
   alternative <- "two.sided"
   paired <- FALSE
   data_name <- "test name"
-  test <- build_ttest_arguments(input1, y = NULL, data = NULL,
+  test <- build_seq_ttest_arguments(input1, y = NULL, data = NULL,
                         mu, d, alpha, power, alternative, paired, data_name)
   expect_identical(test@x, a_1)
   expect_identical(test@y, a_2)
@@ -95,13 +95,13 @@ test_that("build_ttest_arguments: formula", {
   expect_identical(test@alternative, alternative)
   expect_identical(test@paired, paired)
   expect_identical(test@one_sample, FALSE)
-  expect_identical(test@one_sided, FALSE)
+  # expect_identical(test@one_sided, FALSE)
 
 
 
   c <- rnorm(10)
   data <- data.frame(a,c,b)
-  test <- build_ttest_arguments(input1, y = NULL, data,
+  test <- build_seq_ttest_arguments(input1, y = NULL, data,
                         mu, d, alpha, power, alternative, paired, data_name)
   expect_identical(test@x, a_1)
   expect_identical(test@y, a_2)
@@ -112,7 +112,7 @@ test_that("build_ttest_arguments: formula", {
   b <- as.factor(c(rep(1,7),rep(2,7)))
 
   data <- data.frame(a,b)
-  test <- build_ttest_arguments(input1, y = NULL, data,
+  test <- build_seq_ttest_arguments(input1, y = NULL, data,
                                 mu, d, alpha, power, alternative, paired, data_name)
   expect_identical(test@x, 1:5)
   expect_identical(test@y, 6:10)

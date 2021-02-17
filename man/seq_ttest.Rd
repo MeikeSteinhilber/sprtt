@@ -34,17 +34,16 @@ if you are performing a two sample test).}
 
 \item{d}{a number indicating the specified effect size (Cohen's d)}
 
+\item{alpha}{the type I error. A number between 0 and 1.}
+
+\item{power}{1 − β (β is the type II error probability). A number between 0 and 1.}
+
 \item{alternative}{a character string specifying the alternative hypothesis, must
 be one of "two.sided" (default), "greater" or "less". You can specify just the
 initial letter.}
 
 \item{paired}{a logical indicating whether you want a paired t-test.}
-
-\item{...}{}
-}
-\value{
-
 }
 \description{
-Sequential t-Tests
+Performs one and two sample sequential t-tests on vectors of data.#'
 }
