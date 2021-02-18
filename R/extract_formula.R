@@ -6,7 +6,6 @@ extract_formula <- function(formula, data, wanted = "both") {
   if (formula[[3]] == 1) {
     # one sample
     y <- 1
-
   } else{
     # two samples
     y <- data_matrix_formula[, 2]
@@ -15,7 +14,6 @@ extract_formula <- function(formula, data, wanted = "both") {
     y_values <- x[y == levels(y)[2]]
     x <- x_values
     y <- y_values
-
   }
 
   #get wanted output

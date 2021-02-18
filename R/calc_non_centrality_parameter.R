@@ -8,8 +8,3 @@ calc_non_centrality_parameter <- function(seq_ttest_arguments) {
     d * sqrt(length(x))
   }
 }
-
-
-# ifelse(type == "two.sample",
-#        d/sqrt(1/length(x) + 1/length(y)),
-#        d * sqrt(length(x)))
