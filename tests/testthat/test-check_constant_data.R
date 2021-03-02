@@ -8,6 +8,13 @@ test_that("check_constant_data: check error messages", {
   message = "Can't perform SPRT on constant data."
 
   x <- rep(2, 10)
+  y <- NULL
+  expect_error(
+    check_constant_data(x, y),
+    message
+  )
+
+  x <- rep(2, 10)
   y <- rep(2, 10)
   expect_error(
     check_constant_data(x, y),
