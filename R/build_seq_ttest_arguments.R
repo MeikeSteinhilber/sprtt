@@ -1,5 +1,6 @@
 build_seq_ttest_arguments <- function(input1, y = NULL, data = NULL,
-                                  mu, d, alpha, power, alternative, paired, data_name){
+                                      mu, d, alpha, power, alternative,
+                                      paired, data_name, na.rm){
 
   if(class(input1) == "formula"){
     check_formula(formula = input1, data = data, paired = paired)
@@ -16,8 +17,8 @@ build_seq_ttest_arguments <- function(input1, y = NULL, data = NULL,
 
   one_sample <- get_one_sample(y)
   # one_sided <- get_one_sided(alternative)
-  x <- delete_na(x, y, one_sample, paired, wanted = "x")
-  y <- delete_na(x, y, one_sample, paired, wanted = "y")
+  x <- delete_na(x, y, one_sample, paired, na.rm, wanted = "x")
+  y <- delete_na(x, y, one_sample, paired, na.rm, wanted = "y")
 
   seq_ttest_arguments <- new("seq_ttest_arguments",
                          x = x,
@@ -30,7 +31,8 @@ build_seq_ttest_arguments <- function(input1, y = NULL, data = NULL,
                          paired = paired,
                          one_sample = one_sample,
                          # one_sided = one_sided,
-                         data_name = data_name
+                         data_name = data_name,
+                         na.rm = na.rm
   )
   seq_ttest_arguments
 }

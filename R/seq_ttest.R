@@ -17,7 +17,7 @@
 #' @title Sequential t-Tests
 #' @description Performs one and two sample sequential t-tests on vectors of data.
 #'
-#' @param input1 Works with two classes: 'numeric' and 'formula'. Therfore you can
+#' @param x Works with two classes: 'numeric' and 'formula'. Therfore you can
 #' write 'x' or 'x~y'.
 #' x: a (non-empty) numeric vector of data values.
 #' formula: a formula of the form lhs ~ rhs where lhs is a numeric variable giving
@@ -40,7 +40,7 @@
 #' @export
 #'
 # #' @examples
-seq_ttest <- function(input1,
+seq_ttest <- function(x,
                     y = NULL,
                     data = NULL,
                     mu = 0,
@@ -48,10 +48,11 @@ seq_ttest <- function(input1,
                     alpha = 0.05,
                     power = 0.95,
                     alternative = "two.sided",
-                    paired = FALSE
+                    paired = FALSE,
+                    na.rm = TRUE
                     ){
 
-  input1_name <- deparse(substitute(input1))
+  input1_name <- deparse(substitute(x))
   if(!is.null(y)){
     y_name <- deparse(substitute(y))
     data_name <- paste(input1_name, "and ", y_name)
@@ -60,8 +61,8 @@ seq_ttest <- function(input1,
   }
 
   # data_name <- get_data_name(input1, y)
-  seq_ttest_arguments <- build_seq_ttest_arguments(input1, y, data,  mu, d, alpha, power,
-                                           alternative, paired, data_name)
+  seq_ttest_arguments <- build_seq_ttest_arguments(input1 = x, y, data,  mu, d, alpha, power,
+                                           alternative, paired, data_name, na.rm)
   seq_ttest_results <- calc_seq_ttest(seq_ttest_arguments)
   seq_ttest_results
 

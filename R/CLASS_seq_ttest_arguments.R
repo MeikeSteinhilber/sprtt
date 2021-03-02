@@ -17,7 +17,8 @@ setClass("seq_ttest_arguments",
            paired = "logical",
            one_sample = "logical",
            # one_sided = "logical",
-           data_name = "character"
+           data_name = "character",
+           na.rm = "logical"
          ))
 
 setMethod("initialize", signature = "seq_ttest_arguments",
