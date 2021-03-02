@@ -6,8 +6,11 @@ test_that("delete_na: with similar NAs in x and y", {
   y <- c(1:5,NA,NA,6:10)
   x_test <- delete_na(x,y,one_sample = F, paired = T, wanted = "x")
   y_test <- delete_na(x,y,one_sample = F, paired = T, wanted = "y")
+  y_test <- delete_na(x,y,one_sample = F, paired = T, wanted = "y")
+  xy_test <- delete_na(x,y,one_sample = F, paired = T)
   expect_equal(x_test, 1:10)
   expect_equal(y_test, 1:10)
+  expect_equal(xy_test, list(1:10, 1:10))
 
 })
 

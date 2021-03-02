@@ -3,7 +3,7 @@ delete_na <-  function(x,
                        one_sample,
                        paired = FALSE,
                        na.rm = TRUE,
-                       wanted = NULL) {
+                       wanted = "both") {
   if(na.rm == FALSE) {
     na_exist_x = any(is.na(x))
     na_exist_y = any(is.na(y))
@@ -16,17 +16,13 @@ delete_na <-  function(x,
     {
       x <- x[!is.na(x)]
       y <- y[!is.na(y)]
-    } else{
-      if(!is.null(y) && (length(y) > 1)) {
-        whichNA <- is.na(x) | is.na(y)
-        x <- x[!whichNA]
-        y <- y[!whichNA]
-      } else if(y == 1 || (is.null(y))) {
-        whichNA <- is.na(x)
-        x <- x[!whichNA]
-      } else{
-        x <- x[!is.na(x)]
-      }
+      # if(!is.null(y) && (length(y) > 1)) {
+    } else if(one_sample == FALSE && paired == TRUE) {
+      whichNA <- is.na(x) | is.na(y)
+      x <- x[!whichNA]
+      y <- y[!whichNA]
+    } else if(one_sample == TRUE){
+      x <- x[!is.na(x)]
     }
   }
 
