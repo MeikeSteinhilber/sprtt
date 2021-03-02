@@ -5,7 +5,7 @@
 \title{Sequential t-Tests}
 \usage{
 seq_ttest(
-  input1,
+  x,
   y = NULL,
   data = NULL,
   mu = 0,
@@ -13,11 +13,12 @@ seq_ttest(
   alpha = 0.05,
   power = 0.95,
   alternative = "two.sided",
-  paired = FALSE
+  paired = FALSE,
+  na.rm = TRUE
 )
 }
 \arguments{
-\item{input1}{Works with two classes: 'numeric' and 'formula'. Therfore you can
+\item{x}{Works with two classes: 'numeric' and 'formula'. Therfore you can
 write 'x' or 'x~y'.
 x: a (non-empty) numeric vector of data values.
 formula: a formula of the form lhs ~ rhs where lhs is a numeric variable giving
