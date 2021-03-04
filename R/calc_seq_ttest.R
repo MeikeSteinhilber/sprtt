@@ -8,8 +8,9 @@ calc_seq_ttest <- function(seq_ttest_arguments){
                                             df,
                                             non_centrality_parameter)
   boundaries <- calc_seq_ttest_boundaries(power = seq_ttest_arguments@power,
-                                          alpha = seq_ttest_arguments@alpha)
-  decision <- get_seq_ttest_decision(likelihood_ratio = likelihoods$ratio,
+                                          alpha = seq_ttest_arguments@alpha,
+                                          log = TRUE)
+  decision <- get_seq_ttest_decision(likelihood_ratio = likelihoods$ratio_log,
                                      boundaries = boundaries)
   seq_ttest_results <- build_seq_ttest_results(seq_ttest_arguments,
                                                t_statistic,

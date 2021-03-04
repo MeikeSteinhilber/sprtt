@@ -4,17 +4,17 @@ setMethod("show",
             cat("    ", "Sequential", object@ttest_method, "\n")
             cat("\ndata:", object@data_name)
             cat("\ntest statistic:\n")
-            cat(" likelihood ratio", " = ", round(object@likelihood_ratio, digits = 5),
+            cat(" log-likelihood ratio", " = ", round(object@likelihood_ratio_log, digits = 5),
                 ", decision = ", object@decision, sep = "")
 
             cat("\nSPRT thresholds:\n")
-            cat(paste(" lower (B) = ", round(object@B_boundary, digits = 5), ", ",
-                      "upper (A) = ", round(object@A_boundary, digits = 5),
+            cat(paste(" lower log(B) = ", round(object@B_boundary_log, digits = 5), ", ",
+                      "upper log(A) = ", round(object@A_boundary_log, digits = 5),
                       sep = ""))
 
-            cat("\nLikelihood of the:")
-            cat("\n alternative hypothesis =", round(object@likelihood_1, 5))
-            cat("\n null hypothesis =", round(object@likelihood_2, 5))
+            cat("\nLog-Likelihood of the:")
+            cat("\n alternative hypothesis =", round(object@likelihood_1_log, 5))
+            cat("\n null hypothesis =", round(object@likelihood_2_log, 5))
 
             cat("\nalternative hypothesis: true",
                 if(object@one_sample == TRUE){
@@ -38,6 +38,6 @@ setMethod("show",
             if(!is.null(object@mean_y)) {
               cat("\n mean of group two =", round(object@mean_y, 5))
             }
-            cat("\nNote: to get access to the S4 object (e.g, 'results') use the @ instead of the $ operator, e.g results@mu.")
+            cat('\nNote: to get access to the object of the results use the @ or [] instead of the $ operator.')
           })
 

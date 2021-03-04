@@ -293,12 +293,19 @@ sprt.t.test <- function(...) UseMethod(".sprt")
 context("seq_ttest: test main function")
 
 test_that("seq_ttest: comparison results with original script from m. schnuerch", {
-  x <- rnorm(20)
+  x <- rnorm(20000)
   d <- 0.8
-  results_original <- sprt.t.test(x = x, d = d)
-  results_new <- sprt::seq_ttest(x, d = d)
+  expect_warning(sprt::seq_ttest(x, d = d),
+                 "At least one likelihood is equal to 0")
+
+  x <- rnorm(50)
+  d <- 0.8
+  results_original <- sprt.t.test(x = x, d = d, power = 0.8)
+  results_new <- sprt::seq_ttest(x, d = d, power = 0.8)
   expect_equal(results_new@likelihood_ratio,
                results_original$statistic[[1]])
+  expect_equal(results_new@decision,
+               results_original$decision)
 
   x <- rnorm(20)
   y <- as.factor(c(rep(1,10), rep(2,10)))
@@ -307,6 +314,8 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   results_new <- sprt::seq_ttest(x ~ y, d = d)
   expect_equal(results_new@likelihood_ratio,
                results_original$statistic[[1]])
+  expect_equal(results_new@decision,
+               results_original$decision)
 
   x <- rnorm(20)
   y <- as.factor(c(rep(1,10), rep(2,10)))
@@ -315,6 +324,8 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   results_formula <- sprt::seq_ttest(x ~ 1, d = d)
   expect_equal(results_formula@likelihood_ratio,
                results_numeric@likelihood_ratio)
+  expect_equal(results_new@decision,
+               results_original$decision)
 
   x_1 <- rnorm(5)
   x_2 <- rnorm(5)
@@ -323,9 +334,10 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   results_original <- sprt.t.test(x ~ y, d = d)
   results_script <- sprt.t.test(x ~ y, d = d)
   results_new <- sprt::seq_ttest(x ~ y, d = d)
-
   expect_equal(results_new@likelihood_ratio,
                results_original$statistic[[1]])
+  expect_equal(results_new@decision,
+               results_original$decision)
 
 
   x_1 <- rnorm(5)
@@ -336,6 +348,8 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   results_new <- sprt::seq_ttest(x_1, x_2, d = d)
   expect_equal(results_new@likelihood_ratio,
                results_original$statistic[[1]])
+  expect_equal(results_new@decision,
+               results_original$decision)
 
 })
 

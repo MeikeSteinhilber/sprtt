@@ -45,6 +45,12 @@ test_that("check_formula: Check y: Correct messages", {
     check_formula(formula, data, paired)
   )
 
+  x <- 1:10
+  y <- as.factor(c(rep(1,3), rep(2,7)))
+  expect_error(
+    check_formula(x ~ y, data = data.frame(x,y), paired = TRUE),
+    "Unequal number of observations per group"
+  )
 })
 
 test_that("check_formula: silent behaviour: no errors occur", {

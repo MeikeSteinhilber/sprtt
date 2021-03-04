@@ -1,7 +1,7 @@
 Package: sprt
 Type: Package
 Title: Sequential Probability Ratio Tests: Using t-Statistic
-Version: 0.0.0.013
+Version: 0.0.0.014
 Author: person(given = "Meike",
                family = "Steinhilber",
                role = c("aut", "cre"),
@@ -26,4 +26,9 @@ LazyData: true
 RoxygenNote: 7.1.1
 Suggests:
     testthat
-Imports: methods
+Imports: 
+    methods,
+    Rcpp
+LinkingTo: 
+    Rcpp,
+    BH

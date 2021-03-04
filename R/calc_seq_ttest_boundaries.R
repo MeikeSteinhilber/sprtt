@@ -1,6 +1,15 @@
-calc_seq_ttest_boundaries <- function(power, alpha){
+calc_seq_ttest_boundaries <- function(power, alpha, log = FALSE){
   A <- power/alpha
   B <- (1 - power)/(1 - alpha)
-  list(A = A,
-       B = B)
+
+  if(log == FALSE){
+    list(A = A,
+         B = B
+    )
+  } else{
+    list(A = log(A),
+         B = log(B)
+    )
+  }
+
 }

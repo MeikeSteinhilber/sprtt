@@ -12,6 +12,11 @@
 #--- GENERAL SETTINGS
 #' @import stats
 #' @importFrom methods callNextMethod new
+#' @useDynLib sprt
+#' @importFrom Rcpp sourceCpp
+NULL
+#> NULL
+
 
 #---- MAIN FUNCTION
 #' @title Sequential t-Tests

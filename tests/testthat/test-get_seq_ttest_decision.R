@@ -4,7 +4,13 @@ test_that("get_seq_ttest_decision", {
   likelihood_ratio = 4
   A = 17
   B = 1
-  boundaries = list(A = A, B = B)
+  A_log = log(A)
+  B_log = log(B)
+  boundaries = list(A = A,
+                    B = B,
+                    A_log = A_log,
+                    B_log = B_log
+                    )
   decision <- get_seq_ttest_decision(likelihood_ratio, boundaries)
   expect_equal(decision, "continue sampling")
 
