@@ -35,8 +35,8 @@ setMethod(
     if(i == "likelihood_ratio"){return(x@likelihood_ratio)}
     if(i == "likelihood_ratio_log"){return(x@likelihood_ratio_log)}
     if(i == "decision"){return(x@decision)}
-    if(i == "A_boundary"){return(x@A_boundary)}
-    if(i == "B_boundary"){return(x@B_boundary)}
+    if(i == "A_boundary_log"){return(x@A_boundary_log)}
+    if(i == "B_boundary_log"){return(x@B_boundary_log)}
     if(i == "d"){return(x@d)}
     if(i == "mu"){return(x@mu)}
     if(i == "likelihood_1"){return(x@likelihood_1)}
@@ -73,8 +73,8 @@ setMethod(
 # likelihood_ratio
 # likelihood_ratio_log
 # decision
-# A_boundary
-# B_boundary
+# A_boundary_log
+# B_boundary_log
 # d
 # mu
 # likelihood_1

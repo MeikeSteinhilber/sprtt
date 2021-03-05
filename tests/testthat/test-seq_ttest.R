@@ -293,10 +293,6 @@ sprt.t.test <- function(...) UseMethod(".sprt")
 context("seq_ttest: test main function")
 
 test_that("seq_ttest: comparison results with original script from m. schnuerch", {
-  x <- rnorm(20000)
-  d <- 0.8
-  expect_warning(sprt::seq_ttest(x, d = d),
-                 "At least one likelihood is equal to 0")
 
   x <- rnorm(50)
   d <- 0.8

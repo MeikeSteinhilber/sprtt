@@ -38,6 +38,6 @@ setMethod("show",
             if(!is.null(object@mean_y)) {
               cat("\n mean of group two =", round(object@mean_y, 5))
             }
-            cat('\nNote: to get access to the object of the results use the @ or [] instead of the $ operator.')
+            cat('\nNote: to get access to the object of the results use the @ or [] instead of the $ operator.\n')
           })
 
