@@ -1,5 +1,5 @@
 check_constant_data <- function(x, y, paired = NULL) {
-  message = "Can't perform SPRT on constant data."
+  message <- "Can't perform SPRT on constant data."
 
   if(!is.null(y) && !is.factor(y)){
     sd.check <- c(sd(x), sd(y))

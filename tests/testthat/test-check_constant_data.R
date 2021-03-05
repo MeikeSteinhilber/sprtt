@@ -5,7 +5,7 @@ library(base)
 context("check_constant_data: check error messages")
 
 test_that("check_constant_data: check error messages", {
-  message = "Can't perform SPRT on constant data."
+  message <- "Can't perform SPRT on constant data."
 
   x <- rep(2, 10)
   y <- NULL

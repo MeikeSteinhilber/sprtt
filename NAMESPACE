@@ -2,8 +2,8 @@
 
 export(seq_ttest)
 exportClasses(seq_ttest_results)
+exportMethods("[")
 import(stats)
-importFrom(Rcpp,sourceCpp)
 importFrom(methods,callNextMethod)
 importFrom(methods,new)
-useDynLib(sprt)
+importFrom(methods,validObject)

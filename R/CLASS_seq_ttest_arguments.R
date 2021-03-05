@@ -36,6 +36,8 @@ build_prototype_seq_ttest_arguments <- function(){
     na.rm = FALSE
   )
 }
+# setGeneric("validObject",function(object, ...){standardGeneric("validObject")})
+
 setValidity(
   Class = "seq_ttest_arguments",
   function(object) {
@@ -69,6 +71,14 @@ setMethod(
     .Object
   }
 )
+
+#' Method to retrieve the contents of a slot of an object of the seq_ttest_arguments class.
+#'
+#' @param seq_ttest_arguments the corresponding class to this method.
+#' @param x the seq_ttest_arguments object.
+#' @param i the start of the string of the slot name.
+#' @param j the end of the string of the slot name.
+#' @param drop not used.
 setMethod(
   f = "[",
   signature = "seq_ttest_arguments",
@@ -87,6 +97,14 @@ setMethod(
     stop(paste("Wrong slot name: '", i, "' is not a slot name of the class 'seq_ttest_arguments'"))
   }
 )
+
+#' Method to modify the contents of a slot of an object of the seq_ttest_arguments class.
+#'
+#' @param seq_ttest_arguments the corresponding class to this method.
+#' @param x the seq_ttest_arguments object.
+#' @param value the new value of the slot.
+#' @param i the start of the string of the slot name.
+#' @param j the end of the string of the slot name.
 setReplaceMethod(
   f = "[",
   signature = "seq_ttest_arguments",

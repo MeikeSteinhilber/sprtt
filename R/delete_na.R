@@ -5,8 +5,8 @@ delete_na <-  function(x,
                        na.rm = TRUE,
                        wanted = "both") {
   if(na.rm == FALSE) {
-    na_exist_x = any(is.na(x))
-    na_exist_y = any(is.na(y))
+    na_exist_x <- any(is.na(x))
+    na_exist_y <- any(is.na(y))
     if(na_exist_x == TRUE || na_exist_y == TRUE) {
       stop("The data contain missing values. Use the argument na.rm = TRUE or
            remove the missings beforehand.")

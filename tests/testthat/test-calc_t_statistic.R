@@ -20,14 +20,14 @@ test_that("calc_seq_ttest_t_statistic", {
   results_ttest <- t.test(x = arguments@x)
   expect_equal(results_package$statistic[[1]] , results_ttest$statistic[[1]])
 
-  arguments@y = rnorm(15)
-  arguments@one_sample = FALSE
-  arguments@paired = TRUE
+  arguments@y <- rnorm(15)
+  arguments@one_sample <- FALSE
+  arguments@paired <- TRUE
   results_package <- calc_seq_ttest_t_statistic(arguments)
   results_ttest <- t.test(x = arguments@x, y = arguments@y, paired = TRUE)
   expect_equal(results_package$statistic[[1]] , results_ttest$statistic[[1]])
 
-  arguments@alternative = "greater"
+  arguments@alternative <- "greater"
   results_package <- calc_seq_ttest_t_statistic(arguments)
   results_ttest <- t.test(x = arguments@x,
                           y = arguments@y,
@@ -35,7 +35,7 @@ test_that("calc_seq_ttest_t_statistic", {
                           paired = TRUE)
   expect_equal(results_package$statistic[[1]] , results_ttest$statistic[[1]])
 
-  arguments@alternative = "less"
+  arguments@alternative <- "less"
   results_package <- calc_seq_ttest_t_statistic(arguments)
   results_ttest <- t.test(x = arguments@x,
                           y = arguments@y,

@@ -6,7 +6,7 @@ test_that("check_formula: Check structure: Correct error messages", {
   y <- as.factor(c(rep(1,5), rep(2,5)))
   data <- data.frame(x, z = x, y)
   formula <- x~y
-  paired = FALSE
+  paired <- FALSE
 
   expect_error(
     check_formula(formula = NULL, data, paired),
@@ -25,7 +25,7 @@ test_that("check_formula: Check y: Correct messages", {
   y_2 <- as.factor(c(rep(1,5), rep(2,5)))
   y_3 <- as.factor(c(rep(1,4), rep(2,5), 3))
   formula <- x~y
-  paired = FALSE
+  paired <- FALSE
 
   data <- data.frame(x, y = rep(c(2,1), 5))
   expect_warning(
@@ -60,7 +60,7 @@ test_that("check_formula: silent behaviour: no errors occur", {
   z <- 1:10
   data <- data.frame(x, z, y)
   formula <- x~y
-  paired = FALSE
+  paired <- FALSE
 
   expect_silent(
     check_formula(formula = x~y, data, paired)

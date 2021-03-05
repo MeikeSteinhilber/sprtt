@@ -29,6 +29,4 @@ Suggests:
 Imports: 
     methods,
     Rcpp
-LinkingTo: 
-    Rcpp,
-    BH
+

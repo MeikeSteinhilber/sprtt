@@ -11,11 +11,11 @@
 #######################################################################################
 #--- GENERAL SETTINGS
 #' @import stats
-#' @importFrom methods callNextMethod new
-#' @useDynLib sprt
-#' @importFrom Rcpp sourceCpp
-NULL
-#> NULL
+#' @importFrom methods callNextMethod new validObject
+# #' @useDynLib sprt
+# #' @importFrom Rcpp sourceCpp
+# NULL
+# #> NULL
 
 
 #---- MAIN FUNCTION
@@ -40,6 +40,7 @@ NULL
 #' be one of "two.sided" (default), "greater" or "less". You can specify just the
 #' initial letter.
 #' @param paired a logical indicating whether you want a paired t-test.
+#' @param na.rm a logical value indicating whether NA values should be stripped before the computation proceeds.
 #'
 # #' @return
 #' @export

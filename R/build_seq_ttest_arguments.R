@@ -30,7 +30,6 @@ build_seq_ttest_arguments <- function(input1, y = NULL, data = NULL,
                          alternative = alternative,
                          paired = paired,
                          one_sample = one_sample,
-                         # one_sided = one_sided,
                          data_name = data_name,
                          na.rm = na.rm
   )

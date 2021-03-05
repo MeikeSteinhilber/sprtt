@@ -44,6 +44,8 @@ be one of "two.sided" (default), "greater" or "less". You can specify just the
 initial letter.}
 
 \item{paired}{a logical indicating whether you want a paired t-test.}
+
+\item{na.rm}{a logical value indicating whether NA values should be stripped before the computation proceeds.}
 }
 \description{
 Performs one and two sample sequential t-tests on vectors of data.
