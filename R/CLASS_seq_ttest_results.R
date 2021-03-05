@@ -65,7 +65,7 @@ setClass("seq_ttest_results",
 #' @return the content of the slot.
 #' @export
 #'
-#' @examples
+# #' @examples
 setMethod(
   f = "[",
   signature = "seq_ttest_results",
