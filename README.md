@@ -1,6 +1,6 @@
 # sprtt
 <a href="https://codecov.io/gh/Lucy-333/sprtt">
-  <img src="https://codecov.io/gh/Lucy-333/sprt/branch/main/graph/badge.svg?token=IQHTDTRBAW"/>
+  <img src="https://codecov.io/gh/Lucy-333/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW"/>
 </a>
 
 <!-- badges: start -->
