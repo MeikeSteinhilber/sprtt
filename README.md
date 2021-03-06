@@ -4,5 +4,6 @@
 </a>
 
 <!-- badges: start -->
-  [![R-CMD-check](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprt/actions)
-  <!-- badges: end -->
+[![R-CMD-check](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprt/actions)
+<!-- badges: end -->
+[Copied to clipboard]
