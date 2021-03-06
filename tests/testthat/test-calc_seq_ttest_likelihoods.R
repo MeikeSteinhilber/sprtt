@@ -14,7 +14,7 @@ test_that("calc_seq_ttest_likelihoods: CPP comparison", {
 test_that("calc_seq_ttest_likelihoods: Check warnings & messages", {
   x <- rnorm(2000000)
   d <- 5
-  expect_warning(sprt::seq_ttest(x, d = d),
+  expect_warning(seq_ttest(x, d = d),
                  "At least one likelihood is equal to 0")
 
   seq_ttest_arguments <- build_prototype_seq_ttest_arguments()

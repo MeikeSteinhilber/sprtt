@@ -18,7 +18,7 @@ seq_ttest(
 )
 }
 \arguments{
-\item{x}{Works with two classes: 'numeric' and 'formula'. Therfore you can
+\item{x}{Works with two classes: 'numeric' and 'formula'. Therefore you can
 write 'x' or 'x~y'.
 x: a (non-empty) numeric vector of data values.
 formula: a formula of the form lhs ~ rhs where lhs is a numeric variable giving
@@ -27,7 +27,7 @@ giving the corresponding groups.}
 
 \item{y}{an optional (non-empty) numeric vector of data values.}
 
-\item{data}{an optional data.frame, which you can use only in comination with a
+\item{data}{an optional data.frame, which you can use only in combination with a
 formula input in 'input1'.}
 
 \item{mu}{a number indicating the true value of the mean (or difference in means
@@ -37,7 +37,7 @@ if you are performing a two sample test).}
 
 \item{alpha}{the type I error. A number between 0 and 1.}
 
-\item{power}{1 − β (β is the type II error probability). A number between 0 and 1.}
+\item{power}{1 − beta (beta is the type II error probability). A number between 0 and 1.}
 
 \item{alternative}{a character string specifying the alternative hypothesis, must
 be one of "two.sided" (default), "greater" or "less". You can specify just the

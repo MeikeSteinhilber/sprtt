@@ -9,6 +9,8 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot B_boundary_log the upper logarithmic boundary of the test.
 #' @slot d a number indicating the specified effect size (Cohen's d).
 #' @slot mu a number indicating the true value of the mean.
+#' @slot alpha the type I error. A number between 0 and 1.
+#' @slot power 1 − beta (beta is the type II error probability). A number between 0 and 1.
 #' @slot likelihood_ratio the likelihood ratio of the test without logarithm.
 #' @slot likelihood_1 the likelihood of the alternative Hypothesis (H1).
 #' @slot likelihood_2 the likelihood of the null Hypothesis (H0).
@@ -34,6 +36,8 @@ setClass("seq_ttest_results",
            B_boundary_log = "numeric",
            d = "numeric",
            mu = "numericORnull",
+           alpha = "numeric",
+           power = "numeric",
            likelihood_ratio = "numeric",
            likelihood_1 = "numeric",
            likelihood_2 = "numeric",
@@ -77,6 +81,8 @@ setMethod(
     if(i == "B_boundary_log"){return(x@B_boundary_log)}
     if(i == "d"){return(x@d)}
     if(i == "mu"){return(x@mu)}
+    if(i == "alpha"){return(x@alpha)}
+    if(i == "power"){return(x@power)}
     if(i == "likelihood_1"){return(x@likelihood_1)}
     if(i == "likelihood_2"){return(x@likelihood_2)}
     if(i == "likelihood_1_log"){return(x@likelihood_1_log)}

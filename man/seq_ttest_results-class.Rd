@@ -22,6 +22,10 @@ An S4 class to represent the results of a sequential t-test.
 
 \item{\code{mu}}{a number indicating the true value of the mean.}
 
+\item{\code{alpha}}{the type I error. A number between 0 and 1.}
+
+\item{\code{power}}{1 − beta (beta is the type II error probability). A number between 0 and 1.}
+
 \item{\code{likelihood_ratio}}{the likelihood ratio of the test without logarithm.}
 
 \item{\code{likelihood_1}}{the likelihood of the alternative Hypothesis (H1).}

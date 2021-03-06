@@ -297,7 +297,7 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   x <- rnorm(50)
   d <- 0.8
   results_original <- sprt.t.test(x = x, d = d, power = 0.8)
-  results_new <- sprt::seq_ttest(x, d = d, power = 0.8)
+  results_new <- seq_ttest(x, d = d, power = 0.8)
   expect_equal(results_new@likelihood_ratio,
                results_original$statistic[[1]])
   expect_equal(results_new@decision,
@@ -307,7 +307,7 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   y <- as.factor(c(rep(1,10), rep(2,10)))
   d <- 0.95
   results_original <- sprt.t.test(x ~ y, d = d)
-  results_new <- sprt::seq_ttest(x ~ y, d = d)
+  results_new <- seq_ttest(x ~ y, d = d)
   expect_equal(results_new@likelihood_ratio,
                results_original$statistic[[1]])
   expect_equal(results_new@decision,
@@ -316,8 +316,8 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   x <- rnorm(20)
   y <- as.factor(c(rep(1,10), rep(2,10)))
   d <- 0.95
-  results_numeric <- sprt::seq_ttest(x, d = d)
-  results_formula <- sprt::seq_ttest(x ~ 1, d = d)
+  results_numeric <- seq_ttest(x, d = d)
+  results_formula <- seq_ttest(x ~ 1, d = d)
   expect_equal(results_formula@likelihood_ratio,
                results_numeric@likelihood_ratio)
   expect_equal(results_new@decision,
@@ -329,7 +329,7 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   y <- as.factor(c(rep(1,5),rep(2,5)))
   results_original <- sprt.t.test(x ~ y, d = d)
   results_script <- sprt.t.test(x ~ y, d = d)
-  results_new <- sprt::seq_ttest(x ~ y, d = d)
+  results_new <- seq_ttest(x ~ y, d = d)
   expect_equal(results_new@likelihood_ratio,
                results_original$statistic[[1]])
   expect_equal(results_new@decision,
@@ -341,7 +341,7 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   x <- c(x_1, x_2)
   y <- as.factor(c(rep(1,5),rep(2,5)))
   results_original <- sprt.t.test(x_1, x_2, d = d)
-  results_new <- sprt::seq_ttest(x_1, x_2, d = d)
+  results_new <- seq_ttest(x_1, x_2, d = d)
   expect_equal(results_new@likelihood_ratio,
                results_original$statistic[[1]])
   expect_equal(results_new@decision,
