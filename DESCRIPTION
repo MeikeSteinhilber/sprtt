@@ -37,7 +37,7 @@ RoxygenNote: 7.1.1
 Suggests:
     testthat
 Imports: 
-    methods (<= 4.0),
-    stats (<= 4.0),
-    Rcpp (<= 1.0.6)
+    methods (>= 4.0.0),
+    stats (>= 4.0.0),
+    Rcpp (>= 1.0.6)
 

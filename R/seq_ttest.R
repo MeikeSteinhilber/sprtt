@@ -1,5 +1,5 @@
 #######################################################################################
-#     sprt package                                                                    #
+#     sprtt package                                                                    #
 #                                                                                     #
 #     master thesis project                                                           #
 #     master thesis title: "..."                                                      #
@@ -12,7 +12,7 @@
 #--- GENERAL SETTINGS
 #' @importFrom stats rnorm dt model.frame sd t.test
 #' @importFrom methods callNextMethod new validObject
-# #' @useDynLib sprt
+# #' @useDynLib sprtt
 # #' @importFrom Rcpp sourceCpp
 # NULL
 # #> NULL
