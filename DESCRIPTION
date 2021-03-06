@@ -27,8 +27,8 @@ Description: 'seq_ttest' is a function that implements Abraham Wald’s (1947)
       decision to either continue sampling or terminate and accept one of
       the specified hypotheses. For more information on the SPRT t test,
       see Schnuerch & Erdfelder (2019).
-URL: https://github.com/Lucy-333/sprt
-BugReports: https://github.com/Lucy-333/sprt/issues
+URL: https://github.com/Lucy-333/sprtt
+BugReports: https://github.com/Lucy-333/sprtt/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
