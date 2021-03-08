@@ -7,4 +7,7 @@
 [![R-CMD-check](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprt/actions)
 <!-- badges: end -->
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
