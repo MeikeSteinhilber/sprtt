@@ -1,0 +1,42 @@
+---
+title: "sprtt"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  # fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+options(tibble.print_min = 5, tibble.print_max = 5)
+```
+
+<!-- badges: start -->
+
+[![codecov](https://codecov.io/gh/Lucy-333/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/Lucy-333/sprtt) [![R-CMD-check-small](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml) [![R-CMD-check-big](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/check-full.yaml)
+
+<!-- badges: end -->
+
+## Overview
+
+**sprtt** provides Sequential Probability Ratio tests using the associated t-statistic:
+
+-   `seq_ttest()` calculates the sequential test statistic.
+-   `print_seq_ttest()` visualizes the test statistic.
+
+## Installation
+
+```{r, eval = FALSE}
+# Code for installation
+
+```
+
+## Usage
+
+```{r, eval = FALSE}
+# Test Code
+
+```

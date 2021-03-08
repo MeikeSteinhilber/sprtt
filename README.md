@@ -1,10 +1,30 @@
-# sprtt
-<a href="https://codecov.io/gh/Lucy-333/sprtt">
-  <img src="https://codecov.io/gh/Lucy-333/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW"/>
-</a>
+sprtt
+================
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprt/actions)
+
+[![codecov](https://codecov.io/gh/Lucy-333/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/Lucy-333/sprtt)
+[![R-CMD-check-small](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check-big](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/check-full.yaml)
+
 <!-- badges: end -->
 
+## Overview
 
+**sprtt** provides Sequential Probability Ratio tests using the
+associated t-statistic:
+
+-   `seq_ttest()` calculates the sequential test statistic.
+-   `print_seq_ttest()` visualizes the test statistic.
+
+## Installation
+
+``` r
+# Code for installation
+```
+
+## Usage
+
+``` r
+# Test Code
+```
