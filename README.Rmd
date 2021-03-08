@@ -39,7 +39,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 To get a bug fix or to use a feature from the development version, you can install the development version of **sprtt** from GitHub.
 ```{r, eval=FALSE}
 # install.packages("devtools")
-devtools::install_github("sprtt")
+devtools::install_github("MeikeSteinhilber/sprtt")
 ```
 
 
