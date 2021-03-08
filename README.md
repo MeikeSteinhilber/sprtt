@@ -11,7 +11,7 @@ sprtt
 
 ## Overview
 
-**sprtt** provides Sequential Probability Ratio Tests using the
+**sprtt** provides Sequential Probability Ratio Tests (SPRT) using the
 associated t-statistic:
 
 -   `seq_ttest()` calculates the sequential test statistic.

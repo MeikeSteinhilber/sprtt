@@ -22,7 +22,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 ## Overview
 
-**sprtt** provides Sequential Probability Ratio Tests using the associated t-statistic:
+**sprtt** provides Sequential Probability Ratio Tests (SPRT) using the associated t-statistic:
 
 -   `seq_ttest()` calculates the sequential test statistic.
 -   `print_seq_ttest()` visualizes the test statistic.
