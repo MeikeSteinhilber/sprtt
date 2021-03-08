@@ -35,7 +35,7 @@
 #' if you are performing a two sample test).
 #' @param d a number indicating the specified effect size (Cohen's d)
 #' @param alpha the type I error. A number between 0 and 1.
-#' @param power 1 − beta (beta is the type II error probability). A number between 0 and 1.
+#' @param power 1 - beta (beta is the type II error probability). A number between 0 and 1.
 #' @param alternative a character string specifying the alternative hypothesis, must
 #' be one of "two.sided" (default), "greater" or "less". You can specify just the
 #' initial letter.

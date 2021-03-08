@@ -24,7 +24,7 @@ An S4 class to represent the results of a sequential t-test.
 
 \item{\code{alpha}}{the type I error. A number between 0 and 1.}
 
-\item{\code{power}}{1 − beta (beta is the type II error probability). A number between 0 and 1.}
+\item{\code{power}}{1 - beta (beta is the type II error probability). A number between 0 and 1.}
 
 \item{\code{likelihood_ratio}}{the likelihood ratio of the test without logarithm.}
 
@@ -48,7 +48,8 @@ An S4 class to represent the results of a sequential t-test.
 
 \item{\code{mean_y}}{mean of the second group.}
 
-\item{\code{alternative}}{a character string specifying the alternative hypothesis: "two.sided" (default), "greater" or "less".}
+\item{\code{alternative}}{a character string specifying the alternative hypothesis:
+"two.sided" (default), "greater" or "less".}
 
 \item{\code{one_sample}}{"true" if it is a one-sample test, "false" if it is a two-sample test.}
 
