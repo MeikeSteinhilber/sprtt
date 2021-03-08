@@ -1,5 +1,5 @@
 #######################################################################################
-#     sprtt package                                                                    #
+#     sprtt package                                                                   #
 #                                                                                     #
 #     master thesis project                                                           #
 #     master thesis title: "..."                                                      #
@@ -59,10 +59,10 @@ seq_ttest <- function(x,
                     ){
 
   input1_name <- deparse(substitute(x))
-  if(!is.null(y)){
+  if(!is.null(y)) {
     y_name <- deparse(substitute(y))
     data_name <- paste(input1_name, "and ", y_name)
-  } else{
+  } else {
     data_name <- paste(input1_name)
   }
 
