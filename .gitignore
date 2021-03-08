@@ -45,5 +45,5 @@ docs/
 po/*~
 
 # other
-.DS_Store 
+**/.DS_Store
 inst/doc
