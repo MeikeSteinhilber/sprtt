@@ -23,6 +23,14 @@ associated t-statistic:
 # Code for installation
 ```
 
+### Development version
+
+To get a bug fix or to use a feature from the development version, you
+can install the development version of **sprtt** from GitHub.
+
+    # install.packages("devtools")
+    devtools::install_github("sprtt")
+
 ## Usage
 
 ``` r
