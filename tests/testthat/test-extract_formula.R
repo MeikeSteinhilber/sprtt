@@ -1,7 +1,5 @@
 #* @testing extract_formula
 context("extract_formula: Correct extraction of the formula.")
-library(stats)
-library(base)
 
 test_that("extract_formula: effect in data: data are correct", {
   x_1 <- rnorm(5)

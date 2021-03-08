@@ -1,7 +1,5 @@
 #* @testing build_seq_ttest_arguments
 
-library(base)
-
 context("build_seq_ttest_arguments: Check structure of the class object")
 
 test_that("build_seq_ttest_arguments: errors", {

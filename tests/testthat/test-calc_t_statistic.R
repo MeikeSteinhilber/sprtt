@@ -1,5 +1,5 @@
 #* @testing
-set.seed(26753)
+# set.seed(26753)
 
 context("calc_seq_ttest_t_statistic: Check output")
 test_that("calc_seq_ttest_t_statistic", {

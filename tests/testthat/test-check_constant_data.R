@@ -1,7 +1,5 @@
 #* @testing check_constant_data
 
-library(base)
-
 context("check_constant_data: check error messages")
 
 test_that("check_constant_data: check error messages", {
