@@ -16,7 +16,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 <!-- badges: start -->
 
-[![codecov](https://codecov.io/gh/Lucy-333/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/Lucy-333/sprtt) [![R-CMD-check-small](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml) [![R-CMD-check-big](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/check-full.yaml)
+[![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt) [![R-CMD-check-small](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check.yaml) [![R-CMD-check-big](https://github.com/MeikeSteinhilber/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/check-full.yaml)
 
 <!-- badges: end -->
 
@@ -34,10 +34,9 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 ```
 
-### Development version 
+### Development version
 
-To get a bug fix or to use a feature from the development version, you
-can install the development version of **sprtt** from GitHub.
+To get a bug fix or to use a feature from the development version, you can install the development version of **sprtt** from GitHub.
 
     # install.packages("devtools")
     devtools::install_github("sprtt")

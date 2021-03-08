@@ -3,9 +3,9 @@ sprtt
 
 <!-- badges: start -->
 
-[![codecov](https://codecov.io/gh/Lucy-333/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/Lucy-333/sprtt)
-[![R-CMD-check-small](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml)
-[![R-CMD-check-big](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/check-full.yaml)
+[![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt)
+[![R-CMD-check-small](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check-big](https://github.com/MeikeSteinhilber/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/check-full.yaml)
 
 <!-- badges: end -->
 
