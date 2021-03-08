@@ -1,6 +1,6 @@
 # define a union of two classes. Is needed for the y argument.
 # setOldClass("data.frame")
-# setClassUnion("data.frameORnull", c("data.frame","NULL"))
+
 setClassUnion("numericORnull", c("numeric","NULL"))
 
 

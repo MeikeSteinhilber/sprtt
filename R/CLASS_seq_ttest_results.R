@@ -27,7 +27,6 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot one_sample "true" if it is a one-sample test, "false" if it is a two-sample test.
 #' @slot ttest_method a character string indicating what type of t-test was performed.
 #' @slot data_name a character string giving the name(s) of the data.
-#'
 setClass("seq_ttest_results",
          slots = c(
            likelihood_ratio_log = "numeric",

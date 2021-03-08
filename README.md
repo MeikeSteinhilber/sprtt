@@ -30,7 +30,7 @@ can install the development version of **sprtt** from GitHub.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("sprtt")
+devtools::install_github("MeikeSteinhilber/sprtt")
 ```
 
 ## Usage
