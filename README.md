@@ -4,10 +4,12 @@
 </a>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprt/actions)
+[![R-CMD-check-small](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check-big](https://github.com/Lucy-333/sprt/workflows/R-CMD-check/badge.svg)](https://github.com/Lucy-333/sprtt/actions/workflows/R-CMD-full.yaml)
 <!-- badges: end -->
+
+
 
