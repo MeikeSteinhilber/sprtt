@@ -11,7 +11,7 @@ sprtt
 
 ## Overview
 
-**sprtt** provides Sequential Probability Ratio tests using the
+**sprtt** provides Sequential Probability Ratio Tests using the
 associated t-statistic:
 
 -   `seq_ttest()` calculates the sequential test statistic.
@@ -28,8 +28,10 @@ associated t-statistic:
 To get a bug fix or to use a feature from the development version, you
 can install the development version of **sprtt** from GitHub.
 
-    # install.packages("devtools")
-    devtools::install_github("sprtt")
+``` r
+# install.packages("devtools")
+devtools::install_github("sprtt")
+```
 
 ## Usage
 
