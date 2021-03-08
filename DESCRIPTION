@@ -14,7 +14,7 @@ Authors@R:
              family = "Schubert",
              role = c("ctb", "ths")))
 Maintainer: Meike Steinhilber <Meike.Steinhilber@aol.com>
-Description: 'seq_ttest' is a function that implements Abraham Wald’s
+Description: The 'seq_ttest' function implements Abraham Wald’s
     (1947) Sequential Probability Ratio Test (SPRT) for the test of a
     normal mean (difference) with unknown variance in R (R Core Team,
     2018).  It performs sequential t tests developed by Rushton (1950,
