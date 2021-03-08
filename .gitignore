@@ -44,6 +44,6 @@ docs/
 # translation temp files
 po/*~
 
-#
+# other
 .DS_Store 
 inst/doc

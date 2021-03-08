@@ -32,7 +32,7 @@ Depends:
     R (>= 3.3.0)
 Imports: 
     methods (>= 3.5.0),
-    stats (>= 3.3.0)
+    stats (>= 3.5.0)
 Suggests:
     knitr,
     testthat (>= 3.0.0)
