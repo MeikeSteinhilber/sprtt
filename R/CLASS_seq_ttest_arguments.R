@@ -84,7 +84,8 @@ setMethod(
   }
 )
 
-#' Method to retrieve the contents of a slot of an object of the seq_ttest_arguments class.
+#' Method to retrieve the contents of a slot of an object of the
+#'  seq_ttest_arguments class.
 #'
 #' @param seq_ttest_arguments the corresponding class to this method.
 #' @param x the seq_ttest_arguments object.
@@ -111,7 +112,8 @@ setMethod(
   }
 )
 
-#' Method to modify the contents of a slot of an object of the seq_ttest_arguments class.
+#' Method to modify the contents of a slot of an object of the
+#'  seq_ttest_arguments class.
 #'
 #' @param seq_ttest_arguments the corresponding class to this method.
 #' @param x the seq_ttest_arguments object.

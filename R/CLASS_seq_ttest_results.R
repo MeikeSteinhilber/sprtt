@@ -4,18 +4,22 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' An S4 class to represent the results of a sequential t-test.
 #'
 #' @slot likelihood_ratio_log the logarithmic test statistic.
-#' @slot decision the test decision: "accept H1", "accept H0", or "continue sampling".
+#' @slot decision the test decision: "accept H1", "accept H0",
+#' or "continue sampling".
 #' @slot A_boundary_log the lower logarithmic boundary of the test.
 #' @slot B_boundary_log the upper logarithmic boundary of the test.
 #' @slot d a number indicating the specified effect size (Cohen's d).
 #' @slot mu a number indicating the true value of the mean.
 #' @slot alpha the type I error. A number between 0 and 1.
-#' @slot power 1 - beta (beta is the type II error probability). A number between 0 and 1.
+#' @slot power 1 - beta (beta is the type II error probability). A number
+#' between 0 and 1.
 #' @slot likelihood_ratio the likelihood ratio of the test without logarithm.
 #' @slot likelihood_1 the likelihood of the alternative Hypothesis (H1).
 #' @slot likelihood_2 the likelihood of the null Hypothesis (H0).
-#' @slot likelihood_1_log the logarithmic likelihood of the alternative Hypothesis (H1).
-#' @slot likelihood_2_log the logarithmic likelihood of the null Hypothesis (H0).
+#' @slot likelihood_1_log the logarithmic likelihood of the alternative
+#' Hypothesis (H1).
+#' @slot likelihood_2_log the logarithmic likelihood of the null
+#' Hypothesis (H0).
 #' @slot non_centrality_parameter parameter to calculate the likelihoods
 #' @slot t_value the t-value of the t-statistic.
 #' @slot p_value the p-value of the t-test.
@@ -24,8 +28,10 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot mean_y mean of the second group.
 #' @slot alternative a character string specifying the alternative hypothesis:
 #'       "two.sided" (default), "greater" or "less".
-#' @slot one_sample "true" if it is a one-sample test, "false" if it is a two-sample test.
-#' @slot ttest_method a character string indicating what type of t-test was performed.
+#' @slot one_sample "true" if it is a one-sample test, "false" if it is a
+#' two-sample test.
+#' @slot ttest_method a character string indicating what type of t-test was
+#' performed.
 #' @slot data_name a character string giving the name(s) of the data.
 setClass(
   "seq_ttest_results",
@@ -59,7 +65,8 @@ setClass(
 # setGeneric("$",function(object,value, ...){standardGeneric("$")})
 
 
-#' Method to retrieve the contents of a slot of an object of the seq_ttest_results class.
+#' Method to retrieve the contents of a slot of an object of the
+#'  seq_ttest_results class.
 #'
 #' @param seq_ttest_results the corresponding class to this method.
 #' @param x the seq_ttest_results object.
