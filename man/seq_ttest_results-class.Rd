@@ -12,7 +12,8 @@ An S4 class to represent the results of a sequential t-test.
 \describe{
 \item{\code{likelihood_ratio_log}}{the logarithmic test statistic.}
 
-\item{\code{decision}}{the test decision: "accept H1", "accept H0", or "continue sampling".}
+\item{\code{decision}}{the test decision: "accept H1", "accept H0",
+or "continue sampling".}
 
 \item{\code{A_boundary_log}}{the lower logarithmic boundary of the test.}
 
@@ -24,7 +25,8 @@ An S4 class to represent the results of a sequential t-test.
 
 \item{\code{alpha}}{the type I error. A number between 0 and 1.}
 
-\item{\code{power}}{1 - beta (beta is the type II error probability). A number between 0 and 1.}
+\item{\code{power}}{1 - beta (beta is the type II error probability). A number
+between 0 and 1.}
 
 \item{\code{likelihood_ratio}}{the likelihood ratio of the test without logarithm.}
 
@@ -32,9 +34,11 @@ An S4 class to represent the results of a sequential t-test.
 
 \item{\code{likelihood_2}}{the likelihood of the null Hypothesis (H0).}
 
-\item{\code{likelihood_1_log}}{the logarithmic likelihood of the alternative Hypothesis (H1).}
+\item{\code{likelihood_1_log}}{the logarithmic likelihood of the alternative
+Hypothesis (H1).}
 
-\item{\code{likelihood_2_log}}{the logarithmic likelihood of the null Hypothesis (H0).}
+\item{\code{likelihood_2_log}}{the logarithmic likelihood of the null
+Hypothesis (H0).}
 
 \item{\code{non_centrality_parameter}}{parameter to calculate the likelihoods}
 
@@ -51,9 +55,11 @@ An S4 class to represent the results of a sequential t-test.
 \item{\code{alternative}}{a character string specifying the alternative hypothesis:
 "two.sided" (default), "greater" or "less".}
 
-\item{\code{one_sample}}{"true" if it is a one-sample test, "false" if it is a two-sample test.}
+\item{\code{one_sample}}{"true" if it is a one-sample test, "false" if it is a
+two-sample test.}
 
-\item{\code{ttest_method}}{a character string indicating what type of t-test was performed.}
+\item{\code{ttest_method}}{a character string indicating what type of t-test was
+performed.}
 
 \item{\code{data_name}}{a character string giving the name(s) of the data.}
 }}

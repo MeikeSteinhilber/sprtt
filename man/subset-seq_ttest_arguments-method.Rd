@@ -2,7 +2,8 @@
 % Please edit documentation in R/CLASS_seq_ttest_arguments.R
 \name{[<-,seq_ttest_arguments-method}
 \alias{[<-,seq_ttest_arguments-method}
-\title{Method to modify the contents of a slot of an object of the seq_ttest_arguments class.}
+\title{Method to modify the contents of a slot of an object of the
+seq_ttest_arguments class.}
 \usage{
 \S4method{[}{seq_ttest_arguments}(x, i, j) <- value
 }
@@ -18,5 +19,6 @@
 \item{seq_ttest_arguments}{the corresponding class to this method.}
 }
 \description{
-Method to modify the contents of a slot of an object of the seq_ttest_arguments class.
+Method to modify the contents of a slot of an object of the
+seq_ttest_arguments class.
 }

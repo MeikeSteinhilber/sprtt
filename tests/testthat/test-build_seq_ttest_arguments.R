@@ -30,16 +30,16 @@ test_that("build_seq_ttest_arguments: numeric", {
   na.rm <- TRUE
   test <- build_seq_ttest_arguments(input1, y = NULL, data = NULL,
                                     mu, d, alpha, power, alternative, paired, data_name, na.rm)
-  expect_identical(test@x, input1)
-  expect_identical(test@y, NULL)
-  expect_identical(test@mu, mu)
-  expect_identical(test@d, d)
-  expect_identical(test@alpha, alpha)
-  expect_identical(test@power, power)
-  expect_identical(test@alternative, alternative)
-  expect_identical(test@paired, paired)
-  expect_identical(test@one_sample, TRUE)
-  # expect_identical(test@one_sided, FALSE)
+  expect_equal(test@x, input1)
+  expect_equal(test@y, NULL)
+  expect_equal(test@mu, mu)
+  expect_equal(test@d, d)
+  expect_equal(test@alpha, alpha)
+  expect_equal(test@power, power)
+  expect_equal(test@alternative, alternative)
+  expect_equal(test@paired, paired)
+  expect_equal(test@one_sample, TRUE)
+  # expect_equal(test@one_sided, FALSE)
 
 
   y <- rnorm(10)
@@ -47,16 +47,16 @@ test_that("build_seq_ttest_arguments: numeric", {
   paired <- FALSE
   test <- build_seq_ttest_arguments(input1, y, data = NULL,
                                 mu, d, alpha, power, alternative, paired, data_name, na.rm)
-  expect_identical(test@x, input1)
-  expect_identical(test@y, y)
-  expect_identical(test@mu, mu)
-  expect_identical(test@d, d)
-  expect_identical(test@alpha, alpha)
-  expect_identical(test@power, power)
-  expect_identical(test@alternative, alternative)
-  expect_identical(test@paired, paired)
-  expect_identical(test@one_sample, FALSE)
-  # expect_identical(test@one_sided, TRUE)
+  expect_equal(test@x, input1)
+  expect_equal(test@y, y)
+  expect_equal(test@mu, mu)
+  expect_equal(test@d, d)
+  expect_equal(test@alpha, alpha)
+  expect_equal(test@power, power)
+  expect_equal(test@alternative, alternative)
+  expect_equal(test@paired, paired)
+  expect_equal(test@one_sample, FALSE)
+  # expect_equal(test@one_sided, TRUE)
 
   y <- rnorm(10)
   alternative <- "greater"
@@ -64,9 +64,9 @@ test_that("build_seq_ttest_arguments: numeric", {
   test <- build_seq_ttest_arguments(input1, y = NULL, data = NULL,
                                 mu, d, alpha, power, alternative, paired, data_name, na.rm)
 
-  expect_identical(test@alternative, alternative)
-  expect_identical(test@one_sample, TRUE)
-  # expect_identical(test@one_sided, TRUE)
+  expect_equal(test@alternative, alternative)
+  expect_equal(test@one_sample, TRUE)
+  # expect_equal(test@one_sided, TRUE)
 
 })
 
@@ -87,16 +87,16 @@ test_that("build_seq_ttest_arguments: formula", {
   na.rm <- TRUE
   test <- build_seq_ttest_arguments(input1, y = NULL, data = NULL,
                         mu, d, alpha, power, alternative, paired, data_name, na.rm)
-  expect_identical(test@x, a_1)
-  expect_identical(test@y, a_2)
-  expect_identical(test@mu, mu)
-  expect_identical(test@d, d)
-  expect_identical(test@alpha, alpha)
-  expect_identical(test@power, power)
-  expect_identical(test@alternative, alternative)
-  expect_identical(test@paired, paired)
-  expect_identical(test@one_sample, FALSE)
-  # expect_identical(test@one_sided, FALSE)
+  expect_equal(test@x, a_1)
+  expect_equal(test@y, a_2)
+  expect_equal(test@mu, mu)
+  expect_equal(test@d, d)
+  expect_equal(test@alpha, alpha)
+  expect_equal(test@power, power)
+  expect_equal(test@alternative, alternative)
+  expect_equal(test@paired, paired)
+  expect_equal(test@one_sample, FALSE)
+  # expect_equal(test@one_sided, FALSE)
 
 
 
@@ -104,8 +104,8 @@ test_that("build_seq_ttest_arguments: formula", {
   data <- data.frame(a,c,b)
   test <- build_seq_ttest_arguments(input1, y = NULL, data,
                         mu, d, alpha, power, alternative, paired, data_name, na.rm)
-  expect_identical(test@x, a_1)
-  expect_identical(test@y, a_2)
+  expect_equal(test@x, a_1)
+  expect_equal(test@y, a_2)
 
   a_1 <- c(NA, 1:5, NA)
   a_2 <- c(NA, 6:10, NA)
@@ -115,8 +115,8 @@ test_that("build_seq_ttest_arguments: formula", {
   data <- data.frame(a,b)
   test <- build_seq_ttest_arguments(input1, y = NULL, data,
                                 mu, d, alpha, power, alternative, paired, data_name, na.rm)
-  expect_identical(test@x, 1:5)
-  expect_identical(test@y, 6:10)
+  expect_equal(test@x, 1:5)
+  expect_equal(test@y, 6:10)
 
 })
 

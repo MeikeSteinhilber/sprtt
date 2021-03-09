@@ -21,32 +21,38 @@ seq_ttest(
 \item{x}{Works with two classes: 'numeric' and 'formula'. Therefore you can
 write 'x' or 'x~y'.
 x: a (non-empty) numeric vector of data values.
-formula: a formula of the form lhs ~ rhs where lhs is a numeric variable giving
-the data values and rhs either 1 for a one-sample test or a factor with two levels
+formula: a formula of the form lhs ~ rhs where lhs is a numeric variable
+giving
+the data values and rhs either 1 for a one-sample test or a factor with two
+levels
 giving the corresponding groups.}
 
 \item{y}{an optional (non-empty) numeric vector of data values.}
 
-\item{data}{an optional data.frame, which you can use only in combination with a
-formula input in 'input1'.}
+\item{data}{an optional data.frame, which you can use only in combination
+with a formula input in 'input1'.}
 
-\item{mu}{a number indicating the true value of the mean (or difference in means
+\item{mu}{a number indicating the true value of the mean (or difference in
+means
 if you are performing a two sample test).}
 
 \item{d}{a number indicating the specified effect size (Cohen's d)}
 
 \item{alpha}{the type I error. A number between 0 and 1.}
 
-\item{power}{1 - beta (beta is the type II error probability). A number between 0 and 1.}
+\item{power}{1 - beta (beta is the type II error probability). A number
+between 0 and 1.}
 
-\item{alternative}{a character string specifying the alternative hypothesis, must
-be one of "two.sided" (default), "greater" or "less". You can specify just the
-initial letter.}
+\item{alternative}{a character string specifying the alternative hypothesis,
+must be one of "two.sided" (default), "greater" or "less".
+You can specify just the initial letter.}
 
 \item{paired}{a logical indicating whether you want a paired t-test.}
 
-\item{na.rm}{a logical value indicating whether NA values should be stripped before the computation proceeds.}
+\item{na.rm}{a logical value indicating whether NA values should be stripped
+before the computation proceeds.}
 }
 \description{
-Performs one and two sample sequential t-tests on vectors of data.
+Performs one and two sample sequential t-tests on vectors of
+data.
 }

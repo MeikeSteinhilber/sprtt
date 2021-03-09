@@ -2,7 +2,8 @@
 % Please edit documentation in R/CLASS_seq_ttest_results.R
 \name{[,seq_ttest_results-method}
 \alias{[,seq_ttest_results-method}
-\title{Method to retrieve the contents of a slot of an object of the seq_ttest_results class.}
+\title{Method to retrieve the contents of a slot of an object of the
+seq_ttest_results class.}
 \usage{
 \S4method{[}{seq_ttest_results}(x, i, j, drop)
 }
@@ -21,5 +22,6 @@
 the content of the slot.
 }
 \description{
-Method to retrieve the contents of a slot of an object of the seq_ttest_results class.
+Method to retrieve the contents of a slot of an object of the
+seq_ttest_results class.
 }
