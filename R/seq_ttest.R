@@ -46,33 +46,34 @@
 #' @export
 #'
 # #' @examples
-seq_ttest <- function(x,
-                    y = NULL,
-                    data = NULL,
-                    mu = 0,
-                    d,
-                    alpha = 0.05,
-                    power = 0.95,
-                    alternative = "two.sided",
-                    paired = FALSE,
-                    na.rm = TRUE
-                    ){
+seq_ttest <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  d,
+  alpha = 0.05,
+  power = 0.95,
+  alternative = "two.sided",
+  paired = FALSE,
+  na.rm = TRUE
+){
   # get names of the variables
-  input1_name <- deparse(substitute(x))
-  if(!is.null(y)) {
-    y_name <- deparse(substitute(y))
+  # data_name <- get_data_name(input1, y)
+  input1_name <- deparse(substitute(x, env = .GlobalEnv))
+  if (!is.null(y)) {
+    y_name <- deparse(substitute(y, env = .GlobalEnv))
     data_name <- paste(input1_name, "and ", y_name)
   } else {
     data_name <- paste(input1_name)
   }
 
-  # data_name <- get_data_name(input1, y)
-  seq_ttest_arguments <- build_seq_ttest_arguments(input1 = x, y, data,  mu, d, alpha, power,
-                                           alternative, paired, data_name, na.rm)
+  seq_ttest_arguments <- build_seq_ttest_arguments(
+    input1 = x,
+    y, data,  mu, d, alpha, power, alternative, paired, data_name, na.rm
+  )
   seq_ttest_results <- calc_seq_ttest(seq_ttest_arguments)
   seq_ttest_results
-
-  # visualize_results(seq_ttest_results)
 }
 
 

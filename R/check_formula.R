@@ -8,7 +8,7 @@ check_formula <- function(formula, data, paired) {
   data_matrix_formula <- model.frame(formula, data)
 
   # get the y value
-  if(length(data_matrix_formula) == 2) {
+  if (length(data_matrix_formula) == 2) {
     y <- data_matrix_formula[,2]
   } else{
     # correct because model.frame allows only 1 as input
@@ -17,7 +17,9 @@ check_formula <- function(formula, data, paired) {
 
   # check y
   if (!is.factor(y) && (length(y) != 1)) {
-    warning(paste(formula[[3]], "is not a factor. Are you sure, that you want to use the fomula input?"))
+    warning(paste(
+      formula[[3]],
+      "is not a factor. Are you sure, that you want to use the fomula input?"))
   }
   if (length(unique(y)) != 2 && (length(y) != 1)) {
     stop(paste("Grouping factor must contain exactly two levels."))
