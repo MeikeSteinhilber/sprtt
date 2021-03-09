@@ -16,7 +16,11 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 <!-- badges: start -->
 
-[![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt) [![R-CMD-check-small](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check.yaml) [![R-CMD-check-big](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/check-full.yaml)
+[![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt)
+[![R-CMD-check](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
+[![R-CMD-check](https://github.com/MeikeSteinhilber/sprtt/workflows/check-full/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
+
+
 
 <!-- badges: end -->
 
