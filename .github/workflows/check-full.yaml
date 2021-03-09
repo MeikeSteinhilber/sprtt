@@ -9,12 +9,10 @@ on:
     branches:
       - main
       - master
-      - test_fix_CMD_error
   pull_request:
     branches:
       - main
       - master
-      - test_fix_CMD_error
 
 name: R-CMD-check
 
