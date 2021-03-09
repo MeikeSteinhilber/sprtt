@@ -28,10 +28,11 @@ test_that("show: print output?", {
 })
 
 
-test_that("show: correct output?", {
-  seq_ttest_arguments <- build_prototype_seq_ttest_arguments()
-  results <- calc_seq_ttest(seq_ttest_arguments)
-  expect_known_output(object = show(results),
-                      file = paste(getwd(),"/example_output_show.txt", sep = ""),
-                      print = TRUE)
-})
+# test_that("show: correct output?", {
+#   seq_ttest_arguments <- build_prototype_seq_ttest_arguments()
+#   results <- calc_seq_ttest(seq_ttest_arguments)
+#   expect_known_output(
+#     object = show(results),
+#     file = paste(getwd(),"/example_output_show.txt", sep = ""),
+#     print = TRUE)
+# })
