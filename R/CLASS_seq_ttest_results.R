@@ -66,6 +66,7 @@ setClass("seq_ttest_results",
 #' @param drop not used.
 #'
 #' @return the content of the slot.
+#' @export
 #'
 # #' @examples
 setMethod(

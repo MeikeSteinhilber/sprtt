@@ -79,6 +79,7 @@ setMethod(
 #' @param i the start of the string of the slot name.
 #' @param j the end of the string of the slot name.
 #' @param drop not used.
+#' @export
 setMethod(
   f = "[",
   signature = "seq_ttest_arguments",
@@ -105,6 +106,7 @@ setMethod(
 #' @param value the new value of the slot.
 #' @param i the start of the string of the slot name.
 #' @param j the end of the string of the slot name.
+#' @export
 setReplaceMethod(
   f = "[",
   signature = "seq_ttest_arguments",
