@@ -10,7 +10,7 @@
 #                                                                                     #
 #######################################################################################
 #--- GENERAL SETTINGS
-#' @importFrom stats rnorm dt model.frame sd t.test
+#' @importFrom stats rnorm dt df model.frame sd t.test
 #' @importFrom methods callNextMethod new validObject
 # #' @useDynLib sprtt
 # #' @importFrom Rcpp sourceCpp
