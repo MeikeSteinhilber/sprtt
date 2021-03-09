@@ -62,9 +62,6 @@ setClass(
   )
 )
 
-# setGeneric("$",function(object,value, ...){standardGeneric("$")})
-
-
 #' Method to retrieve the contents of a slot of an object of the
 #'  seq_ttest_results class.
 #'
@@ -109,18 +106,6 @@ setMethod(
   }
 )
 
-# setMethod("initialize", signature = "seq_ttest_results",
-#           function(.Object, ...) { # .Object is necessary and can not replaced by x
-#             .Object <- callNextMethod() # necessary line
-#
-#             # correct input arguments
-#
-#
-#             # missing data in x or y
-#
-#
-#             .Object
-#           })
 
 # likelihood_ratio
 # likelihood_ratio_log
