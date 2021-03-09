@@ -57,7 +57,7 @@ seq_ttest <- function(x,
                     paired = FALSE,
                     na.rm = TRUE
                     ){
-
+  # get names of the variables
   input1_name <- deparse(substitute(x))
   if(!is.null(y)) {
     y_name <- deparse(substitute(y))
