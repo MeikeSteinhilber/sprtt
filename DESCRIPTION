@@ -1,7 +1,7 @@
 Type: Package
 Package: sprtt
 Title: Sequential Probability Ratio Tests: Using t-Statistic
-Version: 0.0.0.9002
+Version: 0.0.0.9007
 Authors@R: 
     c(person(given = "Meike",
              family = "Steinhilber",
@@ -31,11 +31,13 @@ BugReports: https://github.com/MeikeSteinhilber/sprtt/issues
 Depends: 
     R (>= 3.3.0)
 Imports: 
-    methods (>= 3.5.0),
-    stats (>= 3.5.0)
+    methods,
+    stats,
+    base
 Suggests:
     knitr,
-    testthat (>= 3.0.0)
+    rmarkdown,
+    testthat
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
