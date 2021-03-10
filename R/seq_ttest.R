@@ -5,11 +5,11 @@
 #     master thesis title: "..."                                               #
 #     author: meike steinhilber                                                #
 #                                                                              #
-#     The generic function in this package provides the implementation         #
-#     of sequential t-tests.                                                   #
+#     This package provides the implementation of sequential probability       #
+#     ratio tests using t-statistic.                                           #
 #                                                                              #
 ################################################################################
-#--- GENERAL SETTINGS
+#--- GENERAL SETTINGS ----
 #' @importFrom stats rnorm dt df model.frame sd t.test
 #' @importFrom methods callNextMethod new validObject
 # #' @useDynLib sprtt
@@ -18,38 +18,45 @@
 # #> NULL
 
 
-#---- MAIN FUNCTION
-#' @title Sequential t-Tests
+#---- MAIN FUNCTION DOCUMENTATION----
+#' @title Sequential Probability Ratio Test using t-statistic
 #' @description Performs one and two sample sequential t-tests on vectors of
 #' data.
 #'
-#' @param x Works with two classes: 'numeric' and 'formula'. Therefore you can
-#' write 'x' or 'x~y'.
-#' x: a (non-empty) numeric vector of data values.
-#' formula: a formula of the form lhs ~ rhs where lhs is a numeric variable
-#' giving the data values and rhs either 1 for a one-sample test or a factor
-#' with two levels giving the corresponding groups.
+#' @param x Works with two classes: `numeric` and `formula`. Therefore you can
+#' write `"x"` or `"x~y"`.
+#' * `"numeric input"`: a (non-empty) numeric vector of data values.
+#' * `"formula input"`: a formula of the form lhs ~ rhs where lhs is a numeric
+#' variable giving the data values and rhs either 1 for a one-sample test or a
+#' factor with two levels giving the corresponding groups.
 #' @param y an optional (non-empty) numeric vector of data values.
-#' @param data an optional data.frame, which you can use only in combination
-#' with a formula input in 'input1'.
+#' @param data an optional `data.frame`, which you can use only in combination
+#' with a `"formula input"` in argument `x`.
 #' @param mu a number indicating the true value of the mean (or difference in
-#' means
-#' if you are performing a two sample test).
+#' means if you are performing a two sample test).
 #' @param d a number indicating the specified effect size (Cohen's d)
 #' @param alpha the type I error. A number between 0 and 1.
 #' @param power 1 - beta (beta is the type II error probability). A number
 #' between 0 and 1.
 #' @param alternative a character string specifying the alternative hypothesis,
-#' must be one of "two.sided" (default), "greater" or "less".
+#' must be one of `two.sided` (default), `greater` or `less`.
 #' You can specify just the initial letter.
 #' @param paired a logical indicating whether you want a paired t-test.
-#' @param na.rm a logical value indicating whether NA values should be stripped
-#' before the computation proceeds.
+#' @param na.rm a logical value indicating whether `NA` values should be
+#' stripped before the computation proceeds.
 #'
-# #' @return
+#' @return An object of the S4 class [`seq_ttest_results-class`]. Click on the
+#' class link to see the full description of the slots.
+#' To get access to the object use the
+#' `@`-operator or `[]`-brackets instead of `$`.
+#' See the examples below.
+#'
 #' @export
 #'
-# #' @examples
+#' @examples
+
+
+#---- MAIN FUNCTION ----
 seq_ttest <- function(
   x,
   y = NULL,

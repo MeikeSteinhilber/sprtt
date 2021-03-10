@@ -2,7 +2,7 @@
 % Please edit documentation in R/seq_ttest.R
 \name{seq_ttest}
 \alias{seq_ttest}
-\title{Sequential t-Tests}
+\title{Sequential Probability Ratio Test using t-statistic}
 \usage{
 seq_ttest(
   x,
@@ -18,21 +18,22 @@ seq_ttest(
 )
 }
 \arguments{
-\item{x}{Works with two classes: 'numeric' and 'formula'. Therefore you can
-write 'x' or 'x~y'.
-x: a (non-empty) numeric vector of data values.
-formula: a formula of the form lhs ~ rhs where lhs is a numeric variable
-giving the data values and rhs either 1 for a one-sample test or a factor
-with two levels giving the corresponding groups.}
+\item{x}{Works with two classes: \code{numeric} and \code{formula}. Therefore you can
+write \code{"x"} or \code{"x~y"}.
+\itemize{
+\item \code{"numeric input"}: a (non-empty) numeric vector of data values.
+\item \code{"formula input"}: a formula of the form lhs ~ rhs where lhs is a numeric
+variable giving the data values and rhs either 1 for a one-sample test or a
+factor with two levels giving the corresponding groups.
+}}
 
 \item{y}{an optional (non-empty) numeric vector of data values.}
 
-\item{data}{an optional data.frame, which you can use only in combination
-with a formula input in 'input1'.}
+\item{data}{an optional \code{data.frame}, which you can use only in combination
+with a \code{"formula input"} in argument \code{x}.}
 
 \item{mu}{a number indicating the true value of the mean (or difference in
-means
-if you are performing a two sample test).}
+means if you are performing a two sample test).}
 
 \item{d}{a number indicating the specified effect size (Cohen's d)}
 
@@ -42,13 +43,23 @@ if you are performing a two sample test).}
 between 0 and 1.}
 
 \item{alternative}{a character string specifying the alternative hypothesis,
-must be one of "two.sided" (default), "greater" or "less".
+must be one of \code{two.sided} (default), \code{greater} or \code{less}.
 You can specify just the initial letter.}
 
 \item{paired}{a logical indicating whether you want a paired t-test.}
 
-\item{na.rm}{a logical value indicating whether NA values should be stripped
-before the computation proceeds.}
+\item{na.rm}{a logical value indicating whether \code{NA} values should be
+stripped before the computation proceeds.}
+}
+\value{
+An object of the S4 class \code{\linkS4class{seq_ttest_results}}. Click on the
+class link to see the full description of the slots.
+To get access to the object use the
+\itemize{
+\item \code{@}-Operator or
+\item \verb{[]}-brackets instead of \code{$}.
+See the examples below.
+}
 }
 \description{
 Performs one and two sample sequential t-tests on vectors of
