@@ -4,8 +4,8 @@ sprtt
 <!-- badges: start -->
 
 [![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt)
-[![R-CMD-check-small](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check.yaml)
-[![R-CMD-check-big](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/check-full.yaml)
+
+[![R-CMD-check](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
 
 <!-- badges: end -->
 
