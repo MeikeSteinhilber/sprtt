@@ -55,6 +55,33 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 ## Usage
 
 ```{r, eval = FALSE}
-# Test Code
+#load libraries
+library(stats)
+library(sprtt)
 
+# one sample: numeric input
+x <- rnorm(20, mean = 0, sd = 1)
+seq_ttest(x, mu = 1, d = 0.8)
+
+# one sample: formula input
+x <- rnorm(20, mean = 0, sd = 1)
+seq_ttest(x ~ 1, mu = 1, d = 0.8)
+
+# two sample: numeric input
+x <- rnorm(20, mean = 0, sd = 1)
+y <- rnorm(20, mean = 1, sd = 1)
+seq_ttest(x, y, d = 0.8)
+
+# two sample: formula input
+x <- rnorm(20, mean = 0, sd = 1)
+y <- as.factor(c(rep(1, 10), rep(2, 10)))
+seq_ttest(x ~ y, d = 0.8)
+
+# NA in the data
+x <- c(NA, rnorm(20, mean = 0, sd = 2), NA)
+y <- as.factor(c(rep(1, 11), rep(2, 11)))
+seq_ttest(x ~ y, d = 0.8, na.rm = TRUE)
+
+# work with dataset (data are in the package included)
+seq_ttest(monthly_income ~ sex, data = df, d = 0.8)
 ```
