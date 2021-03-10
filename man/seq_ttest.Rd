@@ -55,13 +55,39 @@ stripped before the computation proceeds.}
 An object of the S4 class \code{\linkS4class{seq_ttest_results}}. Click on the
 class link to see the full description of the slots.
 To get access to the object use the
-\itemize{
-\item \code{@}-Operator or
-\item \verb{[]}-brackets instead of \code{$}.
+\code{@}-operator or \verb{[]}-brackets instead of \code{$}.
 See the examples below.
-}
 }
 \description{
 Performs one and two sample sequential t-tests on vectors of
 data.
+}
+\examples{
+#load libraries
+library(stats)
+library(sprtt)
+
+# one sample: numeric input
+x <- rnorm(20, mean = 0, sd = 1)
+seq_ttest(x, mu = 1, d = 0.8)
+
+# one sample: formula input
+x <- rnorm(20, mean = 0, sd = 1)
+seq_ttest(x ~ 1, mu = 1, d = 0.8)
+
+# two sample: numeric input
+x <- rnorm(20, mean = 0, sd = 1)
+y <- rnorm(20, mean = 1, sd = 1)
+seq_ttest(x, y, d = 0.8)
+
+# two sample: formula input
+x <- rnorm(20, mean = 0, sd = 1)
+y <- as.factor(c(rep(1, 10), rep(2, 10)))
+seq_ttest(x ~ y, d = 0.8)
+
+# NA in the data
+x <- c(NA, rnorm(20, mean = 0, sd = 2), NA)
+y <- as.factor(c(rep(1, 11), rep(2, 11)))
+seq_ttest(x ~ y, d = 0.8, na.rm = TRUE)
+seq_ttest(x ~ y, d = 0.8, na.rm = FALSE) # error
 }

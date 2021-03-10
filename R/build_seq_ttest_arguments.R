@@ -20,7 +20,7 @@ build_seq_ttest_arguments <- function(
   one_sample <- get_one_sample(y)
   x <- delete_na(x, y, one_sample, paired, na.rm, wanted = "x")
   y <- delete_na(x, y, one_sample, paired, na.rm, wanted = "y")
-  check_data(input1, x, y, paired, na.rm)
+  check_data(input1, x, y, paired)
 
   seq_ttest_arguments <-
     new(

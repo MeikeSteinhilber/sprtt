@@ -1,4 +1,4 @@
-check_data <- function(input1, x, y, paired, na.rm = FALSE) {
+check_data <- function(input1, x, y, paired) {
 
   if (!is.numeric(x))
     stop(paste("Invalid argument: x must be numeric."))

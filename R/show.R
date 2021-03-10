@@ -2,7 +2,7 @@ setMethod(
   "show",
   signature = "seq_ttest_results",
   function(object){
-    cat("    ", "Sequential", object@ttest_method, "\n")
+    cat("\n***** Sequential", object@ttest_method, " *****\n", sep = "")
     cat("\ndata:", object@data_name)
     cat("\ntest statistic:\n")
     cat(" log-likelihood ratio",

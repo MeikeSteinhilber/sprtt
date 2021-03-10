@@ -54,7 +54,33 @@
 #' @export
 #'
 #' @examples
-
+#' #load libraries
+#' library(stats)
+#' library(sprtt)
+#'
+#' # one sample: numeric input
+#' x <- rnorm(20, mean = 0, sd = 1)
+#' seq_ttest(x, mu = 1, d = 0.8)
+#'
+#' # one sample: formula input
+#' x <- rnorm(20, mean = 0, sd = 1)
+#' seq_ttest(x ~ 1, mu = 1, d = 0.8)
+#'
+#' # two sample: numeric input
+#' x <- rnorm(20, mean = 0, sd = 1)
+#' y <- rnorm(20, mean = 1, sd = 1)
+#' seq_ttest(x, y, d = 0.8)
+#'
+#' # two sample: formula input
+#' x <- rnorm(20, mean = 0, sd = 1)
+#' y <- as.factor(c(rep(1, 10), rep(2, 10)))
+#' seq_ttest(x ~ y, d = 0.8)
+#'
+#' # NA in the data
+#' x <- c(NA, rnorm(20, mean = 0, sd = 2), NA)
+#' y <- as.factor(c(rep(1, 11), rep(2, 11)))
+#' seq_ttest(x ~ y, d = 0.8, na.rm = TRUE)
+#' seq_ttest(x ~ y, d = 0.8, na.rm = FALSE) # error
 
 #---- MAIN FUNCTION ----
 seq_ttest <- function(
@@ -71,11 +97,12 @@ seq_ttest <- function(
 ){
   # get names of the variables
   # data_name <- get_data_name(input1, y)
-  input1_name <- deparse(substitute(x, env = .GlobalEnv))
-  if (!is.null(y)) {
-    y_name <- deparse(substitute(y, env = .GlobalEnv))
+  input1_name <- deparse(substitute(x))
+  if (class(x) == "numeric" &&
+      !is.null(y)) {
+    y_name <- deparse(substitute(y))
     data_name <- paste(input1_name, "and ", y_name)
-  } else {
+  } else{
     data_name <- paste(input1_name)
   }
 
