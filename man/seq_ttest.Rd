@@ -22,10 +22,8 @@ seq_ttest(
 write 'x' or 'x~y'.
 x: a (non-empty) numeric vector of data values.
 formula: a formula of the form lhs ~ rhs where lhs is a numeric variable
-giving
-the data values and rhs either 1 for a one-sample test or a factor with two
-levels
-giving the corresponding groups.}
+giving the data values and rhs either 1 for a one-sample test or a factor
+with two levels giving the corresponding groups.}
 
 \item{y}{an optional (non-empty) numeric vector of data values.}
 
