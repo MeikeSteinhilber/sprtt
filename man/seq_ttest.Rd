@@ -90,4 +90,7 @@ x <- c(NA, rnorm(20, mean = 0, sd = 2), NA)
 y <- as.factor(c(rep(1, 11), rep(2, 11)))
 seq_ttest(x ~ y, d = 0.8, na.rm = TRUE)
 # seq_ttest(x ~ y, d = 0.8, na.rm = FALSE) # error
+
+# work with dataset
+seq_ttest(monthly_income ~ sex, data = df, d = 0.8)
 }

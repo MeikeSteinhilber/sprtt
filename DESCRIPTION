@@ -1,7 +1,7 @@
 Type: Package
 Package: sprtt
 Title: Sequential Probability Ratio Tests: Using t-Statistic
-Version: 0.0.0.9008
+Version: 0.0.0.9009
 Authors@R: 
     c(person(given = "Meike",
              family = "Steinhilber",
@@ -28,6 +28,8 @@ Description: The 'seq_ttest' function implements Abraham Wald’s (1947)
 License: GPL-3
 URL: https://github.com/MeikeSteinhilber/sprtt
 BugReports: https://github.com/MeikeSteinhilber/sprtt/issues
+Depends: 
+    R (>= 2.10)
 Imports: 
     methods,
     stats
