@@ -1,4 +1,4 @@
-check_data <- function(input1, x, y, paired) {
+check_data <- function(input1, x, y, paired, na.rm = FALSE) {
 
   if (!is.numeric(x))
     stop(paste("Invalid argument: x must be numeric."))
@@ -13,6 +13,7 @@ check_data <- function(input1, x, y, paired) {
     if (!is.logical(paired))
       stop("Invalid argument <paired>: Must be logical.")
   }
+
   check_constant_data(x, y, paired)
 }
 

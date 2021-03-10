@@ -20,6 +20,13 @@ test_that("check_formula: Check structure: Correct error messages", {
 })
 
 test_that("check_formula: Check y: Correct messages", {
+  x <- rnorm(20, mean = 0, sd = 1)
+  y <- c(rep(1, 10), rep(2, 10))
+  expect_error(
+    seq_ttest(x ~ y, d = 0.8),
+    "is not a factor"
+  )
+
 
   x <- 1:10
   y_2 <- as.factor(c(rep(1,5), rep(2,5)))
@@ -28,7 +35,7 @@ test_that("check_formula: Check y: Correct messages", {
   paired <- FALSE
 
   data <- data.frame(x, y = rep(c(2,1), 5))
-  expect_warning(
+  expect_error(
     check_formula(formula, data, paired),
     "is not a factor"
   )

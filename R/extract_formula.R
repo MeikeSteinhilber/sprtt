@@ -1,6 +1,6 @@
 extract_formula <- function(formula, data, wanted = "both") {
 
-  data_matrix_formula <- model.frame(formula, data)
+  data_matrix_formula <- model.frame(formula, data, na.action = NULL)
   x <- data_matrix_formula[, 1]
 
   if (formula[[3]] == 1) {

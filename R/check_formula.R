@@ -17,7 +17,7 @@ check_formula <- function(formula, data, paired) {
 
   # check y
   if (!is.factor(y) && (length(y) != 1)) {
-    warning(paste(
+    stop(paste(
       formula[[3]],
       "is not a factor. Are you sure, that you want to use the fomula input?"))
   }
