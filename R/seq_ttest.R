@@ -83,7 +83,7 @@
 #' # seq_ttest(x ~ y, d = 0.8, na.rm = FALSE) # error
 #'
 #' # work with dataset (data are in the package included)
-#' seq_ttest(monthly_income ~ sex, data = df, d = 0.8)
+#' seq_ttest(monthly_income ~ sex, data = df_income, d = 0.8)
 
 #---- MAIN FUNCTION ----
 seq_ttest <- function(
