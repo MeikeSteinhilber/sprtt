@@ -1,6 +1,9 @@
 ---
 title: "sprtt"
 output: github_document
+editor_options:
+  markdown:
+    mode: gfm
 ---
 
 ```{r setup, include=FALSE}

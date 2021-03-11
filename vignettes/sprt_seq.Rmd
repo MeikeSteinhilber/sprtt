@@ -1,5 +1,8 @@
 ---
 title: "How to use the `seq_ttest()` function"
+editor_options:
+  markdown:
+    mode: gfm
 output: rmarkdown::html_vignette
 description: >
   This vignette describes the usage of the `seq_ttest()` function in the
