@@ -35,6 +35,7 @@ Imports:
     stats
 Suggests:
     knitr,
+    VignetteBuilder,
     rmarkdown,
     testthat
 VignetteBuilder: 
