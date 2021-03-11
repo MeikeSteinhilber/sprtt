@@ -9,10 +9,12 @@ on:
     branches:
       - main
       - master
+      - start_vignette
   pull_request:
     branches:
       - main
       - master
+      - start_vignette
 
 name: R-CMD-check-windows-macOs
 
