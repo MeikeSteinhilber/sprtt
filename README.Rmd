@@ -1,5 +1,4 @@
 ---
-title: sprtt
 output: github_document
 editor_options:
   markdown:
@@ -21,26 +20,26 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 
 
-
+# Status
 <!-- badges: start -->
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sprtt?color=red)](https://cran.r-project.org/package=sprtt) [![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt) [![lint](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/lint.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/lint.yaml) [![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown.yaml) [![R-CMD-check-windows-macOs](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions) [![R-CMD-check-ubuntu20.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu20.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions) [![R-CMD-check-ubuntu16.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu16.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
 
 <!-- badges: end -->
 
-## Overview
+# Overview
 
 **sprtt** provides Sequential Probability Ratio Tests (SPRT) using the associated t-statistic:
 
 -   `seq_ttest()` calculates the sequential test statistic.
 
-## Installation
+# Installation
 
 ```{r, eval = FALSE}
 # Code for installation
 
 ```
 
-### Development version
+## Development version
 
 To get a bug fix or to use a feature from the development version, you can install the development version of **sprtt** from GitHub.
 
@@ -49,7 +48,7 @@ To get a bug fix or to use a feature from the development version, you can insta
 devtools::install_github("MeikeSteinhilber/sprtt")
 ```
 
-## Usage
+# Usage
 
 ```{r, code=xfun::read_utf8('inst/examples/seq_ttest.R')}
 

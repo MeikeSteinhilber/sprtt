@@ -1,7 +1,7 @@
-sprtt
-================
 
 <a href='https://meikesteinhilber.github.io/sprtt/'><img src="man/figures/logo.png" align="right" height="139"/></a>
+
+# Status
 
 <!-- badges: start -->
 
@@ -15,20 +15,20 @@ sprtt
 
 <!-- badges: end -->
 
-## Overview
+# Overview
 
 **sprtt** provides Sequential Probability Ratio Tests (SPRT) using the
 associated t-statistic:
 
 -   `seq_ttest()` calculates the sequential test statistic.
 
-## Installation
+# Installation
 
 ``` r
 # Code for installation
 ```
 
-### Development version
+## Development version
 
 To get a bug fix or to use a feature from the development version, you
 can install the development version of **sprtt** from GitHub.
@@ -38,7 +38,7 @@ can install the development version of **sprtt** from GitHub.
 devtools::install_github("MeikeSteinhilber/sprtt")
 ```
 
-## Usage
+# Usage
 
 ``` r
  #load library -----------------------------------------------------------------
@@ -51,11 +51,11 @@ devtools::install_github("MeikeSteinhilber/sprtt")
  # get access to the slots -----------------------------------------------------
  # @ Operator
  results@likelihood_ratio
-#> [1] 239.183
+#> [1] 180.5275
 
  # [] Operator
  results["likelihood_ratio"]
-#> [1] 239.183
+#> [1] 180.5275
 
  # two sample: numeric input----------------------------------------------------
  x <- stats::rnorm(20, mean = 0, sd = 1)
@@ -66,18 +66,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x and  y
 #> test statistic:
-#>  log-likelihood ratio = 6.07587, decision = accept H1
+#>  log-likelihood ratio = 4.01225, decision = accept H1
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -4.98348
-#>  null hypothesis = -11.05935
+#>  alternative hypothesis = -3.22359
+#>  null hypothesis = -7.23584
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 38
 #> sample estimates:
-#>  mean of group one = 0.1061
-#>  mean of group two = 1.28689
+#>  mean of group one = 0.00534
+#>  mean of group two = 1.07104
 #> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
  # two sample: formula input ---------------------------------------------------
@@ -89,18 +89,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -0.33051, decision = continue sampling
+#>  log-likelihood ratio = -1.55746, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -1.9286
-#>  null hypothesis = -1.59809
+#>  alternative hypothesis = -0.67046
+#>  null hypothesis = 0.887
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
-#>  mean of group one = 0.3162
-#>  mean of group two = -0.00492
+#>  mean of group one = 0.13329
+#>  mean of group two = 0.06417
 #> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
  # NA in the data --------------------------------------------------------------
@@ -112,18 +112,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -1.0958, decision = continue sampling
+#>  log-likelihood ratio = -1.06243, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -1.69722
-#>  null hypothesis = -0.60142
+#>  alternative hypothesis = -1.71603
+#>  null hypothesis = -0.6536
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
-#>  mean of group one = 0.68131
-#>  mean of group two = 1.22709
+#>  mean of group one = -0.0306
+#>  mean of group two = 0.48615
 #> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
  # work with dataset (data are in the package included) ------------------------
