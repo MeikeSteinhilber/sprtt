@@ -1,15 +1,16 @@
 
-# sprtt <a href='https://meikesteinhilber.github.io/sprtt/'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# sprtt <a href='https://meikesteinhilber.github.io/sprtt/'><img src="man/figures/logo.png" align="right" height="139"/></a>
 
 <!-- badges: start -->
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sprtt?color=green)](https://cran.r-project.org/package=sprtt)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sprtt?color=red)](https://cran.r-project.org/package=sprtt)
 [![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt)
 [![lint](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/lint.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/lint.yaml)
-
+[![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown.yaml)
 [![R-CMD-check-windows-macOs](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
 [![R-CMD-check-ubuntu20.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu20.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
 [![R-CMD-check-ubuntu16.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu16.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
+
 <!-- badges: end -->
 
 ## Overview
@@ -48,11 +49,11 @@ devtools::install_github("MeikeSteinhilber/sprtt")
  # get access to the slots -----------------------------------------------------
  # @ Operator
  results@likelihood_ratio
-#> [1] 14648.2
+#> [1] 1456.901
 
  # [] Operator
  results["likelihood_ratio"]
-#> [1] 14648.2
+#> [1] 1456.901
 
  # two sample: numeric input----------------------------------------------------
  x <- stats::rnorm(20, mean = 0, sd = 1)
@@ -63,18 +64,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x and  y
 #> test statistic:
-#>  log-likelihood ratio = 6.52221, decision = accept H1
+#>  log-likelihood ratio = 3.90733, decision = accept H1
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -5.55553
-#>  null hypothesis = -12.07774
+#>  alternative hypothesis = -3.1661
+#>  null hypothesis = -7.07342
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 38
 #> sample estimates:
-#>  mean of group one = -0.1948
-#>  mean of group two = 1.40891
+#>  mean of group one = -0.03538
+#>  mean of group two = 1.01038
 #> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
  # two sample: formula input ---------------------------------------------------
@@ -86,18 +87,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -1.58059, decision = continue sampling
+#>  log-likelihood ratio = -1.59181, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -0.28991
-#>  null hypothesis = 1.29068
+#>  alternative hypothesis = 0.13602
+#>  null hypothesis = 1.72783
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
-#>  mean of group one = 0.28557
-#>  mean of group two = 0.34502
+#>  mean of group one = -0.29925
+#>  mean of group two = -0.2675
 #> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
  # NA in the data --------------------------------------------------------------
@@ -109,18 +110,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -1.36188, decision = continue sampling
+#>  log-likelihood ratio = -1.40522, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -1.43706
-#>  null hypothesis = -0.07517
+#>  alternative hypothesis = -1.35686
+#>  null hypothesis = 0.04835
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
-#>  mean of group one = 0.65359
-#>  mean of group two = 0.28878
+#>  mean of group one = -0.64256
+#>  mean of group two = -0.85562
 #> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
  # work with dataset (data are in the package included) ------------------------
