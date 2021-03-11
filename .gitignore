@@ -47,3 +47,4 @@ po/*~
 # other
 **/.DS_Store
 inst/doc
+docs
