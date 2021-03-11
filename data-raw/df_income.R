@@ -12,7 +12,7 @@ monthly_income <- sample(700:6000, size = n, replace = FALSE)
 whith_children <- as.factor(sample(0:1, size = n, replace = TRUE))
 
 # build data.frame
-df <- data.frame(
+df_income <- data.frame(
   sex = sex,
   age = age,
   in_debt = in_debt,
@@ -21,5 +21,5 @@ df <- data.frame(
 )
 
 # save data frame
-write.csv(df, "data-raw/df.csv")
-usethis::use_data(df, overwrite = TRUE, compress = 'xz')
+write.csv(df_income, "data-raw/df_income.csv")
+usethis::use_data(df_income, overwrite = TRUE, compress = 'xz')
