@@ -67,6 +67,6 @@ x <- c(NA, rnorm(20, mean = 0, sd = 2), NA)
 y <- as.factor(c(rep(1, 11), rep(2, 11)))
 seq_ttest(x ~ y, d = 0.8, na.rm = TRUE)
 
-# work with dataset (data are in the package included)
-seq_ttest(monthly_income ~ sex, data = df, d = 0.8)
+# work with dataset (df_income is in the package included)
+seq_ttest(monthly_income ~ sex, data = df_income, d = 0.8)
 ```
