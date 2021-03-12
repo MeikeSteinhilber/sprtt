@@ -12,7 +12,7 @@ Authors@R:
              role = c("aut", "ths")),
       person(given = "Anna-Lena",
              family = "Schubert",
-             role = c("ctb", "ths")))
+             role = c("aut", "ths")))
 Maintainer: Meike Steinhilber <Meike.Steinhilber@aol.com>
 Description: The 'seq_ttest' function implements Abraham Wald’s (1947)
     Sequential Probability Ratio Test (SPRT) for the test of a normal mean
