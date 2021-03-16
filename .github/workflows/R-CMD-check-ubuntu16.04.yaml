@@ -40,6 +40,12 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+    - name: remove git-lfs
+        shell: bash
+        run: |
+          sudo rm /etc/apt/sources.list.d/github_git-lfs.list
+          sudo rm /etc/apt/sources.list.d/github_git-lfs.list.save
+
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@v1
