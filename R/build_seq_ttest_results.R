@@ -5,7 +5,8 @@ build_seq_ttest_results <- function(
   non_centrality_parameter,
   likelihoods,
   boundaries,
-  decision
+  decision,
+  verbose
 ){
   # no mean in y if one sample
   if (length(t_statistic$estimate) > 1) {
@@ -38,7 +39,8 @@ build_seq_ttest_results <- function(
       alternative = seq_ttest_arguments["alternative"],
       one_sample = seq_ttest_arguments["one_sample"],
       ttest_method = t_statistic["method"][[1]],
-      data_name = seq_ttest_arguments["data_name"]
+      data_name = seq_ttest_arguments["data_name"],
+      verbose = verbose
     )
   seq_ttest_results
 }

@@ -25,6 +25,11 @@ test_that("show: print output?", {
   y <- rnorm(20)
   result <- seq_ttest(x, y, d = 0.8, alternative = "less")
   expect_output(show(result))
+
+  x <- rnorm(20)
+  y <- rnorm(20)
+  result <- seq_ttest(x, y, d = 0.8, alternative = "less", verbose = FALSE)
+  expect_output(show(result))
 })
 
 

@@ -33,6 +33,7 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot ttest_method a character string indicating what type of t-test was
 #' performed.
 #' @slot data_name a character string giving the name(s) of the data.
+#' @slot verbose a logical value whether you want a verbose output or not.
 setClass(
   "seq_ttest_results",
   slots = c(
@@ -58,7 +59,8 @@ setClass(
     alternative = "character",
     one_sample = "logical",
     ttest_method = "character",
-    data_name = "character"
+    data_name = "character",
+    verbose = "logical"
   )
 )
 
@@ -102,6 +104,7 @@ setMethod(
     if (i == "one_sample") {return(x@one_sample)}
     if (i == "ttest_method") {return(x@ttest_method)}
     if (i == "data_name") {return(x@data_name)}
+    if (i == "verbose") {return(x@verbose)}
     stop(paste("Wrong slot name: '", i, "' is not a slot name of the class 'seq_ttest_results'"))
   }
 )

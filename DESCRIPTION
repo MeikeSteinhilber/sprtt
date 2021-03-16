@@ -1,7 +1,7 @@
 Type: Package
 Package: sprtt
 Title: Sequential Probability Ratio Tests: Using t-Statistic
-Version: 0.0.0.9100
+Version: 0.0.0.9101
 Authors@R: 
     c(person(given = "Meike",
              family = "Steinhilber",

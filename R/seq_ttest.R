@@ -44,6 +44,7 @@
 #' @param paired a logical indicating whether you want a paired t-test.
 #' @param na.rm a logical value indicating whether `NA` values should be
 #' stripped before the computation proceeds.
+#' @param verbose a logical value whether you want a verbose output or not.
 #'
 #' @return An object of the S4 class [`seq_ttest_results-class`]. Click on the
 #' class link to see the full description of the slots.
@@ -67,7 +68,8 @@ seq_ttest <- function(
   power = 0.95,
   alternative = "two.sided",
   paired = FALSE,
-  na.rm = TRUE
+  na.rm = TRUE,
+  verbose = TRUE
 ){
   # get names of the variables
   # data_name <- get_data_name(input1, y)
@@ -84,7 +86,7 @@ seq_ttest <- function(
     input1 = x,
     y, data,  mu, d, alpha, power, alternative, paired, data_name, na.rm
   )
-  seq_ttest_results <- calc_seq_ttest(seq_ttest_arguments)
+  seq_ttest_results <- calc_seq_ttest(seq_ttest_arguments, verbose)
   seq_ttest_results
 }
 

@@ -1,4 +1,4 @@
-calc_seq_ttest <- function(seq_ttest_arguments){
+calc_seq_ttest <- function(seq_ttest_arguments, verbose = TRUE){
 
   t_statistic <-
     calc_seq_ttest_t_statistic(
@@ -38,7 +38,8 @@ calc_seq_ttest <- function(seq_ttest_arguments){
       non_centrality_parameter,
       likelihoods,
       boundaries,
-      decision
+      decision,
+      verbose
     )
 
   seq_ttest_results
