@@ -27,6 +27,7 @@ test_that("CLASS_seq_ttest_results: Check access to class", {
   expect_equal(results["one_sample"], results@one_sample)
   expect_equal(results["ttest_method"], results@ttest_method)
   expect_equal(results["data_name"], results@data_name)
+  expect_equal(results["verbose"], results@verbose)
 
   expect_error(results["gdjhfgd"], "Wrong slot name:")
 
