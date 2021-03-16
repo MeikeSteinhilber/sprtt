@@ -62,5 +62,7 @@ two-sample test.}
 performed.}
 
 \item{\code{data_name}}{a character string giving the name(s) of the data.}
+
+\item{\code{verbose}}{a logical value whether you want a verbose output or not.}
 }}
 

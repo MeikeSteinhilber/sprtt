@@ -14,7 +14,8 @@ seq_ttest(
   power = 0.95,
   alternative = "two.sided",
   paired = FALSE,
-  na.rm = TRUE
+  na.rm = TRUE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -50,6 +51,8 @@ You can specify just the initial letter.}
 
 \item{na.rm}{a logical value indicating whether \code{NA} values should be
 stripped before the computation proceeds.}
+
+\item{verbose}{a logical value whether you want a verbose output or not.}
 }
 \value{
 An object of the S4 class \code{\linkS4class{seq_ttest_results}}. Click on the
@@ -63,35 +66,35 @@ Performs one and two sample sequential t-tests on vectors of
 data.
 }
 \examples{
- #load library
+ #load library -----------------------------------------------------------------
  library(sprtt)
 
- # one sample: numeric input
+ # one sample: numeric input ---------------------------------------------------
  x <- rnorm(20, mean = 0, sd = 1)
  results <- seq_ttest(x, mu = 1, d = 0.8)
 
- # get access to the slots
+ # get access to the slots -----------------------------------------------------
  # @ Operator
  results@likelihood_ratio
+
  # [] Operator
  results["likelihood_ratio"]
 
- # two sample: numeric input
+ # two sample: numeric input----------------------------------------------------
  x <- stats::rnorm(20, mean = 0, sd = 1)
  y <- stats::rnorm(20, mean = 1, sd = 1)
  seq_ttest(x, y, d = 0.8)
 
- # two sample: formula input
+ # two sample: formula input ---------------------------------------------------
  x <- stats::rnorm(20, mean = 0, sd = 1)
  y <- as.factor(c(rep(1, 10), rep(2, 10)))
  seq_ttest(x ~ y, d = 0.8)
 
- # NA in the data
+ # NA in the data --------------------------------------------------------------
  x <- c(NA, stats::rnorm(20, mean = 0, sd = 2), NA)
  y <- as.factor(c(rep(1, 11), rep(2, 11)))
  seq_ttest(x ~ y, d = 0.8, na.rm = TRUE)
- # seq_ttest(x ~ y, d = 0.8, na.rm = FALSE) # error
 
- # work with dataset (data are in the package included)
+ # work with dataset (data are in the package included) ------------------------
  seq_ttest(monthly_income ~ sex, data = df_income, d = 0.8)
 }
