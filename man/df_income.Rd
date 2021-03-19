@@ -9,7 +9,7 @@ A data frame with 5 variables and 30 rows
 \describe{
 \item{age}{ }
 \item{monthly_income}{ }
-\item{sex}{ 0 = male, 1 = female}
+\item{sex}{ male or female}
 \item{whith_children}{ 0 = no and 1 = yes}
 \item{in_debt}{0 = no and 1 = yes}
 }
