@@ -6,4 +6,5 @@ get_seq_ttest_decision <- function(likelihood_ratio, boundaries){
   } else{
     decision <- "continue sampling"
   }
+  decision
 }

@@ -19,7 +19,8 @@
       degrees of freedome: df = 19
       sample estimates:
        mean of group one = 0.05238
-      Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+      Note: to get access to the object of the results use the @ or []
+                instead of the $ operator.
 
 ---
 
@@ -42,7 +43,8 @@
       degrees of freedome: df = 19
       sample estimates:
        mean of group one = -0.50342
-      Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+      Note: to get access to the object of the results use the @ or []
+                instead of the $ operator.
 
 ---
 
@@ -65,7 +67,8 @@
       degrees of freedome: df = 19
       sample estimates:
        mean of group one = -0.20286
-      Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+      Note: to get access to the object of the results use the @ or []
+                instead of the $ operator.
 
 ---
 
@@ -89,7 +92,8 @@
       sample estimates:
        mean of group one = 0.14016
        mean of group two = 0.13999
-      Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+      Note: to get access to the object of the results use the @ or []
+                instead of the $ operator.
 
 ---
 
@@ -113,7 +117,8 @@
       sample estimates:
        mean of group one = 0.11723
        mean of group two = -0.14143
-      Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+      Note: to get access to the object of the results use the @ or []
+                instead of the $ operator.
 
 ---
 
@@ -137,7 +142,8 @@
       sample estimates:
        mean of group one = 0.18073
        mean of group two = 0.1612
-      Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+      Note: to get access to the object of the results use the @ or []
+                instead of the $ operator.
 
 # show: verbose
 
@@ -161,7 +167,8 @@
       sample estimates:
        mean of group one = -0.13828
        mean of group two = 1.0506
-      Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+      Note: to get access to the object of the results use the @ or []
+                instead of the $ operator.
 
 ---
 

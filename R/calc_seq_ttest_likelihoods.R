@@ -26,18 +26,16 @@ calc_seq_ttest_likelihoods <- function(
 
   if (likelihood_1 == 0 ||
       likelihood_2 == 0
-      ) {
+  ) {
     warning("At least one likelihood is equal to 0.
             The test works with the logarithm of the likelihoods.")
   }
-  # if(likelihood_1_log == 0 || likelihood_2_log == 0){
-  #   warning("At least one log-likelihood is equal to 0.")
-  # }
+
   if (likelihood_1_log == -Inf ||
       likelihood_2_log == -Inf ||
       likelihood_1_log ==  Inf ||
       likelihood_2_log ==  Inf
-     ) {
+  ) {
     warning("At least one log-likelihood reached infinity.")
   }
 

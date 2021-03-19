@@ -13,9 +13,9 @@ check_constant_data <- function(x, y, paired = NULL) {
     if (max(sd.check) == 0)
       stop(message)
 
-  } else if (is.null(y)){
-  sd.check <- ifelse(is.na(sd(x)), 0, sd(x))
-  if (!(sd.check > 0))
-    stop(message)
+  } else if (is.null(y)) {
+    sd.check <- ifelse(is.na(sd(x)), 0, sd(x))
+    if (!(sd.check > 0))
+      stop(message)
   }
 }

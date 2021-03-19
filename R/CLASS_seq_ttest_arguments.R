@@ -17,7 +17,7 @@ setClass(
     na.rm = "logical"
   )
 )
-build_prototype_seq_ttest_arguments <- function(){
+build_prototype_seq_ttest_arguments <- function() {
   new(
     Class = "seq_ttest_arguments",
     x = c(-0.8576829, -1.2119236, -1.2883021,  0.2532647, -1.6749356,

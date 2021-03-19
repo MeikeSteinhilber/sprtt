@@ -71,8 +71,7 @@ seq_ttest <- function(
   na.rm = TRUE,
   verbose = TRUE
 ){
-  # get names of the variables
-  # data_name <- get_data_name(input1, y)
+  # get the original names of the variables
   input1_name <- deparse(substitute(x))
   if (class(x) == "numeric" &&
       !is.null(y)) {
@@ -82,13 +81,25 @@ seq_ttest <- function(
     data_name <- paste(input1_name)
   }
 
-  seq_ttest_arguments <- build_seq_ttest_arguments(
-    input1 = x,
-    y, data,  mu, d, alpha, power, alternative, paired, data_name, na.rm
+  # calculate the sequential test
+  seq_ttest_arguments <-
+    build_seq_ttest_arguments(
+      input1 = x,
+      y,
+      data,
+      mu, d,
+      alpha,
+      power,
+      alternative,
+      paired,
+      data_name,
+      na.rm
   )
-  seq_ttest_results <- calc_seq_ttest(seq_ttest_arguments, verbose)
+  seq_ttest_results <-
+    calc_seq_ttest(
+      seq_ttest_arguments,
+      verbose
+    )
   seq_ttest_results
 }
 
-
-################################################################################
