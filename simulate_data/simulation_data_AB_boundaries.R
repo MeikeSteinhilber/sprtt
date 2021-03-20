@@ -5,9 +5,18 @@
 # Differences" by Schoenbrodt, Wagenmakers, Zehetleitner, and Perugini (2017).
 # The original script was obtained from https://osf.io/qny5x/
 
+# DOCUMENTATION ----------------------------------------------------------------
+
+# run this script after a huge change
+# the simulation takes about 1.5 h
+# the simulated data are stored in the folder: "test/testthat/_simulation"
+# the data are needed for the test: "test-seq_ttest_AB_simulation"
+# NOTE: maybe you need to delete the previous data to get correct results
+
 # SIMULATION -------------------------------------------------------------------
-set.seed(333)
-path = "tests/testthat/_simulation_results/"
+set.seed(33)
+path = "tests/testthat/_simulation/"
+# path = "_simulation/results/"
 
 ##---- PACKAGES AND HELP FUNCTIONS ---------------------------------------------
 
@@ -42,7 +51,7 @@ minN <- 2				# sample size per group at start
 maxN <- 100000			# maximum n (increase if reached before decision)
 ns <- c(minN:9999, seq(10000,maxN, by=50))
 
-S <- 10				# number of repititions per parameter combination
+S <- 1000				# number of repititions per parameter combination
 max_s <- S/getDoParWorkers() # number of repetitions per batch
 
 d_true <- c(1, 0.8, 0.6, 0.5, 0.2, 0) # true effect sizes
@@ -50,7 +59,6 @@ d_hyp <- c(1, 0.8, 0.6, 0.5, 0.2) # expected effect sizes
 
 alpha <- c(.05, .01)
 beta <- c(.1, .05)
-
 
 
 ##---- THE SIMULATION ----------------------------------------------------------
@@ -278,7 +286,7 @@ final$exceed.nnp <- final$n > final$nnp
 # Empirical error rates (and 95% confidence interval) +
 # Average sample number (ASN) (and sd) +
 # Ratio of ASN to fixed-n sample size (ASN.ratio)
-res_sprt <- final %>%
+results_sprt <- final %>%
   select(d, d_hyp, alpha, beta, n, error, nnp, exceed.nnp) %>%
   group_by(d, d_hyp, alpha, beta) %>%
   dplyr::summarise(ASN = mean(n), ASN.sd= sd(n),
@@ -295,4 +303,5 @@ res_sprt <- final %>%
 
 ##---- SAVE RESULTS ------------------------------------------------------------
 
-save(res_sprt, file = paste0(path, "results_sprt.RData"))
+save(results_sprt, file = paste0(path, "results_sprt.RData"))
+write.csv(results_sprt, file = paste0(path, "results_sprt.csv"))

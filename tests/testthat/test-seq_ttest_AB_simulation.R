@@ -1,18 +1,29 @@
 #* @testing seq_ttest
+#*
+# to run this tests: run beforehand the script:
+# "simulate_data/simulation_data_AB_boundaries.R"
+# the simulation takes about 1.5 h
+# the simulated data are stored in the folder: "test/testthat/_simulation"
 
-set.seed(333)
-path = "tests/testthat/_simulation_results/"
-
+library(dplyr)
 
 test_that("Check A & B boundaries: simulation results", {
-  load(paste0(path, "results_sprt.RData"))
+  results_sprt <- read.csv("_simulation/results_sprt.csv")
+  leeway <- 0.005
 
+  alpha_errors <-
+    results_sprt %>%
+    filter(d == 0 & d <= d_hyp) %>%
+    select(alpha, error)
+
+  beta_errors <-
+    results_sprt %>%
+    filter(d != 0 & d >= d_hyp) %>%
+    select(beta, error)
+
+  expect_true(all(alpha_errors$error <= alpha_errors$alpha + leeway))
+
+  expect_true(all(beta_errors$error <= alpha_errors$beta + leeway))
 
 })
 
-
-
-# test_that("", {
-#
-#
-# })
