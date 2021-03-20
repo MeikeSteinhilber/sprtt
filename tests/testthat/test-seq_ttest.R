@@ -1,7 +1,7 @@
 #* @testing seq_ttest
 #*
 
-# HELP FUNCTIONS ----------------------------------------------------------
+# MARTIN Skript ----------------------------------------------------------
 
 .sprt.lr <- function(x, y, mu, d, type, alt){
   ttest <- switch(type,
@@ -241,7 +241,7 @@ print.sprt <- function(x){
   print(round(x$estimate, digits = 5))
 }
 
-# MAIN FUNCTION -----------------------------------------------------------
+
 
 sprt.t.test <- function(...) UseMethod(".sprt")
 .sprt.result <- function(x, y, mu, d, alpha, power, type, alt){
