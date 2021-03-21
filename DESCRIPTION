@@ -1,7 +1,7 @@
 Type: Package
 Package: sprtt
 Title: Sequential Probability Ratio Tests: Using t-Statistic
-Version: 0.0.0.9102
+Version: 0.0.0.9103
 Authors@R: 
     c(person(given = "Meike",
              family = "Steinhilber",
@@ -14,11 +14,11 @@ Authors@R:
              family = "Schubert",
              role = c("aut", "ths")))
 Maintainer: Meike Steinhilber <Meike.Steinhilber@aol.com>
-Description: The 'seq_ttest' function implements Abraham Wald’s (1947)
-    Sequential Probability Ratio Test (SPRT) for the test of a normal mean
-    (difference) with unknown variance in R (R Core Team, 2018).  It
-    performs sequential t tests developed by Rushton (1950, 1952) and
-    Hajnal (1961), based on the SPRT. Specifically, sprt.t.test performs
+Description: The 'seq_ttest' function is the implementation of Abraham
+    Wald’s (1947) Sequential Probability Ratio Test (SPRT) for the test of
+    a normal mean (difference) with unknown variance in R (R Core Team, 2018).
+    It performs sequential t tests developed by Rushton (1950, 1952) and
+    Hajnal (1961), based on the SPRT. Specifically, seq_ttest() performs
     one-sample, two-sample, and paired t tests for testing one- and
     two-sided hypotheses.  The test is to be applied to the data during
     the sampling process, ideally after each observation. At any stage, it
