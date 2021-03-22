@@ -1,13 +1,13 @@
 #* @testing seq_ttest
 #*
 # to run this tests: run beforehand the script:
-# "data-raw/simulation_data_AB_boundaries.R"
+# "data-raw/simulation_data_error_rates.R"
 # the simulation takes about 1.5 h
 # the simulated data are stored in the folder: "test/testthat/_simulation"
 
 
 
-test_that("Check A & B boundaries: simulation results", {
+test_that("Check error rates: simulation results", {
   library(dplyr)
   results_sprt <- read.csv("_simulation/results_sprt.csv")
   leeway <- 0.005
