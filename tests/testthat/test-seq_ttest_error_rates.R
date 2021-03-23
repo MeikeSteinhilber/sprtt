@@ -2,6 +2,7 @@
 #*
 # to run this tests: run beforehand the script:
 # "data-raw/simulation_data_error_rates.R"
+# "data-raw/simulation_data_error_rates_paired.R"
 # the simulation takes about 1.5 h
 # the simulated data are stored in the folder: "test/testthat/_simulation"
 
