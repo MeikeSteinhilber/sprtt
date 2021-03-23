@@ -18,7 +18,8 @@
       specified effect size: Cohen's d = 0.8
       degrees of freedome: df = 19
       sample estimates:
-       mean of group one = 0.05238
+      mean of x 
+        0.05238 
       Note: to get access to the object of the results use the @ or []
                 instead of the $ operator.
 
@@ -42,7 +43,8 @@
       specified effect size: Cohen's d = 0.8
       degrees of freedome: df = 19
       sample estimates:
-       mean of group one = -0.50342
+      mean of x 
+       -0.50342 
       Note: to get access to the object of the results use the @ or []
                 instead of the $ operator.
 
@@ -66,7 +68,8 @@
       specified effect size: Cohen's d = 0.8
       degrees of freedome: df = 19
       sample estimates:
-       mean of group one = -0.20286
+      mean of x 
+       -0.20286 
       Note: to get access to the object of the results use the @ or []
                 instead of the $ operator.
 
@@ -90,8 +93,8 @@
       specified effect size: Cohen's d = 0.8
       degrees of freedome: df = 38
       sample estimates:
-       mean of group one = 0.14016
-       mean of group two = 0.13999
+      mean of x mean of y 
+        0.14016   0.13999 
       Note: to get access to the object of the results use the @ or []
                 instead of the $ operator.
 
@@ -115,8 +118,8 @@
       specified effect size: Cohen's d = 0.8
       degrees of freedome: df = 38
       sample estimates:
-       mean of group one = 0.11723
-       mean of group two = -0.14143
+      mean of x mean of y 
+        0.11723  -0.14143 
       Note: to get access to the object of the results use the @ or []
                 instead of the $ operator.
 
@@ -140,8 +143,8 @@
       specified effect size: Cohen's d = 0.8
       degrees of freedome: df = 18
       sample estimates:
-       mean of group one = 0.18073
-       mean of group two = 0.1612
+      mean of x mean of y 
+        0.18073   0.16120 
       Note: to get access to the object of the results use the @ or []
                 instead of the $ operator.
 
@@ -165,8 +168,8 @@
       specified effect size: Cohen's d = 0.8
       degrees of freedome: df = 18
       sample estimates:
-       mean of group one = -0.13828
-       mean of group two = 1.0506
+      mean of x mean of y 
+       -0.13828   1.05060 
       Note: to get access to the object of the results use the @ or []
                 instead of the $ operator.
 
