@@ -16,6 +16,10 @@ test_that("check_formula: Check structure: Correct error messages", {
     check_formula(formula = x~y+z, data, paired),
     "'formula' is incorrect."
   )
+  expect_error(
+    check_formula(formula = data$x ~ data$y, data = NULL, paired = paired),
+    "please use the 'data' argument"
+  )
 
 })
 

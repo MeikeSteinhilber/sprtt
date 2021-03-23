@@ -20,6 +20,12 @@ test_that("calc_seq_ttest_t_statistic", {
   results_ttest <- t.test(x = arguments@x)
   expect_equal(results_package$statistic[[1]] , results_ttest$statistic[[1]])
 
+  arguments@y <- arguments@x # error
+  arguments@one_sample <- FALSE
+  arguments@paired <- TRUE
+  expect_error(calc_seq_ttest_t_statistic(arguments),
+               "not possible to calculate the t-value")
+
   arguments@y <- rnorm(15)
   arguments@one_sample <- FALSE
   arguments@paired <- TRUE

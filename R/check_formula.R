@@ -2,7 +2,10 @@ check_formula <- function(formula, data, paired) {
 
   # check structure
   if ((length(formula) != 3L) || (length(formula[[3]]) != 1L))
-    stop("'formula' is incorrect. Please specify as 'x~y'.")
+    stop(
+      "'formula' is incorrect. Please specify as 'x~y'.
+      If your variables are in a data frame, please use the 'data' argument."
+    )
 
   # quick extraction of the formula for testing y
   data_matrix_formula <- model.frame(formula, data)
