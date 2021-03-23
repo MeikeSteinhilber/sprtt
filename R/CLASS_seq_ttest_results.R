@@ -9,7 +9,8 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot A_boundary_log the lower logarithmic boundary of the test.
 #' @slot B_boundary_log the upper logarithmic boundary of the test.
 #' @slot d a number indicating the specified effect size (Cohen's d).
-#' @slot mu a number indicating the true value of the mean.
+#' @slot mu a number indicating the true value of the mean
+#' (or difference in means if you are performing a two sample test).
 #' @slot alpha the type I error. A number between 0 and 1.
 #' @slot power 1 - beta (beta is the type II error probability). A number
 #' between 0 and 1.
@@ -24,8 +25,8 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot t_value the t-value of the t-statistic.
 #' @slot p_value the p-value of the t-test.
 #' @slot df degrees of freedom.
-#' @slot mean_x mean of the first group.
-#' @slot mean_y mean of the second group.
+#' @slot mean_estimate the estimated mean or difference in means depending on
+#' whether it was a one-sample test or a two-sample test.
 #' @slot alternative a character string specifying the alternative hypothesis:
 #'       "two.sided" (default), "greater" or "less".
 #' @slot one_sample "true" if it is a one-sample test, "false" if it is a
@@ -54,8 +55,7 @@ setClass(
     t_value = "numeric",
     p_value = "numeric",
     df = "numeric",
-    mean_x = "numeric",
-    mean_y = "numericORnull",
+    mean_estimate = "list",
     alternative = "character",
     one_sample = "logical",
     ttest_method = "character",
@@ -98,8 +98,7 @@ setMethod(
     if (i == "t_value") {return(x@t_value)}
     if (i == "p_value") {return(x@p_value)}
     if (i == "df") {return(x@df)}
-    if (i == "mean_x") {return(x@mean_x)}
-    if (i == "mean_y") {return(x@mean_y)}
+    if (i == "mean_estimate") {return(x@mean_estimate)}
     if (i == "alternative") {return(x@alternative)}
     if (i == "one_sample") {return(x@one_sample)}
     if (i == "ttest_method") {return(x@ttest_method)}
@@ -110,24 +109,3 @@ setMethod(
 )
 
 
-# likelihood_ratio
-# likelihood_ratio_log
-# decision
-# A_boundary_log
-# B_boundary_log
-# d
-# mu
-# likelihood_1
-# likelihood_2
-# likelihood_1_log
-# likelihood_2_log
-# non_centrality_parameter
-# t_value
-# p_value
-# df
-# mean_x
-# mean_y
-# alternative
-# one_sample
-# ttest_method
-# data_name

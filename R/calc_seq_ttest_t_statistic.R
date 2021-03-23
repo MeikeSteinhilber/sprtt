@@ -13,6 +13,7 @@ calc_seq_ttest_t_statistic <- function(seq_ttest_arguments) {
     t_statistic <- t.test(
       x = seq_ttest_arguments["x"],
       y = seq_ttest_arguments["y"],
+      mu = seq_ttest_arguments["mu"],
       var.equal = TRUE
     )
 
@@ -23,8 +24,13 @@ calc_seq_ttest_t_statistic <- function(seq_ttest_arguments) {
     t_statistic <- t.test(
       x = seq_ttest_arguments["x"],
       y = seq_ttest_arguments["y"],
+      mu = seq_ttest_arguments["mu"],
       paired = TRUE
     )
+  }
+
+  if (is.na(t_statistic$statistic)) {
+    stop("It was not possible to calculate the t-value.")
   }
 
   if (seq_ttest_arguments["alternative"] == "less") {

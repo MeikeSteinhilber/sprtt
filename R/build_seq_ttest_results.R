@@ -8,12 +8,13 @@ build_seq_ttest_results <- function(
   decision,
   verbose
 ){
-  # no mean in y if one sample
-  if (length(t_statistic$estimate) > 1) {
-    mean_y <- t_statistic$estimate[[2]]
-  } else{
-    mean_y <- NULL
-  }
+  # # no mean in y if one sample
+  # if (length(t_statistic$estimate) > 1) {
+  #   mean_y <- t_statistic$estimate[[2]]
+  # } else{
+  #   mean_y <- NULL
+  # }
+
   seq_ttest_results <-
     new(
       "seq_ttest_results",
@@ -34,8 +35,7 @@ build_seq_ttest_results <- function(
       t_value = as.vector(t_statistic["statistic"][[1]]),
       p_value = t_statistic["p.value"][[1]],
       df = df,
-      mean_x = t_statistic["estimate"][[1]][[1]],
-      mean_y = mean_y,
+      mean_estimate = t_statistic["estimate"],
       alternative = seq_ttest_arguments["alternative"],
       one_sample = seq_ttest_arguments["one_sample"],
       ttest_method = t_statistic["method"][[1]],

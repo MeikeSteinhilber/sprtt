@@ -2,7 +2,10 @@ check_formula <- function(formula, data, paired) {
 
   # check structure
   if ((length(formula) != 3L) || (length(formula[[3]]) != 1L))
-    stop("'formula' is incorrect. Please specify as 'x~y'.")
+    stop(
+      "'formula' is incorrect. Please specify as 'x~y'.
+      If your variables are in a data frame, please use the 'data' argument."
+    )
 
   # quick extraction of the formula for testing y
   data_matrix_formula <- model.frame(formula, data)
@@ -24,7 +27,14 @@ check_formula <- function(formula, data, paired) {
   if (length(unique(y)) != 2 && (length(y) != 1)) {
     stop(paste("Grouping factor must contain exactly two levels."))
   }
-  if (paired == TRUE && !(table(y)[[1]] == table(y)[[2]])) {
-    stop("Unequal number of observations per group. Independent samples?")
+  if (paired == TRUE) {
+    if (length(y) == 1 & y[1] == 1) {
+      stop("Paired test: The second group is missing.")
+    }
+    if (!(table(y)[[1]] == table(y)[[2]])) {
+      stop("Unequal number of observations per group. Independent samples?")
+    }
   }
+
+
 }
