@@ -21,7 +21,8 @@ or "continue sampling".}
 
 \item{\code{d}}{a number indicating the specified effect size (Cohen's d).}
 
-\item{\code{mu}}{a number indicating the true value of the mean.}
+\item{\code{mu}}{a number indicating the true value of the mean
+(or difference in means if you are performing a two sample test).}
 
 \item{\code{alpha}}{the type I error. A number between 0 and 1.}
 
@@ -48,9 +49,8 @@ Hypothesis (H0).}
 
 \item{\code{df}}{degrees of freedom.}
 
-\item{\code{mean_x}}{mean of the first group.}
-
-\item{\code{mean_y}}{mean of the second group.}
+\item{\code{mean_estimate}}{the estimated mean or difference in means depending on
+whether it was a one-sample test or a two-sample test.}
 
 \item{\code{alternative}}{a character string specifying the alternative hypothesis:
 "two.sided" (default), "greater" or "less".}
