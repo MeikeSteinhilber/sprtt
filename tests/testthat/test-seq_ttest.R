@@ -26,10 +26,15 @@
   # print(paste("dof", dof))
 
   if(alt=="two.sided"){
-    df(tval^2, df1 = 1, df2 = dof, ncp = ncp^2)/df(tval^2, df1 = 1, df2 = dof)
+    lr <- df(tval^2, df1 = 1, df2 = dof, ncp = ncp^2)/df(tval^2, df1 = 1, df2 = dof)
+    # l1 <- df(tval^2, df1 = 1, df2 = dof, ncp = ncp^2)
+    # l2 <- df(tval^2, df1 = 1, df2 = dof)
+    # # print(l1/l2)
   } else{
-    dt(tval, dof, ncp = ncp)/dt(tval, dof)
+    lr <- dt(tval, dof, ncp = ncp)/dt(tval, dof)
   }
+  lr
+  # print(lr)
 }
 
 
@@ -316,7 +321,7 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
                results_original$decision)
   # same data, but different input
   x_1 <- x[1:(length(x) * 0.5)]
-  x_2 <- x[(length(x)* 0.5 + 1) : length(x)]
+  x_2 <- x[(length(x) * 0.5 + 1):length(x)]
   results_sprtt2 <- seq_ttest(x_1, x_2, d = d)
   expect_equal(results_sprtt@likelihood_ratio_log,
                results_sprtt2@likelihood_ratio_log)
@@ -364,26 +369,31 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   expect_equal(results_sprtt@decision,
                results_sprtt2@decision)
 
-  set.seed(3)
-  d <- 0.3
+  d <- 0.7
   x <- rnorm(30)
   y <- rnorm(30)
-  t_test <- t.test(x, y, paired = TRUE)
-  results_original <- sprt.t.test(x, y, d = d, paired = TRUE)
-  results_sprtt <- seq_ttest(x, y, d = d, paired = TRUE)
+  paired = TRUE
+  t_test <- t.test(x, y, paired = paired)
+  results_original <- sprt.t.test(x, y, d = d, paired = paired, alt = "two.sided")
+  results_sprtt <- seq_ttest(x, y, d = d, paired = paired, alt = "two.sided")
   expect_equal(results_sprtt@likelihood_ratio,
                results_original$statistic[[1]])
   expect_equal(results_sprtt@decision,
                results_original$decision)
 
+  results_original <- sprt.t.test(x, y, d = d, paired = paired, alt = "less")
+  results_sprtt <- seq_ttest(x, y, d = d, paired = paired, alt = "less")
+  expect_equal(results_sprtt@likelihood_ratio,
+               results_original$statistic[[1]])
+  expect_equal(results_sprtt@decision,
+               results_original$decision)
 
-})
-
-test_that("seq_ttest: tests with df_income", {
-  d <- 0.4
-  results_sprtt <- seq_ttest(monthly_income ~ sex,
-                             d = d,
-                             data = df_income)
+  results_original <- sprt.t.test(x, y, d = d, paired = paired, alt = "greater")
+  results_sprtt <- seq_ttest(x, y, d = d, paired = paired, alt = "greater")
+  expect_equal(results_sprtt@likelihood_ratio,
+               results_original$statistic[[1]])
+  expect_equal(results_sprtt@decision,
+               results_original$decision)
 
 })
 

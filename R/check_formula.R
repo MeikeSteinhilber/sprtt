@@ -27,7 +27,14 @@ check_formula <- function(formula, data, paired) {
   if (length(unique(y)) != 2 && (length(y) != 1)) {
     stop(paste("Grouping factor must contain exactly two levels."))
   }
-  if (paired == TRUE && !(table(y)[[1]] == table(y)[[2]])) {
-    stop("Unequal number of observations per group. Independent samples?")
+  if (paired == TRUE) {
+    if (length(y) == 1 & y[1] == 1) {
+      stop("Paired test: The second group is missing.")
+    }
+    if (!(table(y)[[1]] == table(y)[[2]])) {
+      stop("Unequal number of observations per group. Independent samples?")
+    }
   }
+
+
 }
