@@ -15,7 +15,7 @@
 
 # SIMULATION -------------------------------------------------------------------
 set.seed(33)
-path = "tests/testthat/_simulation/normal"
+path = "tests/testthat/_simulation/paired/"
 # path = "_simulation/results/"
 
 ##---- PACKAGES AND HELP FUNCTIONS ---------------------------------------------
@@ -25,9 +25,17 @@ library(foreach)
 library(doParallel)
 library(sprtt)
 
-draw_sample <- function(n, d) {
-  matrix(rnorm(n*2, mean=c(d,0)),
-         nrow=n, byrow = TRUE)
+# normal data (two sample)
+# draw_sample <- function(n, d) {
+#   matrix(rnorm(n*2, mean=c(d,0)),
+#          nrow=n, byrow = TRUE)
+# }
+
+# paired data
+draw_sample <- dunction(n, d) {
+  baseline <- rnorm(n, mean = 0)
+  treatment <- baseline + rnorm(n, mean = d)
+  matrix(c(baseline, treatment), nrow = n, byrow = FALSE)
 }
 
 # Hedges' g using the approximation for c(m) introduced by Hedges (1981),
@@ -43,7 +51,8 @@ hedges.g <- function(x,y,n){
 
 
 # settings for parallel processing
-cl <- makeCluster(8)
+numCores <- detectCores()
+cl <- makeCluster(numCores)
 registerDoParallel(cl)
 getDoParWorkers() #check
 
@@ -51,7 +60,7 @@ minN <- 2				# sample size per group at start
 maxN <- 100000			# maximum n (increase if reached before decision)
 ns <- c(minN:9999, seq(10000,maxN, by=50))
 
-S <- 1000				# number of repititions per parameter combination
+S <- 1000			# number of repititions per parameter combination
 max_s <- S/getDoParWorkers() # number of repetitions per batch
 
 d_true <- c(1.2, 1, 0.8, 0.6, 0.5, 0.2, 0) # true effect sizes
@@ -107,17 +116,12 @@ sim <- foreach(batch=1:getDoParWorkers(), .combine=function(...) {}) %dopar% {
             for (n in ns) {
 
               samp <- maxsamp[1:n,]
-              # test <- t.test(samp[,1], samp[,2], var.equal=TRUE)
-              # tVal <- test$statistic[[1]] # t-value
-              # f <- test$parameter[[1]] # degrees of freedom
-              # g <- d1*sqrt(n^2/(2*n)) # noncentrality parameter
-              # LR <- df(tVal^2, df1=1, df2=f, ncp=g^2)/df(tVal^2, df1=1, df2=f)
-
               test <- sprtt::seq_ttest(samp[,1],
                                        samp[,2],
                                        d = d1,
                                        alpha = a,
-                                       power = 1-b)
+                                       power = 1 - b,
+                                       paired = TRUE)
               tVal <- test@t_value
               f <- test@df # degrees of freedom
               g <- test@non_centrality_parameter
@@ -208,7 +212,7 @@ sim <- foreach(batch=1:getDoParWorkers(), .combine=function(...) {}) %dopar% {
     } # end of d_hyp iteration
   } # end of d_true iteration
 }
-
+stopImplicitCluster()
 end <- Sys.time()
 
 sink(paste0(path, "progress.txt"), append = T)
