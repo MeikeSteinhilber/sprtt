@@ -10,6 +10,7 @@
                                       var.equal = T),
                   paired = t.test(x, y, mu = mu,
                                   paired = T))
+  # print(ttest)
   ncp <- ifelse(type == "two.sample",
                 d/sqrt(1/length(x) + 1/length(y)),
                 d * sqrt(length(x)))
@@ -25,10 +26,15 @@
   # print(paste("dof", dof))
 
   if(alt=="two.sided"){
-    df(tval^2, df1 = 1, df2 = dof, ncp = ncp^2)/df(tval^2, df1 = 1, df2 = dof)
+    lr <- df(tval^2, df1 = 1, df2 = dof, ncp = ncp^2)/df(tval^2, df1 = 1, df2 = dof)
+    # l1 <- df(tval^2, df1 = 1, df2 = dof, ncp = ncp^2)
+    # l2 <- df(tval^2, df1 = 1, df2 = dof)
+    # # print(l1/l2)
   } else{
-    dt(tval, dof, ncp = ncp)/dt(tval, dof)
+    lr <- dt(tval, dof, ncp = ncp)/dt(tval, dof)
   }
+  lr
+  # print(lr)
 }
 
 
@@ -297,21 +303,31 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   x <- rnorm(50)
   d <- 0.8
   results_original <- sprt.t.test(x = x, d = d, power = 0.8)
-  results_new <- seq_ttest(x, d = d, power = 0.8)
-  expect_equal(results_new@likelihood_ratio,
+  results_sprtt <- seq_ttest(x, d = d, power = 0.8)
+  expect_equal(results_sprtt@likelihood_ratio,
                results_original$statistic[[1]])
-  expect_equal(results_new@decision,
+  expect_equal(results_sprtt@decision,
                results_original$decision)
+
 
   x <- rnorm(20)
   y <- as.factor(c(rep(1,10), rep(2,10)))
   d <- 0.95
   results_original <- sprt.t.test(x ~ y, d = d)
-  results_new <- seq_ttest(x ~ y, d = d)
-  expect_equal(results_new@likelihood_ratio,
+  results_sprtt <- seq_ttest(x ~ y, d = d)
+  expect_equal(results_sprtt@likelihood_ratio,
                results_original$statistic[[1]])
-  expect_equal(results_new@decision,
+  expect_equal(results_sprtt@decision,
                results_original$decision)
+  # same data, but different input
+  x_1 <- x[1:(length(x) * 0.5)]
+  x_2 <- x[(length(x) * 0.5 + 1):length(x)]
+  results_sprtt2 <- seq_ttest(x_1, x_2, d = d)
+  expect_equal(results_sprtt@likelihood_ratio_log,
+               results_sprtt2@likelihood_ratio_log)
+  expect_equal(results_sprtt@decision,
+              results_sprtt2@decision)
+
 
   x <- rnorm(20)
   y <- as.factor(c(rep(1,10), rep(2,10)))
@@ -320,7 +336,7 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   results_formula <- seq_ttest(x ~ 1, d = d)
   expect_equal(results_formula@likelihood_ratio,
                results_numeric@likelihood_ratio)
-  expect_equal(results_new@decision,
+  expect_equal(results_sprtt@decision,
                results_original$decision)
 
   x_1 <- rnorm(5)
@@ -328,26 +344,59 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   x <- c(x_1, x_2)
   y <- as.factor(c(rep(1,5),rep(2,5)))
   results_original <- sprt.t.test(x ~ y, d = d)
-  results_script <- sprt.t.test(x ~ y, d = d)
-  results_new <- seq_ttest(x ~ y, d = d)
-  expect_equal(results_new@likelihood_ratio,
+  results_sprtt <- seq_ttest(x ~ y, d = d)
+  expect_equal(results_sprtt@likelihood_ratio,
                results_original$statistic[[1]])
-  expect_equal(results_new@decision,
+  expect_equal(results_sprtt@decision,
                results_original$decision)
 
 
-  x_1 <- rnorm(5)
-  x_2 <- rnorm(5)
+  x_1 <- rnorm(10)
+  x_2 <- rnorm(10)
   x <- c(x_1, x_2)
-  y <- as.factor(c(rep(1,5),rep(2,5)))
+  y <- as.factor(c(rep(1,10),rep(2,10)))
   results_original <- sprt.t.test(x_1, x_2, d = d)
-  results_new <- seq_ttest(x_1, x_2, d = d)
-  expect_equal(results_new@likelihood_ratio,
+  results_sprtt <- seq_ttest(x_1, x_2, d = d)
+  expect_equal(results_sprtt@likelihood_ratio,
                results_original$statistic[[1]])
-  expect_equal(results_new@decision,
+  expect_equal(results_sprtt@decision,
+               results_original$decision)
+  # same data, but different input
+  results_sprtt <- seq_ttest(x_1, x_2, d = 0.5, paired = TRUE)
+  results_sprtt2 <- seq_ttest(x ~ y, d = 0.5, paired = TRUE)
+  expect_equal(results_sprtt@likelihood_ratio_log,
+               results_sprtt2@likelihood_ratio_log)
+  expect_equal(results_sprtt@decision,
+               results_sprtt2@decision)
+
+  d <- 0.7
+  x <- rnorm(30)
+  y <- rnorm(30)
+  paired = TRUE
+  t_test <- t.test(x, y, paired = paired)
+  results_original <- sprt.t.test(x, y, d = d, paired = paired, alt = "two.sided")
+  results_sprtt <- seq_ttest(x, y, d = d, paired = paired, alt = "two.sided")
+  expect_equal(results_sprtt@likelihood_ratio,
+               results_original$statistic[[1]])
+  expect_equal(results_sprtt@decision,
+               results_original$decision)
+
+  results_original <- sprt.t.test(x, y, d = d, paired = paired, alt = "less")
+  results_sprtt <- seq_ttest(x, y, d = d, paired = paired, alt = "less")
+  expect_equal(results_sprtt@likelihood_ratio,
+               results_original$statistic[[1]])
+  expect_equal(results_sprtt@decision,
+               results_original$decision)
+
+  results_original <- sprt.t.test(x, y, d = d, paired = paired, alt = "greater")
+  results_sprtt <- seq_ttest(x, y, d = d, paired = paired, alt = "greater")
+  expect_equal(results_sprtt@likelihood_ratio,
+               results_original$statistic[[1]])
+  expect_equal(results_sprtt@decision,
                results_original$decision)
 
 })
+
 
 # test_that("", {
 #

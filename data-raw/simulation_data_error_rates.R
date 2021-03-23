@@ -8,7 +8,7 @@
 # DOCUMENTATION ----------------------------------------------------------------
 
 # run this script after a huge change
-# the simulation takes about 1.5 h
+# the simulation takes about 1.5 h (on Meikes Laptop)
 # the simulated data are stored in the folder: "test/testthat/_simulation"
 # the data are needed for the test: "test-seq_ttest_AB_simulation"
 # NOTE: maybe you need to delete the previous data to get correct results
@@ -54,8 +54,8 @@ ns <- c(minN:9999, seq(10000,maxN, by=50))
 S <- 1000				# number of repititions per parameter combination
 max_s <- S/getDoParWorkers() # number of repetitions per batch
 
-d_true <- c(1, 0.8, 0.6, 0.5, 0.2, 0) # true effect sizes
-d_hyp <- c(1, 0.8, 0.6, 0.5, 0.2) # expected effect sizes
+d_true <- c(1.2, 1, 0.8, 0.6, 0.5, 0.2, 0) # true effect sizes
+d_hyp <- c(1.2, 1, 0.8, 0.6, 0.5, 0.2) # expected effect sizes
 
 alpha <- c(.05, .01)
 beta <- c(.1, .05)
@@ -118,9 +118,9 @@ sim <- foreach(batch=1:getDoParWorkers(), .combine=function(...) {}) %dopar% {
                                        d = d1,
                                        alpha = a,
                                        power = 1-b)
-              tVal <- test@t_value # t-value
+              tVal <- test@t_value
               f <- test@df # degrees of freedom
-              g <- test@non_centrality_parameter # noncentrality parameter
+              g <- test@non_centrality_parameter
               LR <- test@likelihood_ratio_log
 
               if(test@decision == "accept H0"){
@@ -305,3 +305,6 @@ results_sprt <- final %>%
 
 save(results_sprt, file = paste0(path, "results_sprt.RData"))
 write.csv(results_sprt, file = paste0(path, "results_sprt.csv"))
+
+##---- UNDO SET.SEED -----------------------------------------------------------
+set.seed(NULL)

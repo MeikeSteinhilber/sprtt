@@ -42,12 +42,9 @@ setMethod(
 
       cat("\nspecified effect size: Cohen's d =", object@d)
       cat("\ndegrees of freedome: df =", object@df)
-      cat("\nsample estimates:")
-      cat("\n mean of group one =", round(object@mean_x, 5))
-      if (!is.null(object@mean_y)) {
-        cat("\n mean of group two =", round(object@mean_y, 5))
-      }
-      cat('\nNote: to get access to the object of the results use the @ or []
+      cat("\nsample estimates:\n")
+      print(round(object@mean_estimate[[1]], 5))
+      cat('Note: to get access to the object of the results use the @ or []
           instead of the $ operator.\n')
     }
 })
