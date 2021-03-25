@@ -1,9 +1,9 @@
 ---
 title: "How to use the `seq_ttest()` function"
-editor_options:
-  markdown:
-    mode: gfm
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+       toc: true
+       toc_depth: 3
 description: >
   This vignette describes the usage of the `seq_ttest()` function in the
   sprtt package.
@@ -11,6 +11,8 @@ vignette: >
   %\VignetteIndexEntry{How to use the `seq_ttest()` function}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}{inputenc}
+bibliography: references.bib
+csl: "apa.csl"
 ---
 
 ```{r, echo = FALSE, message = FALSE}
@@ -20,28 +22,44 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette describes the usage of the `seq_ttest()` function in the `sprtt` package.
-
 ## Overview
 
-1.  The `seq_ttest()` function ....
-2.  Bla Bla.
+This vignette describes the usage of the `seq_ttest()` function in the `sprtt` package.
 
-## What is a sequential t-test?
+## Sequential t-Test
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+### What is a sequential test procedure?
 
-## How do I use the `seq_ttest()` function?
+Sequential tests are designed to be applied repeatedly during the sampling process and terminate as soon as there is sufficient evidence for the null or alternative hypothesis. Therefore the sequential procedure has the advantage to substantially reduce the required sample size without compromising predefined error probabilities [@schnuerch2020a].
 
-### Instruction
+### What is the sequential t-test?
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+The sequential t-test is based on the Sequential Probability Ratio Test (SPRT) by Abraham @wald1947, which is a highly efficient sequential hypothesis test. However, the usage of Wald´s SPRT is limited for normally distributed data, because the variance has to be known or specified in the hypothesis. Rushton [-@rushton1950a; -@rushton1952] and @hajnal1961 developed the SPRT further using the t-statistic. The basic idea is to transform the sequence of observations (which is dependent of the variance) into a sequence of the associated t-statistic (which is *in*dependent of the variance).
 
-## Examples
+The test statistic is a likelihood ratio. More specific, the ratio of the likelihood of the alternative hypothesis to the likelihood of the null hypothesis at the *m*-th step of the of the sampling process (LR~m~). Depending on the predefined A and B boundaries the decision will be either to continue sampling or to terminate and accept one of the hypotheses [@schnuerch2020a].
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+|    Condition    |                    Decision |
+|:---------------:|----------------------------:|
+|    LR~m~ ≤ B    | accept H~0~ and reject H~1~ |
+| B \< LR~m~ \< A |           continue sampling |
+|    LR~m~ ≤ A    | accept H~1~ and reject H~0~ |
 
-```{r setup, message = FALSE}
+The A and B boundaries are calculated with the previous defined error rates 𝛼 (Type I error) and 𝛽 (Type II error) as follows:
+
+$$
+A = \left( \frac{1 - 𝛽}{𝛼} \right) \\
+B = \left( \frac{𝛽}{1 - 𝛼} \right).
+$$
+
+The test is to be applied to the data during the sampling process, ideally after each observation, otherwise it will have an impact on the efficiency of the test.
+
+## Usage of the `sprtt` package
+
+### How do I use the `seq_ttest()` function?
+
+### Examples
+
+```{r}
 library(sprtt)
 # data set
 head(df_income)
@@ -51,3 +69,5 @@ head(df_income)
 # data set
 # df_income
 ```
+
+## References
