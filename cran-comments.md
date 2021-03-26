@@ -11,7 +11,7 @@
 ## R CMD check results
 > On windows-x86_64-devel (r-devel), ubuntu-gcc-release (r-release), fedora-clang-devel (r-devel)
   checking CRAN incoming feasibility ... NOTE
-  Maintainer: 'Meike Steinhilber <Meike.Steinhilber@aol.com>'
+  Maintainer: 'Meike Steinhilber 
   
   Version contains large components (1.0.0.9000)
   
