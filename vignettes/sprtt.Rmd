@@ -94,7 +94,7 @@ The `numeric` input is used when each group has its own variable. The variables 
 
 #### *Two-sample test*
 
-If you want to perform a two-sample test, you need to use the `y` argument in addition to `x`. If the data are stored in a data frame, you need the `$` operator or the `data` argument, to get access to the variables.
+If you want to perform a two-sample test, you need to use the `y` argument in addition to `x`. If the data are stored in a data frame, you need the `$` operator, to get access to the variables.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -107,10 +107,11 @@ seq_ttest(df_stress$treatment_group, # x argument
           verbose = FALSE)           
 
 
-# sequential t-tes: data argument ----------------------------------------------
-seq_ttest(treatment_group,
-          control_group,
-          data = df_stress,
+# sequential t-tes: global variables -------------------------------------------
+treatment <- df_stress$treatment_group
+control <- df_stress$control_group
+seq_ttest(treatment,
+          control,
           d = 0.3,
           verbose = FALSE)
 
@@ -118,7 +119,7 @@ seq_ttest(treatment_group,
 
 #### *One-sample test*
 
-If you want to perform a one-sample test you have only one group and therefore only one variable. If the data are in a data frame, you need the `$` operator or the `data` argument, to get access to the variables. You need also the `mu` argument, which specifies the mean which you want to test against.
+If you want to perform a one-sample test you have only one group and therefore only one variable. If the data are in a data frame, you need the `$` operator, to get access to the variables. You need also the `mu` argument, which specifies the mean which you want to test against.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -131,8 +132,9 @@ seq_ttest(df_stress$treatment_group,     # x argument
           verbose = FALSE)
 
 
-# sequential t-tes: data argument ----------------------------------------------
-seq_ttest(treatment_group,     # x argument
+# sequential t-tes: global variables -------------------------------------------
+treatment <- df_stress$treatment_group
+seq_ttest(treatment,     # x argument
           mu = 3.5, 
           data = df,
           d = 0.2,                  
@@ -182,8 +184,8 @@ The `paired` argument states if the data are paired. To perform a paired sequent
 head(df_stress)
 
 # sequential t-tes: $ operator -------------------------------------------------
-seq_ttest(baseline_stress, # x argument
-          one_year_stress, # y argument
+seq_ttest(df_stress$baseline_stress, # x argument
+          df_stress$one_year_stress, # y argument
           d = 0.3,
           paired = TRUE,
           data = df_stress)  
@@ -223,17 +225,15 @@ The `verbose` argument defines the extent of the output shown in the console. If
 head(df_stress)
 
 # sequential t-tes: verbose FALSE -----------------------------------------------
-seq_ttest(treatment_group, # x argument
-          control_group,   # y argument
+seq_ttest(df_stress$treatment_group, # x argument
+          df_stress$control_group,   # y argument
           d = 0.3,
-          data = df_stress,
           verbose = FALSE)
 
 # sequential t-tes: verbose TRUE -----------------------------------------------
-seq_ttest(treatment_group, # x argument
-          control_group,   # y argument
+seq_ttest(df_stress$treatment_group, # x argument
+          df_stress$control_group,   # y argument
           d = 0.3,
-          data = df_stress,
           verbose = TRUE) 
 ```
 
