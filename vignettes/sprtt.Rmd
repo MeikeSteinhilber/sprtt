@@ -32,7 +32,6 @@ To use the `sprtt` package one has to install and load it first. You can install
 
 ```{r}
 library(sprtt)
-verbose = FALSE
 ```
 
 ## What does the package contain?
@@ -55,101 +54,106 @@ The tests needs some specification from the user:
 
 -   the `power` (1 - 𝛽),
 
--   the effect size Cohen\`s `d`, which represents the expected effect size or the lower limit for a substantial effect, and
+-   the effect size Cohen\`s `d`, which represents the expected effect size or the lower limit of a substantial effect, and
 
 -   further optional arguments do specify the test further.
 
 However, in some cases it is not necessary to specify all arguments because some of them have default values. If these values are the required ones, they can be skipped.
 
-| Argument    | Default value | Input option                   |
-|-------------|---------------|--------------------------------|
-| x           |               | `numeric` or `formula` input   |
-| y           | NULL          | numeric vector                 |
-| data        | NULL          | data frame                     |
-| mu          | 0             | numeric value                  |
-| d           |               | numeric value                  |
-| alpha       | 0.05          | numeric value between 0 and 1  |
-| power       | 0.95          | numeric value between 0 and 1  |
-| alternative | "two.sided"   | "two.sided", "greater", "less" |
-| paired      | FALSE         | TRUE and FALSE                 |
-| na.rm       | TRUE          | TRUE and FALSE                 |
-| verbose     | TRUE          | TRUE and FALSE                 |
++------------------+-------------------+--------------------------------+
+| Argument         | Default value     | Input option                   |
++==================+:==================+:===============================+
+| x                |                   | numeric or formula input       |
++------------------+-------------------+--------------------------------+
+| y                | NULL              | numeric vector                 |
++------------------+-------------------+--------------------------------+
+| data             | NULL              | data frame                     |
++------------------+-------------------+--------------------------------+
+| mu               | 0                 | numeric value                  |
++------------------+-------------------+--------------------------------+
+| d                |                   | numeric value                  |
++------------------+-------------------+--------------------------------+
+| alpha            | 0.05              | numeric value between 0 and 1  |
++------------------+-------------------+--------------------------------+
+| power            | 0.95              | numeric value between 0 and 1  |
++------------------+-------------------+--------------------------------+
+| alternative      | "two.sided"       | "two.sided", "greater", "less" |
++------------------+-------------------+--------------------------------+
+| paired           | FALSE             | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
+| na.rm            | TRUE              | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
+| verbose          | TRUE              | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
 
 One has two different possibilities, how to transfer the data to the function. The `x` argument takes either `numeric` or `formula` input.
 
-### Input option: numeric
+### x argument: numeric input
 
 The `numeric` input is used when each group has its own variable. The variables can exist directly in the global environment or have to be stored in a data frame.
 
 #### *Two-sample test*
 
-If you want to perform a two-sample test, you need to use the `y` argument in addition to `x`. If the data are in a data frame, you need the `$` operator, to get access to the variables.
+If you want to perform a two-sample test, you need to use the `y` argument in addition to `x`. If the data are stored in a data frame, you need the `$` operator or the `data` argument, to get access to the variables.
 
 ```{r}
-# simulate data (body height) -------------------------------------------------
-# as global variables
-female <- rnorm(n = 15, mean = 1.65, sd = 0.1)
-male <- rnorm(n = 15, mean = 1.75, sd = 0.1)
+# show data frame --------------------------------------------------------------
+head(df_stress)
 
-# as data frame
-df <- data.frame(female, male)
+# sequential t-tes: $ operator -------------------------------------------------
+seq_ttest(df_stress$treatment_group, # x argument
+          df_stress$control_group,   # y argument
+          d = 0.3,                   
+          verbose = FALSE)           
 
-# show data frame
-head(df)
 
-# sequential t-test ------------------------------------------------------------
-# use of global variables
-results <- seq_ttest(female, male, d = 0.3, verbose = verbose)
-results
+# sequential t-tes: data argument ----------------------------------------------
+seq_ttest(treatment_group,
+          control_group,
+          data = df_stress,
+          d = 0.3,
+          verbose = FALSE)
 
-# use of data frame
-results <- seq_ttest(df$female, df$male, d = 0.3, verbose = verbose)
-results
 ```
 
 #### *One-sample test*
 
-If you want to perform a one-sample test you have only one group and therefore only one variable. If the data are in a data frame, you need the `$` operator, to get access to the variables. You need also the `mu` argument, which specifies the mean which you want to test against.
+If you want to perform a one-sample test you have only one group and therefore only one variable. If the data are in a data frame, you need the `$` operator or the `data` argument, to get access to the variables. You need also the `mu` argument, which specifies the mean which you want to test against.
 
 ```{r}
-# simulate data (body height) -------------------------------------------------
-# as global variable
-female <- rnorm(n = 15, mean = 1.65, sd = 0.1)
+# show data frame --------------------------------------------------------------
+head(df_stress)
+
+# sequential t-tes: $ operator -------------------------------------------------
+seq_ttest(df_stress$treatment_group,     # x argument
+          mu = 3.5,            
+          d = 0.2,
+          verbose = FALSE)
 
 
-# sequential t-test ------------------------------------------------------------
-# use of global variable
-results <- seq_ttest(female, mu = 1.60, d = 0.3, verbose = verbose)
-results
+# sequential t-tes: data argument ----------------------------------------------
+seq_ttest(treatment_group,     # x argument
+          mu = 3.5, 
+          data = df,
+          d = 0.2,                  
+          verbose = FALSE)
 
 ```
 
-### Input option: formula
+### x argument: formula input
 
 The `formula` input is used when you have both groups in one variable and you have a second variable which indicates the group membership. This input option uses the x argument and the data argument if the variables are stored in a data frame.
 
 #### *Two-sample test*
 
 ```{r}
-# simulate data (body height) --------------------------------------------------
-# as global variables
-height <- rnorm(n = 30, mean = 1.70, sd = 0.1)
-sex <- as.factor(rep(c("female", "male"), 15))
+# show data frame --------------------------------------------------------------
+head(df_income)
 
-# as data frame
-df <- data.frame(height, sex)
-
-# show data frame
-head(df)
-
-# sequential t-test ------------------------------------------------------------
-# use of global variables
-results <- seq_ttest(height ~ sex, d = 0.3, verbose = verbose)
-results
-
-# use of data frame
-results <- seq_ttest(height ~ sex, data = df, d = 0.3, verbose = verbose)
-results
+# sequential t-tes: data argument ----------------------------------------------
+seq_ttest(monthly_income ~ sex,     # x argument 
+          data = df_income,
+          d = 0.2)
 ```
 
 #### *One-sample test*
@@ -157,17 +161,80 @@ results
 In order to perform an one-sample test the right side of the formula hast to be 1. You need also the `mu` argument, which specifies the mean which you want to test against.
 
 ```{r}
-# simulate data (body height) -------------------------------------------------
-# as global variable
-female <- rnorm(n = 15, mean = 1.65, sd = 0.1)
+# show data frame --------------------------------------------------------------
+head(df_income)
 
-
-# sequential t-test ------------------------------------------------------------
-# use of global variable
-results <- seq_ttest(female ~ 1, mu = 1.60, d = 0.3, verbose = verbose)
-results
+# sequential t-tes: data argument ----------------------------------------------
+seq_ttest(monthly_income ~ 1,     # x argument 
+          mu = 3000,
+          d = 0.5,
+          data = df_income)
 ```
 
-### Overview of the function arguments
+### Further arguments
+
+#### Paired
+
+The `paired` argument states if the data are paired. To perform a paired sequential t-test `paired` has to be set to `TRUE`.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_stress)
+
+# sequential t-tes: $ operator -------------------------------------------------
+seq_ttest(baseline_stress, # x argument
+          one_year_stress, # y argument
+          d = 0.3,
+          paired = TRUE,
+          data = df_stress)  
+```
+
+#### Alternative
+
+The `alternative` argument states in which way the test is to be performed:
+
+-   two-sided: `"two.sided"` or
+
+-   one-sided: `"less"` or `"greater"`.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_income)
+
+# sequential t-tes: data argument ----------------------------------------------
+seq_ttest(monthly_income ~ 1,     # x argument 
+          mu = 1000,
+          d = 0.2,
+          alternative = "greater",
+          data = df_income)
+
+```
+
+#### Na.rm
+
+The `na.rm` argument defines the handling of missing values. If set to `TRUE` (default value), it will remove all missing values automatically. If this behavior is not wanted, the `na.rm` argument has to be set to `FALSE`. If missing values are then discovered, an error is triggered.
+
+#### Verbose
+
+The `verbose` argument defines the extent of the output shown in the console. If set to `TRUE` (default value), the output will be elaborate, if set to `FALSE` the output will be short.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_stress)
+
+# sequential t-tes: verbose FALSE -----------------------------------------------
+seq_ttest(treatment_group, # x argument
+          control_group,   # y argument
+          d = 0.3,
+          data = df_stress,
+          verbose = FALSE)
+
+# sequential t-tes: verbose TRUE -----------------------------------------------
+seq_ttest(treatment_group, # x argument
+          control_group,   # y argument
+          d = 0.3,
+          data = df_stress,
+          verbose = TRUE) 
+```
 
 ## References
