@@ -1,14 +1,13 @@
 ---
-title: "The `sprtt` package"
+title: "Sequential t-test"
 output:
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 3
 description: >
-  This vignette describes the sequential t-test and the usage of the
-  `sprtt` package.
+  This vignette describes the sequential t-test.
 vignette: >
-  %\VignetteIndexEntry{The `sprtt` package}
+  %\VignetteIndexEntry{Sequential t-test}
   %\VignetteEncoding{UTF-8}{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 bibliography: references.bib
@@ -24,7 +23,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette describes the background of the tests and demonstrates the usage of the package including the `seq_ttest()` function.
+The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette describes the theory of the tests.
 
 ## Sequential t-Test
 
@@ -106,78 +105,5 @@ In summary, three specifications are needed to calculate a sequential t-test:
 -   the 𝛽 error probability (usually .20 or less), and
 
 -   Cohen´s d (either as the expected effect size or as the lower limit for a substantial effect).
-
-## Usage of the `sprtt` package
-
-### Installation
-
-To use the `sprtt` package one has to install and load it first. You can install the package directly in RStudio, where you get the latest release version or you can install the package in the latest development version on GitHub. You can find more information for the installation on the [start site](https://meikesteinhilber.github.io/sprtt/).
-
-```{r}
-library(sprtt)
-verbose = FALSE
-```
-
-### What does the package contain?
-
-The `sprtt` package contains:
-
--   `seq_ttest()` : a function which performs the sequential t-tests
-
--   `df_income`: a set of data to run the examples given in this vignette
-
-### How do I use the `seq_ttest()` function?
-
-The `seq_ttest()` function works similar to the `t.test()` function from the `stats` package if you are familiar with that already.
-
-Basically one has two different possibilities, how to use the function: the `numeric` or the `formula` input option.
-
-The `numeric` input is used if each group has its own variable. If you want to perform a one-sample test you have only one group and therefore only one variable. The variables can exist directly in the global environment or are stored in a data frame.
-
-The `formula` input is used if you have both groups in one variable and you have a second variable which indicates the group membership.
-
-#### numeric input  {style="color: blue"}
-
-```{r}
-# simulate data
-female <- rnorm(n = 15, mean = 1.65, sd = 0.15)
-male <- rnorm(n = 15, mean = 1.75, sd = 0.15)
-df <- data.frame(female, male)
-
-# sequential t-test (global variables)
-seq_ttest(female, male, d = 0.3, verbose = verbose)
-
-# sequential t-test (data frame)
-seq_ttest(df$female, df$male, d = 0.3, verbose = verbose)
-
-```
-
-#### formula input {style="color: blue"}
-
-```{r}
-# simulate data
-height <- rnorm(n = 30, mean = 1.70, sd = 0.15)
-sex <- as.factor(rep(c("female", "male"), 15))
-df <- data.frame(height, sex)
-
-# sequential t-test (global variables)
-seq_ttest(height ~ sex, d = 0.3, verbose = verbose)
-
-# sequential t-test (data frame)
-seq_ttest(height ~ sex, data = df, d = 0.3, verbose = verbose)
-```
-
-### Examples
-
-```{r}
-library(sprtt)
-# data set
-head(df_income)
-```
-
-```{r}
-# data set
-# df_income
-```
 
 ## References

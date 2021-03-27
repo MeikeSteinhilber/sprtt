@@ -1,0 +1,173 @@
+---
+title: "The sprtt package"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+description: >
+  This vignette describes the sequential t-test and the usage of the
+  `sprtt` package.
+vignette: >
+  %\VignetteIndexEntry{The sprtt package}
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: references.bib
+csl: "apa.csl"
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Overview
+
+The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette demonstrates the usage of the package including the `seq_ttest()` function.
+
+## Installation
+
+To use the `sprtt` package one has to install and load it first. You can install the package directly in RStudio, where you get the latest release version or you can install the package in the latest development version on GitHub. You can find more information for the installation on the [start site](https://meikesteinhilber.github.io/sprtt/).
+
+```{r}
+library(sprtt)
+verbose = FALSE
+```
+
+## What does the package contain?
+
+The `sprtt` package contains:
+
+-   `seq_ttest()` : a function which performs the sequential t-tests
+
+-   `df_income`: a set of data to run the examples given in this vignette
+
+## How do I use the seq_ttest() function?
+
+The `seq_ttest()` function works similar to the `t.test()` function from the `stats` package if you are familiar with that already.
+
+The tests needs some specification from the user:
+
+-   the variables, which contain the data,
+
+-   the error probability `alpha`,
+
+-   the `power` (1 - 𝛽),
+
+-   the effect size Cohen\`s `d`, which represents the expected effect size or the lower limit for a substantial effect, and
+
+-   further optional arguments do specify the test further.
+
+However, in some cases it is not necessary to specify all arguments because some of them have default values. If these values are the required ones, they can be skipped.
+
+| Argument    | Default value | Input option                   |
+|-------------|---------------|--------------------------------|
+| x           |               | `numeric` or `formula` input   |
+| y           | NULL          | numeric vector                 |
+| data        | NULL          | data frame                     |
+| mu          | 0             | numeric value                  |
+| d           |               | numeric value                  |
+| alpha       | 0.05          | numeric value between 0 and 1  |
+| power       | 0.95          | numeric value between 0 and 1  |
+| alternative | "two.sided"   | "two.sided", "greater", "less" |
+| paired      | FALSE         | TRUE and FALSE                 |
+| na.rm       | TRUE          | TRUE and FALSE                 |
+| verbose     | TRUE          | TRUE and FALSE                 |
+
+One has two different possibilities, how to transfer the data to the function. The `x` argument takes either `numeric` or `formula` input.
+
+### Input option: numeric
+
+The `numeric` input is used when each group has its own variable. The variables can exist directly in the global environment or have to be stored in a data frame.
+
+#### *Two-sample test*
+
+If you want to perform a two-sample test, you need to use the `y` argument in addition to `x`. If the data are in a data frame, you need the `$` operator, to get access to the variables.
+
+```{r}
+# simulate data (body height) -------------------------------------------------
+# as global variables
+female <- rnorm(n = 15, mean = 1.65, sd = 0.1)
+male <- rnorm(n = 15, mean = 1.75, sd = 0.1)
+
+# as data frame
+df <- data.frame(female, male)
+
+# show data frame
+head(df)
+
+# sequential t-test ------------------------------------------------------------
+# use of global variables
+results <- seq_ttest(female, male, d = 0.3, verbose = verbose)
+results
+
+# use of data frame
+results <- seq_ttest(df$female, df$male, d = 0.3, verbose = verbose)
+results
+```
+
+#### *One-sample test*
+
+If you want to perform a one-sample test you have only one group and therefore only one variable. If the data are in a data frame, you need the `$` operator, to get access to the variables. You need also the `mu` argument, which specifies the mean which you want to test against.
+
+```{r}
+# simulate data (body height) -------------------------------------------------
+# as global variable
+female <- rnorm(n = 15, mean = 1.65, sd = 0.1)
+
+
+# sequential t-test ------------------------------------------------------------
+# use of global variable
+results <- seq_ttest(female, mu = 1.60, d = 0.3, verbose = verbose)
+results
+
+```
+
+### Input option: formula
+
+The `formula` input is used when you have both groups in one variable and you have a second variable which indicates the group membership. This input option uses the x argument and the data argument if the variables are stored in a data frame.
+
+#### *Two-sample test*
+
+```{r}
+# simulate data (body height) --------------------------------------------------
+# as global variables
+height <- rnorm(n = 30, mean = 1.70, sd = 0.1)
+sex <- as.factor(rep(c("female", "male"), 15))
+
+# as data frame
+df <- data.frame(height, sex)
+
+# show data frame
+head(df)
+
+# sequential t-test ------------------------------------------------------------
+# use of global variables
+results <- seq_ttest(height ~ sex, d = 0.3, verbose = verbose)
+results
+
+# use of data frame
+results <- seq_ttest(height ~ sex, data = df, d = 0.3, verbose = verbose)
+results
+```
+
+#### *One-sample test*
+
+In order to perform an one-sample test the right side of the formula hast to be 1. You need also the `mu` argument, which specifies the mean which you want to test against.
+
+```{r}
+# simulate data (body height) -------------------------------------------------
+# as global variable
+female <- rnorm(n = 15, mean = 1.65, sd = 0.1)
+
+
+# sequential t-test ------------------------------------------------------------
+# use of global variable
+results <- seq_ttest(female ~ 1, mu = 1.60, d = 0.3, verbose = verbose)
+results
+```
+
+### Overview of the function arguments
+
+## References
