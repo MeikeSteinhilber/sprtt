@@ -12,6 +12,7 @@
 #' }
 "df_income"
 
+
 #' Test data to run the examples
 #'
 #'A dataset that includes 30 individuals.
@@ -24,3 +25,4 @@
 #'   \item{one_year_stress}{ }
 #' }
 "df_stress"
+
