@@ -1,15 +1,15 @@
 library(stats)
 
 # settings
-# set.seed(4653284)
-n <- 30
+set.seed(4653284)
+n <- 120
 
 # generate data
 treatment_group <- rnorm(n, mean = 5, sd = 1)
 control_group <- rnorm(n, mean = 4, sd = 1)
 #
 baseline_stress <- rnorm(n, mean = 5, sd = 1)
-one_year_stress <- baseline_stress + rnorm(n, mean = 0, sd = 0.5)
+one_year_stress <- baseline_stress + rnorm(n, mean = 0.3, sd = 1)
 
 
 # build data.frame

@@ -1,14 +1,14 @@
 #' Test data to run the examples
 #'
-#'A dataset that includes 30 individuals with their gender, monthly income,
+#'A dataset that includes 120 individuals with their gender, monthly income,
 #' and information about children and debt.
 #'
 #' @format  A data frame with 5 variables and 30 rows
 #' \describe{
 #'   \item{monthly_income}{ }
-#'   \item{in_debt}{0 = no and 1 = yes}
+# #'   \item{in_debt}{0 = no and 1 = yes}
 #'   \item{sex}{ male or female}
-#'   \item{age}{ }
+# #'   \item{age}{ }
 #' }
 "df_income"
 
