@@ -7,3 +7,5 @@
 * Added the vignette "Example Use Case"
 * Added tests to simulate the error rates of the test
 * Added unit tests
+* Added pkgdown site
+* Added logo
