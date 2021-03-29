@@ -5,20 +5,17 @@
 \alias{df_income}
 \title{Test data to run the examples}
 \format{
-A data frame with 5 variables and 30 rows
+A data frame with 5 variables and 120 rows
 \describe{
-\item{age}{ }
 \item{monthly_income}{ }
 \item{sex}{ male or female}
-\item{whith_children}{ 0 = no and 1 = yes}
-\item{in_debt}{0 = no and 1 = yes}
 }
 }
 \usage{
 df_income
 }
 \description{
-A dataset that includes 30 individuals with their gender, monthly income,
+A dataset that includes 120 individuals with their gender, monthly income,
 and information about children and debt.
 }
 \keyword{datasets}

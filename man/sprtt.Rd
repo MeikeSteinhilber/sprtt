@@ -11,7 +11,7 @@ ratio tests using t-statistic.
 \section{detailed help pages}{
 
 For detailed instructions on the \code{sprtt} package, see:
-"https://meikesteinhilber.github.io/sprtt/index.html"
+\code{vignette("sprtt")} or https://meikesteinhilber.github.io/sprtt/"
 }
 
 \section{sprtt functions}{
