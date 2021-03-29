@@ -1,5 +1,7 @@
 ---
 title: "How to use the sprtt package"
+author: "Meike Steinhilber"
+date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -34,7 +36,7 @@ Other recommended vignettes cover:
 
 ## Installation
 
-To use the `sprtt` package one has to install and load it first. You can install the package directly in RStudio from CRAN, where you get the latest release version or you can install the package in the latest development version on GitHub. You can find more information for the installation on the [start site](https://meikesteinhilber.github.io/sprtt/).
+To use the `sprtt` package is must be installed and loaded. The latest release version of the package can be installed directly from CRAN or the package can be installed in the latest development version from GitHub. More information for the installation can be found on the home page.
 
 ```{r}
 # load the package
@@ -53,7 +55,7 @@ The `sprtt` package contains:
 
 ## How do I use the seq_ttest() function?
 
-The `seq_ttest()` function works similar to the `t.test()` function from the `stats` package if you are familiar with that already.
+The `seq_ttest()` function works similar to the `t.test()` function from the `stats` package if one is familiar with that already.
 
 Sequential t-tests need some specification from the user:
 
@@ -67,21 +69,33 @@ Sequential t-tests need some specification from the user:
 
 -   further optional arguments do specify the test further.
 
-However, in some cases it is not necessary to specify all arguments because some of them have default values. If these values are the required ones, they can be skipped.
+However, in some cases, it is not necessary to specify all arguments because some of them have default values. If these values are the required ones, they can be skipped.
 
-| Argument    | Default value | Input option                   |
-|-------------|:--------------|:-------------------------------|
-| x           | \-            | numeric or formula input       |
-| y           | NULL          | numeric vector                 |
-| data        | NULL          | data frame                     |
-| mu          | 0             | numeric value                  |
-| d           | \-            | numeric value                  |
-| alpha       | 0.05          | numeric value between 0 and 1  |
-| power       | 0.95          | numeric value between 0 and 1  |
-| alternative | "two.sided"   | "two.sided", "greater", "less" |
-| paired      | FALSE         | TRUE or FALSE                  |
-| na.rm       | TRUE          | TRUE or FALSE                  |
-| verbose     | TRUE          | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
+| Argument         | Default value     | Input option                   |
++==================+:==================+:===============================+
+| x                | \-                | numeric or formula input       |
++------------------+-------------------+--------------------------------+
+| y                | NULL              | numeric vector                 |
++------------------+-------------------+--------------------------------+
+| data             | NULL              | data frame                     |
++------------------+-------------------+--------------------------------+
+| mu               | 0                 | numeric value                  |
++------------------+-------------------+--------------------------------+
+| d                | \-                | numeric value                  |
++------------------+-------------------+--------------------------------+
+| alpha            | 0.05              | numeric value between 0 and 1  |
++------------------+-------------------+--------------------------------+
+| power            | 0.95              | numeric value between 0 and 1  |
++------------------+-------------------+--------------------------------+
+| alternative      | "two.sided"       | "two.sided", "greater", "less" |
++------------------+-------------------+--------------------------------+
+| paired           | FALSE             | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
+| na.rm            | TRUE              | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
+| verbose          | TRUE              | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
 
 One has two different possibilities, how to transfer the data to the function. The `x` argument takes either `numeric` or `formula` input.
 
@@ -159,7 +173,7 @@ seq_ttest(monthly_income ~ sex,     # x argument
 
 #### *One-sample test*
 
-In order to perform an one-sample test the right side of the formula hast to be 1. You need also the `mu` argument, which specifies the mean which you want to test against.
+To perform a one-sample test the right side of the formula has to be 1. The `mu` argument is also needed, which specifies the mean value that one wants to test against.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -205,8 +219,8 @@ head(df_income)
 # sequential t-tes: data argument ----------------------------------------------
 seq_ttest(monthly_income ~ 1,     # x argument 
           mu = 1000,
-          d = 0.2,
-          alternative = "greater",
+          d = 0.3,
+          alternative = "two.sided",
           data = df_income)
 
 ```
@@ -231,4 +245,22 @@ seq_ttest(df_stress$treatment_group, # x argument
           df_stress$control_group,   # y argument
           d = 0.3,
           verbose = TRUE) 
+```
+
+## How do I get access to the results?
+
+The simplest way to get the results is to run the `seq_ttest()` function. It will print the results automatically in the console. The verbose argument specifies how much information you want to be shown.
+
+The recommended way thou is to save the results in an object (e.g "results"). Doing so allows running further calculations with it afterward. It is important to keep in mind, that the output object will be an S4 class. Therefore the access operator is the `@` sign or the `[]` brackets.
+
+```{r}
+# save the resuts in a object 
+results <- seq_ttest(df_stress$treatment_group,
+                      df_stress$control_group,  
+                      d = 0.3)
+# access the object with the @ operator 
+results@decision
+
+# access the object with the [] brackets
+results["decision"]
 ```

@@ -35,7 +35,7 @@ Other recommended vignettes cover:
 
 ## Use Case
 
-A team of researchers wants to know if the stress of the employees increased in the company Test AG over the last year. The Human Resources department has data from a new self-care tool they implemented for the employees. However, they do not want to give access to all of the employee data and want altogether to share as little data as possible. The team suggests using a sequential t-test instead of a Students t-test, because the sequential procedure can reduce the sample size and terminates right after the decision for one of the hypotheses. Furthermore, the sequential t-test is able to gather evidence for both the alternative and the null hypothesis.
+A team of researchers wants to know if the stress of the employees increased in the company Test AG over the last year. The Human Resources department has data from a new self-care tool they implemented for the employees. It is difficult to predict how many employees will still participate at the second measurement point (one year after the baseline). The team suggests using a sequential t-test instead of a Students t-test, because the sequential procedure can reduce the required sample size and terminates right after the decision for one of the hypotheses. Furthermore, the sequential t-test is able to gather evidence for both the alternative and the null hypothesis.
 
 ### Hypothesis
 
@@ -71,7 +71,7 @@ The parameter of the sequential t-test are specified as follows:
     alternative = "greater"
     ```
 
-The Human Resources department randomly selects one person from the company and delivers the self-reported stress data to the researchers. The test is performed for the first time and starts with two data points.
+The HR department receives the new data piece by piece and passes it on directly to the researchers. The test is performed for the first time and starts with the first two data points.
 
 ```{r}
 # first data from the Human Resources department -------------------------------
@@ -139,7 +139,7 @@ while(decision == "continue sampling") {
   # get the current data
   df <- df_stress[1:n_person,]
   
-  # run the sequential test
+  # run the sequential test and save the results
   results <- seq_ttest(df$one_year_stress,
                        df$baseline_stress,
                        alpha = alpha,
@@ -160,9 +160,23 @@ while(decision == "continue sampling") {
 }
 ```
 
+The while-loop terminates after the 48 data points.
+
 ### Results
 
 ```{r}
-# print results: entire output--------------------------------------------------
+# print results: entire output -------------------------------------------------
 results
+```
+
+The researchers' hypothesis can be confirmed. The stress increased one year after the baseline measure.
+
+<!--# Wie Zitiert man den Test? -->
+
+```{r}
+# NOT IN THE PACKAGE INCLUDED
+# calculate effect size: Cohen´s d ---------------------------------------------
+effsize::cohen.d(df$one_year_stress,
+                 df$baseline_stress,
+                 paired = TRUE)
 ```

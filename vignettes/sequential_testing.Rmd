@@ -1,5 +1,7 @@
 ---
 title: "Sequential t-test"
+author: "Meike Steinhilber"
+date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -39,7 +41,7 @@ With a sequential approach, data is continuously collected and an analysis is pe
 
 In principle it is not necessary to perform an analysis after each data point --- several data points can also be added at once. However, this affects the sample size (N) and the error rates [@stefan2020].
 
-The efficiency of sequential designs has already been examined in previous studies. Reductions in the sample by 50% and more were found in comparison to analyzes with fixed sample sizes [@wald1945a; @schnuerch2020a]. Sequential hypothesis testing is therefore particularly suitable when resources are limited because the required sample size is reduced without compromising predefined error probabilities.
+The efficiency of sequential designs has already been examined. Reductions in the sample by 50% and more were found in comparison to analyzes with fixed sample sizes [@wald1945a; @schnuerch2020a]. Sequential hypothesis testing is therefore particularly suitable when resources are limited because the required sample size is reduced without compromising predefined error probabilities.
 
 ### What is the sequential t-test?
 
@@ -81,9 +83,9 @@ LR_{m,\ two-sided\ sequential\ t-test}
 = \frac {𝑓(t_m^2 | 𝜃_1)} {𝑓(t_m^2 | 𝜃_0)}.
 $$
 
-To account for the fact that the sign is unknown in a two-sided test, the t-value is squared @stefan2020.
+To account for the fact that the sign is unknown in a two-sided test, the t-value is squared [@stefan2020].
 
-After the calculation of the test statistic, the decision will be either to continue sampling or to terminate and accept one of the hypotheses. @wald1945a defined the following rules for SPRT:
+After the calculation of the test statistic, the decision will be either to continue sampling or to terminate and accept one of the hypotheses. @wald1945a defined the following rules for the SPRT:
 
 |    Condition    |                    Decision |
 |:---------------:|----------------------------:|
