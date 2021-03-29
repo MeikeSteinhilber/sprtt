@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
-    toc_depth: 3
+    toc_depth: 4
 description: >
   This vignette describes the sequential t-test and the usage of the
   `sprtt` package.
