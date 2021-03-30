@@ -39,7 +39,7 @@ Suggests:
     testthat (>= 3.0.0),
     testthis,
     dplyr,
-    libgit2
+    gert
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
