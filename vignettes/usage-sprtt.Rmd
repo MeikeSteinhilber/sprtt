@@ -20,9 +20,20 @@ csl: "apa.csl"
 ```{r, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  background = "grey"
 )
 ```
+
+## Note
+
+In the R code sections:
+
+`# comment`: is a comment
+
+`function()`: is R code
+
+`#> results of function()`: is console output
 
 ## Overview
 
@@ -249,8 +260,7 @@ seq_ttest(df_stress$treatment_group, # x argument
 
 ## How do I get access to the results?
 
-The simplest way to get access to the results is to run the `seq_ttest()` function. It will print the results automatically in the console. The verbose argument specifies how much information is wished to be
-shown.
+The simplest way to get access to the results is to run the `seq_ttest()` function. It will print the results automatically in the console. The verbose argument specifies how much information is wished to be shown.
 
 However, the recommended way is to save the results in an object (e.g "results"). Doing so allows running further calculations with it afterward. It is important to keep in mind that the output object will be an S4 class. Therefore the access operator is the `@` sign or the `[]` brackets.
 

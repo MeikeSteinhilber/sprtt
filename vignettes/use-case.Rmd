@@ -23,6 +23,16 @@ library(sprtt)
 df_stress <- df_stress[,3:4]
 ```
 
+## Note
+
+In the R code sections:
+
+`# comment`: is a comment
+
+`function()`: is R code
+
+`#> results of function()`: is console output
+
 ## Overview
 
 The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette describes an exemplary use case to improve the understanding of the package and the sequential t-test.
