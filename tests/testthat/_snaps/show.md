@@ -4,7 +4,7 @@
       show(seq_ttest(rnorm(20), d = 0.8))
     Output
       
-      ***** SequentialOne Sample t-test *****
+      *****  Sequential One Sample t-test *****
       
       data: rnorm(20)
       test statistic:
@@ -29,7 +29,7 @@
       show(seq_ttest(x_special_name, d = 0.8, alternative = "less"))
     Output
       
-      ***** SequentialOne Sample t-test *****
+      *****  Sequential One Sample t-test *****
       
       data: x_special_name
       test statistic:
@@ -54,7 +54,7 @@
       show(seq_ttest(x, d = 0.8, alternative = "greater"))
     Output
       
-      ***** SequentialOne Sample t-test *****
+      *****  Sequential One Sample t-test *****
       
       data: x
       test statistic:
@@ -79,7 +79,7 @@
       show(seq_ttest(x_special_name, y_secial_name, d = 0.8))
     Output
       
-      ***** Sequential Two Sample t-test *****
+      *****  Sequential  Two Sample t-test *****
       
       data: x_special_name and  y_secial_name
       test statistic:
@@ -104,7 +104,7 @@
       show(seq_ttest(x, y, d = 0.8, alternative = "less"))
     Output
       
-      ***** Sequential Two Sample t-test *****
+      *****  Sequential  Two Sample t-test *****
       
       data: x and  y
       test statistic:
@@ -129,7 +129,7 @@
       show(seq_ttest(x ~ y, d = 0.8))
     Output
       
-      ***** Sequential Two Sample t-test *****
+      *****  Sequential  Two Sample t-test *****
       
       data: x ~ y
       test statistic:
@@ -154,7 +154,7 @@
       show(calc_seq_ttest(build_prototype_seq_ttest_arguments()))
     Output
       
-      ***** Sequential Two Sample t-test *****
+      *****  Sequential  Two Sample t-test *****
       
       data: x and y
       test statistic:
@@ -179,7 +179,7 @@
       show(calc_seq_ttest(build_prototype_seq_ttest_arguments(), verbose = FALSE))
     Output
       
-      ***** Sequential Two Sample t-test *****
+      *****  Sequential  Two Sample t-test *****
       
       data: x and y
       test statistic:

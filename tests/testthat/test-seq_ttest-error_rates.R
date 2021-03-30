@@ -1,10 +1,10 @@
 #* @testing seq_ttest
 #*
-# to run this tests: run beforehand the script:
+# to run this tests: run the script beforehand:
 # "data-raw/normal_results_sprtt.R"
 # "data-raw/paired_results_sprtt.R"
-# the simulation takes about 1.5 h
-# the simulated data are stored in the folder: "test/testthat/_simulation"
+# the simulation takes about 20 min
+# the simulated data are stored in the folder: "test/testthat/testdata"
 
 
 test_that("Check error rates (normal): simulation results", {
