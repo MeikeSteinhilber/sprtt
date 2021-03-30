@@ -1,0 +1,276 @@
+---
+title: "How to use the sprtt package"
+author: "Meike Steinhilber"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+description: >
+  This vignette describes the sequential t-test and the usage of the
+  `sprtt` package.
+vignette: >
+  %\VignetteIndexEntry{How to use the sprtt package}
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: references.bib
+csl: "apa.csl"
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Note
+
+In the R code sections:
+
+`# comment`: is a comment
+
+`function()`: is R code
+
+`#> results of function()`: is console output
+
+## Overview
+
+The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette demonstrates the usage of the package including the `seq_ttest()` function and all arguments with short examples. The theoretical background of the sequential t-test will not be covered by this vignette.
+
+Other recommended vignettes cover:
+
+-   the theoretical background: **LINK** and
+
+-   an extended use case: **LINK**.
+
+## Installation
+
+Prior to using the `sprtt` package it must be installed and loaded. The latest release version of the package can either be installed from CRAN or in the latest development version from GitHub. More information for the installation can be found on the home page LINK.
+
+```{r}
+# load the package
+library(sprtt)
+```
+
+## What does the package contain?
+
+The `sprtt` package contains:
+
+-   `seq_ttest()` : a function which performs sequential t-tests
+
+-   `df_income`: a set of data to run the examples given in this vignette
+
+-   `df_stress`: a set of data to run the examples given in this vignette
+
+## How do I use the seq_ttest() function?
+
+The `seq_ttest()` function works similarly to the `t.test()` function from the `stats` package if one is familiar with that already.
+
+Sequential t-tests require some specification from the user:
+
+-   the variables, which contain the data,
+
+-   the error probability `alpha`,
+
+-   the `power` (1 - 𝛽),
+
+-   the effect size Cohen\`s `d`, which represents the expected effect size or the lower limit of a substantial effect, and
+
+-   optional arguments to further specify the test.
+
+However, in some cases, it is not necessary to specify all arguments because some of them have default values. If these values are the ones required, they can be skipped.
+
++------------------+-------------------+--------------------------------+
+| Argument         | Default value     | Input option                   |
++==================+:==================+:===============================+
+| x                | \-                | numeric or formula input       |
++------------------+-------------------+--------------------------------+
+| y                | NULL              | numeric vector                 |
++------------------+-------------------+--------------------------------+
+| data             | NULL              | data frame                     |
++------------------+-------------------+--------------------------------+
+| mu               | 0                 | numeric value                  |
++------------------+-------------------+--------------------------------+
+| d                | \-                | numeric value                  |
++------------------+-------------------+--------------------------------+
+| alpha            | 0.05              | numeric value between 0 and 1  |
++------------------+-------------------+--------------------------------+
+| power            | 0.95              | numeric value between 0 and 1  |
++------------------+-------------------+--------------------------------+
+| alternative      | "two.sided"       | "two.sided", "greater", "less" |
++------------------+-------------------+--------------------------------+
+| paired           | FALSE             | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
+| na.rm            | TRUE              | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
+| verbose          | TRUE              | TRUE or FALSE                  |
++------------------+-------------------+--------------------------------+
+
+There are two different ways of how the data can be transferred into the function. The `x` argument takes either `numeric` or `formula` input.
+
+### x argument: numeric input
+
+The `numeric` input is used when each group has its own variable. The variables can either be put in the global environment directly or be stored in a data frame.
+
+#### *Two-sample test*
+
+If one wants to perform a two-sample test, the `y` argument is required in addition to `x`. If the data are stored in a data frame, the `$` operator is required to get access to the variables.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_stress)
+
+# sequential t-tes: $ operator -------------------------------------------------
+seq_ttest(df_stress$treatment_group, # x argument
+          df_stress$control_group,   # y argument
+          d = 0.3,                   
+          verbose = FALSE)           
+
+
+# sequential t-tes: global variables -------------------------------------------
+treatment <- df_stress$treatment_group
+control <- df_stress$control_group
+
+seq_ttest(treatment,
+          control,
+          d = 0.3,
+          verbose = FALSE)
+
+```
+
+#### *One-sample test*
+
+If one wants to perform a one-sample test there is only one group and therefore only one variable. If the data are in a data frame, the `$` operator is needed to get access to the variables. In addition, the `mu` argument is required, which specifies the mean which one wants to test against.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_stress)
+
+# sequential t-tes: $ operator -------------------------------------------------
+seq_ttest(df_stress$treatment_group,     # x argument
+          mu = 3.5,            
+          d = 0.2,
+          verbose = FALSE)
+
+
+# sequential t-tes: global variables -------------------------------------------
+treatment <- df_stress$treatment_group
+
+seq_ttest(treatment,     # x argument
+          mu = 3.5, 
+          data = df,
+          d = 0.2,                  
+          verbose = FALSE)
+
+```
+
+### x argument: formula input
+
+The `formula` input is used when both groups are merged in one variable and there is a second variable that indicates group membership. This input option uses the `x` argument and the `data` argument if the variables are stored in a data frame.
+
+#### *Two-sample test*
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_income)
+
+# sequential t-tes: data argument ----------------------------------------------
+seq_ttest(monthly_income ~ sex,     # x argument 
+          data = df_income,
+          d = 0.2)
+```
+
+#### *One-sample test*
+
+To perform a one-sample test the right side of the formula has to be 1. The `mu` argument is also needed, which specifies the mean value that one wants to test against.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_income)
+
+# sequential t-tes: data argument ----------------------------------------------
+seq_ttest(monthly_income ~ 1,     # x argument 
+          mu = 3000,
+          d = 0.5,
+          data = df_income)
+```
+
+### Further arguments
+
+#### Paired
+
+The `paired` argument states if the data are paired. To perform a paired sequential t-test `paired` has to be set to `TRUE`.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_stress)
+
+# sequential t-tes: $ operator -------------------------------------------------
+seq_ttest(df_stress$baseline_stress, # x argument
+          df_stress$one_year_stress, # y argument
+          d = 0.3,
+          paired = TRUE,
+          data = df_stress)  
+```
+
+#### Alternative
+
+The `alternative` argument states in which way the test is to be performed:
+
+-   two-sided: `"two.sided"` or
+
+-   one-sided: `"less"` or `"greater"`.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_income)
+
+# sequential t-tes: data argument ----------------------------------------------
+seq_ttest(monthly_income ~ 1,     # x argument 
+          mu = 1000,
+          d = 0.3,
+          alternative = "two.sided",
+          data = df_income)
+
+```
+
+#### Na.rm
+
+The `na.rm` argument defines the handling of missing values. If set to `TRUE` (default value), it will remove all missing values automatically. If this behavior is not wanted, the `na.rm` argument has to be set to `FALSE`. If missing values are discovered then, an error is triggered.
+
+#### Verbose
+
+The `verbose` argument defines the extent of the output shown in the console. If set to `TRUE` (default value), the output will be elaborate, if set to `FALSE` the output will be short.
+
+```{r}
+# sequential t-tes: verbose FALSE -----------------------------------------------
+seq_ttest(df_stress$treatment_group, # x argument
+          df_stress$control_group,   # y argument
+          d = 0.3,
+          verbose = FALSE)
+
+# sequential t-tes: verbose TRUE -----------------------------------------------
+seq_ttest(df_stress$treatment_group, # x argument
+          df_stress$control_group,   # y argument
+          d = 0.3,
+          verbose = TRUE) 
+```
+
+## How do I get access to the results?
+
+The simplest way to get access to the results is to run the `seq_ttest()` function. It will print the results automatically in the console. The verbose argument specifies how much information is wished to be shown.
+
+However, the recommended way is to save the results in an object (e.g "results"). Doing so allows running further calculations with it afterward. It is important to keep in mind that the output object will be an S4 class. Therefore the access operator is the `@` sign or the `[]` brackets.
+
+```{r}
+# save the resuts in a object 
+results <- seq_ttest(df_stress$treatment_group,
+                      df_stress$control_group,  
+                      d = 0.3)
+# access the object with the @ operator 
+results@decision
+
+# access the object with the [] brackets
+results["decision"]
+```
