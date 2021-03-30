@@ -36,7 +36,7 @@ Other recommended vignettes cover:
 
 ## Installation
 
-To use the `sprtt` package is must be installed and loaded. The latest release version of the package can be installed directly from CRAN or the package can be installed in the latest development version from GitHub. More information for the installation can be found on the home page.
+Prior to using the `sprtt` package it must be installed and loaded. The latest release version of the package can either be installed from CRAN or in the latest development version from GitHub. More information for the installation can be found on the home page LINK.
 
 ```{r}
 # load the package
@@ -55,9 +55,9 @@ The `sprtt` package contains:
 
 ## How do I use the seq_ttest() function?
 
-The `seq_ttest()` function works similar to the `t.test()` function from the `stats` package if one is familiar with that already.
+The `seq_ttest()` function works similarly to the `t.test()` function from the `stats` package if one is familiar with that already.
 
-Sequential t-tests need some specification from the user:
+Sequential t-tests require some specification from the user:
 
 -   the variables, which contain the data,
 
@@ -67,9 +67,9 @@ Sequential t-tests need some specification from the user:
 
 -   the effect size Cohen\`s `d`, which represents the expected effect size or the lower limit of a substantial effect, and
 
--   further optional arguments do specify the test further.
+-   optional arguments to further specify the test.
 
-However, in some cases, it is not necessary to specify all arguments because some of them have default values. If these values are the required ones, they can be skipped.
+However, in some cases, it is not necessary to specify all arguments because some of them have default values. If these values are the ones required, they can be skipped.
 
 +------------------+-------------------+--------------------------------+
 | Argument         | Default value     | Input option                   |
@@ -97,15 +97,15 @@ However, in some cases, it is not necessary to specify all arguments because som
 | verbose          | TRUE              | TRUE or FALSE                  |
 +------------------+-------------------+--------------------------------+
 
-One has two different possibilities, how to transfer the data to the function. The `x` argument takes either `numeric` or `formula` input.
+There are two different ways of how the data can be transferred into the function. The `x` argument takes either `numeric` or `formula` input.
 
 ### x argument: numeric input
 
-The `numeric` input is used when each group has its own variable. The variables can exist directly in the global environment or have to be stored in a data frame.
+The `numeric` input is used when each group has its own variable. The variables can either be put in the global environment directly or be stored in a data frame.
 
 #### *Two-sample test*
 
-If you want to perform a two-sample test, you need to use the `y` argument in addition to `x`. If the data are stored in a data frame, you need the `$` operator, to get access to the variables.
+If one wants to perform a two-sample test, the `y` argument is required in addition to `x`. If the data are stored in a data frame, the `$` operator is required to get access to the variables.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -131,7 +131,7 @@ seq_ttest(treatment,
 
 #### *One-sample test*
 
-If you want to perform a one-sample test you have only one group and therefore only one variable. If the data are in a data frame, you need the `$` operator, to get access to the variables. You need also the `mu` argument, which specifies the mean which you want to test against.
+If one wants to perform a one-sample test there is only one group and therefore only one variable. If the data are in a data frame, the `$` operator is needed to get access to the variables. In addition, the `mu` argument is required, which specifies the mean which one wants to test against.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -157,7 +157,7 @@ seq_ttest(treatment,     # x argument
 
 ### x argument: formula input
 
-The `formula` input is used when you have both groups in one variable and you have a second variable which indicates the group membership. This input option uses the `x` argument and the `data` argument if the variables are stored in a data frame.
+The `formula` input is used when both groups are merged in one variable and there is a second variable that indicates group membership. This input option uses the `x` argument and the `data` argument if the variables are stored in a data frame.
 
 #### *Two-sample test*
 
@@ -227,7 +227,7 @@ seq_ttest(monthly_income ~ 1,     # x argument
 
 #### Na.rm
 
-The `na.rm` argument defines the handling of missing values. If set to `TRUE` (default value), it will remove all missing values automatically. If this behavior is not wanted, the `na.rm` argument has to be set to `FALSE`. If missing values are then discovered, an error is triggered.
+The `na.rm` argument defines the handling of missing values. If set to `TRUE` (default value), it will remove all missing values automatically. If this behavior is not wanted, the `na.rm` argument has to be set to `FALSE`. If missing values are discovered then, an error is triggered.
 
 #### Verbose
 
@@ -249,9 +249,10 @@ seq_ttest(df_stress$treatment_group, # x argument
 
 ## How do I get access to the results?
 
-The simplest way to get the results is to run the `seq_ttest()` function. It will print the results automatically in the console. The verbose argument specifies how much information you want to be shown.
+The simplest way to get access to the results is to run the `seq_ttest()` function. It will print the results automatically in the console. The verbose argument specifies how much information is wished to be
+shown.
 
-The recommended way thou is to save the results in an object (e.g "results"). Doing so allows running further calculations with it afterward. It is important to keep in mind, that the output object will be an S4 class. Therefore the access operator is the `@` sign or the `[]` brackets.
+However, the recommended way is to save the results in an object (e.g "results"). Doing so allows running further calculations with it afterward. It is important to keep in mind that the output object will be an S4 class. Therefore the access operator is the `@` sign or the `[]` brackets.
 
 ```{r}
 # save the resuts in a object 

@@ -25,7 +25,7 @@ df_stress <- df_stress[,3:4]
 
 ## Overview
 
-The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette describes an example use case to improve the understanding of the package and the sequential t-test.
+The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette describes an exemplary use case to improve the understanding of the package and the sequential t-test.
 
 Other recommended vignettes cover:
 
@@ -35,15 +35,15 @@ Other recommended vignettes cover:
 
 ## Use Case
 
-A team of researchers wants to know if the stress of the employees increased in the company Test AG over the last year. The Human Resources department has data from a new self-care tool they implemented for the employees. It is difficult to predict how many employees will still participate at the second measurement point (one year after the baseline). The team suggests using a sequential t-test instead of a Students t-test, because the sequential procedure can reduce the required sample size and terminates right after the decision for one of the hypotheses. Furthermore, the sequential t-test is able to gather evidence for both the alternative and the null hypothesis.
+A team of researchers wants to know if the stress of the employees increased in the company Test AG over the last year. The Human Resources department has gathered data from a new self-care tool they implemented for the employees. It is difficult to predict how many employees will still participate at the second measurement point (one year after the baseline). The team suggests using a sequential t-test instead of a Students t-test, because the sequential procedure can reduce the required sample size and is stopped right after the decision for one of the hypotheses. Furthermore, the sequential t-test is able to gather evidence for both the alternative and the null hypothesis.
 
 ### Hypothesis
 
-The researchers know that the company got more orders than in the year before. Thus, they do expect an increase in self-reported stress.
+The researchers know that the company has received more orders than in the year before. Thus, they do expect an increase in self-reported stress.
 
 ### Data Analysis
 
-The parameter of the sequential t-test are specified as follows:
+The parameters of the sequential t-test are specified as follows:
 
 -   The researchers expect an increase in stress but they have no prior knowledge about the expected effect size. Thus, they define the lower limit of a substantial effect for their research interest.
 
@@ -58,13 +58,13 @@ The parameter of the sequential t-test are specified as follows:
     power = 0.95
     ```
 
--   The data are repeated measures, therefore, the test is a paired sequential t-test.
+-   The data are repeated measures, therefore the test is a paired sequential t-test.
 
     ```{r}
     paired = TRUE
     ```
 
--   The researchers expect that the stress increased after one year. Thus, they specify that the true difference in means is greater than 0.\
+-   The researchers expect that the stress will have increased after one year. Thus, they specify that the true difference in means is greater than 0.\
     `(mean(one_year_stress) - mean(baseline_stress)) > 0`
 
     ```{r}
@@ -103,7 +103,7 @@ The decision from the first test is:
 results@decision
 ```
 
-Therefore, the researchers get one more data point and run the test again.
+As a result, the researchers take one more data point and run the test again.
 
 ```{r}
 # new data from the Human Resources department ---------------------------------
@@ -127,7 +127,7 @@ results <- seq_ttest(df$one_year_stress,
 results@decision
 ```
 
-This process repeats until the decision is made for one of the two hypotheses. To simulate this sequential process, a while-loop embraces the sequential t-test function in the code below, which will not stop until the decision is to accept one of the hypotheses or the maximum of the data is reached.
+This process is repeated until the decision is made for one of the two hypotheses. To simulate this sequential process, a while-loop embraces the sequential t-test function in the code below, which will not stop until the decision is to accept one of the hypotheses or the maximum of the data is reached.
 
 ```{r}
 # define the starting point ----------------------------------------------------
@@ -160,7 +160,7 @@ while(decision == "continue sampling") {
 }
 ```
 
-The while-loop terminates after the 48 data points.
+The while-loop comes to an end after the 48 data points.
 
 ### Results
 
