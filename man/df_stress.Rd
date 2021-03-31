@@ -17,6 +17,6 @@ A data frame with 4 variables and 30 rows
 df_stress
 }
 \description{
-A dataset that includes 30 individuals.
+A dataset that includes 30 individuals and two different study designs.
 }
 \keyword{datasets}

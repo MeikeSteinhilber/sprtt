@@ -1,4 +1,4 @@
-calc_non_centrality_parameter <- function(seq_ttest_arguments) {
+calc_seq_ttest_non_centrality_parameter <- function(seq_ttest_arguments) {
   x <- seq_ttest_arguments@x
   y <- seq_ttest_arguments@y
   d <- seq_ttest_arguments@d

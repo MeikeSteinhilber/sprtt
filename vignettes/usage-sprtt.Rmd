@@ -40,9 +40,9 @@ The `sprtt` package is the implementation of **s**equential **p**robability **r*
 
 Other recommended vignettes cover:
 
--   the theoretical background: **LINK** and
+-   the [theoretical background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html) and
 
--   an extended use case: **LINK**.
+-   an extended [use case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
 
 ## Installation
 
@@ -115,7 +115,7 @@ The `numeric` input is used when each group has its own variable. The variables 
 
 #### *Two-sample test*
 
-If one wants to perform a two-sample test, the `y` argument is required in addition to `x`. If the data are stored in a data frame, the `$` operator is required to get access to the variables.
+If one wants to perform a two-sample test, the `y` argument is required in addition to `x`. If the data are stored in a data frame, the `$` operator is essential to get access to the variables.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -141,7 +141,7 @@ seq_ttest(treatment,
 
 #### *One-sample test*
 
-If one wants to perform a one-sample test there is only one group and therefore only one variable. If the data are in a data frame, the `$` operator is needed to get access to the variables. In addition, the `mu` argument is required, which specifies the mean which one wants to test against.
+If one wants to perform a one-sample test there is only one group and therefore only one variable. If the data are in a data frame, the `$` operator is essential to get access to the variables. The `mu` argument is additionally required, which specifies the mean which one wants to test against.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -183,7 +183,7 @@ seq_ttest(monthly_income ~ sex,     # x argument
 
 #### *One-sample test*
 
-To perform a one-sample test the right side of the formula has to be 1. The `mu` argument is also needed, which specifies the mean value that one wants to test against.
+To perform a one-sample test the right side of the formula has to be 1. The `mu` argument is also required, which specifies the mean value that one wants to test against.
 
 ```{r}
 # show data frame --------------------------------------------------------------
