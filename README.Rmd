@@ -28,27 +28,42 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 ## Overview
 
-`sprtt`provides Sequential Probability Ratio Tests (SPRT) using the associated t-statistic:
+The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**).
 
--   `seq_ttest()` calculates the sequential test statistic.
+The package contains:
+
+-   `seq_ttest()` calculates the sequential test statistic and
+
+-   two data sets (`df_income`, `df_stress`) to run the examples in the documentation
 
 ## Installation
 
-```{r, eval = FALSE}
-# Code for installation
+### Release version from CRAN
 
+This is the recommended version for a normal user.
+
+```{r, eval = FALSE}
+# installs the package
+install.packages("sprtt")
 ```
 
-### Development version
+### Development version from GitHub
 
-To get a bug fix or to use a feature from the development version, you can install the development version of `sprtt`from GitHub.
+To get a bug fix or to use a feature from the development version, you can install the development version from GitHub.
 
 ```{r, eval=FALSE}
+# the installation requires the "devtools" package
 # install.packages("devtools")
 devtools::install_github("MeikeSteinhilber/sprtt")
 ```
 
-## Usage
+## Documentation
+
+Detailed documentation can be found on [this page](https://meikesteinhilber.github.io/sprtt/index.html). There are several articles covering the usage of the package, the theoretical background of the test, and also an extended use case.
+
+Short examples can be found in the following paragraph.
+
+### Quick Examples
 
 ```{r, code=xfun::read_utf8('inst/examples/seq_ttest.R')}
 
