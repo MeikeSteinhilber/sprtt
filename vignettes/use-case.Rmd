@@ -31,7 +31,7 @@ In the R code sections:
 
 `function()`: is R code
 
-`## results of function()`: is console output
+`#> results of function()`: is console output
 
 ## Overview
 

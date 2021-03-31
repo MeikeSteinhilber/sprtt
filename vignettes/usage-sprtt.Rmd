@@ -32,7 +32,7 @@ In the R code sections:
 
 `function()`: is R code
 
-`## results of function()`: is console output
+`#> results of function()`: is console output
 
 ## Overview
 
@@ -274,4 +274,3 @@ results@decision
 # access the object with the [] brackets
 results["decision"]
 ```
-
