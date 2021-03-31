@@ -17,28 +17,49 @@
 
 ## Overview
 
-`sprtt`provides Sequential Probability Ratio Tests (SPRT) using the
-associated t-statistic:
+The `sprtt` package is the implementation of **s**equential
+**p**robability **r**atio **t**ests using the associated **t**-statistic
+(**sprtt**).
 
--   `seq_ttest()` calculates the sequential test statistic.
+The package contains:
+
+-   `seq_ttest()` calculates the sequential test statistic and
+
+-   two data sets (`df_income`, `df_stress`) to run the examples in the
+    documentation
 
 ## Installation
 
+### Release version from CRAN
+
+This is the recommended version for a normal user.
+
 ``` r
-# Code for installation
+# installs the package
+install.packages("sprtt")
 ```
 
-### Development version
+### Development version from GitHub
 
 To get a bug fix or to use a feature from the development version, you
-can install the development version of `sprtt`from GitHub.
+can install the development version from GitHub.
 
 ``` r
+# the installation requires the "devtools" package
 # install.packages("devtools")
 devtools::install_github("MeikeSteinhilber/sprtt")
 ```
 
-## Usage
+## Documentation
+
+Detailed documentation can be found on [this
+page](https://meikesteinhilber.github.io/sprtt/index.html). There are
+several articles covering the usage of the package, the theoretical
+background of the test, and also an extended use case.
+
+Short examples can be found in the following paragraph.
+
+### Quick Examples
 
 ``` r
  #load library -----------------------------------------------------------------
@@ -51,11 +72,11 @@ devtools::install_github("MeikeSteinhilber/sprtt")
  # get access to the slots -----------------------------------------------------
  # @ Operator
  results@likelihood_ratio
-#> [1] 162.0432
+#> [1] 2177.652
 
  # [] Operator
  results["likelihood_ratio"]
-#> [1] 162.0432
+#> [1] 2177.652
 
  # two sample: numeric input----------------------------------------------------
  x <- stats::rnorm(20, mean = 0, sd = 1)
@@ -66,18 +87,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x and  y
 #> test statistic:
-#>  log-likelihood ratio = 3.035, decision = accept H1
+#>  log-likelihood ratio = 0.89391, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -2.78556
-#>  null hypothesis = -5.82056
+#>  alternative hypothesis = -2.46525
+#>  null hypothesis = -3.35915
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 38
 #> sample estimates:
 #> mean of x mean of y 
-#>  -0.11572   0.83691 
+#>   0.23573   0.83328 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 
@@ -90,18 +111,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -1.05718, decision = continue sampling
+#>  log-likelihood ratio = -1.58411, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -1.71882
-#>  null hypothesis = -0.66164
+#>  alternative hypothesis = -0.19157
+#>  null hypothesis = 1.39254
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
 #> mean of x mean of y 
-#>  -0.37373  -0.08429 
+#>  -0.34753  -0.30937 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 
@@ -114,18 +135,18 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = 2.21959, decision = continue sampling
+#>  log-likelihood ratio = -1.46514, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -3.22885
-#>  null hypothesis = -5.44844
+#>  alternative hypothesis = -1.2017
+#>  null hypothesis = 0.26344
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
 #> mean of x mean of y 
-#>   0.57227  -1.64643 
+#>  -0.38102  -0.13849 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 
