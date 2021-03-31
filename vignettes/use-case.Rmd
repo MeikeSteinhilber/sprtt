@@ -186,7 +186,7 @@ The researchers' hypothesis can be confirmed. The stress increased one year afte
 ```{r}
 # NOT IN THE PACKAGE INCLUDED
 # calculate effect size: Cohen´s d ---------------------------------------------
-# effsize::cohen.d(df$one_year_stress,
-#                  df$baseline_stress,
-#                  paired = TRUE)
+effsize::cohen.d(df$one_year_stress,
+                 df$baseline_stress,
+                 paired = TRUE)
 ```
