@@ -39,9 +39,9 @@ The `sprtt` package is the implementation of **s**equential **p**robability **r*
 
 Other recommended vignettes cover:
 
--   the theoretical background: **LINK** and,
+-   [the theoretical background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html) and
 
--   a general guide, how to use the package **LINK**
+-   a [general guide](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html), how to use the package.
 
 ## Use Case
 
