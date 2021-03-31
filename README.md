@@ -61,6 +61,16 @@ Short examples can be found in the following paragraph.
 
 ### Quick Examples
 
+> **Note**
+>
+> In the R code sections:
+>
+> `# comment`: is a comment
+>
+> `function()`: is R code
+>
+> `#> results of function()`: is console output
+
 ``` r
  #load library -----------------------------------------------------------------
  library(sprtt)
@@ -72,11 +82,11 @@ Short examples can be found in the following paragraph.
  # get access to the slots -----------------------------------------------------
  # @ Operator
  results@likelihood_ratio
-#> [1] 2177.652
+#> [1] 795.9842
 
  # [] Operator
  results["likelihood_ratio"]
-#> [1] 2177.652
+#> [1] 795.9842
 
  # two sample: numeric input----------------------------------------------------
  x <- stats::rnorm(20, mean = 0, sd = 1)
@@ -87,18 +97,18 @@ Short examples can be found in the following paragraph.
 #> 
 #> data: x and  y
 #> test statistic:
-#>  log-likelihood ratio = 0.89391, decision = continue sampling
+#>  log-likelihood ratio = 1.8588, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -2.46525
-#>  null hypothesis = -3.35915
+#>  alternative hypothesis = -2.51464
+#>  null hypothesis = -4.37343
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 38
 #> sample estimates:
 #> mean of x mean of y 
-#>   0.23573   0.83328 
+#>   0.25436   1.08813 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 
@@ -111,18 +121,18 @@ Short examples can be found in the following paragraph.
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -1.58411, decision = continue sampling
+#>  log-likelihood ratio = -1.28341, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -0.19157
-#>  null hypothesis = 1.39254
+#>  alternative hypothesis = -1.54388
+#>  null hypothesis = -0.26047
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
 #> mean of x mean of y 
-#>  -0.34753  -0.30937 
+#>   0.14398  -0.08230 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 
@@ -135,18 +145,18 @@ Short examples can be found in the following paragraph.
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -1.46514, decision = continue sampling
+#>  log-likelihood ratio = -1.21361, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -1.2017
-#>  null hypothesis = 0.26344
+#>  alternative hypothesis = -1.61302
+#>  null hypothesis = -0.39941
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
 #> mean of x mean of y 
-#>  -0.38102  -0.13849 
+#>   0.30040  -0.21008 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 

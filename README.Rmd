@@ -65,6 +65,16 @@ Short examples can be found in the following paragraph.
 
 ### Quick Examples
 
+> **Note**
+>
+> In the R code sections:
+>
+> `# comment`: is a comment
+>
+> `function()`: is R code
+>
+> `#> results of function()`: is console output
+
 ```{r, code=xfun::read_utf8('inst/examples/seq_ttest.R')}
 
 ```
