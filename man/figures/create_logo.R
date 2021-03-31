@@ -45,7 +45,7 @@ sticker("man/figures/linie_purpur_gedreht.png",
         # Rahmen
         h_color = "#474f5c",
         h_fill =  "#cedbf0",        #"#cedbf0", "#b0a5a9",
-        white_around_sticker = TRUE,
+        white_around_sticker = FALSE,
         dpi = 600,
         #spotlight
         spotlight = TRUE,
