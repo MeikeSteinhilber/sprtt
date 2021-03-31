@@ -9,7 +9,7 @@ calc_seq_ttest <- function(seq_ttest_arguments, verbose = TRUE){
       t_statistic$parameter
     )
   non_centrality_parameter <-
-    calc_non_centrality_parameter(
+    calc_seq_ttest_non_centrality_parameter(
       seq_ttest_arguments
     )
   likelihoods <-
