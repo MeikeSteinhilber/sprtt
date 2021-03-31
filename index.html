@@ -48,7 +48,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sprtt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -115,29 +115,49 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p><code>sprtt</code>provides Sequential Probability Ratio Tests (SPRT) using the associated t-statistic:</p>
+<p>The <code>sprtt</code> package is the implementation of <strong>s</strong>equential <strong>p</strong>robability <strong>r</strong>atio <strong>t</strong>ests using the associated <strong>t</strong>-statistic (<strong>sprtt</strong>).</p>
+<p>The package contains:</p>
 <ul>
-<li>
-<code><a href="reference/seq_ttest.html">seq_ttest()</a></code> calculates the sequential test statistic.</li>
+<li><p><code><a href="reference/seq_ttest.html">seq_ttest()</a></code> calculates the sequential test statistic and</p></li>
+<li><p>two data sets (<code>df_income</code>, <code>df_stress</code>) to run the examples in the documentation</p></li>
 </ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Code for installation</span></code></pre></div>
-<div id="development-version" class="section level3">
+<div id="release-version-from-cran" class="section level3">
 <h3 class="hasAnchor">
-<a href="#development-version" class="anchor"></a>Development version</h3>
-<p>To get a bug fix or to use a feature from the development version, you can install the development version of <code>sprtt</code>from GitHub.</p>
+<a href="#release-version-from-cran" class="anchor"></a>Release version from CRAN</h3>
+<p>This is the recommended version for a normal user.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># installs the package</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"sprtt"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="development-version-from-github" class="section level3">
+<h3 class="hasAnchor">
+<a href="#development-version-from-github" class="anchor"></a>Development version from GitHub</h3>
+<p>To get a bug fix or to use a feature from the development version, you can install the development version from GitHub.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<code class="sourceCode R"><span class="co"># the installation requires the "devtools" package</span>
+<span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"MeikeSteinhilber/sprtt"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="usage" class="section level2">
+<div id="documentation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<a href="#documentation" class="anchor"></a>Documentation</h2>
+<p>Detailed documentation can be found on <a href="https://meikesteinhilber.github.io/sprtt/index.html">this page</a>. There are several articles covering the usage of the package, the theoretical background of the test, and also an extended use case.</p>
+<p>Short examples can be found in the following paragraph.</p>
+<div id="quick-examples" class="section level3">
+<h3 class="hasAnchor">
+<a href="#quick-examples" class="anchor"></a>Quick Examples</h3>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>In the R code sections:</p>
+<p><code># comment</code>: is a comment</p>
+<p><code>function()</code>: is R code</p>
+<p><code>#&gt; results of function()</code>: is console output</p>
+</blockquote>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"> <span class="co">#load library -----------------------------------------------------------------</span>
  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://meikesteinhilber.github.io/sprtt/">sprtt</a></span><span class="op">)</span>
@@ -149,11 +169,11 @@
  <span class="co"># get access to the slots -----------------------------------------------------</span>
  <span class="co"># @ Operator</span>
  <span class="va">results</span><span class="op">@</span><span class="va">likelihood_ratio</span>
-<span class="co">#&gt; [1] 162.0432</span>
+<span class="co">#&gt; [1] 795.9842</span>
 
  <span class="co"># [] Operator</span>
  <span class="va">results</span><span class="op">[</span><span class="st">"likelihood_ratio"</span><span class="op">]</span>
-<span class="co">#&gt; [1] 162.0432</span>
+<span class="co">#&gt; [1] 795.9842</span>
 
  <span class="co"># two sample: numeric input----------------------------------------------------</span>
  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -164,18 +184,18 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: x and  y</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = 3.035, decision = accept H1</span>
+<span class="co">#&gt;  log-likelihood ratio = 1.8588, decision = continue sampling</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -2.78556</span>
-<span class="co">#&gt;  null hypothesis = -5.82056</span>
+<span class="co">#&gt;  alternative hypothesis = -2.51464</span>
+<span class="co">#&gt;  null hypothesis = -4.37343</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
 <span class="co">#&gt; degrees of freedome: df = 38</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;  -0.11572   0.83691 </span>
+<span class="co">#&gt;   0.25436   1.08813 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
 
@@ -188,18 +208,18 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: x ~ y</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = -1.05718, decision = continue sampling</span>
+<span class="co">#&gt;  log-likelihood ratio = -1.28341, decision = continue sampling</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -1.71882</span>
-<span class="co">#&gt;  null hypothesis = -0.66164</span>
+<span class="co">#&gt;  alternative hypothesis = -1.54388</span>
+<span class="co">#&gt;  null hypothesis = -0.26047</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
 <span class="co">#&gt; degrees of freedome: df = 18</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;  -0.37373  -0.08429 </span>
+<span class="co">#&gt;   0.14398  -0.08230 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
 
@@ -212,18 +232,18 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: x ~ y</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = 2.21959, decision = continue sampling</span>
+<span class="co">#&gt;  log-likelihood ratio = -1.21361, decision = continue sampling</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -3.22885</span>
-<span class="co">#&gt;  null hypothesis = -5.44844</span>
+<span class="co">#&gt;  alternative hypothesis = -1.61302</span>
+<span class="co">#&gt;  null hypothesis = -0.39941</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
 <span class="co">#&gt; degrees of freedome: df = 18</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;   0.57227  -1.64643 </span>
+<span class="co">#&gt;   0.30040  -0.21008 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
 
@@ -248,6 +268,7 @@
 <span class="co">#&gt;  3002.322  3020.533 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span></code></pre></div>
+</div>
 </div>
 </div>
 

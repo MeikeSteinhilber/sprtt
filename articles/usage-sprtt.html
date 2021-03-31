@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sprtt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -122,8 +122,8 @@
 <p>The <code>sprtt</code> package is the implementation of <strong>s</strong>equential <strong>p</strong>robability <strong>r</strong>atio <strong>t</strong>ests using the associated <strong>t</strong>-statistic (<strong>sprtt</strong>). This vignette demonstrates the usage of the package including the <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function and all arguments with short examples. The theoretical background of the sequential t-test will not be covered by this vignette.</p>
 <p>Other recommended vignettes cover:</p>
 <ul>
-<li><p>the theoretical background: <strong>LINK</strong> and</p></li>
-<li><p>an extended use case: <strong>LINK</strong>.</p></li>
+<li><p>the <a href="https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html">theoretical background</a> and</p></li>
+<li><p>an extended <a href="https://meikesteinhilber.github.io/sprtt/articles/use-case.html">use case</a>.</p></li>
 </ul>
 </div>
 <div id="installation" class="section level2">
@@ -235,7 +235,7 @@
 <h4 class="hasAnchor">
 <a href="#two-sample-test" class="anchor"></a><em>Two-sample test</em>
 </h4>
-<p>If one wants to perform a two-sample test, the <code>y</code> argument is required in addition to <code>x</code>. If the data are stored in a data frame, the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator is required to get access to the variables.</p>
+<p>If one wants to perform a two-sample test, the <code>y</code> argument is required in addition to <code>x</code>. If the data are stored in a data frame, the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator is essential to get access to the variables.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">)</span>
@@ -283,7 +283,7 @@
 <h4 class="hasAnchor">
 <a href="#one-sample-test" class="anchor"></a><em>One-sample test</em>
 </h4>
-<p>If one wants to perform a one-sample test there is only one group and therefore only one variable. If the data are in a data frame, the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator is needed to get access to the variables. In addition, the <code>mu</code> argument is required, which specifies the mean which one wants to test against.</p>
+<p>If one wants to perform a one-sample test there is only one group and therefore only one variable. If the data are in a data frame, the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator is essential to get access to the variables. The <code>mu</code> argument is additionally required, which specifies the mean which one wants to test against.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">)</span>
@@ -375,7 +375,7 @@
 <h4 class="hasAnchor">
 <a href="#one-sample-test-1" class="anchor"></a><em>One-sample test</em>
 </h4>
-<p>To perform a one-sample test the right side of the formula has to be 1. The <code>mu</code> argument is also needed, which specifies the mean value that one wants to test against.</p>
+<p>To perform a one-sample test the right side of the formula has to be 1. The <code>mu</code> argument is also required, which specifies the mean value that one wants to test against.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_income</span><span class="op">)</span>
