@@ -33,12 +33,12 @@ between 0 and 1.}
 
 \item{\code{likelihood_1}}{the likelihood of the alternative Hypothesis (H1).}
 
-\item{\code{likelihood_2}}{the likelihood of the null Hypothesis (H0).}
+\item{\code{likelihood_0}}{the likelihood of the null Hypothesis (H0).}
 
 \item{\code{likelihood_1_log}}{the logarithmic likelihood of the alternative
 Hypothesis (H1).}
 
-\item{\code{likelihood_2_log}}{the logarithmic likelihood of the null
+\item{\code{likelihood_0_log}}{the logarithmic likelihood of the null
 Hypothesis (H0).}
 
 \item{\code{non_centrality_parameter}}{parameter to calculate the likelihoods}

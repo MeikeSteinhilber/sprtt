@@ -16,10 +16,10 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' between 0 and 1.
 #' @slot likelihood_ratio the likelihood ratio of the test without logarithm.
 #' @slot likelihood_1 the likelihood of the alternative Hypothesis (H1).
-#' @slot likelihood_2 the likelihood of the null Hypothesis (H0).
+#' @slot likelihood_0 the likelihood of the null Hypothesis (H0).
 #' @slot likelihood_1_log the logarithmic likelihood of the alternative
 #' Hypothesis (H1).
-#' @slot likelihood_2_log the logarithmic likelihood of the null
+#' @slot likelihood_0_log the logarithmic likelihood of the null
 #' Hypothesis (H0).
 #' @slot non_centrality_parameter parameter to calculate the likelihoods
 #' @slot t_value the t-value of the t-statistic.
@@ -48,9 +48,9 @@ setClass(
     power = "numeric",
     likelihood_ratio = "numeric",
     likelihood_1 = "numeric",
-    likelihood_2 = "numeric",
+    likelihood_0 = "numeric",
     likelihood_1_log = "numeric",
-    likelihood_2_log = "numeric",
+    likelihood_0_log = "numeric",
     non_centrality_parameter = "numeric",
     t_value = "numeric",
     p_value = "numeric",
@@ -91,9 +91,9 @@ setMethod(
     if (i == "alpha") {return(x@alpha)}
     if (i == "power") {return(x@power)}
     if (i == "likelihood_1") {return(x@likelihood_1)}
-    if (i == "likelihood_2") {return(x@likelihood_2)}
+    if (i == "likelihood_0") {return(x@likelihood_0)}
     if (i == "likelihood_1_log") {return(x@likelihood_1_log)}
-    if (i == "likelihood_2_log") {return(x@likelihood_2_log)}
+    if (i == "likelihood_0_log") {return(x@likelihood_0_log)}
     if (i == "non_centrality_parameter") {return(x@non_centrality_parameter)}
     if (i == "t_value") {return(x@t_value)}
     if (i == "p_value") {return(x@p_value)}

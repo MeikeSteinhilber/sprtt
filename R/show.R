@@ -23,7 +23,7 @@ setMethod(
     if (object@verbose == TRUE) {
       cat("\nLog-Likelihood of the:")
       cat("\n alternative hypothesis =", round(object@likelihood_1_log, 5))
-      cat("\n null hypothesis =", round(object@likelihood_2_log, 5))
+      cat("\n null hypothesis =", round(object@likelihood_0_log, 5))
 
       cat("\nalternative hypothesis: true",
           if (object@one_sample == TRUE) {
