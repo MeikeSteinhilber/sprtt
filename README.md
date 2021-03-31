@@ -8,8 +8,7 @@
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sprtt?color=red)](https://cran.r-project.org/package=sprtt)
 [![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt)
-[![lint](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/lint.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/lint.yaml)
-[![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown.yaml)
+[![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml)
 [![R-CMD-check-windows-macOs](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
 [![R-CMD-check-ubuntu20.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu20.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
 [![R-CMD-check-ubuntu16.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu16.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
@@ -18,7 +17,7 @@
 
 ## Overview
 
-**sprtt** provides Sequential Probability Ratio Tests (SPRT) using the
+`sprtt`provides Sequential Probability Ratio Tests (SPRT) using the
 associated t-statistic:
 
 -   `seq_ttest()` calculates the sequential test statistic.
@@ -32,7 +31,7 @@ associated t-statistic:
 ### Development version
 
 To get a bug fix or to use a feature from the development version, you
-can install the development version of **sprtt** from GitHub.
+can install the development version of `sprtt`from GitHub.
 
 ``` r
 # install.packages("devtools")
@@ -52,99 +51,103 @@ devtools::install_github("MeikeSteinhilber/sprtt")
  # get access to the slots -----------------------------------------------------
  # @ Operator
  results@likelihood_ratio
-#> [1] 1725.278
+#> [1] 162.0432
 
  # [] Operator
  results["likelihood_ratio"]
-#> [1] 1725.278
+#> [1] 162.0432
 
  # two sample: numeric input----------------------------------------------------
  x <- stats::rnorm(20, mean = 0, sd = 1)
  y <- stats::rnorm(20, mean = 1, sd = 1)
  seq_ttest(x, y, d = 0.8)
 #> 
-#> ***** Sequential Two Sample t-test *****
+#> *****  Sequential  Two Sample t-test *****
 #> 
 #> data: x and  y
 #> test statistic:
-#>  log-likelihood ratio = 4.58642, decision = accept H1
+#>  log-likelihood ratio = 3.035, decision = accept H1
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -3.58739
-#>  null hypothesis = -8.17381
+#>  alternative hypothesis = -2.78556
+#>  null hypothesis = -5.82056
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 38
 #> sample estimates:
-#>  mean of group one = 0.14597
-#>  mean of group two = 1.2132
-#> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+#> mean of x mean of y 
+#>  -0.11572   0.83691 
+#> Note: to get access to the object of the results use the @ or []
+#>           instead of the $ operator.
 
  # two sample: formula input ---------------------------------------------------
  x <- stats::rnorm(20, mean = 0, sd = 1)
  y <- as.factor(c(rep(1, 10), rep(2, 10)))
  seq_ttest(x ~ y, d = 0.8)
 #> 
-#> ***** Sequential Two Sample t-test *****
+#> *****  Sequential  Two Sample t-test *****
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -1.53705, decision = continue sampling
+#>  log-likelihood ratio = -1.05718, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -0.85621
-#>  null hypothesis = 0.68083
+#>  alternative hypothesis = -1.71882
+#>  null hypothesis = -0.66164
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
-#>  mean of group one = -0.09415
-#>  mean of group two = -0.00039
-#> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+#> mean of x mean of y 
+#>  -0.37373  -0.08429 
+#> Note: to get access to the object of the results use the @ or []
+#>           instead of the $ operator.
 
  # NA in the data --------------------------------------------------------------
  x <- c(NA, stats::rnorm(20, mean = 0, sd = 2), NA)
  y <- as.factor(c(rep(1, 11), rep(2, 11)))
  seq_ttest(x ~ y, d = 0.8, na.rm = TRUE)
 #> 
-#> ***** Sequential Two Sample t-test *****
+#> *****  Sequential  Two Sample t-test *****
 #> 
 #> data: x ~ y
 #> test statistic:
-#>  log-likelihood ratio = -1.58409, decision = continue sampling
+#>  log-likelihood ratio = 2.21959, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -0.19225
-#>  null hypothesis = 1.39184
+#>  alternative hypothesis = -3.22885
+#>  null hypothesis = -5.44844
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
-#>  mean of group one = -0.25586
-#>  mean of group two = -0.33
-#> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+#> mean of x mean of y 
+#>   0.57227  -1.64643 
+#> Note: to get access to the object of the results use the @ or []
+#>           instead of the $ operator.
 
  # work with dataset (data are in the package included) ------------------------
  seq_ttest(monthly_income ~ sex, data = df_income, d = 0.8)
 #> 
-#> ***** Sequential Two Sample t-test *****
+#> *****  Sequential  Two Sample t-test *****
 #> 
 #> data: monthly_income ~ sex
 #> test statistic:
-#>  log-likelihood ratio = -1.32512, decision = continue sampling
+#>  log-likelihood ratio = -15.2897, decision = accept H0
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -2.32047
-#>  null hypothesis = -0.99535
+#>  alternative hypothesis = -14.79208
+#>  null hypothesis = 0.49762
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
-#> degrees of freedome: df = 28
+#> degrees of freedome: df = 198
 #> sample estimates:
-#>  mean of group one = 3504.267
-#>  mean of group two = 3070.667
-#> Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+#> mean of x mean of y 
+#>  3002.322  3020.533 
+#> Note: to get access to the object of the results use the @ or []
+#>           instead of the $ operator.
 ```
