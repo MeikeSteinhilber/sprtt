@@ -1,10 +1,3 @@
-# DISCLAIMER ------------------------------------------------------------------
-
-# This script is based on a script by Felix Schoenbrodt for the paper
-# "Sequential Hypothesis Testing with Bayes Factors: Efficiently Testing Mean
-# Differences" by Schoenbrodt, Wagenmakers, Zehetleitner, and Perugini (2017).
-# The original script was obtained from https://osf.io/qny5x/
-
 # DOCUMENTATION ----------------------------------------------------------------
 
 # run this script after a huge change
@@ -52,7 +45,7 @@ hedges.g <- function(x,y,n){
 }
 
 
-##---- SETTINGS OF THE SIMULATION --------------------------------------------------
+##---- SETTINGS OF THE SIMULATION ----------------------------------------------
 
 
 # settings for parallel processing
