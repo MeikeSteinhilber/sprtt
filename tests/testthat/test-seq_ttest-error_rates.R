@@ -1,55 +1,34 @@
 #* @testing seq_ttest
-#*
-# to run this tests: run the script beforehand:
-# "data-raw/normal_results_sprtt.R"
-# "data-raw/paired_results_sprtt.R"
-# the simulation takes about 20 min
-# the simulated data are stored in the folder: "test/testthat/testdata"
 
-
-test_that("Check error rates (normal): simulation results", {
+test_that("Check error rates", {
+  # load packages
   library(testthis)
   library(dplyr)
 
-  normal_results_sprtt <- testthis::read_testdata("normal_results_sprtt")
-  leeway_alpha <- 0.005
-  leeway_beta <- 0.005
+  # skip the tests in special situations
+  skip_on_cran() # skip on CRAN checks: necessary!
+  skip_on_ci() # skip on continuous platforms like GitHub Actions
+  # skip("Check error rates. (Takes about 10 minutes)") # skip test
 
-  alpha_errors <-
-    normal_results_sprtt %>%
-    filter(d == 0 & d <= d_hyp) %>%
-    select(alpha, error)
+  # test setup: simulate the data
+  source_dir(
+    "testdata-raw/",
+    pattern = "\\.[rR]$",
+    env = test_env(),
+    chdir = TRUE,
+    wrap = TRUE
+  )
 
-  beta_errors <-
-    normal_results_sprtt %>%
-    filter(d != 0 & d >= d_hyp) %>%
-    select(beta, error)
+  results_2sample_1sided <- testthis::read_testdata("results_2sample_1sided")
+  results_2sample_2sided <- testthis::read_testdata("results_2sample_2sided")
+  results_1sample_2sided <- testthis::read_testdata("results_1sample_2sided")
 
-  expect_true(all(alpha_errors$error <= alpha_errors$alpha + leeway_alpha))
-  expect_true(all(beta_errors$error <= beta_errors$beta + leeway_beta))
 
-})
-
-test_that("Check error rates (paired): simulation results", {
-library(testthis)
-library(dplyr)
-
-  paired_results_sprtt <- testthis::read_testdata("paired_results_sprtt")
-  leeway_alpha <- 0.01
-  leeway_beta <- 0.02
-
-  alpha_errors <-
-    paired_results_sprtt %>%
-    filter(d == 0 & d <= d_hyp) %>%
-    select(alpha, error)
-
-  beta_errors <-
-    paired_results_sprtt %>%
-    filter(d != 0 & d >= d_hyp) %>%
-    select(beta, error)
-
-  expect_true(all(alpha_errors$error <= alpha_errors$alpha + leeway_alpha))
-  expect_true(all(beta_errors$error <= beta_errors$beta + leeway_beta))
+  expect_true(all(results_2sample_1sided$alert == 0))
+  expect_true(all(results_2sample_2sided$alert == 0))
+  expect_true(all(results_1sample_2sided$alert == 0))
 
 })
+
+
 
