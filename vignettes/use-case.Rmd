@@ -1,5 +1,5 @@
 ---
-title: "Example Use Case"
+title: "Use Case"
 author: "Meike Steinhilber"
 date: "`r Sys.Date()`"
 output:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
 vignette: >
-  %\VignetteIndexEntry{Example Use Case}
+  %\VignetteIndexEntry{Use Case}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: references.bib
@@ -185,7 +185,7 @@ LR <- round(results@likelihood_ratio, digits = 2)
 LR
 
 # sample size (N)
-N <- results@df + 1
+N <- results@df + 2
 N
 
 # baseline stress (M and SD)
