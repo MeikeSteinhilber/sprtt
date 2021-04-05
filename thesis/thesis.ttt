@@ -1,0 +1,15 @@
+\begin{longtable}[]{@{}lll@{}}
+\caption{Test}\tabularnewline
+\toprule
+Col1 & Col2 & Col3 \\
+\midrule
+\endfirsthead
+\toprule
+Col1 & Col2 & Col3 \\
+\midrule
+\endhead
+fdsf & 4543 & x \\
+fsf & 44 & \\
+g & & x \\
+\bottomrule
+\end{longtable}

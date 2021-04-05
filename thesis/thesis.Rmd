@@ -1,0 +1,90 @@
+---
+title             : "R Package Development: Implementation of Sequential Probability Ratio                      Tests Using the Associated t-Statistic"
+shorttitle        : "R Package: sprtt"
+author: 
+  - name          : "Meike Steinhilber"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Sandhäuser Str. 9, 69124 Heidelberg"
+    email         : "Meike.Steinhilber@aol.com"
+    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+      - Conceptualization
+      - Writing - Original Draft Preparation
+      - Writing - Review & Editing
+affiliation:
+  - id            : "1"
+    institution   : "Heidelberg-University"
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+  Enter author note here.
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+keywords          : "keywords"
+wordcount         : "X"
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+documentclass     : "apa7"
+classoption       : "man"
+output            : 
+  word_document   : default
+  papaja::apa6_pdf: default
+bibliography      : thesis-references.bib
+csl               : "apa.csl"
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+r_refs("thesis-references.bib")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+# Methods
+
+We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->@wald1945a
+
+## Participants
+
+## Material
+
+## Procedure
+
+## Data analysis
+
+We used `r cite_r("r-references.bib")` for all our analyses.@waldja2011
+
+# Results
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+| fdsf | 4543 | x    |
+| fsf  | 44   |      |
+| g    |      | x    |
+
+: Test
+
+# Discussion
+
+\newpage
+
+# References
+
+```{=tex}
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+```
+::: {#refs custom-style="Bibliography"}
+:::
+
+\endgroup
