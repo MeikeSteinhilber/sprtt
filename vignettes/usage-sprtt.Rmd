@@ -81,31 +81,19 @@ Sequential t-tests require some specification from the user:
 
 However, in some cases, it is not necessary to specify all arguments because some of them have default values. If these values are the ones required, they can be skipped.
 
-+------------------+-------------------+--------------------------------+
-| Argument         | Default value     | Input option                   |
-+==================+:==================+:===============================+
-| x                | \-                | numeric or formula input       |
-+------------------+-------------------+--------------------------------+
-| y                | NULL              | numeric vector                 |
-+------------------+-------------------+--------------------------------+
-| data             | NULL              | data frame                     |
-+------------------+-------------------+--------------------------------+
-| mu               | 0                 | numeric value                  |
-+------------------+-------------------+--------------------------------+
-| d                | \-                | numeric value                  |
-+------------------+-------------------+--------------------------------+
-| alpha            | 0.05              | numeric value between 0 and 1  |
-+------------------+-------------------+--------------------------------+
-| power            | 0.95              | numeric value between 0 and 1  |
-+------------------+-------------------+--------------------------------+
-| alternative      | "two.sided"       | "two.sided", "greater", "less" |
-+------------------+-------------------+--------------------------------+
-| paired           | FALSE             | TRUE or FALSE                  |
-+------------------+-------------------+--------------------------------+
-| na.rm            | TRUE              | TRUE or FALSE                  |
-+------------------+-------------------+--------------------------------+
-| verbose          | TRUE              | TRUE or FALSE                  |
-+------------------+-------------------+--------------------------------+
+| Argument    | Default value | Input option                   |
+|-------------|:--------------|:-------------------------------|
+| x           | \-            | numeric or formula input       |
+| y           | NULL          | numeric vector                 |
+| data        | NULL          | data frame                     |
+| mu          | 0             | numeric value                  |
+| d           | \-            | numeric value                  |
+| alpha       | 0.05          | numeric value between 0 and 1  |
+| power       | 0.95          | numeric value between 0 and 1  |
+| alternative | "two.sided"   | "two.sided", "greater", "less" |
+| paired      | FALSE         | TRUE or FALSE                  |
+| na.rm       | TRUE          | TRUE or FALSE                  |
+| verbose     | TRUE          | TRUE or FALSE                  |
 
 There are two different ways of how the data can be transferred into the function. The `x` argument takes either `numeric` or `formula` input.
 
