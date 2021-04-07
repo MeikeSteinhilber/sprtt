@@ -2,7 +2,6 @@ Type: Package
 Package: sprtt
 Title: Sequential Probability Ratio Tests: Using t-Statistic
 Version: 0.1.0.9000
-Date: 2021
 Authors@R: 
     c(person(given = "Meike",
              family = "Steinhilber",
@@ -26,7 +25,7 @@ Description: The 'seq_ttest' function is the implementation of Abraham
     will return a decision to either continue sampling or terminate and
     accept one of the specified hypotheses. For more information on the
     SPRT t test, see Schnuerch & Erdfelder (2019).
-License: GPL-3
+License: GPL (>= 3)
 URL: https://meikesteinhilber.github.io/sprtt/
 BugReports: https://github.com/MeikeSteinhilber/sprtt/issues
 Depends: 
