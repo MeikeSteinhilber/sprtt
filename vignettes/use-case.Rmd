@@ -1,5 +1,5 @@
 ---
-title: "Example Use Case"
+title: "Use Case"
 author: "Meike Steinhilber"
 date: "`r Sys.Date()`"
 output:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
 vignette: >
-  %\VignetteIndexEntry{Example Use Case}
+  %\VignetteIndexEntry{Use Case}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: references.bib
@@ -20,18 +20,17 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 library(sprtt)
-df_stress <- df_stress[,3:4]
 ```
 
 ## Note
 
-In the R code sections:
+-   The data set `df_stress` is included in the `sprtt` package. Thus, the data set is available when the package is loaded.
 
-`# comment`: is a comment
+-   In the R code sections:
 
-`function()`: is R code
-
-`#> results of function()`: is console output
+    -   `# comment`: is a comment
+    -   `function()`: is R code
+    -   `#> results of function()`: is console output
 
 ## Overview
 
@@ -173,7 +172,7 @@ while(decision == "continue sampling") {
 results
 ```
 
-The while-loop comes to an end after the 48 data points.
+The while-loop comes to an end after 48 data points.
 
 ### Report Results
 
@@ -185,7 +184,7 @@ LR <- round(results@likelihood_ratio, digits = 2)
 LR
 
 # sample size (N)
-N <- results@df + 1
+N <- results@df + 2
 N
 
 # baseline stress (M and SD)

@@ -26,17 +26,26 @@ knitr::opts_chunk$set(
 
 ## Note
 
-In the R code sections:
+-   The data sets used below are included in the `sprtt` package. Thus, the data sets are available when the package is loaded.
 
-`# comment`: is a comment
+-   In the R code sections:
 
-`function()`: is R code
-
-`#> results of function()`: is console output
+    -   `# comment`: is a comment
+    -   `function()`: is R code
+    -   `#> results of function()`: is console output
 
 ## Overview
 
 The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette demonstrates the usage of the package including the `seq_ttest()` function and all arguments with short examples. The theoretical background of the sequential t-test will not be covered by this vignette.
+
+The `seq_ttest()` function has arguments to specify the requested sequential t-test. The table below shows all possible combinations which can be performed with the package.
+
+|                     | Two sample test | One sample test |
+|---------------------|-----------------|-----------------|
+| Two sided           | x               | x               |
+| One sided (less)    | x               | x               |
+| One sided (greater) | x               | x               |
+| Paired              | x               |                 |
 
 Other recommended vignettes cover:
 
@@ -46,7 +55,7 @@ Other recommended vignettes cover:
 
 ## Installation
 
-Prior to using the `sprtt` package it must be installed and loaded. The latest release version of the package can either be installed from CRAN or in the latest development version from GitHub. More information for the installation can be found on the home page LINK.
+Prior to using the `sprtt` package it must be installed and loaded. The latest release version of the package can either be installed from CRAN or in the latest development version from GitHub. More information for the installation can be found [here](https://meikesteinhilber.github.io/sprtt/#installation).
 
 ```{r}
 # load the package
@@ -81,33 +90,52 @@ Sequential t-tests require some specification from the user:
 
 However, in some cases, it is not necessary to specify all arguments because some of them have default values. If these values are the ones required, they can be skipped.
 
-+------------------+-------------------+--------------------------------+
-| Argument         | Default value     | Input option                   |
-+==================+:==================+:===============================+
-| x                | \-                | numeric or formula input       |
-+------------------+-------------------+--------------------------------+
-| y                | NULL              | numeric vector                 |
-+------------------+-------------------+--------------------------------+
-| data             | NULL              | data frame                     |
-+------------------+-------------------+--------------------------------+
-| mu               | 0                 | numeric value                  |
-+------------------+-------------------+--------------------------------+
-| d                | \-                | numeric value                  |
-+------------------+-------------------+--------------------------------+
-| alpha            | 0.05              | numeric value between 0 and 1  |
-+------------------+-------------------+--------------------------------+
-| power            | 0.95              | numeric value between 0 and 1  |
-+------------------+-------------------+--------------------------------+
-| alternative      | "two.sided"       | "two.sided", "greater", "less" |
-+------------------+-------------------+--------------------------------+
-| paired           | FALSE             | TRUE or FALSE                  |
-+------------------+-------------------+--------------------------------+
-| na.rm            | TRUE              | TRUE or FALSE                  |
-+------------------+-------------------+--------------------------------+
-| verbose          | TRUE              | TRUE or FALSE                  |
-+------------------+-------------------+--------------------------------+
+| Argument    | Default value | Input option                   |
+|-------------|:--------------|:-------------------------------|
+| x           | \-            | formula or numeric input       |
+| y           | NULL          | numeric vector                 |
+| data        | NULL          | data frame                     |
+| mu          | 0             | numeric value                  |
+| d           | \-            | numeric value                  |
+| alpha       | 0.05          | numeric value between 0 and 1  |
+| power       | 0.95          | numeric value between 0 and 1  |
+| alternative | "two.sided"   | "two.sided", "greater", "less" |
+| paired      | FALSE         | TRUE or FALSE                  |
+| na.rm       | TRUE          | TRUE or FALSE                  |
+| verbose     | TRUE          | TRUE or FALSE                  |
 
-There are two different ways of how the data can be transferred into the function. The `x` argument takes either `numeric` or `formula` input.
+There are two different ways of how the data can be transferred into the function. The `x` argument takes either `formula` or `numeric` input. Which input option is recommended depends on the structure of the data.
+
+### x argument: formula input
+
+The `formula` input is used when both groups are merged in one variable and there is a second variable that indicates group membership. This input option uses the `x` argument and the `data` argument if the variables are stored in a data frame.
+
+#### *Two-sample test*
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_income)
+
+# sequential t-test: data argument ---------------------------------------------
+seq_ttest(monthly_income ~ sex,     # x argument 
+          data = df_income,
+          d = 0.2)
+```
+
+#### *One-sample test*
+
+To perform a one-sample test the right side of the formula has to be 1. The `mu` argument is also required, which specifies the mean value that one wants to test against.
+
+```{r}
+# show data frame --------------------------------------------------------------
+head(df_income)
+
+# sequential t-test: data argument ---------------------------------------------
+seq_ttest(monthly_income ~ 1,     # x argument 
+          mu = 3000,
+          d = 0.5,
+          data = df_income)
+```
 
 ### x argument: numeric input
 
@@ -121,14 +149,14 @@ If one wants to perform a two-sample test, the `y` argument is required in addit
 # show data frame --------------------------------------------------------------
 head(df_stress)
 
-# sequential t-tes: $ operator -------------------------------------------------
+# sequential t-test: $ operator ------------------------------------------------
 seq_ttest(df_stress$treatment_group, # x argument
           df_stress$control_group,   # y argument
           d = 0.3,                   
           verbose = FALSE)           
 
 
-# sequential t-tes: global variables -------------------------------------------
+# sequential t-test: global variables ------------------------------------------
 treatment <- df_stress$treatment_group
 control <- df_stress$control_group
 
@@ -147,14 +175,14 @@ If one wants to perform a one-sample test there is only one group and therefore 
 # show data frame --------------------------------------------------------------
 head(df_stress)
 
-# sequential t-tes: $ operator -------------------------------------------------
+# sequential t-test: $ operator ------------------------------------------------
 seq_ttest(df_stress$treatment_group,     # x argument
           mu = 3.5,            
           d = 0.2,
           verbose = FALSE)
 
 
-# sequential t-tes: global variables -------------------------------------------
+# sequential t-test: global variables ------------------------------------------
 treatment <- df_stress$treatment_group
 
 seq_ttest(treatment,     # x argument
@@ -163,37 +191,6 @@ seq_ttest(treatment,     # x argument
           d = 0.2,                  
           verbose = FALSE)
 
-```
-
-### x argument: formula input
-
-The `formula` input is used when both groups are merged in one variable and there is a second variable that indicates group membership. This input option uses the `x` argument and the `data` argument if the variables are stored in a data frame.
-
-#### *Two-sample test*
-
-```{r}
-# show data frame --------------------------------------------------------------
-head(df_income)
-
-# sequential t-tes: data argument ----------------------------------------------
-seq_ttest(monthly_income ~ sex,     # x argument 
-          data = df_income,
-          d = 0.2)
-```
-
-#### *One-sample test*
-
-To perform a one-sample test the right side of the formula has to be 1. The `mu` argument is also required, which specifies the mean value that one wants to test against.
-
-```{r}
-# show data frame --------------------------------------------------------------
-head(df_income)
-
-# sequential t-tes: data argument ----------------------------------------------
-seq_ttest(monthly_income ~ 1,     # x argument 
-          mu = 3000,
-          d = 0.5,
-          data = df_income)
 ```
 
 ### Further arguments
@@ -206,7 +203,7 @@ The `paired` argument states if the data are paired. To perform a paired sequent
 # show data frame --------------------------------------------------------------
 head(df_stress)
 
-# sequential t-tes: $ operator -------------------------------------------------
+# sequential t-test: $ operator ------------------------------------------------
 seq_ttest(df_stress$baseline_stress, # x argument
           df_stress$one_year_stress, # y argument
           d = 0.3,
@@ -226,7 +223,7 @@ The `alternative` argument states in which way the test is to be performed:
 # show data frame --------------------------------------------------------------
 head(df_income)
 
-# sequential t-tes: data argument ----------------------------------------------
+# sequential t-test: data argument ---------------------------------------------
 seq_ttest(monthly_income ~ 1,     # x argument 
           mu = 1000,
           d = 0.3,
@@ -244,13 +241,13 @@ The `na.rm` argument defines the handling of missing values. If set to `TRUE` (d
 The `verbose` argument defines the extent of the output shown in the console. If set to `TRUE` (default value), the output will be elaborate, if set to `FALSE` the output will be short.
 
 ```{r}
-# sequential t-tes: verbose FALSE -----------------------------------------------
+# sequential t-test: verbose FALSE ---------------------------------------------
 seq_ttest(df_stress$treatment_group, # x argument
           df_stress$control_group,   # y argument
           d = 0.3,
           verbose = FALSE)
 
-# sequential t-tes: verbose TRUE -----------------------------------------------
+# sequential t-test: verbose TRUE ----------------------------------------------
 seq_ttest(df_stress$treatment_group, # x argument
           df_stress$control_group,   # y argument
           d = 0.3,

@@ -22,7 +22,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 <!-- badges: start -->
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sprtt?color=red)](https://cran.r-project.org/package=sprtt) [![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt) [![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml) [![R-CMD-check-windows-macOs](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions) [![R-CMD-check-ubuntu20.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu20.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions) [![R-CMD-check-ubuntu16.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu16.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sprtt?color=red)](https://cran.r-project.org/package=sprtt) [![Github All Releases](https://img.shields.io/github/downloads/MeikeSteinhilber/sprtt/total.svg)]() [![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt) [![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml) [![R-CMD-check-windows-macOs](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions) [![R-CMD-check-ubuntu20.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu20.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions) [![R-CMD-check-ubuntu16.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu16.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
 
 <!-- badges: end -->
 
@@ -59,7 +59,7 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 
 ## Documentation
 
-Detailed documentation can be found on [this page](https://meikesteinhilber.github.io/sprtt/index.html). There are several articles covering the usage of the package, the theoretical background of the test, and also an extended use case.
+Detailed documentation can be found on the [home page](https://meikesteinhilber.github.io/sprtt/index.html). There are several articles covering the [usage](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html) of the package, the [theoretical background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html) of the test, and also an extended [use case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
 
 Short examples can be found in the following paragraph.
 
