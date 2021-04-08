@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Example Use Case • sprtt</title>
+<title>Use Case • sprtt</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,9 +17,9 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Example Use Case">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Use Case">
 <meta property="og:description" content="sprtt">
-<meta property="og:image" content="/logo.png">
+<meta property="og:image" content="https://meikesteinhilber.github.io/sprtt/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -67,7 +67,7 @@
       <a href="../articles/usage-sprtt.html">How to use the sprtt package</a>
     </li>
     <li>
-      <a href="../articles/use-case.html">Example Use Case</a>
+      <a href="../articles/use-case.html">Use Case</a>
     </li>
   </ul>
 </li>
@@ -95,10 +95,10 @@
       </header><script src="use-case_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Example Use Case</h1>
+      <h1 data-toc-skip>Use Case</h1>
                         <h4 class="author">Meike Steinhilber</h4>
             
-            <h4 class="date">2021-04-07</h4>
+            <h4 class="date">2021-04-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/vignettes/use-case.Rmd"><code>vignettes/use-case.Rmd</code></a></small>
       <div class="hidden name"><code>use-case.Rmd</code></div>
@@ -110,10 +110,20 @@
 <div id="note" class="section level2">
 <h2 class="hasAnchor">
 <a href="#note" class="anchor"></a>Note</h2>
+<ul>
+<li><p>The data set <code>df_stress</code> is included in the <code>sprtt</code> package. Thus, the data set is available when the package is loaded.</p></li>
+<li>
 <p>In the R code sections:</p>
-<p><code># comment</code>: is a comment</p>
-<p><code>function()</code>: is R code</p>
-<p><code>#&gt; results of function()</code>: is console output</p>
+<ul>
+<li>
+<code># comment</code>: is a comment</li>
+<li>
+<code>function()</code>: is R code</li>
+<li>
+<code>#&gt; results of function()</code>: is console output</li>
+</ul>
+</li>
+</ul>
 </div>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -172,9 +182,9 @@
 
 <span class="co"># print data</span>
 <span class="va">df</span>
-<span class="co">#&gt;   baseline_stress one_year_stress</span>
-<span class="co">#&gt; 1        7.175250        7.844337</span>
-<span class="co">#&gt; 2        4.918343        5.527191</span>
+<span class="co">#&gt;   treatment_group control_group baseline_stress one_year_stress</span>
+<span class="co">#&gt; 1        6.097665      4.493064        7.175250        7.844337</span>
+<span class="co">#&gt; 2        6.609234      5.520956        4.918343        5.527191</span>
 
 <span class="co"># sequential t-test ------------------------------------------------------------</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">one_year_stress</span>,
@@ -219,10 +229,10 @@
 
 <span class="co"># print new data</span>
 <span class="va">df</span>
-<span class="co">#&gt;   baseline_stress one_year_stress</span>
-<span class="co">#&gt; 1        7.175250        7.844337</span>
-<span class="co">#&gt; 2        4.918343        5.527191</span>
-<span class="co">#&gt; 3        4.634266        5.783046</span>
+<span class="co">#&gt;   treatment_group control_group baseline_stress one_year_stress</span>
+<span class="co">#&gt; 1        6.097665      4.493064        7.175250        7.844337</span>
+<span class="co">#&gt; 2        6.609234      5.520956        4.918343        5.527191</span>
+<span class="co">#&gt; 3        5.665810      3.954091        4.634266        5.783046</span>
 
 <span class="co"># sequential t-test ------------------------------------------------------------</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">one_year_stress</span>,
@@ -288,7 +298,7 @@
 <span class="co">#&gt;                 0.47931 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span></code></pre></div>
-<p>The while-loop comes to an end after the 48 data points.</p>
+<p>The while-loop comes to an end after 48 data points.</p>
 </div>
 <div id="report-results" class="section level3">
 <h3 class="hasAnchor">
@@ -302,9 +312,9 @@
 <span class="co">#&gt; [1] 19.85</span>
 
 <span class="co"># sample size (N)</span>
-<span class="va">N</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">@</span><span class="va">df</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="va">N</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">@</span><span class="va">df</span> <span class="op">+</span> <span class="fl">2</span>
 <span class="va">N</span>
-<span class="co">#&gt; [1] 48</span>
+<span class="co">#&gt; [1] 49</span>
 
 <span class="co"># baseline stress (M and SD)</span>
 <span class="va">mean_t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">baseline_stress</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
@@ -339,7 +349,7 @@
 <span class="va">d_upper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">d_results</span><span class="op">$</span><span class="va">conf.int</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">d_upper</span>
 <span class="co">#&gt; [1] 0.57</span></code></pre></div>
-<p>Starting at <em>N</em> = 2, the test stops sampling at a total sample size of <em>N</em> = 48 with <em>LR</em><sub>48</sub> = 19.85. This ratio indicates that the data are about 20 times more likely under H<sub>1</sub> than under H<sub>0</sub>. Thus, we accept the alternative hypothesis: The perceived stress at the second measurement (<em>M</em> = 5.47, <em>SD</em> = 1.53) is higher than one year ago at the baseline measurement (<em>M</em> = 4.99, <em>SD</em> = 1.02), Cohen`s <em>d</em> = 0.34, 95% CI [0.11, 0.57].<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Starting at <em>N</em> = 2, the test stops sampling at a total sample size of <em>N</em> = 49 with <em>LR</em><sub>49</sub> = 19.85. This ratio indicates that the data are about 20 times more likely under H<sub>1</sub> than under H<sub>0</sub>. Thus, we accept the alternative hypothesis: The perceived stress at the second measurement (<em>M</em> = 5.47, <em>SD</em> = 1.53) is higher than one year ago at the baseline measurement (<em>M</em> = 4.99, <em>SD</em> = 1.02), Cohen`s <em>d</em> = 0.34, 95% CI [0.11, 0.57].<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 </div>
 </div>
 <div id="references" class="section level2 unnumbered">
