@@ -44,7 +44,7 @@ With a sequential approach, data is continuously collected and an analysis is pe
 
 -   The data collection *will continue* as there is not yet enough evidence for either of the two hypotheses.
 
-Basically it is not necessary to perform an analysis after each data point --- several data points can also be added at once. However, this affects the sample size (N) and the error rates [@stefan2020].
+Basically it is not necessary to perform an analysis after each data point --- several data points can also be added at once. However, this affects the sample size (N) and the error rates [@schnuerch2020a].
 
 The efficiency of sequential designs has already been examined. Reductions in the sample by 50% and more were found in comparison to analyses with fixed sample sizes [@wald1945a; @schnuerch2020a]. Sequential hypothesis testing is therefore particularly suitable when resources are limited because the required sample size is reduced without compromising predefined error probabilities.
 

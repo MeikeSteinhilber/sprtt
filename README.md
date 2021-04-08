@@ -7,6 +7,8 @@
 <!-- badges: start -->
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sprtt?color=red)](https://cran.r-project.org/package=sprtt)
+[![Github All
+Releases](https://img.shields.io/github/downloads/MeikeSteinhilber/sprtt/total.svg)]()
 [![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt)
 [![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml)
 [![R-CMD-check-windows-macOs](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
@@ -52,10 +54,14 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 
 ## Documentation
 
-Detailed documentation can be found on [this
+Detailed documentation can be found on [home
 page](https://meikesteinhilber.github.io/sprtt/index.html). There are
-several articles covering the usage of the package, the theoretical
-background of the test, and also an extended use case.
+several articles covering the
+[usage](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html)
+of the package, the [theoretical
+background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html)
+of the test, and also an extended [use
+case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
 
 Short examples can be found in the following paragraph.
 
@@ -76,87 +82,87 @@ Short examples can be found in the following paragraph.
  library(sprtt)
 
  # one sample: numeric input ---------------------------------------------------
- x <- rnorm(20, mean = 0, sd = 1)
- results <- seq_ttest(x, mu = 1, d = 0.8)
+ treatment_group <- rnorm(20, mean = 0, sd = 1)
+ results <- seq_ttest(treatment_group, mu = 1, d = 0.8)
 
  # get access to the slots -----------------------------------------------------
  # @ Operator
  results@likelihood_ratio
-#> [1] 795.9842
+#> [1] 4401.709
 
  # [] Operator
  results["likelihood_ratio"]
-#> [1] 795.9842
+#> [1] 4401.709
 
  # two sample: numeric input----------------------------------------------------
- x <- stats::rnorm(20, mean = 0, sd = 1)
- y <- stats::rnorm(20, mean = 1, sd = 1)
- seq_ttest(x, y, d = 0.8)
+ treatment_group <- stats::rnorm(20, mean = 0, sd = 1)
+ control_group <- stats::rnorm(20, mean = 1, sd = 1)
+ seq_ttest(treatment_group, control_group, d = 0.8)
 #> 
 #> *****  Sequential  Two Sample t-test *****
 #> 
-#> data: x and  y
+#> data: treatment_group and  control_group
 #> test statistic:
-#>  log-likelihood ratio = 1.8588, decision = continue sampling
+#>  log-likelihood ratio = 5.14855, decision = accept H1
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -2.51464
-#>  null hypothesis = -4.37343
+#>  alternative hypothesis = -4.03122
+#>  null hypothesis = -9.17977
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 38
 #> sample estimates:
 #> mean of x mean of y 
-#>   0.25436   1.08813 
+#>   0.16425   1.22739 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 
  # two sample: formula input ---------------------------------------------------
- x <- stats::rnorm(20, mean = 0, sd = 1)
- y <- as.factor(c(rep(1, 10), rep(2, 10)))
- seq_ttest(x ~ y, d = 0.8)
+ stress_level <- stats::rnorm(20, mean = 0, sd = 1)
+ sex <- as.factor(c(rep(1, 10), rep(2, 10)))
+ seq_ttest(stress_level ~ sex, d = 0.8)
 #> 
 #> *****  Sequential  Two Sample t-test *****
 #> 
-#> data: x ~ y
+#> data: stress_level ~ sex
 #> test statistic:
-#>  log-likelihood ratio = -1.28341, decision = continue sampling
+#>  log-likelihood ratio = 0.33822, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -1.54388
-#>  null hypothesis = -0.26047
+#>  alternative hypothesis = -2.08118
+#>  null hypothesis = -2.4194
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
 #> mean of x mean of y 
-#>   0.14398  -0.08230 
+#>  -0.44614   0.10469 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 
  # NA in the data --------------------------------------------------------------
- x <- c(NA, stats::rnorm(20, mean = 0, sd = 2), NA)
- y <- as.factor(c(rep(1, 11), rep(2, 11)))
- seq_ttest(x ~ y, d = 0.8, na.rm = TRUE)
+ stress_level <- c(NA, stats::rnorm(20, mean = 0, sd = 2), NA)
+ sex <- as.factor(c(rep(1, 11), rep(2, 11)))
+ seq_ttest(stress_level ~ sex, d = 0.8, na.rm = TRUE)
 #> 
 #> *****  Sequential  Two Sample t-test *****
 #> 
-#> data: x ~ y
+#> data: stress_level ~ sex
 #> test statistic:
-#>  log-likelihood ratio = -1.21361, decision = continue sampling
+#>  log-likelihood ratio = 0.34654, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -1.61302
-#>  null hypothesis = -0.39941
+#>  alternative hypothesis = -2.08353
+#>  null hypothesis = -2.43008
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedome: df = 18
 #> sample estimates:
 #> mean of x mean of y 
-#>   0.30040  -0.21008 
+#>  -0.42879   0.89507 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 

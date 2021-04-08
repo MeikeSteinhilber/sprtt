@@ -59,7 +59,7 @@ devtools::install_github("MeikeSteinhilber/sprtt")
 
 ## Documentation
 
-Detailed documentation can be found on [this page](https://meikesteinhilber.github.io/sprtt/index.html). There are several articles covering the usage of the package, the theoretical background of the test, and also an extended use case.
+Detailed documentation can be found on the [home page](https://meikesteinhilber.github.io/sprtt/index.html). There are several articles covering the [usage](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html) of the package, the [theoretical background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html) of the test, and also an extended [use case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
 
 Short examples can be found in the following paragraph.
 

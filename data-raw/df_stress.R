@@ -13,9 +13,11 @@ one_year_stress <- baseline_stress + rnorm(n, mean = 0.3, sd = 1)
 
 
 # build data.frame
-df_stress <- data.frame(
+df_treatment <- data.frame(
   treatment_group = treatment_group,
-  control_group = control_group,
+  control_group = control_group
+)
+df_stress <- data.frame(
   baseline_stress = baseline_stress,
   one_year_stress = one_year_stress
 )

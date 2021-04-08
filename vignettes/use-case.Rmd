@@ -20,18 +20,17 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 library(sprtt)
-df_stress <- df_stress[,3:4]
 ```
 
 ## Note
 
-In the R code sections:
+-   The data set `df_stress` is included in the `sprtt` package. Thus, the data set is available when the package is loaded.
 
-`# comment`: is a comment
+-   In the R code sections:
 
-`function()`: is R code
-
-`#> results of function()`: is console output
+    -   `# comment`: is a comment
+    -   `function()`: is R code
+    -   `#> results of function()`: is console output
 
 ## Overview
 
@@ -173,7 +172,7 @@ while(decision == "continue sampling") {
 results
 ```
 
-The while-loop comes to an end after the 48 data points.
+The while-loop comes to an end after 48 data points.
 
 ### Report Results
 
