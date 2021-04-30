@@ -50,10 +50,3 @@ test_that("calc_seq_ttest_t_statistic", {
   expect_equal(results_package$statistic[[1]] , -1*results_ttest$statistic[[1]])
 })
 
-
-
-
-# test_that("", {
-#
-#
-# })

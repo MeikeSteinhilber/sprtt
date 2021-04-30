@@ -1,7 +1,7 @@
 #* @testing calc_seq_ttest_likelihoods
 context("calc_seq_ttest_likelihoods")
 
-test_that("calc_seq_ttest_likelihoods: CPP comparison", {
+test_that("calc_seq_ttest_likelihoods: check log", {
   seq_ttest_arguments <-
     build_prototype_seq_ttest_arguments()
   t_statistic <-
