@@ -72,6 +72,8 @@ The `sprtt` package contains:
 
 -   `df_stress`: a set of data to run the examples given in this vignette
 
+-   `df_cancer`: a set of data to run the examples given in this vignette
+
 ## How do I use the seq_ttest() function?
 
 The `seq_ttest()` function works similarly to the `t.test()` function from the `stats` package if one is familiar with that already.
@@ -147,18 +149,18 @@ If one wants to perform a two-sample test, the `y` argument is required in addit
 
 ```{r}
 # show data frame --------------------------------------------------------------
-head(df_stress)
+head(df_cancer)
 
 # sequential t-test: $ operator ------------------------------------------------
-seq_ttest(df_stress$treatment_group, # x argument
-          df_stress$control_group,   # y argument
+seq_ttest(df_cancer$treatment_group, # x argument
+          df_cancer$control_group,   # y argument
           d = 0.3,                   
           verbose = FALSE)           
 
 
 # sequential t-test: global variables ------------------------------------------
-treatment <- df_stress$treatment_group
-control <- df_stress$control_group
+treatment <- df_cancer$treatment_group
+control <- df_cancer$control_group
 
 seq_ttest(treatment,
           control,
@@ -173,17 +175,17 @@ If one wants to perform a one-sample test there is only one group and therefore 
 
 ```{r}
 # show data frame --------------------------------------------------------------
-head(df_stress)
+head(df_cancer)
 
 # sequential t-test: $ operator ------------------------------------------------
-seq_ttest(df_stress$treatment_group,     # x argument
+seq_ttest(df_cancer$treatment_group,     # x argument
           mu = 3.5,            
           d = 0.2,
           verbose = FALSE)
 
 
 # sequential t-test: global variables ------------------------------------------
-treatment <- df_stress$treatment_group
+treatment <- df_cancer$treatment_group
 
 seq_ttest(treatment,     # x argument
           mu = 3.5, 
@@ -242,14 +244,14 @@ The `verbose` argument defines the extent of the output shown in the console. If
 
 ```{r}
 # sequential t-test: verbose FALSE ---------------------------------------------
-seq_ttest(df_stress$treatment_group, # x argument
-          df_stress$control_group,   # y argument
+seq_ttest(df_cancer$treatment_group, # x argument
+          df_cancer$control_group,   # y argument
           d = 0.3,
           verbose = FALSE)
 
 # sequential t-test: verbose TRUE ----------------------------------------------
-seq_ttest(df_stress$treatment_group, # x argument
-          df_stress$control_group,   # y argument
+seq_ttest(df_cancer$treatment_group, # x argument
+          df_cancer$control_group,   # y argument
           d = 0.3,
           verbose = TRUE) 
 ```
@@ -262,9 +264,9 @@ However, the recommended way is to save the results in an object (e.g "results")
 
 ```{r}
 # save the resuts in a object 
-results <- seq_ttest(df_stress$treatment_group,
-                      df_stress$control_group,  
-                      d = 0.3)
+results <- seq_ttest(df_cancer$treatment_group,
+                     df_cancer$control_group,  
+                     d = 0.3)
 # access the object with the @ operator 
 results@decision
 

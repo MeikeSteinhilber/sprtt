@@ -5,10 +5,8 @@
 \alias{df_stress}
 \title{Test data to run the examples}
 \format{
-A data frame with 4 variables and 30 rows
+A data frame with 2.
 \describe{
-\item{treatment_group}{ }
-\item{control_group}{ }
 \item{baseline_stress}{ }
 \item{one_year_stress}{ }
 }
@@ -17,6 +15,6 @@ A data frame with 4 variables and 30 rows
 df_stress
 }
 \description{
-A dataset that includes 30 individuals and two different study designs.
+A dataset that includes 120 individuals.
 }
 \keyword{datasets}

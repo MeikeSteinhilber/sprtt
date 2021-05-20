@@ -6,13 +6,17 @@ Authors@R:
     c(person(given = "Meike",
              family = "Steinhilber",
              role = c("aut", "cre"),
-             email = "Meike.Steinhilber@aol.com"),
+             email = "Meike.Steinhilber@aol.com",
+             comment = c(ORCID = "0000-0002-7144-2100")),
       person(given = "Martin",
              family = "Schnuerch",
-             role = c("aut", "ths")),
+             role = c("aut", "ths"),
+             comment = c(ORCID = "0000-0001-6531-2265")),
       person(given = "Anna-Lena",
              family = "Schubert",
-             role = c("aut", "ths")))
+             role = c("aut", "ths"),
+             comment = c(ORCID = "0000-0001-7248-0662"))
+      )
 Maintainer: Meike Steinhilber <Meike.Steinhilber@aol.com>
 Description: The 'seq_ttest' function is the implementation of Abraham
     Wald’s (1947) Sequential Probability Ratio Test (SPRT) for the test of

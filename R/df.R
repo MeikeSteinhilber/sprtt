@@ -2,7 +2,7 @@
 #'
 #'A dataset that includes 120 individuals with sex gender and monthly income.
 #'
-#' @format  A data frame with 2 variables and 30 rows
+#' @format  A data frame with 2 variables.
 #' \describe{
 #'   \item{monthly_income}{ }
 # #'   \item{in_debt}{0 = no and 1 = yes}
@@ -14,14 +14,22 @@
 
 #' Test data to run the examples
 #'
-#'A dataset that includes 30 individuals and two different study designs.
+#'A dataset that includes 120 individuals.
 #'
-#' @format  A data frame with 4 variables and 30 rows
+#' @format  A data frame with 2.
 #' \describe{
-#'   \item{treatment_group}{ }
-#'   \item{control_group}{ }
 #'   \item{baseline_stress}{ }
 #'   \item{one_year_stress}{ }
 #' }
 "df_stress"
 
+#' Test data to run the examples
+#'
+#'A dataset that includes 120 individuals.
+#'
+#' @format  A data frame with 2 variables.
+#' \describe{
+#'   \item{treatment_group}{ }
+#'   \item{control_group}{ }
+#' }
+"df_cancer"

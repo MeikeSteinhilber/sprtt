@@ -328,7 +328,6 @@ test_that("seq_ttest: comparison results with original script from m. schnuerch"
   expect_equal(results_sprtt@decision,
               results_sprtt2@decision)
 
-
   x <- rnorm(20)
   y <- as.factor(c(rep(1,10), rep(2,10)))
   d <- 0.95
