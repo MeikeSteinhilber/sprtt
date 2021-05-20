@@ -98,7 +98,7 @@
       <h1 data-toc-skip>Use Case</h1>
                         <h4 class="author">Meike Steinhilber</h4>
             
-            <h4 class="date">2021-04-08</h4>
+            <h4 class="date">2021-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/vignettes/use-case.Rmd"><code>vignettes/use-case.Rmd</code></a></small>
       <div class="hidden name"><code>use-case.Rmd</code></div>
@@ -182,9 +182,9 @@
 
 <span class="co"># print data</span>
 <span class="va">df</span>
-<span class="co">#&gt;   treatment_group control_group baseline_stress one_year_stress</span>
-<span class="co">#&gt; 1        6.097665      4.493064        7.175250        7.844337</span>
-<span class="co">#&gt; 2        6.609234      5.520956        4.918343        5.527191</span>
+<span class="co">#&gt;   baseline_stress one_year_stress</span>
+<span class="co">#&gt; 1        7.175250        7.844337</span>
+<span class="co">#&gt; 2        4.918343        5.527191</span>
 
 <span class="co"># sequential t-test ------------------------------------------------------------</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">one_year_stress</span>,
@@ -229,10 +229,10 @@
 
 <span class="co"># print new data</span>
 <span class="va">df</span>
-<span class="co">#&gt;   treatment_group control_group baseline_stress one_year_stress</span>
-<span class="co">#&gt; 1        6.097665      4.493064        7.175250        7.844337</span>
-<span class="co">#&gt; 2        6.609234      5.520956        4.918343        5.527191</span>
-<span class="co">#&gt; 3        5.665810      3.954091        4.634266        5.783046</span>
+<span class="co">#&gt;   baseline_stress one_year_stress</span>
+<span class="co">#&gt; 1        7.175250        7.844337</span>
+<span class="co">#&gt; 2        4.918343        5.527191</span>
+<span class="co">#&gt; 3        4.634266        5.783046</span>
 
 <span class="co"># sequential t-test ------------------------------------------------------------</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">one_year_stress</span>,

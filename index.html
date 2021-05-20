@@ -146,7 +146,7 @@
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#documentation" class="anchor"></a>Documentation</h2>
-<p>Detailed documentation can be found on <a href="https://meikesteinhilber.github.io/sprtt/index.html">home page</a>. There are several articles covering the <a href="https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html">usage</a> of the package, the <a href="https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html">theoretical background</a> of the test, and also an extended <a href="https://meikesteinhilber.github.io/sprtt/articles/use-case.html">use case</a>.</p>
+<p>Detailed documentation can be found on the <a href="https://meikesteinhilber.github.io/sprtt/index.html">home page</a>. There are several articles covering the <a href="https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html">usage</a> of the package, the <a href="https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html">theoretical background</a> of the test, and also an extended <a href="https://meikesteinhilber.github.io/sprtt/articles/use-case.html">use case</a>.</p>
 <p>Short examples can be found in the following paragraph.</p>
 <div id="quick-examples" class="section level3">
 <h3 class="hasAnchor">
@@ -159,96 +159,99 @@
 <p><code>#&gt; results of function()</code>: is console output</p>
 </blockquote>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="co">#load library -----------------------------------------------------------------</span>
- <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://meikesteinhilber.github.io/sprtt/">sprtt</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># set seed --------------------------------------------------------------------</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">333</span><span class="op">)</span>
 
- <span class="co"># one sample: numeric input ---------------------------------------------------</span>
- <span class="va">treatment_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
- <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment_group</span>, mu <span class="op">=</span> <span class="fl">1</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
+<span class="co"># load library ----------------------------------------------------------------</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://meikesteinhilber.github.io/sprtt/">sprtt</a></span><span class="op">)</span>
 
- <span class="co"># get access to the slots -----------------------------------------------------</span>
- <span class="co"># @ Operator</span>
- <span class="va">results</span><span class="op">@</span><span class="va">likelihood_ratio</span>
-<span class="co">#&gt; [1] 4401.709</span>
+<span class="co"># one sample: numeric input ---------------------------------------------------</span>
+<span class="va">treatment_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment_group</span>, mu <span class="op">=</span> <span class="fl">1</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
 
- <span class="co"># [] Operator</span>
- <span class="va">results</span><span class="op">[</span><span class="st">"likelihood_ratio"</span><span class="op">]</span>
-<span class="co">#&gt; [1] 4401.709</span>
+<span class="co"># get access to the slots -----------------------------------------------------</span>
+<span class="co"># @ Operator</span>
+<span class="va">results</span><span class="op">@</span><span class="va">likelihood_ratio</span>
+<span class="co">#&gt; [1] 965.0728</span>
 
- <span class="co"># two sample: numeric input----------------------------------------------------</span>
- <span class="va">treatment_group</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
- <span class="va">control_group</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
- <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment_group</span>, <span class="va">control_group</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
+<span class="co"># [] Operator</span>
+<span class="va">results</span><span class="op">[</span><span class="st">"likelihood_ratio"</span><span class="op">]</span>
+<span class="co">#&gt; [1] 965.0728</span>
+
+<span class="co"># two sample: numeric input----------------------------------------------------</span>
+<span class="va">treatment_group</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">control_group</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment_group</span>, <span class="va">control_group</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; *****  Sequential  Two Sample t-test *****</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: treatment_group and  control_group</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = 5.14855, decision = accept H1</span>
+<span class="co">#&gt;  log-likelihood ratio = 5.347, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -4.03122</span>
-<span class="co">#&gt;  null hypothesis = -9.17977</span>
+<span class="co">#&gt;  alternative hypothesis = -4.21063</span>
+<span class="co">#&gt;  null hypothesis = -9.55763</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
 <span class="co">#&gt; degrees of freedome: df = 38</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;   0.16425   1.22739 </span>
+<span class="co">#&gt;  -0.05204   1.18768 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
 
- <span class="co"># two sample: formula input ---------------------------------------------------</span>
- <span class="va">stress_level</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
- <span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
- <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">stress_level</span> <span class="op">~</span> <span class="va">sex</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
+<span class="co"># two sample: formula input ---------------------------------------------------</span>
+<span class="va">stress_level</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">stress_level</span> <span class="op">~</span> <span class="va">sex</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; *****  Sequential  Two Sample t-test *****</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: stress_level ~ sex</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = 0.33822, decision = continue sampling</span>
+<span class="co">#&gt;  log-likelihood ratio = -1.45506, decision = continue sampling</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -2.08118</span>
-<span class="co">#&gt;  null hypothesis = -2.4194</span>
+<span class="co">#&gt;  alternative hypothesis = -1.23287</span>
+<span class="co">#&gt;  null hypothesis = 0.2222</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
 <span class="co">#&gt; degrees of freedome: df = 18</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;  -0.44614   0.10469 </span>
+<span class="co">#&gt;  -0.23286  -0.08217 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
 
- <span class="co"># NA in the data --------------------------------------------------------------</span>
- <span class="va">stress_level</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span>
- <span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">11</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
- <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">stress_level</span> <span class="op">~</span> <span class="va">sex</span>, d <span class="op">=</span> <span class="fl">0.8</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co"># NA in the data --------------------------------------------------------------</span>
+<span class="va">stress_level</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span>
+<span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">11</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">stress_level</span> <span class="op">~</span> <span class="va">sex</span>, d <span class="op">=</span> <span class="fl">0.8</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; *****  Sequential  Two Sample t-test *****</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: stress_level ~ sex</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = 0.34654, decision = continue sampling</span>
+<span class="co">#&gt;  log-likelihood ratio = -0.3585, decision = continue sampling</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -2.08353</span>
-<span class="co">#&gt;  null hypothesis = -2.43008</span>
+<span class="co">#&gt;  alternative hypothesis = -1.923</span>
+<span class="co">#&gt;  null hypothesis = -1.5645</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
 <span class="co">#&gt; degrees of freedome: df = 18</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;  -0.42879   0.89507 </span>
+<span class="co">#&gt;  -0.40818   0.42068 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
 
- <span class="co"># work with dataset (data are in the package included) ------------------------</span>
- <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">df_income</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
+<span class="co"># work with dataset (data are in the package included) ------------------------</span>
+<span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">df_income</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; *****  Sequential  Two Sample t-test *****</span>
 <span class="co">#&gt; </span>
@@ -294,9 +297,9 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Meike Steinhilber <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Martin Schnuerch <br><small class="roles"> Author, thesis advisor </small>  </li>
-<li>Anna-Lena Schubert <br><small class="roles"> Author, thesis advisor </small>  </li>
+<li>Meike Steinhilber <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-7144-2100" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Martin Schnuerch <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0001-6531-2265" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Anna-Lena Schubert <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0001-7248-0662" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 

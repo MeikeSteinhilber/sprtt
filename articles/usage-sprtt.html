@@ -99,7 +99,7 @@
       <h1 data-toc-skip>How to use the sprtt package</h1>
                         <h4 class="author">Meike Steinhilber</h4>
             
-            <h4 class="date">2021-04-08</h4>
+            <h4 class="date">2021-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/vignettes/usage-sprtt.Rmd"><code>vignettes/usage-sprtt.Rmd</code></a></small>
       <div class="hidden name"><code>usage-sprtt.Rmd</code></div>
@@ -182,6 +182,7 @@
 <li><p><code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> : a function which performs sequential t-tests</p></li>
 <li><p><code>df_income</code>: a set of data to run the examples given in this vignette</p></li>
 <li><p><code>df_stress</code>: a set of data to run the examples given in this vignette</p></li>
+<li><p><code>df_cancer</code>: a set of data to run the examples given in this vignette</p></li>
 </ul>
 </div>
 <div id="how-do-i-use-the-seq_ttest-function" class="section level2">
@@ -274,12 +275,12 @@
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_income</span><span class="op">)</span>
 <span class="co">#&gt;   monthly_income    sex</span>
-<span class="co">#&gt; 1       2869.866 female</span>
-<span class="co">#&gt; 2       3054.428   male</span>
-<span class="co">#&gt; 3       2871.897 female</span>
-<span class="co">#&gt; 4       3425.037   male</span>
-<span class="co">#&gt; 5       2605.780 female</span>
-<span class="co">#&gt; 6       3712.027   male</span>
+<span class="co">#&gt; 1       4091.001 female</span>
+<span class="co">#&gt; 2       3274.591   male</span>
+<span class="co">#&gt; 3       2696.436 female</span>
+<span class="co">#&gt; 4       3826.413   male</span>
+<span class="co">#&gt; 5       3522.478 female</span>
+<span class="co">#&gt; 6       2563.597   male</span>
 
 <span class="co"># sequential t-test: data argument ---------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="va">sex</span>,     <span class="co"># x argument </span>
@@ -290,18 +291,18 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: monthly_income ~ sex</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = -0.94524, decision = continue sampling</span>
+<span class="co">#&gt;  log-likelihood ratio = -0.59447, decision = continue sampling</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -0.44762</span>
-<span class="co">#&gt;  null hypothesis = 0.49762</span>
+<span class="co">#&gt;  alternative hypothesis = 0.82689</span>
+<span class="co">#&gt;  null hypothesis = 1.42137</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.2</span>
-<span class="co">#&gt; degrees of freedome: df = 198</span>
+<span class="co">#&gt; degrees of freedome: df = 118</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;  3002.322  3020.533 </span>
+<span class="co">#&gt;  3072.086  3080.715 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span></code></pre></div>
 </div>
@@ -314,12 +315,12 @@
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_income</span><span class="op">)</span>
 <span class="co">#&gt;   monthly_income    sex</span>
-<span class="co">#&gt; 1       2869.866 female</span>
-<span class="co">#&gt; 2       3054.428   male</span>
-<span class="co">#&gt; 3       2871.897 female</span>
-<span class="co">#&gt; 4       3425.037   male</span>
-<span class="co">#&gt; 5       2605.780 female</span>
-<span class="co">#&gt; 6       3712.027   male</span>
+<span class="co">#&gt; 1       4091.001 female</span>
+<span class="co">#&gt; 2       3274.591   male</span>
+<span class="co">#&gt; 3       2696.436 female</span>
+<span class="co">#&gt; 4       3826.413   male</span>
+<span class="co">#&gt; 5       3522.478 female</span>
+<span class="co">#&gt; 6       2563.597   male</span>
 
 <span class="co"># sequential t-test: data argument ---------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="fl">1</span>,     <span class="co"># x argument </span>
@@ -331,18 +332,18 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: monthly_income ~ 1</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = -23.57493, decision = accept H0</span>
+<span class="co">#&gt;  log-likelihood ratio = -6.28809, decision = accept H0</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -23.32307</span>
-<span class="co">#&gt;  null hypothesis = 0.25186</span>
+<span class="co">#&gt;  alternative hypothesis = -9.18185</span>
+<span class="co">#&gt;  null hypothesis = -2.89375</span>
 <span class="co">#&gt; alternative hypothesis: true mean is not equal to 3000 .</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.5</span>
-<span class="co">#&gt; degrees of freedome: df = 199</span>
+<span class="co">#&gt; degrees of freedome: df = 119</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x </span>
-<span class="co">#&gt;  3011.427 </span>
+<span class="co">#&gt;    3076.4 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span></code></pre></div>
 </div>
@@ -358,24 +359,24 @@
 <p>If one wants to perform a two-sample test, the <code>y</code> argument is required in addition to <code>x</code>. If the data are stored in a data frame, the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator is essential to get access to the variables.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">)</span>
-<span class="co">#&gt;   treatment_group control_group baseline_stress one_year_stress</span>
-<span class="co">#&gt; 1        6.097665      4.493064        7.175250        7.844337</span>
-<span class="co">#&gt; 2        6.609234      5.520956        4.918343        5.527191</span>
-<span class="co">#&gt; 3        5.665810      3.954091        4.634266        5.783046</span>
-<span class="co">#&gt; 4        4.830564      3.733212        5.671340        7.793956</span>
-<span class="co">#&gt; 5        4.917361      4.109373        4.141257        3.133889</span>
-<span class="co">#&gt; 6        3.457433      3.563800        4.771696        8.548586</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">)</span>
+<span class="co">#&gt;   treatment_group control_group</span>
+<span class="co">#&gt; 1        6.097665      4.493064</span>
+<span class="co">#&gt; 2        6.609234      5.520956</span>
+<span class="co">#&gt; 3        5.665810      3.954091</span>
+<span class="co">#&gt; 4        4.830564      3.733212</span>
+<span class="co">#&gt; 5        4.917361      4.109373</span>
+<span class="co">#&gt; 6        3.457433      3.563800</span>
 
 <span class="co"># sequential t-test: $ operator ------------------------------------------------</span>
-<span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span>
-          <span class="va">df_stress</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span>
+<span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span>
+          <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span>
           d <span class="op">=</span> <span class="fl">0.3</span>,                   
           verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>           
 <span class="co">#&gt; </span>
 <span class="co">#&gt; *****  Sequential  Two Sample t-test *****</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; data: df_stress$treatment_group and  df_stress$control_group</span>
+<span class="co">#&gt; data: df_cancer$treatment_group and  df_cancer$control_group</span>
 <span class="co">#&gt; test statistic:</span>
 <span class="co">#&gt;  log-likelihood ratio = 10.77656, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
@@ -383,8 +384,8 @@
 
 
 <span class="co"># sequential t-test: global variables ------------------------------------------</span>
-<span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">df_stress</span><span class="op">$</span><span class="va">treatment_group</span>
-<span class="va">control</span> <span class="op">&lt;-</span> <span class="va">df_stress</span><span class="op">$</span><span class="va">control_group</span>
+<span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>
+<span class="va">control</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>
 
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment</span>,
           <span class="va">control</span>,
@@ -406,24 +407,24 @@
 <p>If one wants to perform a one-sample test there is only one group and therefore only one variable. If the data are in a data frame, the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator is essential to get access to the variables. The <code>mu</code> argument is additionally required, which specifies the mean which one wants to test against.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">)</span>
-<span class="co">#&gt;   treatment_group control_group baseline_stress one_year_stress</span>
-<span class="co">#&gt; 1        6.097665      4.493064        7.175250        7.844337</span>
-<span class="co">#&gt; 2        6.609234      5.520956        4.918343        5.527191</span>
-<span class="co">#&gt; 3        5.665810      3.954091        4.634266        5.783046</span>
-<span class="co">#&gt; 4        4.830564      3.733212        5.671340        7.793956</span>
-<span class="co">#&gt; 5        4.917361      4.109373        4.141257        3.133889</span>
-<span class="co">#&gt; 6        3.457433      3.563800        4.771696        8.548586</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">)</span>
+<span class="co">#&gt;   treatment_group control_group</span>
+<span class="co">#&gt; 1        6.097665      4.493064</span>
+<span class="co">#&gt; 2        6.609234      5.520956</span>
+<span class="co">#&gt; 3        5.665810      3.954091</span>
+<span class="co">#&gt; 4        4.830564      3.733212</span>
+<span class="co">#&gt; 5        4.917361      4.109373</span>
+<span class="co">#&gt; 6        3.457433      3.563800</span>
 
 <span class="co"># sequential t-test: $ operator ------------------------------------------------</span>
-<span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">$</span><span class="va">treatment_group</span>,     <span class="co"># x argument</span>
+<span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>,     <span class="co"># x argument</span>
           mu <span class="op">=</span> <span class="fl">3.5</span>,            
           d <span class="op">=</span> <span class="fl">0.2</span>,
           verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; *****  Sequential One Sample t-test *****</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; data: df_stress$treatment_group</span>
+<span class="co">#&gt; data: df_cancer$treatment_group</span>
 <span class="co">#&gt; test statistic:</span>
 <span class="co">#&gt;  log-likelihood ratio = 16.67655, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
@@ -431,7 +432,7 @@
 
 
 <span class="co"># sequential t-test: global variables ------------------------------------------</span>
-<span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">df_stress</span><span class="op">$</span><span class="va">treatment_group</span>
+<span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>
 
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment</span>,     <span class="co"># x argument</span>
           mu <span class="op">=</span> <span class="fl">3.5</span>, 
@@ -458,13 +459,13 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">)</span>
-<span class="co">#&gt;   treatment_group control_group baseline_stress one_year_stress</span>
-<span class="co">#&gt; 1        6.097665      4.493064        7.175250        7.844337</span>
-<span class="co">#&gt; 2        6.609234      5.520956        4.918343        5.527191</span>
-<span class="co">#&gt; 3        5.665810      3.954091        4.634266        5.783046</span>
-<span class="co">#&gt; 4        4.830564      3.733212        5.671340        7.793956</span>
-<span class="co">#&gt; 5        4.917361      4.109373        4.141257        3.133889</span>
-<span class="co">#&gt; 6        3.457433      3.563800        4.771696        8.548586</span>
+<span class="co">#&gt;   baseline_stress one_year_stress</span>
+<span class="co">#&gt; 1        7.175250        7.844337</span>
+<span class="co">#&gt; 2        4.918343        5.527191</span>
+<span class="co">#&gt; 3        4.634266        5.783046</span>
+<span class="co">#&gt; 4        5.671340        7.793956</span>
+<span class="co">#&gt; 5        4.141257        3.133889</span>
+<span class="co">#&gt; 6        4.771696        8.548586</span>
 
 <span class="co"># sequential t-test: $ operator ------------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">$</span><span class="va">baseline_stress</span>, <span class="co"># x argument</span>
@@ -504,12 +505,12 @@
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_income</span><span class="op">)</span>
 <span class="co">#&gt;   monthly_income    sex</span>
-<span class="co">#&gt; 1       2869.866 female</span>
-<span class="co">#&gt; 2       3054.428   male</span>
-<span class="co">#&gt; 3       2871.897 female</span>
-<span class="co">#&gt; 4       3425.037   male</span>
-<span class="co">#&gt; 5       2605.780 female</span>
-<span class="co">#&gt; 6       3712.027   male</span>
+<span class="co">#&gt; 1       4091.001 female</span>
+<span class="co">#&gt; 2       3274.591   male</span>
+<span class="co">#&gt; 3       2696.436 female</span>
+<span class="co">#&gt; 4       3826.413   male</span>
+<span class="co">#&gt; 5       3522.478 female</span>
+<span class="co">#&gt; 6       2563.597   male</span>
 
 <span class="co"># sequential t-test: data argument ---------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="fl">1</span>,     <span class="co"># x argument </span>
@@ -522,18 +523,18 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: monthly_income ~ 1</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = 52.54419, decision = accept H1</span>
+<span class="co">#&gt;  log-likelihood ratio = 31.54835, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -220.9401</span>
-<span class="co">#&gt;  null hypothesis = -273.4843</span>
+<span class="co">#&gt;  alternative hypothesis = -149.7471</span>
+<span class="co">#&gt;  null hypothesis = -181.2955</span>
 <span class="co">#&gt; alternative hypothesis: true mean is not equal to 1000 .</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.3</span>
-<span class="co">#&gt; degrees of freedome: df = 199</span>
+<span class="co">#&gt; degrees of freedome: df = 119</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x </span>
-<span class="co">#&gt;  3011.427 </span>
+<span class="co">#&gt;    3076.4 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span></code></pre></div>
 </div>
@@ -548,28 +549,28 @@
 <p>The <code>verbose</code> argument defines the extent of the output shown in the console. If set to <code>TRUE</code> (default value), the output will be elaborate, if set to <code>FALSE</code> the output will be short.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># sequential t-test: verbose FALSE ---------------------------------------------</span>
-<span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span>
-          <span class="va">df_stress</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span>
+<span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span>
+          <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span>
           d <span class="op">=</span> <span class="fl">0.3</span>,
           verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; *****  Sequential  Two Sample t-test *****</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; data: df_stress$treatment_group and  df_stress$control_group</span>
+<span class="co">#&gt; data: df_cancer$treatment_group and  df_cancer$control_group</span>
 <span class="co">#&gt; test statistic:</span>
 <span class="co">#&gt;  log-likelihood ratio = 10.77656, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 
 <span class="co"># sequential t-test: verbose TRUE ----------------------------------------------</span>
-<span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span>
-          <span class="va">df_stress</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span>
+<span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span>
+          <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span>
           d <span class="op">=</span> <span class="fl">0.3</span>,
           verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
 <span class="co">#&gt; </span>
 <span class="co">#&gt; *****  Sequential  Two Sample t-test *****</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; data: df_stress$treatment_group and  df_stress$control_group</span>
+<span class="co">#&gt; data: df_cancer$treatment_group and  df_cancer$control_group</span>
 <span class="co">#&gt; test statistic:</span>
 <span class="co">#&gt;  log-likelihood ratio = 10.77656, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
@@ -595,9 +596,9 @@
 <p>However, the recommended way is to save the results in an object (e.g “results”). Doing so allows running further calculations with it afterward. It is important to keep in mind that the output object will be an S4 class. Therefore the access operator is the <code><a href="https://rdrr.io/r/base/slotOp.html">@</a></code> sign or the <code>[]</code> brackets.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># save the resuts in a object </span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">$</span><span class="va">treatment_group</span>,
-                      <span class="va">df_stress</span><span class="op">$</span><span class="va">control_group</span>,  
-                      d <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>,
+                     <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,  
+                     d <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
 <span class="co"># access the object with the @ operator </span>
 <span class="va">results</span><span class="op">@</span><span class="va">decision</span>
 <span class="co">#&gt; [1] "accept H1"</span>
