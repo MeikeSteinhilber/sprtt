@@ -172,7 +172,7 @@ while(decision == "continue sampling") {
 results
 ```
 
-The while-loop comes to an end after 48 data points.
+The while-loop comes to an end after `r n_person` data points.
 
 ### Report Results
 

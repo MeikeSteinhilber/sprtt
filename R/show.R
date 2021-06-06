@@ -41,7 +41,7 @@ setMethod(
           })
 
       cat("\nspecified effect size: Cohen's d =", object@d)
-      cat("\ndegrees of freedome: df =", object@df)
+      cat("\ndegrees of freedom: df =", object@df)
       cat("\nsample estimates:\n")
       print(round(object@mean_estimate[[1]], 5))
       cat('Note: to get access to the object of the results use the @ or []
