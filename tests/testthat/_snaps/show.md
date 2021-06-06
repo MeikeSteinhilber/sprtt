@@ -16,7 +16,7 @@
        null hypothesis = 0.107
       alternative hypothesis: true mean is not equal to 0 .
       specified effect size: Cohen's d = 0.8
-      degrees of freedome: df = 19
+      degrees of freedom: df = 19
       sample estimates:
       mean of x 
         0.05238 
@@ -41,7 +41,7 @@
        null hypothesis = -6.35593
       alternative hypothesis: true mean is less than 0 .
       specified effect size: Cohen's d = 0.8
-      degrees of freedome: df = 19
+      degrees of freedom: df = 19
       sample estimates:
       mean of x 
        -0.50342 
@@ -66,7 +66,7 @@
        null hypothesis = -1.32563
       alternative hypothesis: true mean is greater than 0 .
       specified effect size: Cohen's d = 0.8
-      degrees of freedome: df = 19
+      degrees of freedom: df = 19
       sample estimates:
       mean of x 
        -0.20286 
@@ -91,7 +91,7 @@
        null hypothesis = 6.65532
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's d = 0.8
-      degrees of freedome: df = 38
+      degrees of freedom: df = 38
       sample estimates:
       mean of x mean of y 
         0.14016   0.13999 
@@ -116,7 +116,7 @@
        null hypothesis = -1.26149
       alternative hypothesis: true difference in means is less than 0.
       specified effect size: Cohen's d = 0.8
-      degrees of freedome: df = 38
+      degrees of freedom: df = 38
       sample estimates:
       mean of x mean of y 
         0.11723  -0.14143 
@@ -141,7 +141,7 @@
        null hypothesis = 2.09495
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's d = 0.8
-      degrees of freedome: df = 18
+      degrees of freedom: df = 18
       sample estimates:
       mean of x mean of y 
         0.18073   0.16120 
@@ -166,7 +166,7 @@
        null hypothesis = -5.39332
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's d = 0.8
-      degrees of freedome: df = 18
+      degrees of freedom: df = 18
       sample estimates:
       mean of x mean of y 
        -0.13828   1.05060 
