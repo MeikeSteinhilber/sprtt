@@ -99,7 +99,7 @@
       <h1 data-toc-skip>How to use the sprtt package</h1>
                         <h4 class="author">Meike Steinhilber</h4>
             
-            <h4 class="date">2021-06-06</h4>
+            <h4 class="date">2021-06-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/vignettes/usage-sprtt.Rmd"><code>vignettes/usage-sprtt.Rmd</code></a></small>
       <div class="hidden name"><code>usage-sprtt.Rmd</code></div>
@@ -129,32 +129,27 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>The <code>sprtt</code> package is the implementation of <strong>s</strong>equential <strong>p</strong>robability <strong>r</strong>atio <strong>t</strong>ests using the associated <strong>t</strong>-statistic (<strong>sprtt</strong>). This vignette demonstrates the usage of the package including the <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function and all arguments with short examples. The theoretical background of the sequential t-test will not be covered by this vignette.</p>
-<p>The <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function has arguments to specify the requested sequential t-test. The table below shows all possible combinations which can be performed with the package.</p>
+<p>The <code>sprtt</code> package is the implementation of <strong>s</strong>equential <strong>p</strong>robability <strong>r</strong>atio <strong>t</strong>ests using the associated <strong>t</strong>-statistic (<strong>sprtt</strong>). This vignette demonstrates the usage of the package including the <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function and all arguments with short examples. The theoretical background of the sequential <em>t</em>-test will not be covered by this vignette.</p>
+<p>The <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function has arguments to specify the requested sequential <em>t</em>-test. The table below shows all possible combinations which can be performed with the package.</p>
 <table class="table">
 <thead><tr class="header">
 <th></th>
-<th>Two sample test</th>
-<th>One sample test</th>
+<th>Two-sample test</th>
+<th>One-sample test</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Two sided</td>
+<td>Two-sided</td>
 <td>x</td>
 <td>x</td>
 </tr>
 <tr class="even">
-<td>One sided (less)</td>
+<td>One-sided</td>
 <td>x</td>
 <td>x</td>
 </tr>
 <tr class="odd">
-<td>One sided (greater)</td>
-<td>x</td>
-<td>x</td>
-</tr>
-<tr class="even">
-<td>Paired</td>
+<td>Paired (repeated measures)</td>
 <td>x</td>
 <td></td>
 </tr>
@@ -179,7 +174,7 @@
 <a href="#what-does-the-package-contain" class="anchor"></a>What does the package contain?</h2>
 <p>The <code>sprtt</code> package contains:</p>
 <ul>
-<li><p><code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> : a function which performs sequential t-tests</p></li>
+<li><p><code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> : a function which performs sequential <em>t</em>-tests</p></li>
 <li><p><code>df_income</code>: a set of data to run the examples given in this vignette</p></li>
 <li><p><code>df_stress</code>: a set of data to run the examples given in this vignette</p></li>
 <li><p><code>df_cancer</code>: a set of data to run the examples given in this vignette</p></li>
@@ -189,12 +184,12 @@
 <h2 class="hasAnchor">
 <a href="#how-do-i-use-the-seq_ttest-function" class="anchor"></a>How do I use the seq_ttest() function?</h2>
 <p>The <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function works similarly to the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function from the <code>stats</code> package if one is familiar with that already.</p>
-<p>Sequential t-tests require some specification from the user:</p>
+<p>Sequential <em>t</em>-tests require some specification from the user:</p>
 <ul>
 <li><p>the variables, which contain the data,</p></li>
 <li><p>the error probability <code>alpha</code>,</p></li>
 <li><p>the <code>power</code> (1 - 𝛽),</p></li>
-<li><p>the effect size Cohen`s <code>d</code>, which represents the expected effect size or the lower limit of a substantial effect, and</p></li>
+<li><p>the effect size Cohen`s <code>d</code>, which represents the expected effect size or the lowest effect size of interest, and</p></li>
 <li><p>optional arguments to further specify the test.</p></li>
 </ul>
 <p>However, in some cases, it is not necessary to specify all arguments because some of them have default values. If these values are the ones required, they can be skipped.</p>
@@ -262,7 +257,7 @@
 </tr>
 </tbody>
 </table>
-<p>There are two different ways of how the data can be transferred into the function. The <code>x</code> argument takes either <code>formula</code> or <code>numeric</code> input. Which input option is recommended depends on the structure of the data.</p>
+<p>There are two different ways how the data can be transferred into the function. The <code>x</code> argument takes either <code>formula</code> or <code>numeric</code> input. Which input option is recommended depends on the structure of the data.</p>
 <div id="x-argument-formula-input" class="section level3">
 <h3 class="hasAnchor">
 <a href="#x-argument-formula-input" class="anchor"></a>x argument: formula input</h3>
@@ -310,7 +305,7 @@
 <h4 class="hasAnchor">
 <a href="#one-sample-test" class="anchor"></a><em>One-sample test</em>
 </h4>
-<p>To perform a one-sample test the right side of the formula has to be 1. The <code>mu</code> argument is also required, which specifies the mean value that one wants to test against.</p>
+<p>To perform a one-sample test, the right side of the formula has to be 1. The <code>mu</code> argument is also required, which specifies the mean value that one wants to test against.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_income</span><span class="op">)</span>
@@ -455,7 +450,7 @@
 <div id="paired" class="section level4">
 <h4 class="hasAnchor">
 <a href="#paired" class="anchor"></a>Paired</h4>
-<p>The <code>paired</code> argument states if the data are paired. To perform a paired sequential t-test <code>paired</code> has to be set to <code>TRUE</code>.</p>
+<p>The <code>paired</code> argument states if the data are paired. To perform a paired sequential <em>t</em>-test, <code>paired</code> has to be set to <code>TRUE</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># show data frame --------------------------------------------------------------</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">)</span>
@@ -541,7 +536,7 @@
 <div id="na-rm" class="section level4">
 <h4 class="hasAnchor">
 <a href="#na-rm" class="anchor"></a>Na.rm</h4>
-<p>The <code>na.rm</code> argument defines the handling of missing values. If set to <code>TRUE</code> (default value), it will remove all missing values automatically. If this behavior is not wanted, the <code>na.rm</code> argument has to be set to <code>FALSE</code>. If missing values are discovered then, an error is triggered.</p>
+<p>The <code>na.rm</code> argument defines the handling of missing values. If set to <code>TRUE</code> (default value), it will remove all missing values automatically. If this behavior is not wanted, the <code>na.rm</code> argument has to be set to <code>FALSE</code>. If missing values are discovered, an error is triggered.</p>
 </div>
 <div id="verbose" class="section level4">
 <h4 class="hasAnchor">
