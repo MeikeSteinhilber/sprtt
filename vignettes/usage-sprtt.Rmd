@@ -36,16 +36,15 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette demonstrates the usage of the package including the `seq_ttest()` function and all arguments with short examples. The theoretical background of the sequential t-test will not be covered by this vignette.
+The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette demonstrates the usage of the package including the `seq_ttest()` function and all arguments with short examples. The theoretical background of the sequential *t*-test will not be covered by this vignette.
 
-The `seq_ttest()` function has arguments to specify the requested sequential t-test. The table below shows all possible combinations which can be performed with the package.
+The `seq_ttest()` function has arguments to specify the requested sequential *t*-test. The table below shows all possible combinations which can be performed with the package.
 
-|                     | Two sample test | One sample test |
-|---------------------|-----------------|-----------------|
-| Two sided           | x               | x               |
-| One sided (less)    | x               | x               |
-| One sided (greater) | x               | x               |
-| Paired              | x               |                 |
+|                            | Two-sample test | One-sample test |
+|----------------------------|-----------------|-----------------|
+| Two-sided                  | x               | x               |
+| One-sided                  | x               | x               |
+| Paired (repeated measures) | x               |                 |
 
 Other recommended vignettes cover:
 
@@ -66,7 +65,7 @@ library(sprtt)
 
 The `sprtt` package contains:
 
--   `seq_ttest()` : a function which performs sequential t-tests
+-   `seq_ttest()` : a function which performs sequential *t*-tests
 
 -   `df_income`: a set of data to run the examples given in this vignette
 
@@ -78,7 +77,7 @@ The `sprtt` package contains:
 
 The `seq_ttest()` function works similarly to the `t.test()` function from the `stats` package if one is familiar with that already.
 
-Sequential t-tests require some specification from the user:
+Sequential *t*-tests require some specification from the user:
 
 -   the variables, which contain the data,
 
@@ -86,7 +85,7 @@ Sequential t-tests require some specification from the user:
 
 -   the `power` (1 - 𝛽),
 
--   the effect size Cohen\`s `d`, which represents the expected effect size or the lower limit of a substantial effect, and
+-   the effect size Cohen\`s `d`, which represents the expected effect size or the lowest effect size of interest, and
 
 -   optional arguments to further specify the test.
 
@@ -106,7 +105,7 @@ However, in some cases, it is not necessary to specify all arguments because som
 | na.rm       | TRUE          | TRUE or FALSE                  |
 | verbose     | TRUE          | TRUE or FALSE                  |
 
-There are two different ways of how the data can be transferred into the function. The `x` argument takes either `formula` or `numeric` input. Which input option is recommended depends on the structure of the data.
+There are two different ways how the data can be transferred into the function. The `x` argument takes either `formula` or `numeric` input. Which input option is recommended depends on the structure of the data.
 
 ### x argument: formula input
 
@@ -126,7 +125,7 @@ seq_ttest(monthly_income ~ sex,     # x argument
 
 #### *One-sample test*
 
-To perform a one-sample test the right side of the formula has to be 1. The `mu` argument is also required, which specifies the mean value that one wants to test against.
+To perform a one-sample test, the right side of the formula has to be 1. The `mu` argument is also required, which specifies the mean value that one wants to test against.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -199,7 +198,7 @@ seq_ttest(treatment,     # x argument
 
 #### Paired
 
-The `paired` argument states if the data are paired. To perform a paired sequential t-test `paired` has to be set to `TRUE`.
+The `paired` argument states if the data are paired. To perform a paired sequential *t*-test, `paired` has to be set to `TRUE`.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -236,7 +235,7 @@ seq_ttest(monthly_income ~ 1,     # x argument
 
 #### Na.rm
 
-The `na.rm` argument defines the handling of missing values. If set to `TRUE` (default value), it will remove all missing values automatically. If this behavior is not wanted, the `na.rm` argument has to be set to `FALSE`. If missing values are discovered then, an error is triggered.
+The `na.rm` argument defines the handling of missing values. If set to `TRUE` (default value), it will remove all missing values automatically. If this behavior is not wanted, the `na.rm` argument has to be set to `FALSE`. If missing values are discovered, an error is triggered.
 
 #### Verbose
 

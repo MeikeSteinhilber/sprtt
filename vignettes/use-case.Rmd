@@ -44,48 +44,48 @@ Other recommended vignettes cover:
 
 ## Use Case
 
-A team of researchers wants to know if the stress of the employees increased in the company Test AG over the last year. The Human Resources department has gathered data from a new self-care tool they implemented for the employees. It is difficult to predict how many employees will still participate at the second measurement point (one year after the baseline). The team suggests using a sequential t-test instead of a Students t-test, because the sequential procedure can reduce the required sample size and is stopped right after the decision for one of the hypotheses. Furthermore, the sequential t-test is able to gather evidence for both the alternative and the null hypothesis.
+A team of researchers wants to know if the stress of the employees increased in the company itFlow AG over the last year. The Human Resources department has gathered data from a new self-care tool they implemented for the employees. It is difficult to predict how many employees will participate at the second measurement point (one year after the baseline). The team suggests using a sequential *t*-test instead of a Students *t*-test, because the sequential procedure can reduce the required sample size and is stopped right after the decision for one of the hypotheses is made. Furthermore, the sequential *t*-test is able to gather evidence for both the alternative and the null hypothesis.
 
 ### Hypothesis
 
-The researchers know that the company has received more orders than in the year before. Thus, they do expect an increase in self-reported stress.
+The researchers know that the company has received more orders than in the year before. Thus, they expect an increase in self-reported stress.
 
 ### Data Analysis
 
-The parameters of the sequential t-test are specified as follows:
+The parameters of the sequential *t*-test are specified as follows:
 
--   The researchers expect an increase in stress but they have no prior knowledge about the expected effect size. Thus, they define the lower limit of a substantial effect for their research interest.
+-   The researchers expect an increase in stress but they have no prior knowledge about the expected effect size. Thus, they define the lower limit of a substantial effect of interest.
 
-    ```{r}
-    d = 0.2
+    ```{r, echo=TRUE}
+    d <- 0.2
     ```
 
--   They choose the common alpha level of .05 and the same level for the beta error probability, which leads to a power of .95 (1 - 𝛽).
+-   They choose the common $\alpha$ level of .05 and the same level for the $\beta$ error probability, which leads to a power of .95 ($1 - \beta$).
 
-    ```{r}
-    alpha = 0.05
-    power = 0.95
+    ```{r, echo=TRUE}
+    alpha <- 0.05
+    power <- 0.95
     ```
 
--   The data are repeated measures, therefore the test is a paired sequential t-test.
+-   The data are repeated measures, therefore the test is a paired sequential *t*-test.
 
-    ```{r}
-    paired = TRUE
+    ```{r, echo=TRUE}
+    paired <- TRUE
     ```
 
 -   The researchers expect that the stress will have increased after one year. Thus, they specify that the true difference in means is greater than 0.\
     `(mean(one_year_stress) - mean(baseline_stress)) > 0`
 
-    ```{r}
-    alternative = "greater"
+    ```{r, echo=TRUE}
+    alternative <- "greater"
     ```
 
-The HR department receives the new data piece by piece and passes it on directly to the researchers. The test is performed for the first time and starts with the first two data points.
+The HR department receives the new data piece by piece and passes it directly on to the researchers. The test is performed for the first time and starts with the first two data points.
 
-```{r}
-# first data from the Human Resources department -------------------------------
+```{r, echo=TRUE}
+# first data from the Human Resources department ---
 # current sample size
-n_person = 2
+n_person <- 2
 
 # get data
 df <- df_stress[1:n_person,]
@@ -93,57 +93,59 @@ df <- df_stress[1:n_person,]
 # print data
 df
 
-# sequential t-test ------------------------------------------------------------
+# sequential t-test
 results <- seq_ttest(df$one_year_stress,
                      df$baseline_stress,
                      alpha = alpha,
                      power = power,
                      d = d,
                      paired = paired,
-                     alternative = alternative)
+                     alternative = alternative,
+                     verbose = FALSE)
 
-# print results: entire output--------------------------------------------------
+# print results: console output
 results
 ```
 
 The decision from the first test is:
 
-```{r}
+```{r, echo=TRUE}
 results@decision
 ```
 
 As a result, the researchers take one more data point and run the test again.
 
-```{r}
-# new data from the Human Resources department ---------------------------------
+```{r, echo=TRUE}
+# new data from the Human Resources department ---
 # get one more person
-n_person = n_person + 1
+n_person <- n_person + 1
 df <- df_stress[1:n_person,]
 
 # print new data
 df
 
-# sequential t-test ------------------------------------------------------------
+# sequential t-test
 results <- seq_ttest(df$one_year_stress,
                      df$baseline_stress,
                      alpha = alpha,
                      power = power,
                      d = d,
                      paired = paired,
-                     alternative = alternative)
+                     alternative = alternative,
+                     verbose = FALSE)
 
-# print results ----------------------------------------------------------------
+# print results
 results@decision
 ```
 
-This process is repeated until the decision is made for one of the two hypotheses. To simulate this sequential process, a while-loop embraces the sequential t-test function in the code below, which will not stop until the decision is to accept one of the hypotheses or the maximum of the data is reached.
+This process is repeated until the decision is made for one of the two hypotheses. To simulate this sequential process, a while-loop embraces the sequential *t*-test function in the code below, which will not stop until one of the hypotheses is accepted or the maximum of the data is reached.
 
-```{r}
-# define the starting point ----------------------------------------------------
-decision = "continue sampling"
-n_person = 3
+```{r, echo=TRUE}
+# define the starting point
+decision <- "continue sampling"
+n_person <- 3
 
-# simulation of the sequential procedure ---------------------------------------
+# simulation of the sequential procedure
 while(decision == "continue sampling") {
   # get the current data
   df <- df_stress[1:n_person,]
@@ -157,10 +159,10 @@ while(decision == "continue sampling") {
                        paired = paired,
                        alternative = alternative)
   # save the current desicion
-  decision = results@decision
+  decision <- results@decision
   
   # add a new person
-  n_person = n_person + 1
+  n_person <- n_person + 1
   
   # break if the maximum of the data is reached
   if (n_person > nrow(df_stress)) {
@@ -168,23 +170,23 @@ while(decision == "continue sampling") {
   }
 }
 
-# console output ---------------------------------------------------------------
+# console output
 results
 ```
 
-The while-loop comes to an end after `r n_person` data points.
+The while-loop comes to an end after `r n_person - 1` data points.
 
 ### Report Results
 
-```{r}
-# Required results for the report ----------------------------------------------
+```{r, echo=TRUE}
+# Required results for the report
 
 # likelihood ratio (LR)
 LR <- round(results@likelihood_ratio, digits = 2)
 LR
 
-# sample size (N)
-N <- results@df + 2
+# sample size (N) = degrees of freedom +2 (two-samples) or +1 (one-sample & paired)
+N <- results@df + 1
 N
 
 # baseline stress (M and SD)
@@ -199,7 +201,7 @@ mean_t2
 sd_t2 <- round(sd(df$one_year_stress), digits = 2)
 sd_t2
 
-# NOT IN THE PACKAGE INCLUDED --------------------------------------------------
+# NOT INCLUDED IN THE PACKAGE 
 
 # calculate effect size: Cohen´s d
 d_results <- effsize::cohen.d(df$one_year_stress,
@@ -215,8 +217,8 @@ d_upper <- round(d_results$conf.int[[2]], digits = 2)
 d_upper
 ```
 
-Starting at *N* = 2, the test stops sampling at a total sample size of *N* = `r N` with *LR*~`r N`~ = `r LR`. This ratio indicates that the data are about 20 times more likely under H~1~ than under H~0~. Thus, we accept the alternative hypothesis: The perceived stress at the second measurement (*M* = `r mean_t2`, *SD* = `r sd_t2`) is higher than one year ago at the baseline measurement (*M* = `r mean_t1`, *SD* = `r sd_t1`), Cohen\`s *d* = `r d`, 95% CI [`r d_lower`, `r d_upper`].[^1]
+Starting at *N* = 2, the test stops sampling at a total sample size of *N* = `r N` with *LR*~`r N`~ = `r LR`. This ratio indicates that the data are about 20 times more likely under H~1~ than under H~0~. Thus, we accept the alternative hypothesis: The perceived stress at the second measurement (*M* = `r mean_t2`, *SD* = `r sd_t2`) is higher than one year ago at the baseline measurement (*M* = `r mean_t1`, *SD* = `r sd_t1`), Cohen\`s *d* = `r d`, 95% CI [`r d_lower`, `r d_upper`].[^1]^,^[^2]
 
-[^1]: Note that this estimate of Cohen's d as well as the CI are based on the assumption of a fixed sample size and, thus, might be biased toward an overestimation of the true effect size. See @schnuerch2020a for details.
+[^1]: The citation style was taken from @schnuerch2020.
 
-## References
+[^2]: Note that this estimate of Cohen's d as well as the CI are based on the assumption of a fixed sample size and, thus, might be biased toward an overestimation of the true effect size. See for details @schnuerch2020.
