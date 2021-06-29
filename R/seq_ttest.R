@@ -2,8 +2,9 @@
 #     sprtt package                                                            #
 #                                                                              #
 #     master thesis project                                                    #
-#     master thesis title: "..."                                               #
-#     author: meike steinhilber                                                #
+#     master thesis title: "sprtt: An R Package for Sequential Probability     #
+#     Ratio Tests Using the Associated t-Statistic"                            #
+#     author: Meike Steinhilber                                                #
 #                                                                              #
 #     This package provides the implementation of sequential probability       #
 #     ratio tests using t-statistic.                                           #
