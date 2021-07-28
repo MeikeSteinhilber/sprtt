@@ -219,6 +219,8 @@ d_upper
 
 Starting at *N* = 2, the test stops sampling at a total sample size of *N* = `r N` with *LR*~`r N`~ = `r LR`. This ratio indicates that the data are about 20 times more likely under H~1~ than under H~0~. Thus, we accept the alternative hypothesis: The perceived stress at the second measurement (*M* = `r mean_t2`, *SD* = `r sd_t2`) is higher than one year ago at the baseline measurement (*M* = `r mean_t1`, *SD* = `r sd_t1`), Cohen\`s *d* = `r d`, 95% CI [`r d_lower`, `r d_upper`].[^1]^,^[^2]
 
-[^1]: The citation style was taken from @schnuerch2020.
+## References
 
-[^2]: Note that this estimate of Cohen's d as well as the CI are based on the assumption of a fixed sample size and, thus, might be biased toward an overestimation of the true effect size. See for details @schnuerch2020.
+[^1]: The citation style was taken from @schnuerch2020a.
+
+[^2]: Note that this estimate of Cohen's d as well as the CI are based on the assumption of a fixed sample size and, thus, might be biased toward an overestimation of the true effect size. See for details @schnuerch2020a.
