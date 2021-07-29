@@ -6,9 +6,6 @@
 
 <!-- badges: start -->
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sprtt?color=red)](https://cran.r-project.org/package=sprtt)
-[![Github All
-Releases](https://img.shields.io/github/downloads/MeikeSteinhilber/sprtt/total.svg)]()
 [![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt)
 [![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml)
 [![R-CMD-check-windows-macOs](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
@@ -27,8 +24,8 @@ The package contains:
 
 -   `seq_ttest()` calculates the sequential test statistic and
 
--   two data sets (`df_income`, `df_stress`) to run the examples in the
-    documentation
+-   two data sets (`df_income`, `df_stress`, `df_cancer`) to run the
+    examples in the documentation
 
 ## Installation
 
@@ -114,7 +111,7 @@ seq_ttest(treatment_group, control_group, d = 0.8)
 #>  null hypothesis = -9.55763
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
-#> degrees of freedome: df = 38
+#> degrees of freedom: df = 38
 #> sample estimates:
 #> mean of x mean of y 
 #>  -0.05204   1.18768 
@@ -138,7 +135,7 @@ seq_ttest(stress_level ~ sex, d = 0.8)
 #>  null hypothesis = 0.2222
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
-#> degrees of freedome: df = 18
+#> degrees of freedom: df = 18
 #> sample estimates:
 #> mean of x mean of y 
 #>  -0.23286  -0.08217 
@@ -162,7 +159,7 @@ seq_ttest(stress_level ~ sex, d = 0.8, na.rm = TRUE)
 #>  null hypothesis = -1.5645
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
-#> degrees of freedome: df = 18
+#> degrees of freedom: df = 18
 #> sample estimates:
 #> mean of x mean of y 
 #>  -0.40818   0.42068 
@@ -176,18 +173,18 @@ seq_ttest(monthly_income ~ sex, data = df_income, d = 0.8)
 #> 
 #> data: monthly_income ~ sex
 #> test statistic:
-#>  log-likelihood ratio = -15.2897, decision = accept H0
+#>  log-likelihood ratio = -9.51391, decision = accept H0
 #> SPRT thresholds:
 #>  lower log(B) = -2.94444, upper log(A) = 2.94444
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -14.79208
-#>  null hypothesis = 0.49762
+#>  alternative hypothesis = -8.09254
+#>  null hypothesis = 1.42137
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
-#> degrees of freedome: df = 198
+#> degrees of freedom: df = 118
 #> sample estimates:
 #> mean of x mean of y 
-#>  3002.322  3020.533 
+#>  3072.086  3080.715 
 #> Note: to get access to the object of the results use the @ or []
 #>           instead of the $ operator.
 ```
