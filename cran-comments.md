@@ -14,7 +14,7 @@
 
 
 ## R CMD check results
-New submission
+New submission ==> This is my first submission
 
 Possibly mis-spelled words in DESCRIPTION:
   Erdfelder (31:34)
@@ -22,6 +22,8 @@ Possibly mis-spelled words in DESCRIPTION:
   Rushton (24:49)
   SPRT (22:54, 25:33, 31:5)
   Schnuerch (31:22)
+
+==> spelling is correct
 
 
 0 errors √ | 0 warnings √ | 1 note x
