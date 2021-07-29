@@ -48,7 +48,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sprtt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
 <p>The package contains:</p>
 <ul>
 <li><p><code><a href="reference/seq_ttest.html">seq_ttest()</a></code> calculates the sequential test statistic and</p></li>
-<li><p>two data sets (<code>df_income</code>, <code>df_stress</code>) to run the examples in the documentation</p></li>
+<li><p>two data sets (<code>df_income</code>, <code>df_stress</code>, <code>df_cancer</code>) to run the examples in the documentation</p></li>
 </ul>
 </div>
 <div id="installation" class="section level2">
@@ -195,7 +195,7 @@
 <span class="co">#&gt;  null hypothesis = -9.55763</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
-<span class="co">#&gt; degrees of freedome: df = 38</span>
+<span class="co">#&gt; degrees of freedom: df = 38</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
 <span class="co">#&gt;  -0.05204   1.18768 </span>
@@ -219,7 +219,7 @@
 <span class="co">#&gt;  null hypothesis = 0.2222</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
-<span class="co">#&gt; degrees of freedome: df = 18</span>
+<span class="co">#&gt; degrees of freedom: df = 18</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
 <span class="co">#&gt;  -0.23286  -0.08217 </span>
@@ -243,7 +243,7 @@
 <span class="co">#&gt;  null hypothesis = -1.5645</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
-<span class="co">#&gt; degrees of freedome: df = 18</span>
+<span class="co">#&gt; degrees of freedom: df = 18</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
 <span class="co">#&gt;  -0.40818   0.42068 </span>
@@ -257,18 +257,18 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; data: monthly_income ~ sex</span>
 <span class="co">#&gt; test statistic:</span>
-<span class="co">#&gt;  log-likelihood ratio = -15.2897, decision = accept H0</span>
+<span class="co">#&gt;  log-likelihood ratio = -9.51391, decision = accept H0</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
 <span class="co">#&gt; Log-Likelihood of the:</span>
-<span class="co">#&gt;  alternative hypothesis = -14.79208</span>
-<span class="co">#&gt;  null hypothesis = 0.49762</span>
+<span class="co">#&gt;  alternative hypothesis = -8.09254</span>
+<span class="co">#&gt;  null hypothesis = 1.42137</span>
 <span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.8</span>
-<span class="co">#&gt; degrees of freedome: df = 198</span>
+<span class="co">#&gt; degrees of freedom: df = 118</span>
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;  3002.322  3020.533 </span>
+<span class="co">#&gt;  3072.086  3080.715 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span></code></pre></div>
 </div>
@@ -306,8 +306,6 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=sprtt"><img src="http://www.r-pkg.org/badges/version/sprtt?color=red" alt="CRAN_Status_Badge"></a></li>
-<li><a href=""><img src="https://img.shields.io/github/downloads/MeikeSteinhilber/sprtt/total.svg" alt="Github All Releases"></a></li>
 <li><a href="https://codecov.io/gh/MeikeSteinhilber/sprtt"><img src="https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW" alt="codecov"></a></li>
 <li><a href="https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml"><img src="https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg" alt="pkgdown"></a></li>
 <li><a href="https://github.com/MeikeSteinhilber/sprtt/actions"><img src="https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg" alt="R-CMD-check-windows-macOs"></a></li>
