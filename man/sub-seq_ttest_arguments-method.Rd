@@ -20,9 +20,11 @@ seq_ttest_arguments class.}
 }
 \value{
 Returns the contents of the specified slot of an
-seq_ttest_arguments object.
+seq_ttest_arguments object. For more information, see the arguments of the
+\code{\link{seq_ttest}} function.
 }
 \description{
-Method to retrieve the contents of a slot of an object of the
-seq_ttest_arguments class.
+This method is only used internally to process
+the input arguments of the \code{\link{seq_ttest}} function. As a normal user,
+you can ignore this specific documentation.
 }
