@@ -81,18 +81,17 @@ setMethod(
   }
 )
 
-# #' Method to retrieve the contents of a slot of an object of the
-# #'  seq_ttest_arguments class.
-# #'
-# #' @param seq_ttest_arguments the corresponding class to this method.
-# #' @param x the seq_ttest_arguments object.
-# #' @param i indices indicating elements to extract.
-# #' @param j not used.
-# #' @param drop not used.
-# #'
-# #' @return Returns the contents of the specified slot of an
-# #' seq_ttest_arguments object.
-# #' @export
+#' Method to retrieve the contents of a slot of an object of the
+#'  seq_ttest_arguments class.
+#'
+#' @param seq_ttest_arguments the corresponding class to this method.
+#' @param x the seq_ttest_arguments object.
+#' @param i indices indicating elements to extract.
+#' @param j not used.
+#' @param drop not used.
+#'
+#' @return Returns the contents of the specified slot of an
+#' seq_ttest_arguments object.
 setMethod(
   f = "[",
   signature = "seq_ttest_arguments",
@@ -112,35 +111,5 @@ setMethod(
   }
 )
 
-# #' Method to replace the contents of a slot of an object of the
-# #'  seq_ttest_arguments class.
-# #'
-# #' @param seq_ttest_arguments the corresponding class to this method.
-# #' @param x the seq_ttest_arguments object.
-# #' @param value the new value of the slot.
-# #' @param i indices indicating elements to extract.
-# #' @param j not used.
-# #'
-# #' @return The function has no return value, it replaces the contents of a
-# #' specified slot with a new value.
-# #' @export
-setReplaceMethod(
-  f = "[",
-  signature = "seq_ttest_arguments",
-  function(x, i, j, value) {
-    if (i == "x") {x@x <- value}
-    if (i == "y") {x@y <- value}
-    if (i == "mu") {x@mu <- value}
-    if (i == "d") {x@d <- value}
-    if (i == "alpha") {x@alpha <- value}
-    if (i == "power") {x@power <- value}
-    if (i == "alternative") {x@alternative <- value}
-    if (i == "paired") {x@paired <- value}
-    if (i == "one_sample") {x@one_sample <- value}
-    if (i == "data_name") {x@data_name <- value}
-    if (i == "na.rm") {x@na.rm <- value}
-    validObject(x)
-    return(x)
-  }
-)
+
 

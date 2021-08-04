@@ -17,17 +17,4 @@ test_that("CLASS_seq_ttest_arguments: Check getters", {
   expect_error(arguments["jewhf"], "Wrong slot name:")
 })
 
-test_that("CLASS_seq_ttest_arguments: Check setters", {
-  arguments <- build_prototype_seq_ttest_arguments()
-  expect_equal(arguments["x"] <- 1:4, 1:4)
-  expect_equal(arguments["y"] <- NULL, NULL)
-  expect_equal(arguments["mu"] <- 3, 3)
-  expect_equal(arguments["d"] <- 0.9, 0.9)
-  expect_equal(arguments["alpha"] <- 0.1, 0.1)
-  expect_equal(arguments["power"] <- 0.7, 0.7)
-  expect_equal(arguments["alternative"] <- "less", "less")
-  expect_equal(arguments["paired"] <- TRUE, TRUE)
-  expect_equal(arguments["one_sample"] <- TRUE, TRUE)
-  expect_equal(arguments["data_name"] <- "x", "x")
-  expect_equal(arguments["na.rm"] <- FALSE, FALSE)
-})
+
