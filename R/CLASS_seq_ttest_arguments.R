@@ -81,15 +81,18 @@ setMethod(
   }
 )
 
-#' Method to retrieve the contents of a slot of an object of the
-#'  seq_ttest_arguments class.
-#'
-#' @param seq_ttest_arguments the corresponding class to this method.
-#' @param x the seq_ttest_arguments object.
-#' @param i the start of the string of the slot name.
-#' @param j the end of the string of the slot name.
-#' @param drop not used.
-#' @export
+# #' Method to retrieve the contents of a slot of an object of the
+# #'  seq_ttest_arguments class.
+# #'
+# #' @param seq_ttest_arguments the corresponding class to this method.
+# #' @param x the seq_ttest_arguments object.
+# #' @param i indices indicating elements to extract.
+# #' @param j not used.
+# #' @param drop not used.
+# #'
+# #' @return Returns the contents of the specified slot of an
+# #' seq_ttest_arguments object.
+# #' @export
 setMethod(
   f = "[",
   signature = "seq_ttest_arguments",
@@ -109,15 +112,18 @@ setMethod(
   }
 )
 
-#' Method to modify the contents of a slot of an object of the
-#'  seq_ttest_arguments class.
-#'
-#' @param seq_ttest_arguments the corresponding class to this method.
-#' @param x the seq_ttest_arguments object.
-#' @param value the new value of the slot.
-#' @param i the start of the string of the slot name.
-#' @param j the end of the string of the slot name.
-#' @export
+# #' Method to replace the contents of a slot of an object of the
+# #'  seq_ttest_arguments class.
+# #'
+# #' @param seq_ttest_arguments the corresponding class to this method.
+# #' @param x the seq_ttest_arguments object.
+# #' @param value the new value of the slot.
+# #' @param i indices indicating elements to extract.
+# #' @param j not used.
+# #'
+# #' @return The function has no return value, it replaces the contents of a
+# #' specified slot with a new value.
+# #' @export
 setReplaceMethod(
   f = "[",
   signature = "seq_ttest_arguments",
