@@ -24,7 +24,7 @@ The package contains:
 
 -   `seq_ttest()` calculates the sequential test statistic and
 
--   two data sets (`df_income`, `df_stress`, `df_cancer`) to run the
+-   three data sets (`df_income`, `df_stress`, `df_cancer`) to run the
     examples in the documentation
 
 ## Installation

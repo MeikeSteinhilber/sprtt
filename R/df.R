@@ -2,7 +2,7 @@
 #'
 #'A dataset that includes 120 individuals with sex gender and monthly income.
 #'
-#' @format  A data frame with 2 variables.
+#' @format  A data frame with 2 variables:
 #' \describe{
 #'   \item{monthly_income}{ }
 # #'   \item{in_debt}{0 = no and 1 = yes}
@@ -16,7 +16,7 @@
 #'
 #'A dataset that includes 120 individuals.
 #'
-#' @format  A data frame with 2.
+#' @format  A data frame with 2 variables:
 #' \describe{
 #'   \item{baseline_stress}{ }
 #'   \item{one_year_stress}{ }
@@ -27,7 +27,7 @@
 #'
 #'A dataset that includes 120 individuals.
 #'
-#' @format  A data frame with 2 variables.
+#' @format  A data frame with 2 variables:
 #' \describe{
 #'   \item{treatment_group}{ }
 #'   \item{control_group}{ }

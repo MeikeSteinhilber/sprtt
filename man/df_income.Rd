@@ -5,7 +5,7 @@
 \alias{df_income}
 \title{Test data to run the examples}
 \format{
-A data frame with 2 variables.
+A data frame with 2 variables:
 \describe{
 \item{monthly_income}{ }
 \item{sex}{ }
