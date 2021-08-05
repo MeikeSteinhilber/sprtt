@@ -14,7 +14,8 @@
 
 
 ## R CMD check results
-New submission ==> This is my first submission
+New submission
+==> This is my first submission
 
 Possibly mis-spelled words in DESCRIPTION:
   Erdfelder (31:34)
@@ -22,8 +23,32 @@ Possibly mis-spelled words in DESCRIPTION:
   Rushton (24:49)
   SPRT (22:54, 25:33, 31:5)
   Schnuerch (31:22)
-
 ==> spelling is correct
 
+Found the following (possibly) invalid DOIs:
+  DOI: 10.2307/2332385
+    From: DESCRIPTION
+    Status: Forbidden
+    Message: 403
+  DOI: 10.2307/2333131
+    From: DESCRIPTION
+    Status: Forbidden
+    Message: 403
+  DOI: 10.2307/2334026
+    From: DESCRIPTION
+    Status: Forbidden
+    Message: 403
+
+==> DOIs are correct!
 
 0 errors √ | 0 warnings √ | 1 note x
+
+## last CRAN feedback
+Please add () behind all function names in the description texts (DESCRIPTION file). e.g: 'seq_ttest' --> seq_ttest()
+==> DONE
+
+Please write references in the description of the DESCRIPTION file in the form authors (year) <doi:...> 
+==> DONE
+
+Please add \value to .Rd files regarding exported methods and explain the functions results in the documentation. 
+==> DONE

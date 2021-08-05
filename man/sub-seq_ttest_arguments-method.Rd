@@ -10,15 +10,21 @@ seq_ttest_arguments class.}
 \arguments{
 \item{x}{the seq_ttest_arguments object.}
 
-\item{i}{the start of the string of the slot name.}
+\item{i}{indices indicating elements to extract.}
 
-\item{j}{the end of the string of the slot name.}
+\item{j}{not used.}
 
 \item{drop}{not used.}
 
 \item{seq_ttest_arguments}{the corresponding class to this method.}
 }
+\value{
+Returns the contents of the specified slot of an
+seq_ttest_arguments object. For more information, see the arguments of the
+\code{\link{seq_ttest}} function.
+}
 \description{
-Method to retrieve the contents of a slot of an object of the
-seq_ttest_arguments class.
+This method is only used internally to process
+the input arguments of the \code{\link{seq_ttest}} function. As a normal user,
+you can ignore this specific documentation.
 }

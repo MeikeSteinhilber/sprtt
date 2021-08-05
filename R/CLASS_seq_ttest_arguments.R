@@ -84,12 +84,19 @@ setMethod(
 #' Method to retrieve the contents of a slot of an object of the
 #'  seq_ttest_arguments class.
 #'
+#' @description This method is only used internally to process
+#' the input arguments of the [`seq_ttest`] function. As a normal user,
+#' you can ignore this specific documentation.
+#'
 #' @param seq_ttest_arguments the corresponding class to this method.
 #' @param x the seq_ttest_arguments object.
-#' @param i the start of the string of the slot name.
-#' @param j the end of the string of the slot name.
+#' @param i indices indicating elements to extract.
+#' @param j not used.
 #' @param drop not used.
-#' @export
+#'
+#' @return Returns the contents of the specified slot of an
+#' seq_ttest_arguments object. For more information, see the arguments of the
+#' [`seq_ttest`] function.
 setMethod(
   f = "[",
   signature = "seq_ttest_arguments",
@@ -109,32 +116,5 @@ setMethod(
   }
 )
 
-#' Method to modify the contents of a slot of an object of the
-#'  seq_ttest_arguments class.
-#'
-#' @param seq_ttest_arguments the corresponding class to this method.
-#' @param x the seq_ttest_arguments object.
-#' @param value the new value of the slot.
-#' @param i the start of the string of the slot name.
-#' @param j the end of the string of the slot name.
-#' @export
-setReplaceMethod(
-  f = "[",
-  signature = "seq_ttest_arguments",
-  function(x, i, j, value) {
-    if (i == "x") {x@x <- value}
-    if (i == "y") {x@y <- value}
-    if (i == "mu") {x@mu <- value}
-    if (i == "d") {x@d <- value}
-    if (i == "alpha") {x@alpha <- value}
-    if (i == "power") {x@power <- value}
-    if (i == "alternative") {x@alternative <- value}
-    if (i == "paired") {x@paired <- value}
-    if (i == "one_sample") {x@one_sample <- value}
-    if (i == "data_name") {x@data_name <- value}
-    if (i == "na.rm") {x@na.rm <- value}
-    validObject(x)
-    return(x)
-  }
-)
+
 

@@ -3,25 +3,26 @@
 \name{[,seq_ttest_results-method}
 \alias{[,seq_ttest_results-method}
 \title{Method to retrieve the contents of a slot of an object of the
-seq_ttest_results class.}
+\code{\linkS4class{seq_ttest_results}} class.}
 \usage{
 \S4method{[}{seq_ttest_results}(x, i, j, drop)
 }
 \arguments{
 \item{x}{the seq_ttest_results object.}
 
-\item{i}{the start of the string of the slot name.}
+\item{i}{indices indicating elements to extract.}
 
-\item{j}{the end of the string of the slot name.}
+\item{j}{not used.}
 
 \item{drop}{not used.}
 
 \item{seq_ttest_results}{the corresponding class to this method.}
 }
 \value{
-the content of the slot.
+Returns the contents of the specified slot. For more information,
+see the documentation for the \code{\linkS4class{seq_ttest_results}} class.
 }
 \description{
 Method to retrieve the contents of a slot of an object of the
-seq_ttest_results class.
+\code{\linkS4class{seq_ttest_results}} class.
 }

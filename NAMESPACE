@@ -2,7 +2,6 @@
 
 export(seq_ttest)
 exportMethods("[")
-exportMethods("[<-")
 importFrom(methods,callNextMethod)
 importFrom(methods,new)
 importFrom(methods,validObject)

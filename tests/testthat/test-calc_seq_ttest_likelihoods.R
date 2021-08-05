@@ -30,9 +30,9 @@ test_that("calc_seq_ttest_likelihoods: Check warnings & messages", {
   seq_ttest_arguments <-
     build_prototype_seq_ttest_arguments()
 
-  seq_ttest_arguments["x"] <- rnorm(40, mean = 0)
-  seq_ttest_arguments["y"] <- rnorm(40, mean = 5)
-  seq_ttest_arguments["alternative"] <- "less"
+  seq_ttest_arguments@x <- rnorm(40, mean = 0)
+  seq_ttest_arguments@y <- rnorm(40, mean = 5)
+  seq_ttest_arguments@alternative <- "less"
 
   t_statistic <-
     calc_seq_ttest_t_statistic(seq_ttest_arguments)

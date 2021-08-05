@@ -65,15 +65,16 @@ setClass(
 )
 
 #' Method to retrieve the contents of a slot of an object of the
-#'  seq_ttest_results class.
+#'  [`seq_ttest_results-class`] class.
 #'
 #' @param seq_ttest_results the corresponding class to this method.
 #' @param x the seq_ttest_results object.
-#' @param i the start of the string of the slot name.
-#' @param j the end of the string of the slot name.
+#' @param i indices indicating elements to extract.
+#' @param j not used.
 #' @param drop not used.
 #'
-#' @return the content of the slot.
+#' @return Returns the contents of the specified slot. For more information,
+#' see the documentation for the [`seq_ttest_results-class`] class.
 #' @export
 #'
 # #' @examples

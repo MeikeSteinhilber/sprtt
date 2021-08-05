@@ -5,7 +5,7 @@
 \alias{df_cancer}
 \title{Test data to run the examples}
 \format{
-A data frame with 2 variables.
+A data frame with 2 variables:
 \describe{
 \item{treatment_group}{ }
 \item{control_group}{ }

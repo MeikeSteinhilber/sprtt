@@ -5,7 +5,7 @@
 \alias{df_stress}
 \title{Test data to run the examples}
 \format{
-A data frame with 2.
+A data frame with 2 variables:
 \describe{
 \item{baseline_stress}{ }
 \item{one_year_stress}{ }
