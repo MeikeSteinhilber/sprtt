@@ -17,7 +17,7 @@ test_that("show: print output?", {
   x_special_name <- rnorm(20)
   expect_snapshot(
     show(
-      seq_ttest(x_special_name, d = 0.8, alternative = "less")
+      seq_ttest(x_special_name, d = 0.8, alternative = "less", mu = 2)
     )
   )
 
