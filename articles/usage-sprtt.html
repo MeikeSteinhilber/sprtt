@@ -99,7 +99,7 @@
       <h1 data-toc-skip>How to use the sprtt package</h1>
                         <h4 class="author">Meike Steinhilber</h4>
             
-            <h4 class="date">2021-08-11</h4>
+            <h4 class="date">2021-09-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/vignettes/usage-sprtt.Rmd"><code>vignettes/usage-sprtt.Rmd</code></a></small>
       <div class="hidden name"><code>usage-sprtt.Rmd</code></div>
@@ -276,7 +276,6 @@
 <span class="co">#&gt; 4       3826.413   male</span>
 <span class="co">#&gt; 5       3522.478 female</span>
 <span class="co">#&gt; 6       2563.597   male</span>
-
 <span class="co"># sequential t-test: data argument ---------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="va">sex</span>,     <span class="co"># x argument </span>
           data <span class="op">=</span> <span class="va">df_income</span>,
@@ -316,7 +315,6 @@
 <span class="co">#&gt; 4       3826.413   male</span>
 <span class="co">#&gt; 5       3522.478 female</span>
 <span class="co">#&gt; 6       2563.597   male</span>
-
 <span class="co"># sequential t-test: data argument ---------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="fl">1</span>,     <span class="co"># x argument </span>
           mu <span class="op">=</span> <span class="fl">3000</span>,
@@ -333,7 +331,7 @@
 <span class="co">#&gt; Log-Likelihood of the:</span>
 <span class="co">#&gt;  alternative hypothesis = -9.18185</span>
 <span class="co">#&gt;  null hypothesis = -2.89375</span>
-<span class="co">#&gt; alternative hypothesis: true mean is not equal to 3000 .</span>
+<span class="co">#&gt; alternative hypothesis: true mean is not equal to 3000.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.5</span>
 <span class="co">#&gt; degrees of freedom: df = 119</span>
 <span class="co">#&gt; sample estimates:</span>
@@ -362,7 +360,6 @@
 <span class="co">#&gt; 4        4.830564      3.733212</span>
 <span class="co">#&gt; 5        4.917361      4.109373</span>
 <span class="co">#&gt; 6        3.457433      3.563800</span>
-
 <span class="co"># sequential t-test: $ operator ------------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span>
           <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span>
@@ -376,8 +373,6 @@
 <span class="co">#&gt;  log-likelihood ratio = 10.77656, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
-
-
 <span class="co"># sequential t-test: global variables ------------------------------------------</span>
 <span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>
 <span class="va">control</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>
@@ -410,7 +405,6 @@
 <span class="co">#&gt; 4        4.830564      3.733212</span>
 <span class="co">#&gt; 5        4.917361      4.109373</span>
 <span class="co">#&gt; 6        3.457433      3.563800</span>
-
 <span class="co"># sequential t-test: $ operator ------------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>,     <span class="co"># x argument</span>
           mu <span class="op">=</span> <span class="fl">3.5</span>,            
@@ -424,8 +418,6 @@
 <span class="co">#&gt;  log-likelihood ratio = 16.67655, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
-
-
 <span class="co"># sequential t-test: global variables ------------------------------------------</span>
 <span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>
 
@@ -461,7 +453,6 @@
 <span class="co">#&gt; 4        5.671340        7.793956</span>
 <span class="co">#&gt; 5        4.141257        3.133889</span>
 <span class="co">#&gt; 6        4.771696        8.548586</span>
-
 <span class="co"># sequential t-test: $ operator ------------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">$</span><span class="va">baseline_stress</span>, <span class="co"># x argument</span>
           <span class="va">df_stress</span><span class="op">$</span><span class="va">one_year_stress</span>, <span class="co"># y argument</span>
@@ -506,7 +497,6 @@
 <span class="co">#&gt; 4       3826.413   male</span>
 <span class="co">#&gt; 5       3522.478 female</span>
 <span class="co">#&gt; 6       2563.597   male</span>
-
 <span class="co"># sequential t-test: data argument ---------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="fl">1</span>,     <span class="co"># x argument </span>
           mu <span class="op">=</span> <span class="fl">1000</span>,
@@ -524,7 +514,7 @@
 <span class="co">#&gt; Log-Likelihood of the:</span>
 <span class="co">#&gt;  alternative hypothesis = -149.7471</span>
 <span class="co">#&gt;  null hypothesis = -181.2955</span>
-<span class="co">#&gt; alternative hypothesis: true mean is not equal to 1000 .</span>
+<span class="co">#&gt; alternative hypothesis: true mean is not equal to 1000.</span>
 <span class="co">#&gt; specified effect size: Cohen's d = 0.3</span>
 <span class="co">#&gt; degrees of freedom: df = 119</span>
 <span class="co">#&gt; sample estimates:</span>
@@ -556,7 +546,6 @@
 <span class="co">#&gt;  log-likelihood ratio = 10.77656, decision = accept H1</span>
 <span class="co">#&gt; SPRT thresholds:</span>
 <span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span>
-
 <span class="co"># sequential t-test: verbose TRUE ----------------------------------------------</span>
 <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span>
           <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span>
@@ -597,7 +586,6 @@
 <span class="co"># access the object with the @ operator </span>
 <span class="va">results</span><span class="op">@</span><span class="va">decision</span>
 <span class="co">#&gt; [1] "accept H1"</span>
-
 <span class="co"># access the object with the [] brackets</span>
 <span class="va">results</span><span class="op">[</span><span class="st">"decision"</span><span class="op">]</span>
 <span class="co">#&gt; [1] "accept H1"</span></code></pre></div>

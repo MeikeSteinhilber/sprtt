@@ -173,11 +173,9 @@
 <span class="co"># @ Operator</span>
 <span class="va">results</span><span class="op">@</span><span class="va">likelihood_ratio</span>
 <span class="co">#&gt; [1] 965.0728</span>
-
 <span class="co"># [] Operator</span>
 <span class="va">results</span><span class="op">[</span><span class="st">"likelihood_ratio"</span><span class="op">]</span>
 <span class="co">#&gt; [1] 965.0728</span>
-
 <span class="co"># two sample: numeric input----------------------------------------------------</span>
 <span class="va">treatment_group</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">control_group</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -201,7 +199,6 @@
 <span class="co">#&gt;  -0.05204   1.18768 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
-
 <span class="co"># two sample: formula input ---------------------------------------------------</span>
 <span class="va">stress_level</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -225,7 +222,6 @@
 <span class="co">#&gt;  -0.23286  -0.08217 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
-
 <span class="co"># NA in the data --------------------------------------------------------------</span>
 <span class="va">stress_level</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span>
 <span class="va">sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">11</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -249,7 +245,6 @@
 <span class="co">#&gt;  -0.40818   0.42068 </span>
 <span class="co">#&gt; Note: to get access to the object of the results use the @ or []</span>
 <span class="co">#&gt;           instead of the $ operator.</span>
-
 <span class="co"># work with dataset (data are in the package included) ------------------------</span>
 <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">df_income</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
 <span class="co">#&gt; </span>

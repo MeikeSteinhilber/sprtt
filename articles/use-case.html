@@ -98,7 +98,7 @@
       <h1 data-toc-skip>Use Case</h1>
                         <h4 class="author">Meike Steinhilber</h4>
             
-            <h4 class="date">2021-08-11</h4>
+            <h4 class="date">2021-09-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/vignettes/use-case.Rmd"><code>vignettes/use-case.Rmd</code></a></small>
       <div class="hidden name"><code>use-case.Rmd</code></div>
@@ -185,7 +185,6 @@
 <span class="co">#&gt;   baseline_stress one_year_stress</span>
 <span class="co">#&gt; 1        7.175250        7.844337</span>
 <span class="co">#&gt; 2        4.918343        5.527191</span>
-
 <span class="co"># sequential t-test</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">one_year_stress</span>,
                      <span class="va">df</span><span class="op">$</span><span class="va">baseline_stress</span>,
@@ -223,7 +222,6 @@
 <span class="co">#&gt; 1        7.175250        7.844337</span>
 <span class="co">#&gt; 2        4.918343        5.527191</span>
 <span class="co">#&gt; 3        4.634266        5.783046</span>
-
 <span class="co"># sequential t-test</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">one_year_stress</span>,
                      <span class="va">df</span><span class="op">$</span><span class="va">baseline_stress</span>,
@@ -301,12 +299,10 @@
 <span class="va">LR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">results</span><span class="op">@</span><span class="va">likelihood_ratio</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">LR</span>
 <span class="co">#&gt; [1] 19.85</span>
-
 <span class="co"># sample size (N) = degrees of freedom +2 (two-samples) or +1 (one-sample &amp; paired)</span>
 <span class="va">N</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">@</span><span class="va">df</span> <span class="op">+</span> <span class="fl">1</span>
 <span class="va">N</span>
 <span class="co">#&gt; [1] 48</span>
-
 <span class="co"># baseline stress (M and SD)</span>
 <span class="va">mean_t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">baseline_stress</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">mean_t1</span>
@@ -314,7 +310,6 @@
 <span class="va">sd_t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">baseline_stress</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">sd_t1</span>
 <span class="co">#&gt; [1] 1.02</span>
-
 <span class="co"># after one year stress (M and SD)</span>
 <span class="va">mean_t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">one_year_stress</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">mean_t2</span>
@@ -322,7 +317,6 @@
 <span class="va">sd_t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">one_year_stress</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">sd_t2</span>
 <span class="co">#&gt; [1] 1.53</span>
-
 <span class="co"># NOT INCLUDED IN THE PACKAGE </span>
 
 <span class="co"># calculate effect size: Cohen´s d</span>
@@ -332,7 +326,6 @@
 <span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">d_results</span><span class="op">$</span><span class="va">estimate</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">d</span>
 <span class="co">#&gt; [1] 0.34</span>
-
 <span class="co"># confidence intervall</span>
 <span class="va">d_lower</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">d_results</span><span class="op">$</span><span class="va">conf.int</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">d_lower</span>
