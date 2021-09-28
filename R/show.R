@@ -28,15 +28,15 @@ setMethod(
       cat("\nalternative hypothesis: true",
           if (object@one_sample == TRUE) {
             if (object@alternative == "two.sided") {
-              paste("mean is not equal to", object@mu, ".")
+              paste0("mean is not equal to ", object@mu, ".")
             } else{
-              paste("mean is",object@alternative , "than", object@mu, ".")
+              paste0("mean is ",object@alternative , " than ", object@mu, ".")
             }
           } else{
             if (object@alternative == "two.sided") {
-              paste("difference in means is not equal to 0.")
+              paste0("difference in means is not equal to ",object@mu, ".")
             } else{
-              paste("difference in means is", object@alternative, "than 0.")
+              paste0("difference in means is ", object@alternative, " than ", object@mu, ".")
             }
           })
 
