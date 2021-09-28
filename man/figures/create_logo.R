@@ -26,7 +26,7 @@ showtext_auto()
 
 sticker("man/figures/LogLikeSpike.png",
         package = "sprtt",
-        filename = "man/figures/logo.png",
+        filename = "man/figures/logo_.png",
         # Schrift
         p_color = "#c9144e",
         p_size = 140,    #70
@@ -46,10 +46,11 @@ sticker("man/figures/LogLikeSpike.png",
         # Rahmen
         h_color = "#FFFFFF", #"#cedbf0", #"#474f5c",
         h_fill =  "#cedbf0",        #"#cedbf0", "#b0a5a9",
-        white_around_sticker = TRUE,
+        h_size = 2,
+        white_around_sticker = FALSE,
         dpi = 1200,
         #spotlight
-        spotlight = FALSE,
+        spotlight = TRUE,
         l_alpha = 0.999,
         l_x = 1.011, # 1 ist mitte
         l_y = 1.2, # 1 ist mitte
