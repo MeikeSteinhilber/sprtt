@@ -1,15 +1,3 @@
-################################################################################
-#     sprtt package                                                            #
-#                                                                              #
-#     master thesis project                                                    #
-#     master thesis title: "sprtt: An R Package for Sequential Probability     #
-#     Ratio Tests Using the Associated t-Statistic"                            #
-#     author: Meike Steinhilber                                                #
-#                                                                              #
-#     This package provides the implementation of sequential probability       #
-#     ratio tests using t-statistic.                                           #
-#                                                                              #
-################################################################################
 #--- GENERAL SETTINGS ----
 #' @importFrom stats rnorm dt df model.frame sd t.test
 #' @importFrom methods callNextMethod new validObject
@@ -88,7 +76,8 @@ seq_ttest <- function(
       input1 = x,
       y,
       data,
-      mu, d,
+      mu,
+      d,
       alpha,
       power,
       alternative,
