@@ -14,7 +14,7 @@
       Log-Likelihood of the:
        alternative hypothesis = -5.67562
        null hypothesis = 0.107
-      alternative hypothesis: true mean is not equal to 0 .
+      alternative hypothesis: true mean is not equal to 0.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 19
       sample estimates:
@@ -26,20 +26,20 @@
 ---
 
     Code
-      show(seq_ttest(x_special_name, d = 0.8, alternative = "less"))
+      show(seq_ttest(x_special_name, d = 0.8, alternative = "less", mu = 2))
     Output
       
       *****  Sequential One Sample t-test *****
       
       data: x_special_name
       test statistic:
-       log-likelihood ratio = 5.26261, decision = accept H1
+       log-likelihood ratio = 12.35816, decision = accept H1
       SPRT thresholds:
        lower log(B) = -2.94444, upper log(A) = 2.94444
       Log-Likelihood of the:
-       alternative hypothesis = -1.09332
-       null hypothesis = -6.35593
-      alternative hypothesis: true mean is less than 0 .
+       alternative hypothesis = -17.9164
+       null hypothesis = -30.27455
+      alternative hypothesis: true mean is less than 2.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 19
       sample estimates:
@@ -64,7 +64,7 @@
       Log-Likelihood of the:
        alternative hypothesis = -10.71105
        null hypothesis = -1.32563
-      alternative hypothesis: true mean is greater than 0 .
+      alternative hypothesis: true mean is greater than 0.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 19
       sample estimates:
