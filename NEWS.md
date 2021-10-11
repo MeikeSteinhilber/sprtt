@@ -1,10 +1,11 @@
 # sprtt 0.2.0
+
 -   Add: the `seq_anova()` function, which performs a sequential ANOVA
 
 # sprtt 0.1.1
+
 -   Bug fix: update text in show(), if mu is not equal to 0
 -   Change: sprtt logo
-
 
 # sprtt 0.1.0
 
