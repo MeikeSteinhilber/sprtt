@@ -3,13 +3,19 @@ calc_seq_anova <- function(seq_anova_arguments) {
     calc_seq_anova_non_centrality_parameter(
       seq_anova_arguments
     )
+  group_means <-
+    calc_group_means(
+      seq_anova_arguments
+    )
   ss_effect <-
     calc_ss_effect(
-      seq_anova_arguments
+      seq_anova_arguments,
+      group_means
     )
   ss_residual <-
     calc_ss_residual(
-      seq_anova_arguments
+      seq_anova_arguments,
+      group_means
     )
   likelihoods <-
     calc_seq_anova_likelihoods(

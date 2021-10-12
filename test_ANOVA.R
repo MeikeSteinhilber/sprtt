@@ -33,3 +33,23 @@ summary(model)
 
 # Typ II and III (best way?)
 car::Anova(lm(y ~ A), data = data)
+
+# calculate group means --------------------------------------------------------
+library(dplyr)
+data %>%
+  group_by(A) %>%
+  summarise_at(vars(y), list(mean = mean))
+
+
+aggregate(data$y, list(data$A), FUN=mean)
+
+
+# test shit --------------------------------------------------------------------
+formula = y ~ A
+seq_anova_arguments = build_seq_anova_arguments(formula, data, 0.1, 0.05, 0.95, "test name", TRUE)
+seq_anova_arguments
+
+extract_formula_seq_anova(formula, data)
+
+seq_anova_arguments = build_prototype_seq_anova_arguments()
+seq_anova_arguments

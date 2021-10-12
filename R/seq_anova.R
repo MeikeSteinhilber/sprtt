@@ -1,6 +1,7 @@
 #---- GENERAL SETTINGS ---------------------------------------------------------
 #' @importFrom stats dt df model.frame
 #' @importFrom methods callNextMethod new validObject
+#' @import dplyr
 #'
 #'
 #---- MAIN FUNCTION DOCUMENTATION ----------------------------------------------
@@ -45,6 +46,7 @@ seq_anova <- function(
       f,
       alpha,
       power,
+      data_name,
       verbose
     )
   seq_anova_results <-

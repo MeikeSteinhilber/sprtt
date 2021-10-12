@@ -1,16 +1,21 @@
-extract_formula <- function(formula, data, wanted = "both") {
+extract_formula_seq_anova <- function(formula, data) {
 
   data_matrix_formula <- model.frame(formula, data, na.action = NULL)
-  x <- data_matrix_formula[, 1]
-  y <- data_matrix_formula[, 2]
+  names <- c("y",
+             "factor_A",
+             "factor_B",
+             "factor_C",
+             "factor_D",
+             "factor_E"
+  )
+  colnames(data_matrix_formula)<- names[1:ncol(data_matrix_formula)]
+  data_matrix_formula
 
+  # y <- data_matrix_formula[, 2]
+  # # transform the structure in to the standard x, y
+  # x_values <- x[y == levels(y)[1]]
+  # y_values <- x[y == levels(y)[2]]
+  # x <- x_values
+  # y <- y_values
 
-  #get wanted output
-  if (wanted == "x") {
-    x
-  } else if (wanted == "y") {
-    y
-  } else {
-    list(x, y)
-  }
 }
