@@ -11,5 +11,5 @@ calc_group_means <- function(seq_anova_arguments) {
     group_by(factor_A) %>%
     summarise_at(vars(y), list(means = mean))
 
-  group_means$means
+  group_means_A
 }

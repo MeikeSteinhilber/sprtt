@@ -43,6 +43,30 @@ data %>%
 
 aggregate(data$y, list(data$A), FUN=mean)
 
+# calculate SS residual --------------------------------------------------------
+# n_factors <- ncol(seq_anova_arguments@data) - 1 # remove y column
+levels_factor_A <- as.numeric(levels(as.factor(seq_anova_arguments@data$factor_A)))
+# n_levels_factor_A <- length(levels_factor_A)
+level <- 0
+
+ss_function <- function(data, level, group_means_A){
+  level_mean <- group_means_A %>% filter(factor_A == level) %>% select(means) %>% as.double()
+  y <- data %>% select(y) %>% as.vector()
+  sum((y - level_mean)^2)
+}
+
+ss_residual <- length(3)
+i = 1
+
+for (level in levels_factor_A) {
+  seq_anova_arguments@data %>%
+    filter(seq_anova_arguments@data$factor_A == level) %>%
+    select(y)  %>%
+    summarise(sum_y = ss_function) -> test
+  ss_residual[i] < test
+  i = i + 1
+}
+
 
 # test shit --------------------------------------------------------------------
 formula = y ~ A
@@ -52,4 +76,19 @@ seq_anova_arguments
 extract_formula_seq_anova(formula, data)
 
 seq_anova_arguments = build_prototype_seq_anova_arguments()
-seq_anova_arguments
+
+group_means <- group_means_A <- calc_group_means(seq_anova_arguments)
+# level <- 0# seq_anova_arguments@data %>%
+#   filter(seq_anova_arguments@data$factor_A == level)  -> data
+#
+
+#
+# ss_function(data, level, group_means_A)
+
+
+
+
+
+calc_ss_residual(seq_anova_arguments, group_means_A)
+calc_ss_effect(seq_anova_arguments, group_means_A)
+
