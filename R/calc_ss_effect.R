@@ -1,5 +1,7 @@
 calc_ss_effect <- function(seq_anova_arguments, group_means) {
-  n_groups_all <- seq_anova_arguments@data %>% group_by(factor_A) %>% summarise(n = n())
+  n_groups_all <- seq_anova_arguments@data %>%
+    group_by(.data$factor_A) %>%
+    summarise(n = n())
   n_goup <- (n_groups_all$n[1])
   levels_factor_A <- as.numeric(levels(as.factor(seq_anova_arguments@data$factor_A)))
   n_levels_factor_A <- length(levels_factor_A)

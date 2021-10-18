@@ -1,7 +1,8 @@
 # simulate ANOVA data ----------------------------------------------------------
 # Set coefficients
 alpha = 10
-beta1 = .3
+# beta1 = .3
+beta1 = .0
 beta2 = -.5
 beta3 = -1.1
 
@@ -87,8 +88,27 @@ group_means <- group_means_A <- calc_group_means(seq_anova_arguments)
 
 
 
-
-
 calc_ss_residual(seq_anova_arguments, group_means_A)
 calc_ss_effect(seq_anova_arguments, group_means_A)
+
+
+
+# calc sequential ANOVA --------------------------------------------------------
+a <- sprtt::seq_anova(y ~ A, f = 0.2, data = data )
+a@decision
+a
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

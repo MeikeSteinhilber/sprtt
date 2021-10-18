@@ -17,21 +17,30 @@ calc_seq_anova <- function(seq_anova_arguments) {
       seq_anova_arguments,
       group_means
     )
+  F_statistic <-
+    calc_F_statistic_seq_anova(
+      seq_anova_arguments,
+      group_means,
+      ss_effect,
+      ss_residual
+    )
   likelihoods <-
     calc_seq_anova_likelihoods(
       seq_anova_arguments,
       non_centrality_parameter,
       ss_effect,
       ss_residual,
+      F_statistic
     )
   boundaries <-
-    calc_seq_anova_boundaries(
-      seq_anova_arguments,
-      likelihoods
+    calc_seq_ttest_boundaries(
+      power = seq_anova_arguments@power,
+      alpha = seq_anova_arguments@alpha,
+      log = FALSE
     )
   decision <-
-    get_seq_anova_decision(
-      likelihood_ratio = likelihoods$ratio_log,
+    get_seq_ttest_decision(
+      likelihood_ratio = likelihoods$ratio,
       boundaries = boundaries
     )
   seq_anova_results <-
@@ -42,8 +51,9 @@ calc_seq_anova <- function(seq_anova_arguments) {
       decision,
       non_centrality_parameter,
       ss_effect,
-      ss_residual
+      ss_residual,
+      F_statistic
     )
 
-  seq_ttest_results
+  seq_anova_results
 }

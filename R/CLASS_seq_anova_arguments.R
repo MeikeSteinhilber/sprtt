@@ -51,4 +51,32 @@ setMethod(
   }
 )
 
-# Method [] missing
+#' Method to retrieve the contents of a slot of an object of the
+#'  [`seq_anova_arguments-class`] class.
+#'
+#' @param seq_anova_arguments the corresponding class to this method.
+#' @param x the seq_anova_arguments object.
+#' @param i indices indicating elements to extract.
+#' @param j not used.
+#' @param drop not used.
+#'
+#' @return Returns the contents of the specified slot. For more information,
+#' see the documentation for the [`seq_anova_arguments-class`] class.
+#' @export
+#'
+# #' @examples
+setMethod(
+  f = "[",
+  signature = "seq_anova_arguments",
+  function(x, i, j, drop){ # must be this names!
+
+    if (i == "data") {return(x@data)}
+    if (i == "f") {return(x@f)}
+    if (i == "alpha") {return(x@alpha)}
+    if (i == "power") {return(x@power)}
+    if (i == "data_name") {return(x@data_name)}
+    if (i == "verbose") {return(x@verbose)}
+    stop(paste("Wrong slot name: '", i, "' is not a slot name of the class 'seq_anova_arguments'"))
+  }
+)
+

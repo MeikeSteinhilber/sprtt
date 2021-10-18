@@ -12,7 +12,8 @@
 #' @param data data frame.
 #' @param f cohens f.
 #' @param alpha the type I error. A number between 0 and 1.
-#' @param power
+#' @param power 1 - beta (beta is the type II error probability). A number
+#' between 0 and 1.
 #' @param verbose a logical value whether you want a verbose output or not.
 #'
 #'@return An object of the S4 class [`seq_anova_results-class`]. Click on the
@@ -29,10 +30,10 @@
 #---- MAIN FUNCTION ------------------------------------------------------------
 seq_anova <- function(
   formula,
-  data,
   f,
   alpha = 0.05,
   power = 0.95,
+  data,
   verbose = TRUE
 ) {
   # get the original names of the variables

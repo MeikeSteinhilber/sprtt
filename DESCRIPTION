@@ -2,7 +2,7 @@ Type: Package
 Package: sprtt
 Title: Sequential Probability Ratio Tests: Using t-Statistic
 Version: 0.2.0
-Authors@R: 
+Authors@R:
     c(person(given = "Meike",
              family = "Steinhilber",
              role = c("aut", "cre"),
@@ -32,19 +32,19 @@ Description: The seq_ttest() function is the implementation of Abraham
 License: GPL (>= 3)
 URL: https://meikesteinhilber.github.io/sprtt/
 BugReports: https://github.com/MeikeSteinhilber/sprtt/issues
-Depends: 
+Depends:
     R (>= 3.5.0)
-Imports: 
+Imports:
     methods,
-    stats
+    stats,
+    dplyr
 Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
     testthis,
-    dplyr,
     effsize
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Encoding: UTF-8
 Language: en-US

@@ -6,10 +6,11 @@ calc_group_means <- function(seq_anova_arguments) {
   #   stop("Levels are NULL: Wrong Data Input?")
   # }
 
+
   group_means_A <-
     seq_anova_arguments@data %>%
-    group_by(factor_A) %>%
-    summarise_at(vars(y), list(means = mean))
+    dplyr::group_by(.data$factor_A) %>%
+    dplyr::summarise_at(vars(.data$y), list(means = mean))
 
   group_means_A
 }
