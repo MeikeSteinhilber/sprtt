@@ -7,7 +7,8 @@ beta2 = -.5
 beta3 = -1.1
 
 # Generate 200 trials
-A = c(rep(c(0), 100), rep(c(1), 100), rep(c(2), 100)) # '0' 100 times, '1' 100 times
+# A = c(rep(c(0), 100), rep(c(1), 100), rep(c(2), 100)) # '0' 100 times, '1' 100 times
+A = c(rep(c(0), 150), rep(c(1), 150)) # '0' 100 times, '1' 100 times
 # B = rep(c(rep(c(0), 50), rep(c(1), 50)), 2) # '0'x50, '1'x50, '0'x50, '1'x50
 e = rnorm(300, 0, sd = 1) # Random noise, with standard deviation of 1
 
@@ -17,7 +18,7 @@ y = alpha + beta1*A  + e
 
 # Join the variables in a data frame
 # data = data.frame(cbind(A, B, y))
-data = data.frame(cbind(A, y))
+data = data.frame(y, A = as.factor(A))
 
 # Check the data with a regression
 # lin.model = lm(y ~ A*B, data = data)
@@ -78,7 +79,7 @@ extract_formula_seq_anova(formula, data)
 
 seq_anova_arguments = build_prototype_seq_anova_arguments()
 
-group_means <- group_means_A <- calc_group_means(seq_anova_arguments)
+seq_anova_arguments@data <- calc_group_means(seq_anova_arguments)
 # level <- 0# seq_anova_arguments@data %>%
 #   filter(seq_anova_arguments@data$factor_A == level)  -> data
 #
@@ -94,9 +95,26 @@ calc_ss_effect(seq_anova_arguments, group_means_A)
 
 
 # calc sequential ANOVA --------------------------------------------------------
-a <- sprtt::seq_anova(y ~ A, f = 0.2, data = data )
+system.time(sprtt::seq_anova(y ~ A, f = 0.3, data = data))
+
+system.time(sprtt::seq_ttest(y ~ A, d = 0.3, data = data))
+
+profvis::profvis({
+  sprtt::seq_anova(y ~ A, f = 0.1, data = data)
+})
+
+
+system.time(stats::aov(y ~ A, data = data))
+profvis({
+  stats::aov(y ~ A, data = data)
+})
+
+
+
 a@decision
-a
+a@likelihood_ratio
+
+
 
 
 

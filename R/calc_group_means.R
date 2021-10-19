@@ -12,5 +12,7 @@ calc_group_means <- function(seq_anova_arguments) {
     dplyr::group_by(.data$factor_A) %>%
     dplyr::summarise_at(vars(.data$y), list(means = mean))
 
-  group_means_A
+  seq_anova_arguments@data %>%
+    group_by(.data$factor_A) %>%
+    mutate(group_mean = mean(.data$y))
 }

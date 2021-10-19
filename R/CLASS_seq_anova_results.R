@@ -53,6 +53,16 @@ setClass(
   )
 )
 
+setMethod(
+  f = "initialize",
+  signature = "seq_anova_results",
+  function(.Object, ...) { # '.Object' is necessary and can not replaced by 'x'
+    .Object <- callNextMethod() # necessary line
+    # validObject(.Object)
+    .Object
+  }
+)
+
 #' Method to retrieve the contents of a slot of an object of the
 #'  [`seq_anova_results-class`] class.
 #'

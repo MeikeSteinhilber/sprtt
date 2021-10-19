@@ -1,17 +1,12 @@
 calc_F_statistic_seq_anova <- function(
   seq_anova_arguments,
-  group_means,
   ss_effect,
   ss_residual
 ) {
-  # duplication of code: calc_ss_effect
-  n_groups_all <- seq_anova_arguments@data %>% group_by(.data$factor_A) %>% summarise(n = n())
-  n_goup <- (n_groups_all$n[1])
-  levels_factor_A <- as.numeric(levels(as.factor(seq_anova_arguments@data$factor_A)))
-  n_levels_factor_A <- length(levels_factor_A)
-  grand_mean_factor_A <- mean(group_means$means)
 
+  n_levels_factor_A <- length(unique(seq_anova_arguments@data$factor_A))
   n_all <- length(seq_anova_arguments@data$y)
+
   df_1 <- n_levels_factor_A - 1
   df_2 <- n_all - n_levels_factor_A
   F_value <- (ss_effect / df_1) / (ss_residual / df_2)
