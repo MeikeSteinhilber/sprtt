@@ -8,12 +8,12 @@ test_that("Check error rates", {
   # skip the tests in special situations
   skip_on_cran() # skip on CRAN checks: necessary!
   skip_on_ci() # skip on continuous platforms like GitHub Actions
-  skip("Check error rates. (Takes about 10 minutes)") # skip test
+  # skip("Check error rates. (Takes about 10 minutes)") # skip test
 
   # test setup: simulate the data
   source_dir(
     "testdata-raw/",
-    pattern = "\\.[rR]$",
+    pattern = "sided\\.[rR]$",
     env = test_env(),
     chdir = TRUE,
     wrap = TRUE
