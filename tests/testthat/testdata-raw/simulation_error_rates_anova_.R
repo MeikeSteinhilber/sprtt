@@ -3,12 +3,11 @@ start <- Sys.time()
 # set simulation parameter -----------------------------------------------------
 set.seed(333)
 
-f_sim <- c(0.1, .25, 0.4)  # 0.1, 0.25, 0.4
-# f <- 0.1
-# f_expected <- f
+f_simulated <- c(0, 0, 0, 0.1, .25, 0.4)  # 0.1, 0.25, 0.4
+f_expected <- c(0.1, .25, 0.4, 0.1, .25, 0.4)
 k_groups <- 4
 max_n <- 2000
-n_rep <- 3
+n_rep <- 1000
 alpha <- beta <- .05
 A <- (1 - beta) / alpha
 B <- beta / (1 - alpha)
@@ -18,15 +17,14 @@ sample_size <- numeric(n_rep)
 likelihood_ratio <- numeric(n_rep)
 likelihood_ratio_anova <- numeric(n_rep)
 decision_anova <- numeric(n_rep)
-f_simulated <- numeric(n_rep)
-counter <- 1
+f_simulated_ <- numeric(n_rep)
+f_expected_ <- numeric(n_rep)
 
 # simulation -------------------------------------------------------------------
-for (f in f_sim) {
+for (f in f_simulated) {
   f_expected <- f
-
   for (i in 1:n_rep){
-    print(i)
+    # print(i)
     raw_means <- rnorm(k_groups)
     means = (raw_means - mean(raw_means)) / sd(raw_means) * sqrt(k_groups / (k_groups - 1)) * f
     y <- rnorm(max_n * k_groups, means)
@@ -45,31 +43,31 @@ for (f in f_sim) {
         df(f_value, df_1, df_2)
       LR_anova_results <- sprtt::seq_anova(y ~ x, f = f_expected, data = data[1:n,])
       if (LR > A) {
-        decision[counter] <- 1
-        sample_size[counter] <- n
-        likelihood_ratio[counter] <- LR
-        likelihood_ratio_anova[counter] <- LR_anova_results@likelihood_ratio
-        decision_anova[counter] <- LR_anova_results@decision
-        f_simulated[counter] <- f
-        counter <<- counter + 1
+        decision[i] <- 1
+        sample_size[i] <- n
+        likelihood_ratio[i] <- LR
+        likelihood_ratio_anova[i] <- LR_anova_results@likelihood_ratio
+        decision_anova[i] <- LR_anova_results@decision
+        f_simulated[i] <- f
+        f_expected_[i] <- f_expected
         break
       } else if (LR < B) {
-        decision[counter] <- 0
-        sample_size[counter] <- n
-        likelihood_ratio[counter] <- LR
-        likelihood_ratio_anova[counter] <- LR_anova_results@likelihood_ratio
-        decision_anova[counter] <- LR_anova_results@decision
-        f_simulated[counter] <- f
-        counter <<- counter + 1
+        decision[i] <- 0
+        sample_size[i] <- n
+        likelihood_ratio[i] <- LR
+        likelihood_ratio_anova[i] <- LR_anova_results@likelihood_ratio
+        decision_anova[i] <- LR_anova_results@decision
+        f_simulated[i] <- f
+        f_expected_[i] <- f_expected
         break
       }
     }
   }
 }
 # check the simulation ---------------------------------------------------------
-# if(any(sample_size == 0)) {
-#   stop("error in anova simulation: increase max_n")
-# }
+if(any(sample_size == 0)) {
+  stop("error in anova simulation: increase max_n")
+}
 
 
 # save results in data frame ---------------------------------------------------
@@ -78,14 +76,12 @@ results_anova_simulation <- data.frame(
   likelihood_ratio_anova,
   decision,
   decision_anova,
-  sample_size_seq = sample_size,
-  f
+  sample_size_seq = sample_size
 )
 
 ## recode decision
 results_anova_simulation[decision_anova == "accept H1", "decision_anova"] <- 1
 results_anova_simulation[decision_anova == "accept H0", "decision_anova"] <- 0
-results_anova_simulation[decision_anova == "continue sampling", "decision_anova"] <- NA
 results_anova_simulation$decision_anova <- as.numeric(
   results_anova_simulation$decision_anova
 )

@@ -11,13 +11,13 @@ test_that("Check results", {
   # skip("seq_anova simulation. (Takes about 10 minutes)") # skip test
 
   # test setup: simulate the data
-  # source_dir(
-  #   "testdata-raw/",
-  #   pattern = "anova\\.[rR]$",
-  #   env = test_env(),
-  #   chdir = TRUE,
-  #   wrap = TRUE
-  # )
+  source_dir(
+    "testdata-raw/",
+    pattern = "anova\\.[rR]$",
+    env = test_env(),
+    chdir = TRUE,
+    wrap = TRUE
+  )
 
   results_anova_simulation <- testthis::read_testdata("results_anova_simulation")
 
