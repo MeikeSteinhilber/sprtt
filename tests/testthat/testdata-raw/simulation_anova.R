@@ -1,4 +1,5 @@
 start <- Sys.time()
+library(dplyr)
 
 # set simulation parameter -----------------------------------------------------
 set.seed(333)
@@ -7,18 +8,19 @@ f_sim <- c(0.1, .25, 0.4)  # 0.1, 0.25, 0.4
 # f <- 0.1
 # f_expected <- f
 k_groups <- 4
-max_n <- 2000
-n_rep <- 3
+max_n <- 20000
+n_rep <- 10
 alpha <- beta <- .05
 A <- (1 - beta) / alpha
 B <- beta / (1 - alpha)
 seq_steps <- seq((2 * k_groups), (max_n * k_groups), k_groups)
-decision <- numeric(n_rep)
-sample_size <- numeric(n_rep)
-likelihood_ratio <- numeric(n_rep)
-likelihood_ratio_anova <- numeric(n_rep)
-decision_anova <- numeric(n_rep)
-f_simulated <- numeric(n_rep)
+decision <- numeric(n_rep * length(f_sim))
+sample_size <- numeric(n_rep * length(f_sim))
+likelihood_ratio <- numeric(n_rep * length(f_sim))
+likelihood_ratio_anova <- numeric(n_rep * length(f_sim))
+decision_anova <- numeric(n_rep * length(f_sim))
+f_simulated <- numeric(n_rep * length(f_sim))
+sample_size_fixed <- numeric(n_rep * length(f_sim))
 counter <- 1
 
 # simulation -------------------------------------------------------------------
@@ -26,7 +28,7 @@ for (f in f_sim) {
   f_expected <- f
 
   for (i in 1:n_rep){
-    print(i)
+    # print(i)
     raw_means <- rnorm(k_groups)
     means = (raw_means - mean(raw_means)) / sd(raw_means) * sqrt(k_groups / (k_groups - 1)) * f
     y <- rnorm(max_n * k_groups, means)
@@ -51,6 +53,8 @@ for (f in f_sim) {
         likelihood_ratio_anova[counter] <- LR_anova_results@likelihood_ratio
         decision_anova[counter] <- LR_anova_results@decision
         f_simulated[counter] <- f
+        power_analysis_n <- pwr::pwr.anova.test(k = k_groups, f = f, power = 1 - beta)$n
+        sample_size_fixed[counter] <- round(power_analysis_n * k_groups)
         counter <<- counter + 1
         break
       } else if (LR < B) {
@@ -60,6 +64,8 @@ for (f in f_sim) {
         likelihood_ratio_anova[counter] <- LR_anova_results@likelihood_ratio
         decision_anova[counter] <- LR_anova_results@decision
         f_simulated[counter] <- f
+        power_analysis_n <- pwr::pwr.anova.test(k = k_groups, f = f, power = 1 - beta)$n
+        sample_size_fixed[counter] <- round(power_analysis_n * k_groups)
         counter <<- counter + 1
         break
       }
@@ -67,9 +73,9 @@ for (f in f_sim) {
   }
 }
 # check the simulation ---------------------------------------------------------
-# if(any(sample_size == 0)) {
-#   stop("error in anova simulation: increase max_n")
-# }
+if(any(sample_size == 0)) {
+  stop("error in anova simulation: increase max_n")
+}
 
 
 # save results in data frame ---------------------------------------------------
@@ -79,7 +85,8 @@ results_anova_simulation <- data.frame(
   decision,
   decision_anova,
   sample_size_seq = sample_size,
-  f
+  sample_size_fixed,
+  f_simulated
 )
 
 ## recode decision
@@ -91,13 +98,10 @@ results_anova_simulation$decision_anova <- as.numeric(
 )
 
 # analyse power ----------------------------------------------------------------
-power_analysis <- pwr::pwr.anova.test(k = k_groups, f = f, power = 1 - beta)
-n_all_power_analysis <- round(power_analysis$n * k_groups)
-
 results_anova_simulation <-
   results_anova_simulation %>%
-    dplyr::mutate(sample_size_fixed = n_all_power_analysis,
-                  sample_smaller = .data$sample_size_seq < .data$sample_size_fixed
+    dplyr::mutate(
+      sample_smaller = .data$sample_size_seq < .data$sample_size_fixed
     )
 
 

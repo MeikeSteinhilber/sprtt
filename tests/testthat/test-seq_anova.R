@@ -6,12 +6,12 @@ test_that("Check results", {
   library(dplyr)
 
   # skip the tests in special situations
-  skip_on_cran() # skip on CRAN checks: necessary!
+  # skip_on_cran() # skip on CRAN checks: necessary!
   # skip_on_ci() # skip on continuous platforms like GitHub Actions
   # skip("seq_anova simulation. (Takes about 10 minutes)") # skip test
 
   # test setup: simulate the data
-  source_dir(
+  testthat::source_dir(
     "testdata-raw/",
     pattern = "anova\\.[rR]$",
     env = test_env(),
@@ -20,7 +20,7 @@ test_that("Check results", {
   )
 
   results_anova_simulation <- testthis::read_testdata("results_anova_simulation")
-
+  # test calculation anova function vs martins implementation
   expect_equal(
     results_anova_simulation$likelihood_ratio_anova,
     results_anova_simulation$likelihood_ratio
@@ -29,10 +29,15 @@ test_that("Check results", {
     results_anova_simulation$decision_anova,
     results_anova_simulation$decision
   )
-
-  # expect_lte(
-  #
-  # )
-
+  # test data reduction: seq_anova must be more efficient than fixed anova
+  # expect less than
+  expect_lte(
+    mean(results_anova_simulation$sample_size_seq) /
+    mean(results_anova_simulation$sample_size_fixed),
+    1
+  )
+  # at least in 50% of the cases the seq_anova is more efficient
+  percent_smaller_samples <- mean(results_anova_simulation$sample_smaller)
+  expect_gte(percent_smaller_samples, 0.50)
 
 })
