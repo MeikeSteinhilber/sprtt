@@ -1,6 +1,6 @@
 #* @testing seq_anova
 
-test_that("Check results", {
+test_that("Compare results with Martins Implementation", {
   # load packages
   library(testthis)
   library(dplyr)
@@ -8,12 +8,12 @@ test_that("Check results", {
   # skip the tests in special situations
   # skip_on_cran() # skip on CRAN checks: necessary!
   # skip_on_ci() # skip on continuous platforms like GitHub Actions
-  # skip("seq_anova simulation. (Takes about 10 minutes)") # skip test
+  # skip("seq_anova simulation. (Takes about XX minutes)") # skip test
 
   # test setup: simulate the data
   testthat::source_dir(
     "testdata-raw/",
-    pattern = "anova\\.[rR]$",
+    pattern = "simulation_anova\\.[rR]$",
     env = test_env(),
     chdir = TRUE,
     wrap = TRUE
