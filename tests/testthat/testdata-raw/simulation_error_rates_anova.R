@@ -67,6 +67,7 @@ if(any(sample_size == 0)) {
 # save results in data frame ---------------------------------------------------
 error_rates_anova_simulation <- data.frame(
   f_simulated,
+  f_expected,
   likelihood_ratio,
   decision,
   sample_size_seq = sample_size,
