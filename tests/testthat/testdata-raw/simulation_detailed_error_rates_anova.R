@@ -1,3 +1,16 @@
+# initialize BOT ---------------------------------------------------------------
+# install.packages("telegram.bot")
+library(telegram.bot)
+
+#
+user_name = "mst_r_bot"
+token = bot_token("RTelegramBot")
+
+# Initialize bot
+bot <- Bot(token = token)
+chat_id = 1084175541
+
+
 start <- Sys.time()
 library(dplyr)
 path_expected <- tempfile(fileext = ".txt")
@@ -5,9 +18,9 @@ sink(path_expected)
 # set simulation parameter -----------------------------------------------------
 set.seed(333)
 
-f_exp <- rep(c(0.1, .25, 0.4), 4)
+f_exp <- rep(seq(0.1, 0.25, 0.01), 2)
 n_cases_f <- length(unique(f_exp))
-f_sim <- c(rep(0, n_cases_f), rep(0.1, n_cases_f), rep(0.25, n_cases_f), rep(0.4, n_cases_f))  # 0.1, 0.25, 0.4
+f_sim <- c(rep(0, n_cases_f), rep(0.1, n_cases_f))  # 0.1, 0.25, 0.4
 
 k_groups <- 4
 max_n <- 20000
@@ -68,6 +81,7 @@ for (f in f_sim) {
       }
     }
   }
+  bot$sendMessage(chat_id = chat_id, text = paste(j, "from", length(f_sim), "cases"))
   j <- j + 1
 }
 # check the simulation ---------------------------------------------------------
@@ -77,7 +91,7 @@ if(any(sample_size == 0)) {
 
 
 # save results in data frame ---------------------------------------------------
-error_rates_anova_simulation <- data.frame(
+results <- data.frame(
   f_simulated,
   f_expected,
   likelihood_ratio,
@@ -86,79 +100,80 @@ error_rates_anova_simulation <- data.frame(
 )
 
 ## recode decision
-error_rates_anova_simulation[decision == "accept H1", "decision"] <- 1
-error_rates_anova_simulation[decision == "accept H0", "decision"] <- 0
-error_rates_anova_simulation[decision == "continue sampling", "decision"] <- NA
-error_rates_anova_simulation$decision <- as.numeric(
-  error_rates_anova_simulation$decision
+results[decision == "accept H1", "decision"] <- 1
+results[decision == "accept H0", "decision"] <- 0
+results[decision == "continue sampling", "decision"] <- NA
+results$decision <- as.numeric(
+  results$decision
 )
 
-# analyse power ----------------------------------------------------------------
-sample_size_fixed <- double(length(unique(f_exp)))
-counter <- 1
-for(f in unique(f_exp)) {
-  power_analysis_n <- pwr::pwr.anova.test(k = k_groups, f = f, power = 1 - beta)$n
-  sample_size_fixed[counter] <- round(power_analysis_n * k_groups)
-  counter <- counter + 1
-}
-sample_size_fixed <- c(rep(NA, n_cases_f * n_rep), rep(sort(rep(sample_size_fixed, n_rep), TRUE), n_cases_f))
-
-
-error_rates_anova_simulation <-
-  error_rates_anova_simulation %>%
-    dplyr::mutate(
-      sample_size_fixed = sample_size_fixed,
-      sample_smaller = .data$sample_size_seq < .data$sample_size_fixed
-    )
+# # analyse power ----------------------------------------------------------------
+# sample_size_fixed <- double(length(unique(f_exp)))
+# counter <- 1
+# for(f in unique(f_exp)) {
+#   power_analysis_n <- pwr::pwr.anova.test(k = k_groups, f = f, power = 1 - beta)$n
+#   sample_size_fixed[counter] <- round(power_analysis_n * k_groups)
+#   counter <- counter + 1
+# }
+# sample_size_fixed <- c(rep(NA, n_cases_f * n_rep), rep(sort(rep(sample_size_fixed, n_rep), TRUE), n_cases_f))
+#
+#
+# results <-
+#   results %>%
+#     dplyr::mutate(
+#       sample_size_fixed = sample_size_fixed,
+#       sample_smaller = .data$sample_size_seq < .data$sample_size_fixed
+#     )
 
 # detect errors ----------------------------------------------------------------
 alpha_error <-
-  error_rates_anova_simulation %>%
+  results %>%
   dplyr::filter(f_simulated == 0) %>%
   dplyr::mutate(error = decision == 1) %>%
   dplyr::pull(.data$error)
 beta_error <-
-  error_rates_anova_simulation %>%
+  results %>%
   dplyr::filter(f_simulated != 0) %>%
   dplyr::mutate(error = decision == 0) %>%
   dplyr::pull(.data$error)
 
-error_rates_anova_simulation <-
-  error_rates_anova_simulation %>%
+results <-
+  results %>%
   dplyr::mutate(error = c(alpha_error, beta_error))
 
 # calculate XXXX ---------------------------------------------------------------
-error_f_alpha <- error_rates_anova_simulation %>%
+error_f_alpha <- results %>%
   dplyr::filter(f_simulated == 0) %>%
   dplyr::group_by(f_expected) %>%
   dplyr::mutate(error_f_ = mean(error)) %>%
   dplyr::ungroup() %>%
   dplyr::pull(error_f_)
 
-error_f_beta <- error_rates_anova_simulation %>%
+error_f_beta <- results %>%
   dplyr::filter(f_simulated != 0) %>%
   dplyr::group_by(f_simulated, f_expected) %>%
   dplyr::mutate(error_f_ = mean(error)) %>%
   dplyr::ungroup() %>%
   dplyr::pull(error_f_)
 
-error_rates_anova_simulation <- error_rates_anova_simulation %>%
+results <- results %>%
   dplyr::mutate(error_f = c(error_f_alpha, error_f_beta))
 
-error_rates_anova_simulation <- error_rates_anova_simulation %>%
+results <- results %>%
   dplyr::group_by(f_expected, f_simulated) %>%
   dplyr::mutate(mean_sample_seq_f = round(mean(.data$sample_size_seq), 0)) %>%
   dplyr::ungroup()
 
 
-anova_performance <- error_rates_anova_simulation %>%
-  select(f_simulated, f_expected, mean_sample_seq_f, sample_size_fixed, error_f) %>%
-  group_by(f_simulated, f_expected, mean_sample_seq_f, sample_size_fixed, error_f) %>%
+anova_performance <- results %>%
+  select(f_simulated, f_expected, mean_sample_seq_f,  error_f) %>%
+  group_by(f_simulated, f_expected, mean_sample_seq_f,  error_f) %>%
   summarise()
 
 # save simulation results ------------------------------------------------------
-testthis::use_testdata(error_rates_anova_simulation, overwrite = TRUE)
-testthis::use_testdata(anova_performance, overwrite = TRUE)
+detailed_error_rated_anova <- results
+testthis::use_testdata(detailed_error_rated_anova, overwrite = TRUE)
+testthis::use_testdata(anova_performance_detailed, overwrite = TRUE)
 
 
 ##---- UNDO SET.SEED -----------------------------------------------------------
@@ -177,17 +192,6 @@ duration
 # sent results to Telegram Bot -------------------------------------------------
 sink(file = NULL) # STOP sink
 
-# install.packages("telegram.bot")
-library(telegram.bot)
-
-#
-user_name = "mst_r_bot"
-token = bot_token("RTelegramBot")
-
-# Initialize bot
-bot <- Bot(token = token)
-chat_id = 1084175541
-
 console <- toString(read.csv(path_expected, sep = ";", header = FALSE))
 # write.table(console, path_expected,sep="\t",row.names=TRUE)
 # console <- read.delim(path_expected)
@@ -199,7 +203,7 @@ bot$sendMessage(chat_id = chat_id, text = paste("Consol Output>>>>>>>>>>", conso
 
 # graphs -----------------------------------------------------------------------
 
-df <- error_rates_anova_simulation
+df <- results
 
 # df %>%
 #   filter(f_simulated == 0) %>%
@@ -221,12 +225,9 @@ df %>%
   ggplot(., aes(x = f_simulated, y = sample_size_seq, fill = f_expected)) +
   geom_violin() +
   # coord_flip() +
-  scale_fill_brewer(palette = "Dark2") +
+  # scale_fill_brewer(palette = "Dark2") +
   theme_classic() +
-  ggsave("violin_sample_size_seq_V1.png", path = "tests/testthat/testdata", device = "png")
+  ggsave("violin_sample_size_seq_detailed_V1.png", path = "tests/testthat/testdata", device = "png")
 
+bot$sendPhoto(chat_id, "tests/testthat/testdata/violin_sample_size_seq_detailed_V1.png")
 
-error_rates_anova_simulation %>%
-  dplyr::filter(f_simulated == 0.4, f_expected == 0.25) %>%
-  pull(error) %>%
-  sum()
