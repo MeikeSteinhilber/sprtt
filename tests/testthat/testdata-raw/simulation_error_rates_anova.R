@@ -9,7 +9,7 @@ f_sim <- c(0, 0, 0, 0.1, .25, 0.4)  # 0.1, 0.25, 0.4
 f_exp <- rep(c(0.1, .25, 0.4), 2)
 k_groups <- 4
 max_n <- 20000
-n_rep <- 10
+n_rep <- 1000
 alpha <- beta <- .05
 A <- (1 - beta) / alpha
 B <- beta / (1 - alpha)
@@ -144,7 +144,7 @@ error_rates_anova_simulation <- error_rates_anova_simulation %>%
 
 error_rates_anova_simulation <- error_rates_anova_simulation %>%
   dplyr::group_by(f_expected, f_simulated) %>%
-  dplyr::mutate(mean_sample_seq_f = round(mean(.data$sample_size_seq), 0)) %>%
+  dplyr::mutate(mean_sample_seq_f = round(mean(.data$sample_size_seq), 0),) %>%
   dplyr::ungroup()
 
 
