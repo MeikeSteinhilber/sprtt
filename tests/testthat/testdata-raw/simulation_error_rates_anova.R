@@ -5,11 +5,12 @@ sink(path_expected)
 # set simulation parameter -----------------------------------------------------
 set.seed(333)
 
-f_sim <- c(0, 0, 0, 0.1, .25, 0.4)  # 0.1, 0.25, 0.4
-f_exp <- rep(c(0.1, .25, 0.4), 2)
+f_exp <- rep(c(0.1, .25, 0.4), 4)
+f_sim <- c(rep(0, 3), rep(0.1, 3), rep(0.25, 3), rep(0.4, 3))  # 0.1, 0.25, 0.4
+
 k_groups <- 4
 max_n <- 20000
-n_rep <- 1000
+n_rep <- 100
 alpha <- beta <- .05
 A <- (1 - beta) / alpha
 B <- beta / (1 - alpha)
@@ -144,7 +145,7 @@ error_rates_anova_simulation <- error_rates_anova_simulation %>%
 
 error_rates_anova_simulation <- error_rates_anova_simulation %>%
   dplyr::group_by(f_expected, f_simulated) %>%
-  dplyr::mutate(mean_sample_seq_f = round(mean(.data$sample_size_seq), 0),) %>%
+  dplyr::mutate(mean_sample_seq_f = round(mean(.data$sample_size_seq), 0)) %>%
   dplyr::ungroup()
 
 
@@ -193,5 +194,33 @@ console <- toString(read.csv(path_expected, sep = ";", header = FALSE))
 bot$sendMessage(chat_id = chat_id, text = "finished: simulation_error_rates_anova")
 bot$sendMessage(chat_id = chat_id, text = paste("Consol Output>>>>>>>>>>", console))
 # bot$sendMessage(chat_id = chat_id, text = duration)
+
+# graphs -----------------------------------------------------------------------
+
+df <- error_rates_anova_simulation
+
+# df %>%
+#   filter(f_simulated == 0) %>%
+#   pull(sample_size_seq) %>%
+#   hist(., breaks = 1000)
+# df %>%
+#   filter(f_simulated != 0) %>%
+#   pull(sample_size_seq) %>%
+#   hist(., breaks = 1000)
+
+# define groups/factors
+df$f_simulated <- as.factor(df$f_simulated)
+df$f_expected <- as.factor(df$f_expected)
+
+
+library(ggplot2)
+# Basic violin plot
+df %>%
+  ggplot(., aes(x = f_simulated, y = sample_size_seq, fill = f_expected)) +
+  geom_violin() +
+  # coord_flip() +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_classic() +
+  ggsave("violin_sample_size_seq_V1.png", path = "tests/testthat/testdata", device = "png")
 
 
