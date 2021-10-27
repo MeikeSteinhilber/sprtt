@@ -24,7 +24,7 @@ f_sim <- c(rep(0, n_cases_f), rep(0.1, n_cases_f))  # 0.1, 0.25, 0.4
 
 k_groups <- 4
 max_n <- 20000
-n_rep <- 100
+n_rep <- 1000
 alpha <- beta <- .05
 A <- (1 - beta) / alpha
 B <- beta / (1 - alpha)
@@ -196,7 +196,7 @@ console <- toString(read.csv(path_expected, sep = ";", header = FALSE))
 
 
 bot$sendMessage(chat_id = chat_id, text = "finished: simulation_error_rates_anova")
-bot$sendMessage(chat_id = chat_id, text = paste("Consol Output>>>>>>>>>>", console))
+bot$sendMessage(chat_id = chat_id, text = paste("Consol Output>>>", console))
 # bot$sendMessage(chat_id = chat_id, text = duration)
 
 # graphs -----------------------------------------------------------------------
@@ -221,11 +221,17 @@ library(ggplot2)
 # Basic violin plot
 df %>%
   ggplot(., aes(x = f_simulated, y = sample_size_seq, fill = f_expected)) +
-  geom_violin() +
+  geom_violin(trim=FALSE) +
   # coord_flip() +
   # scale_fill_brewer(palette = "Dark2") +
-  theme_classic() +
-  ggsave("violin_sample_size_seq_detailed_V1.png", path = "tests/testthat/testdata", device = "png")
+  theme_classic()
+  ggsave("violin_sample_size_seq_detailed_V1.png",
+         path = "tests/testthat/testdata",
+         device = "png",
+         dpi = 900,
+         units = "cm",
+         width = 25,
+         height = 15)
 
 bot$sendPhoto(chat_id, "tests/testthat/testdata/violin_sample_size_seq_detailed_V1.png")
 
