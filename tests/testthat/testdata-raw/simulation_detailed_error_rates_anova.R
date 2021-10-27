@@ -24,7 +24,7 @@ f_sim <- c(rep(0, n_cases_f), rep(0.1, n_cases_f))  # 0.1, 0.25, 0.4
 
 k_groups <- 4
 max_n <- 20000
-n_rep <- 1000
+n_rep <- 100
 alpha <- beta <- .05
 A <- (1 - beta) / alpha
 B <- beta / (1 - alpha)
@@ -69,19 +69,17 @@ for (f in f_sim) {
         decision[counter] <- anova_results@decision
         f_simulated[counter] <- f
         f_expected[counter] <- f_expec
-        # if(f != 0) {
-        #   power_analysis_n <- pwr::pwr.anova.test(k = k_groups, f = f, power = 1 - beta)$n
-        #   sample_size_fixed[counter] <- round(power_analysis_n * k_groups)
-        # } else{
-        #   sample_size_fixed[counter] <- NA
-        # }
-
         counter <<- counter + 1
         break
       }
     }
   }
-  bot$sendMessage(chat_id = chat_id, text = paste(j, "from", length(f_sim), "cases"))
+  time <- Sys.time()
+  current_duration <- difftime(time, start, units='mins')
+  estimated_duration <- current_duration/j * length(f_sim)
+  bot$sendMessage(chat_id = chat_id, text = paste(
+    j, "from", length(f_sim), "cases |", round(current_duration, 2), "of approx", round(estimated_duration, 2), "minutes"
+  ))
   j <- j + 1
 }
 # check the simulation ---------------------------------------------------------
@@ -182,7 +180,7 @@ set.seed(NULL)
 
 
 end <- Sys.time()
-duration <- end - start
+duration <- difftime(end, start, units='auto')
 duration
 
 # analyse performance ----------------------------------------------------------
