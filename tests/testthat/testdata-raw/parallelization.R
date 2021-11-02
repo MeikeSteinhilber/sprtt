@@ -1,8 +1,34 @@
 library(doParallel)
 library(foreach)
 
-path_expected <- tempfile(fileext = ".txt")
-sink(path_expected)
+
+# start sink -------------------------------------------------------------------
+name_file_output <- "output.txt"
+name_file_message <- "message.txt"
+file_output <- file(name_file_output, open = "wt")
+file_message <- file(name_file_message, open = "wt")
+sink(file_output, type = "output")
+sink(file_message, type = "message")
+stop("TEST ERROR")
+stop("TEST ERROR")
+1234
+
+# close sink -------------------------------------------------------------------
+## reset message sink and close the file connection
+sink(type = "output")
+sink(type = "message")
+close(file_output)
+close(file_message)
+# file.show(name_file_output)
+# file.show(name_file_message)
+
+file_output <- read.csv(name_file_output, sep = ";", header = FALSE)
+string_output <- toString(read.csv(name_file_output, sep = ";", header = FALSE))
+file <- read.csv(name_file_message, sep = ";", header = FALSE)
+string_message <- toString(read.csv(name_file_message, sep = ";", header = FALSE))
+
+
+# simulation -------------------------------------------------------------------
 
 # set up parallel backend
 n_cores <- detectCores()
@@ -19,7 +45,6 @@ sim <-
     for (mu in 0:2) {
       t_test[i] <- t.test(x, mu = mu)$p.value
       i <- i + 1
-      print(i)
     }
     return(t_test)
 }

@@ -10,11 +10,15 @@ token = bot_token("RTelegramBot")
 bot <- Bot(token = token)
 chat_id = 1084175541
 
-
-start <- Sys.time()
+# set general settings ---------------------------------------------------------
 library(dplyr)
+
+## start recording console output
 path_expected <- tempfile(fileext = ".txt")
 sink(path_expected)
+
+start <- Sys.time()
+
 # set simulation parameter -----------------------------------------------------
 set.seed(333)
 
