@@ -40,14 +40,6 @@ f_expected <- numeric(simulated_cases)
 counter <- 1
 j <- 1
 
-# initialize matrix with parameters --------------------------------------------
-
-# matrix <- matrix(nrow = n_rep * length(f_sim), ncol = 5)
-# colnames(matrix) <- c("f_simulated", "f_expected", "LR", "decision", "Sample_size_seq")
-#
-# matrix[, 1] <- sort(rep(f_sim, n_rep))
-# matrix[, 2] <- rep(sort(rep(f_exp, n_rep/2)), 2)
-
 
 # simulation -------------------------------------------------------------------
 for (f in f_sim) {
