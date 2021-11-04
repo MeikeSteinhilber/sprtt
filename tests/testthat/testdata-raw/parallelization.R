@@ -71,9 +71,7 @@ sim
 #   }
 # x
 
-sink(file = NULL) # STOP sink
-file <- read.csv(path_expected, sep = ";", header = FALSE)
 
 
-# shut down workers
-parallel::stopCluster(cluster)
+
+
