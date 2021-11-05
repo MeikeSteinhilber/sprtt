@@ -2,8 +2,10 @@
 library(doParallel)
 library(foreach)
 
+start <- Sys.time()
+
 ## set seed --------------------------------------------------------------------
-# set.seed(333)
+set.seed(333)
 
 
 ## start sink ------------------------------------------------------------------
@@ -11,7 +13,7 @@ name_file_output <- "output.txt"
 name_file_message <- "message.txt"
 file_output <- file(name_file_output, open = "wt")
 file_message <- file(name_file_message, open = "wt")
-# sink(file_output, type = "output", append = TRUE)
+sink(file_output, type = "output", append = TRUE)
 sink(file_message, type = "message", append = TRUE)
 
 
@@ -31,39 +33,73 @@ sample_data <- function(n, d) {
 }
 
 ## simulation parameter --------------------------------------------------------
-n_rep <- 10
+n_rep <- 2
 alpha <- beta <- 0.05
-d_exp_vec <- rep(c(0.3, 0.5, 0.8), 2)
-f_exp_vec <- rep(c(0.1, 0.25, 0.4), 2)
+d_exp_vec <- rep(c(0.2, 0.5, 0.8))
+f_exp_vec <- rep(c(0.1, 0.25, 0.4))
 n_cases_d <- length(unique(d_exp_vec))
-d_sim_vec <- c(rep(0, n_cases_d), rep(unique(d_exp_vec), 1))
+d_sim_vec <- c(0, rep(unique(d_exp_vec), 1))
+
+n_combinations <- n_cases_d * length(unique(d_sim_vec))
 
 max_n <- 10000
 
-results <- matrix(0, nrow = length(d_exp_vec), ncol = 9)
+results <- matrix(0, nrow = n_combinations, ncol = 9,
+                  dimnames = list(NULL, c(
+                    "d_sim",
+                    "d_exp",
+                    "decision",
+                    "lr_ttest",
+                    "n_ttest",
+                    "f_exp",
+                    "decision",
+                    "lr_anova",
+                    "n_anova"
+                  )))
+
+rep_results <- matrix(0, nrow = n_combinations * n_rep, ncol = 9,
+                      dimnames = list(NULL, c(
+                        "d_sim",
+                        "d_exp",
+                        "decision",
+                        "lr_ttest",
+                        "n_ttest",
+                        "f_exp",
+                        "decision",
+                        "lr_anova",
+                        "n_anova"
+                      )))
 
 i <- 1
 j <- 1
+k <- 1
+comb_results <- 0
 
-sim <-
-  foreach(d_sim = d_sim_vec) %dopar% {
-  # for(d_sim in d_sim_vec) {
+# simulation <-
+#   foreach(d_sim = d_sim_vec, .combine = "rbind") %dopar% {
+  for(d_sim in d_sim_vec) {
+    for (rep in 1:n_rep) {
 
     # simulate data
     data <- sample_data(max_n, d_sim)
 
     for(d_exp in d_exp_vec) {
       f_exp <- f_exp_vec[j]
-      stop <- FALSE
+      ttest_stop <- TRUE
+      anova_stop <- TRUE
 
         for(row in 3:nrow(data)) {
           seq_data <- as.data.frame(data[1:row, ])
           seq_data$x <- as.factor(seq_data$x)
 
-          ttest_results <- sprtt::seq_ttest(y ~ x, data = seq_data, d = d_exp)
-          anova_results <- sprtt::seq_anova(y ~ x, data = seq_data, f = f_exp)
+          if (ttest_stop) {
+            ttest_results <- sprtt::seq_ttest(y ~ x, data = seq_data, d = d_exp)
+          }
+          if (anova_stop) {
+            anova_results <- sprtt::seq_anova(y ~ x, data = seq_data, f = f_exp)
+          }
 
-          if (ttest_results@decision != "continue sampling" && !exists("final_ttest_results")) {
+          if (ttest_results@decision != "continue sampling" && ttest_stop) {
             decision <- ifelse(ttest_results@decision == "accept H1", 1, 0)
             final_ttest_results <- c(
               d_sim,
@@ -72,8 +108,9 @@ sim <-
               ttest_results@likelihood_ratio_log,
               row
             )
+            ttest_stop <- FALSE
           }
-          if (anova_results@decision != "continue sampling" && !exists("final_anova_results")) {
+          if (anova_results@decision != "continue sampling" && anova_stop) {
             decision <- ifelse(anova_results@decision == "accept H1", 1, 0)
             final_anova_results <- c(
               f_exp,
@@ -81,35 +118,40 @@ sim <-
               anova_results@likelihood_ratio_log,
               row
             )
+            anova_stop <- FALSE
           }
-            if (ttest_results@decision != "continue sampling" &&
-                anova_results@decision != "continue sampling") {
-              # stop sequential process
-              stop = TRUE
-              break
-            }
+          if (ttest_results@decision != "continue sampling" &&
+              anova_results@decision != "continue sampling") {
+            # stop sequential process
+            break
+          }
         }#row
       results[i, ] <- c(final_ttest_results, final_anova_results)
       j <- j + 1
       i <- i + 1
-      # if(stop) {
-      #   break
-      # }
-    }#d_exp
-    return(results)
-  }#foreach
-sim
 
+    }#d_exp
+    comb_results[] <- results
+
+    }#rep
+    rep_results[k:(k + n_combinations - 1), ] <- comb_results
+    k <- k + n_combinations
+    return(rep_results)
+  }#foreach
+simulation
 ## save results ----------------------------------------------------------------
 
 
 # END SIMULATION ---------------------------------------------------------------
+end <- Sys.time()
+duration <- difftime(end, start, units='auto')
+duration
 
 # close sink -------------------------------------------------------------------
 ## reset message sink and close the file connection
-# sink(type = "output")
+sink(type = "output")
 sink(type = "message")
-# close(file_output)
+close(file_output)
 close(file_message)
 # file.show(name_file_output)
 # file.show(name_file_message)
