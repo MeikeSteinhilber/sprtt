@@ -1,3 +1,0 @@
-Fehler in if (likelihood_ratio >= boundaries$A) { : 
-  Fehlender Wert, wo TRUE/FALSE nötig ist
-Fehler: Objekt 'simulation' nicht gefunden

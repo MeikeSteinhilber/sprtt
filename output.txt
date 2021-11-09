@@ -1,1 +1,405 @@
-Time difference of 17.37199 secs
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision
+Called from: eval(expr, p)
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio >= boundaries$A) {
+    decision <- "accept H1"
+} else if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#2:if (likelihood_ratio <= boundaries$B) {
+    decision <- "accept H0"
+} else {
+    decision <- "continue sampling"
+}
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#7:decision <- "continue sampling"
+debug bei C:/Users/Admin/Documents/A Promotion/GitHub/sprtt/R/get_seq_ttest_decision.R#9:decision

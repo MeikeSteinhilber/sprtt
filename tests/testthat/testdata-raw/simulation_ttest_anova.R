@@ -44,7 +44,19 @@ n_combinations <- n_cases_d * length(unique(d_sim_vec))
 
 max_n <- 10000
 
-results <- matrix(0, nrow = n_combinations, ncol = 9,
+results <- matrix(0, nrow = length(unique(d_exp_vec)), ncol = 9,
+                  dimnames = list(NULL, c(
+                    "d_sim",
+                    "d_exp",
+                    "decision",
+                    "lr_ttest",
+                    "n_ttest",
+                    "f_exp",
+                    "decision",
+                    "lr_anova",
+                    "n_anova"
+                  )))
+comb_results <- matrix(0, nrow = n_combinations, ncol = 9,
                   dimnames = list(NULL, c(
                     "d_sim",
                     "d_exp",
@@ -73,7 +85,7 @@ rep_results <- matrix(0, nrow = n_combinations * n_rep, ncol = 9,
 i <- 1
 j <- 1
 k <- 1
-comb_results <- 0
+i_comb <- 1
 
 # simulation <-
 #   foreach(d_sim = d_sim_vec, .combine = "rbind") %dopar% {
@@ -131,7 +143,8 @@ comb_results <- 0
       i <- i + 1
 
     }#d_exp
-    comb_results[] <- results
+    comb_results[i_comb:(i_comb + length(unique(d_exp_vec)) - 1), ] <- results
+    i_comb <- i_comb + length(unique(d_exp_vec))
 
     }#rep
     rep_results[k:(k + n_combinations - 1), ] <- comb_results
