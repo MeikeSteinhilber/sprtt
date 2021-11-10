@@ -33,7 +33,7 @@ sample_data <- function(n, d) {
 }
 
 ## simulation parameter --------------------------------------------------------
-n_rep <- 2
+n_rep <- 10
 alpha <- beta <- 0.05
 d_exp_vec <- rep(c(0.2, 0.5, 0.8))
 f_exp_vec <- rep(c(0.1, 0.25, 0.4))
@@ -48,23 +48,23 @@ results <- matrix(0, nrow = length(unique(d_exp_vec)), ncol = 9,
                   dimnames = list(NULL, c(
                     "d_sim",
                     "d_exp",
-                    "decision",
+                    "decision_ttest",
                     "lr_ttest",
                     "n_ttest",
                     "f_exp",
-                    "decision",
+                    "decision_anova",
                     "lr_anova",
                     "n_anova"
                   )))
-comb_results <- matrix(0, nrow = n_combinations, ncol = 9,
+comb_results <- matrix(0, nrow = nrow(results) * n_rep, ncol = 9,
                   dimnames = list(NULL, c(
                     "d_sim",
                     "d_exp",
-                    "decision",
+                    "decision_ttest",
                     "lr_ttest",
                     "n_ttest",
                     "f_exp",
-                    "decision",
+                    "decision_anova",
                     "lr_anova",
                     "n_anova"
                   )))
@@ -73,27 +73,30 @@ rep_results <- matrix(0, nrow = n_combinations * n_rep, ncol = 9,
                       dimnames = list(NULL, c(
                         "d_sim",
                         "d_exp",
-                        "decision",
+                        "decision_ttest",
                         "lr_ttest",
                         "n_ttest",
                         "f_exp",
-                        "decision",
+                        "decision_anova",
                         "lr_anova",
                         "n_anova"
                       )))
 
 i <- 1
-j <- 1
+
 k <- 1
 i_comb <- 1
 
-# simulation <-
-#   foreach(d_sim = d_sim_vec, .combine = "rbind") %dopar% {
-  for(d_sim in d_sim_vec) {
+simulation <-
+  foreach(d_sim = d_sim_vec, .combine = "rbind") %dopar% {
+  # for(d_sim in d_sim_vec) {
     for (rep in 1:n_rep) {
 
     # simulate data
     data <- sample_data(max_n, d_sim)
+
+    i <- 1
+    j <- 1
 
     for(d_exp in d_exp_vec) {
       f_exp <- f_exp_vec[j]
@@ -108,7 +111,8 @@ i_comb <- 1
             ttest_results <- sprtt::seq_ttest(y ~ x, data = seq_data, d = d_exp)
           }
           if (anova_stop) {
-            anova_results <- sprtt::seq_anova(y ~ x, data = seq_data, f = f_exp)
+            # anova_results <- sprtt::seq_anova(y ~ x, data = seq_data, f = f_exp)
+            anova_results <- sprtt::seq_ttest(y ~ x, data = seq_data, d = d_exp)
           }
 
           if (ttest_results@decision != "continue sampling" && ttest_stop) {
@@ -143,15 +147,18 @@ i_comb <- 1
       i <- i + 1
 
     }#d_exp
-    comb_results[i_comb:(i_comb + length(unique(d_exp_vec)) - 1), ] <- results
-    i_comb <- i_comb + length(unique(d_exp_vec))
+    comb_results[i_comb:(i_comb + nrow(results) - 1), ] <- results
+    i_comb <- i_comb + nrow(results)
 
     }#rep
-    rep_results[k:(k + n_combinations - 1), ] <- comb_results
-    k <- k + n_combinations
-    return(rep_results)
+    # rep_results[k:(k + nrow(comb_results) - 1), ] <- comb_results
+    k <- k + nrow(comb_results)
+    return(comb_results)
   }#foreach
-simulation
+sim <- simulation %>%
+  as.data.frame() %>%
+  arrange(d_sim, d_exp)
+
 ## save results ----------------------------------------------------------------
 
 
