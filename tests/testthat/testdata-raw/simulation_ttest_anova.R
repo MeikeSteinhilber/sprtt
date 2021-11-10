@@ -33,7 +33,7 @@ sample_data <- function(n, d) {
 }
 
 ## simulation parameter --------------------------------------------------------
-n_rep <- 10
+n_rep <- 100
 alpha <- beta <- 0.05
 d_exp_vec <- rep(c(0.2, 0.5, 0.8))
 f_exp_vec <- rep(c(0.1, 0.25, 0.4))
@@ -157,7 +157,11 @@ simulation <-
   }#foreach
 sim <- simulation %>%
   as.data.frame() %>%
-  arrange(d_sim, d_exp)
+  arrange(d_sim, d_exp) %>%
+  mutate(equal_decision = decision_ttest == decision_anova,
+         equal_n = n_ttest == n_anova)
+
+
 
 ## save results ----------------------------------------------------------------
 
