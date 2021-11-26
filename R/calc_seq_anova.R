@@ -33,11 +33,11 @@ calc_seq_anova <- function(seq_anova_arguments) {
     calc_seq_ttest_boundaries(
       power = seq_anova_arguments@power,
       alpha = seq_anova_arguments@alpha,
-      log = FALSE
+      log = TRUE
     )
   decision <-
     get_seq_ttest_decision(
-      likelihood_ratio = likelihoods$ratio,
+      likelihood_ratio = likelihoods$ratio_log,
       boundaries = boundaries
     )
   seq_anova_results <-

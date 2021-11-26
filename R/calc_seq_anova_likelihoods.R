@@ -11,7 +11,7 @@ calc_seq_anova_likelihoods <- function(
   likelihood_1_log <- df(F_statistic$F_value, F_statistic$df_1, F_statistic$df_2, non_centrality_parameter, log = TRUE)
   likelihood_2_log <- df(F_statistic$F_value, F_statistic$df_1, F_statistic$df_2, log = TRUE)
   likelihood_ratio <- likelihood_1 / likelihood_2
-  likelihood_ratio_log <- likelihood_1_log / likelihood_2_log
+  likelihood_ratio_log <- likelihood_1_log - likelihood_2_log
 
   #Check likelihooods: duplicated code calc_seq_ttest_likelihoods
 

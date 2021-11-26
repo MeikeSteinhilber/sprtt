@@ -24,7 +24,7 @@
 #'
 #' @export
 #'
-#' @example inst/examples/seq_anova
+#' @example inst/examples/seq_anova.R
 
 
 #---- MAIN FUNCTION ------------------------------------------------------------

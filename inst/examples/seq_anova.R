@@ -25,6 +25,6 @@ data = data.frame(cbind(A, y))
 # summary(lin.model)
 
 
-# calculate sequnetial ANOVA ---------------------------------------------------
+# calculate sequential ANOVA ---------------------------------------------------
 results <- sprtt::seq_anova(y ~ A, f = 0.2, data = data )
 results@decision
