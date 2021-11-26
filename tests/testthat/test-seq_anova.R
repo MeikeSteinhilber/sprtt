@@ -8,7 +8,7 @@ test_that("Compare results with Martins Implementation", {
   # skip the tests in special situations
   # skip_on_cran() # skip on CRAN checks: necessary!
   # skip_on_ci() # skip on continuous platforms like GitHub Actions
-  # skip("seq_anova simulation. (Takes about XX minutes)") # skip test
+  skip("seq_anova simulation: not written yet") # skip test
 
   # test setup: simulate the data
   testthat::source_dir(

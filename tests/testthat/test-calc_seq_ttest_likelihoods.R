@@ -17,7 +17,7 @@ test_that("calc_seq_ttest_likelihoods: check log", {
       non_centrality_parameter,
       wanted = NULL
   )
-  expect_equal(log(likelihoods$ratio), likelihoods$ratio_log)
+  expect_true(log(likelihoods$ratio) - likelihoods$ratio_log < 1e-5)
 
 })
 
