@@ -2,11 +2,11 @@ build_seq_ttest_arguments <- function(
   input1,
   y = NULL,
   data = NULL,
-  mu, d, alpha, power, alternative,paired, data_name, na.rm
+  mu, d, alpha, power, alternative, paired, data_name, na.rm
 ){
 
   if (class(input1) == "formula") {
-    check_formula(formula = input1, data = data, paired = paired)
+    check_formula_ttest(formula = input1, data = data, paired = paired)
     x <- extract_formula(formula = input1, data = data, wanted = "x")
     y <- extract_formula(formula = input1, data = data, wanted = "y")
   } else if (class(input1) == "numeric") {
@@ -20,7 +20,7 @@ build_seq_ttest_arguments <- function(
   one_sample <- get_one_sample(y)
   x <- delete_na(x, y, one_sample, paired, na.rm, wanted = "x")
   y <- delete_na(x, y, one_sample, paired, na.rm, wanted = "y")
-  check_data(input1, x, y, paired)
+  check_data_ttest(x, y, paired)
 
   seq_ttest_arguments <-
     new(

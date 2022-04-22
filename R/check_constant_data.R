@@ -1,4 +1,4 @@
-check_constant_data <- function(x, y, paired = NULL) {
+check_constant_data <- function(x, y) {
   message <- "Can't perform SPRT on constant data."
 
   if (!is.null(y) && !is.factor(y)) {
