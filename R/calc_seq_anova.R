@@ -25,18 +25,16 @@ calc_seq_anova <- function(seq_anova_arguments) {
     calc_seq_anova_likelihoods(
       seq_anova_arguments,
       non_centrality_parameter,
-      ss_effect,
-      ss_residual,
       F_statistic
     )
   boundaries <-
-    calc_seq_ttest_boundaries(
+    calc_seq_boundaries(
       power = seq_anova_arguments@power,
       alpha = seq_anova_arguments@alpha,
       log = TRUE
     )
   decision <-
-    get_seq_ttest_decision(
+    get_seq_decision(
       likelihood_ratio = likelihoods$ratio_log,
       boundaries = boundaries
     )

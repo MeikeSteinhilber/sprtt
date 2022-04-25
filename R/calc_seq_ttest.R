@@ -20,13 +20,13 @@ calc_seq_ttest <- function(seq_ttest_arguments, verbose = TRUE){
       non_centrality_parameter
     )
   boundaries <-
-    calc_seq_ttest_boundaries(
+    calc_seq_boundaries(
       power = seq_ttest_arguments@power,
       alpha = seq_ttest_arguments@alpha,
       log = TRUE
     )
   decision <-
-    get_seq_ttest_decision(
+    get_seq_decision(
       likelihood_ratio = likelihoods$ratio_log,
       boundaries = boundaries
     )

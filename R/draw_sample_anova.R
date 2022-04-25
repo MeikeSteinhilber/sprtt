@@ -1,3 +1,4 @@
+#' @export
 draw_sample <- function(k_groups = 3, f, sd = c(1, 1, 1), max_n = 50) {
   if(k_groups != length(sd)) {stop(" k_groups needs to be equal to length of sd.")}
 

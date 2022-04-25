@@ -1,4 +1,4 @@
-get_seq_ttest_decision <- function(likelihood_ratio, boundaries){
+get_seq_decision <- function(likelihood_ratio, boundaries){
   if (likelihood_ratio >= boundaries$A) {
     decision <- "accept H1"
   } else if (likelihood_ratio <= boundaries$B) {

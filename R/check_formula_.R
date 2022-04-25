@@ -56,7 +56,7 @@ check_formula_anova <- function(formula, data, paired) {
       "muste be a factor."))
   }
 
-  if (length(unique(factor_A)) < 2) {
+  if (length(levels(factor_A)) < 2) {
     stop(paste("Grouping factor must contain at least two levels."))
   }
 

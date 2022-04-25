@@ -14,22 +14,9 @@ setClass(
 )
 build_prototype_seq_anova_arguments <- function() {
   set.seed(333)
-  alpha <- 10
-  beta1 <- .3
-  beta2 <- -.5
-  beta3 <- -1.1
-  A <- c(rep(c(0), 10), rep(c(1), 10), rep(c(2), 10)) # '0' 100 times, '1' 100 times
-  # B = rep(c(rep(c(0), 50), rep(c(1), 50)), 2) # '0'x50, '1'x50, '0'x50, '1'x50
-  e <- rnorm(30, 0, sd = 1) # Random noise, with standard deviation of 1
-  # Generate your data using the regression equation
-  # y = alpha + beta1*A + beta2*B + beta3*A*B + e
-  y <- alpha + beta1*A  + e
-
-  formula <- y ~ A
-  data <- data.frame(y, A)
-  build_seq_anova_arguments(formula, data, 0.1, 0.05, 0.95, "test name", TRUE)
-
-
+  data <- draw_sample(f = 0.5)
+  formula <- y~x
+  build_seq_anova_arguments(formula, data, 0.5, 0.05, 0.95, "test name", TRUE)
 }
 
 setValidity(
