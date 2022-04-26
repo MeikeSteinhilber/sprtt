@@ -37,12 +37,16 @@ check_formula_ttest <- function(formula, data, paired) {
 }
 
 
-check_formula_anova <- function(formula, data, paired) {
+check_formula_anova <- function(formula, data) {
   # check structure
-  if ((length(formula) != 3L) || (length(formula[[3]]) != 1L))
+  # one-way ANOVA check: formula[[3]] can have only one element
+  if (length(formula) != 3L)
     stop(
-      "'formula' is incorrect. Please specify as 'y~factor_A'.
-      If your variables are in a data frame, please use the 'data' argument."
+      "'formula' is incorrect (length(formula) != 3L). Please specify as 'y~factor_A'."
+    )
+  if (length(formula[[3]]) != 1L)
+    stop(
+      "one-way ANOVA: 'formula' is incorrect (length(formula[[3]]) != 1L). Please specify as 'y~factor_A'."
     )
 
   # quick extraction of the formula for testing y
@@ -50,7 +54,7 @@ check_formula_anova <- function(formula, data, paired) {
   factor_A <- data_matrix_formula[, 2]
 
   # check y
-  if (!is.factor(factor_A) && (length(factor_A) != 1)) {
+  if (!is.factor(factor_A)) {
     stop(paste(
       formula[[3]],
       "muste be a factor."))

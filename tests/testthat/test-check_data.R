@@ -1,4 +1,7 @@
-#* @testing check_data_ttest
+#* @testing check_data
+
+# t-test -----------------------------------------------------------------------
+
 context("check_data_ttest: check correct behaviour")
 
 test_that("check_data_ttest: numeric: Correct activation of errors", {
@@ -33,44 +36,29 @@ test_that("check_data_ttest: numeric: Correct activation of errors", {
     check_data_ttest(x, y, paired = 5),
     " Must be logical"
   )
-
 })
 
-
-# test_that("check_data_ttest: formula: Correct activation of errors", {
-#   input1 <- x~y
-#
-#   x <- rnorm(1)
-#   y <- as.factor(2)
-#   expect_error(
-#     check_data_ttest(input1, x, y, paired = FALSE),
-#     "at least 3 observations"
-#   )
-#   x <- rnorm(3)
-#   y <- c(2,5,2)
-#   expect_error(
-#     check_data_ttest(input1, x, y, paired = FALSE),
-#     "grouping factor"
-#   )
-#   x <- rnorm(5)
-#   y <- as.factor(c(1,1,1,1,2))
-#   expect_error(
-#     check_data_ttest(input1, x, y, paired = TRUE),
-#     "Unequal number of observations"
-#   )
-#   x <- c(2,5)
-#   y <- as.factor(c(1,2))
-#   expect_error(
-#     check_data_ttest(input1, x, y, paired = FALSE),
-#     "at least 3 observations"
-#   )
-
-# })
+# ANOVA ------------------------------------------------------------------------
 
 
-# context("")
-# test_that("", {
-#
-#
-# })
+context("check_data_ttest: check correct behaviour")
 
+test_that("check_data_ttest: numeric: Correct activation of errors", {
+  data <- draw_sample()
+  colnames(data) <- c("y", "factor_A")
+  formula <- y~factor_A
+  data$y <- as.character(data$y)
+  expect_error(
+    check_data_anova(data),
+    "Invalid argument: y must be numeric "
+  )
+
+  data <- draw_sample(max_n = 1)
+  colnames(data) <- c("y", "factor_A")
+  formula <- y~factor_A
+  expect_error(
+    check_data_anova(data),
+    "Invalid argument: y must be numeric "
+  )
+
+})

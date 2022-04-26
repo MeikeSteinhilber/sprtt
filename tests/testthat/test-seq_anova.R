@@ -1,12 +1,12 @@
 #* @testing seq_anova
 
-test_that("Compare results with Martins Implementation", {
+test_that("Compare ttest with anova results (two groups)", {
   # load packages
   library(testthis)
   library(dplyr)
 
   # skip the tests in special situations
-  # skip_on_cran() # skip on CRAN checks: necessary!
+  skip_on_cran() # skip on CRAN checks: necessary!
   # skip_on_ci() # skip on continuous platforms like GitHub Actions
   skip("seq_anova simulation: not written yet") # skip test
 

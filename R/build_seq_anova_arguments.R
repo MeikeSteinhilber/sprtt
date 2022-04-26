@@ -8,13 +8,13 @@ build_seq_anova_arguments <- function(
   verbose
 ) {
   if (class(formula) == "formula") {
-    check_formula_anova(formula = formula, data = data, paired = FALSE)
-    data <- extract_formula_seq_anova(formula = formula, data = data)
+    check_formula_anova(formula = formula, data = data)
+    data <- extract_formula_anova(formula = formula, data = data)
   } else{
     "The class of the formula argument hast to be formula."
   }
 
-  check_data_anova(data, formula, paired = FALSE)
+  check_data_anova(data)
   seq_anova_arguments <-
     new(
       "seq_anova_arguments",

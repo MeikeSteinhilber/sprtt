@@ -1,4 +1,6 @@
 #* @testing check_formula
+
+# t-test -----------------------------------------------------------------------
 context("check_formula_ttest: Correct error messages.")
 
 test_that("check_formula_ttest: Check structure: Correct error messages", {
@@ -68,7 +70,7 @@ test_that("check_formula_ttest: Check y: Correct messages", {
   )
 })
 
-test_that("check_formula: silent behaviour: no errors occur", {
+test_that("check_formula_ttest: silent behaviour: no errors occur", {
 
   x <- 1:10
   y <- as.factor(c(rep(1,5), rep(2,5)))
@@ -91,8 +93,51 @@ test_that("check_formula: silent behaviour: no errors occur", {
 
 })
 
+# ANOVA ------------------------------------------------------------------------
+context("check_formula_anova: Correct error messages.")
 
-# test_that("", {
-#
-#
-# })
+test_that("check_formula_anova: Check structure: Correct error messages", {
+  data <- draw_sample()
+  formula <- y~x
+
+  expect_error(
+    check_formula_anova(formula = NULL, data),
+    "'formula' is incorrect."
+  )
+  expect_error(
+    check_formula_anova(formula = x~y+z, data),
+    "one-way ANOVA: 'formula' is incorrect."
+  )
+  expect_error(
+    check_formula_anova(formula = data$x ~ data$y, data = NULL),
+    "one-way ANOVA: 'formula' is incorrect"
+  )
+  expect_error(
+    check_formula_anova(formula = formula),
+    'argument "data" is missing, with no default'
+  )
+  expect_error(
+    check_formula_anova(data = data),
+    'argument "formula" is missing, with no default'
+  )
+  data$x <- as.double(data$x)
+  expect_error(
+    check_formula_anova(formula, data),
+    'x muste be a factor'
+  )
+  data$x <- as.factor(double(length(data$x)))
+  expect_error(
+    check_formula_anova(formula, data),
+    'Grouping factor must contain at least two levels.'
+  )
+})
+
+test_that("check_formula_anova: silent behaviour: no errors occur", {
+  data <- draw_sample()
+  colnames(data) <- c("observation", "factor")
+  formula <- observation ~ factor
+
+  expect_silent(
+    check_formula_anova(formula, data)
+  )
+})

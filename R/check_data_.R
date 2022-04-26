@@ -17,14 +17,14 @@ check_data_ttest <- function(x, y, paired) {
   check_constant_data(x, y)
 }
 
-check_data_anova <- function(data, formula, paired) {
+check_data_anova <- function(data) {
 
   if (!is.numeric(data$y))
     stop(paste("Invalid argument: y must be numeric (y~factor_A)."))
-  if (!paired && (length(data$y) + length(data$factor_A) < 3))
-    stop("SPRT for two independent samples requires at least 3 observations.")
-  if (!is.logical(paired))
-    stop("Invalid argument <paired>: Must be logical.")
+  if ((length(data$y) < 3))
+    stop("one-way ANOVA: requires at least 3 observations.")
+  # if (!is.logical(paired))
+  #   stop("Invalid argument <paired>: Must be logical.")
 
   check_constant_data(data$y, data$factor_A)
 }

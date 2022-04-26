@@ -1,5 +1,5 @@
 #' @export
-draw_sample <- function(k_groups = 3, f, sd = c(1, 1, 1), max_n = 50) {
+draw_sample <- function(k_groups = 3, f = 0.25, sd = c(1, 1, 1), max_n = 50) {
   if(k_groups != length(sd)) {stop(" k_groups needs to be equal to length of sd.")}
 
   raw_means <- rnorm(k_groups)
