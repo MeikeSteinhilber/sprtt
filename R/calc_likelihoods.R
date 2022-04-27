@@ -1,4 +1,5 @@
-calc_seq_ttest_likelihoods <- function(
+# t-test -----------------------------------------------------------------------
+calc_likelihoods_ttest <- function(
   seq_ttest_arguments,
   t_statistic,
   df,
@@ -49,3 +50,28 @@ calc_seq_ttest_likelihoods <- function(
 
 }
 
+# ANOVA ------------------------------------------------------------------------
+
+calc_likelihoods_anova <- function(
+  seq_anova_arguments,
+  non_centrality_parameter,
+  F_statistic
+) {
+
+  likelihood_1 <- df(F_statistic$F_value, F_statistic$df_1, F_statistic$df_2, non_centrality_parameter)
+  likelihood_0 <- df(F_statistic$F_value, F_statistic$df_1, F_statistic$df_2)
+  likelihood_1_log <- df(F_statistic$F_value, F_statistic$df_1, F_statistic$df_2, non_centrality_parameter, log = TRUE)
+  likelihood_0_log <- df(F_statistic$F_value, F_statistic$df_1, F_statistic$df_2, log = TRUE)
+  likelihood_ratio <- likelihood_1 / likelihood_0
+  likelihood_ratio_log <- likelihood_1_log - likelihood_0_log
+
+  #Check likelihooods: duplicated code calc_likelihoods_ttest
+
+  return(list(
+    likelihood_1 = likelihood_1,
+    likelihood_0 = likelihood_0,
+    ratio = likelihood_ratio,
+    likelihood_1_log = likelihood_1_log,
+    likelihood_0_log = likelihood_0_log,
+    ratio_log = likelihood_ratio_log))
+}

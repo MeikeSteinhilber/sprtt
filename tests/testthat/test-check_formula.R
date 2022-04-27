@@ -101,7 +101,11 @@ test_that("check_formula_anova: Check structure: Correct error messages", {
   formula <- y~x
 
   expect_error(
-    check_formula_anova(formula = NULL, data),
+    check_formula_anova(formula = "y~x", data),
+    "The formula argument must be a formula"
+  )
+  expect_error(
+    check_formula_anova(formula = y+z~x, data),
     "'formula' is incorrect."
   )
   expect_error(
@@ -110,7 +114,7 @@ test_that("check_formula_anova: Check structure: Correct error messages", {
   )
   expect_error(
     check_formula_anova(formula = data$x ~ data$y, data = NULL),
-    "one-way ANOVA: 'formula' is incorrect"
+    "'formula' is incorrect."
   )
   expect_error(
     check_formula_anova(formula = formula),

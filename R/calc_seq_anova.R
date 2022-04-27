@@ -1,6 +1,6 @@
 calc_seq_anova <- function(seq_anova_arguments) {
   non_centrality_parameter <-
-    calc_seq_anova_non_centrality_parameter(
+    calc_non_centrality_parameter_anova(
       seq_anova_arguments
     )
   seq_anova_arguments@data <-
@@ -16,19 +16,19 @@ calc_seq_anova <- function(seq_anova_arguments) {
       seq_anova_arguments
     )
   F_statistic <-
-    calc_F_statistic_seq_anova(
+    calc_F_statistic_(
       seq_anova_arguments,
       ss_effect,
       ss_residual
     )
   likelihoods <-
-    calc_seq_anova_likelihoods(
+    calc_likelihoods_anova(
       seq_anova_arguments,
       non_centrality_parameter,
       F_statistic
     )
   boundaries <-
-    calc_seq_boundaries(
+    calc_boundaries(
       power = seq_anova_arguments@power,
       alpha = seq_anova_arguments@alpha,
       log = TRUE

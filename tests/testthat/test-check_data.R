@@ -40,7 +40,6 @@ test_that("check_data_ttest: numeric: Correct activation of errors", {
 
 # ANOVA ------------------------------------------------------------------------
 
-
 context("check_data_ttest: check correct behaviour")
 
 test_that("check_data_ttest: numeric: Correct activation of errors", {
@@ -53,12 +52,27 @@ test_that("check_data_ttest: numeric: Correct activation of errors", {
     "Invalid argument: y must be numeric "
   )
 
+  data <- draw_sample(k_groups = 2, sd = c(1, 1), max_n = 1)
+  colnames(data) <- c("y", "factor_A")
+  formula <- y~factor_A
+  expect_error(
+    check_data_anova(data),
+    "ANOVA: requires at least 3 observations"
+  )
+
   data <- draw_sample(max_n = 1)
   colnames(data) <- c("y", "factor_A")
   formula <- y~factor_A
   expect_error(
     check_data_anova(data),
-    "Invalid argument: y must be numeric "
+    "ANOVA: every group needs at least two observations"
+  )
+
+  data <- draw_sample(max_n = 2)
+  colnames(data) <- c("y", "factor_A")
+  formula <- y~factor_A
+  expect_silent(
+    check_data_anova(data)
   )
 
 })

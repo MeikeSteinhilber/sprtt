@@ -1,4 +1,4 @@
-calc_F_statistic_seq_anova <- function(
+calc_F_statistic_ <- function(
   seq_anova_arguments,
   ss_effect,
   ss_residual

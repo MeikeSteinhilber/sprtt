@@ -7,7 +7,7 @@ data <- sprtt::draw_sample(k_groups = 3,
 
 
 # calculate sequential ANOVA ---------------------------------------------------
-results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data )
+results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data)
 # test decision
 results@decision
 # test results

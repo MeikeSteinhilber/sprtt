@@ -1,16 +1,16 @@
-#* @testing calc_seq_ttest_likelihoods
-context("calc_seq_ttest_likelihoods")
+#* @testing calc_likelihoods_ttest
+context("calc_likelihoods_ttest")
 
-test_that("calc_seq_ttest_likelihoods: check log", {
+test_that("calc_likelihoods_ttest: check log", {
   seq_ttest_arguments <-
     build_prototype_seq_ttest_arguments()
   t_statistic <-
-    calc_seq_ttest_t_statistic(seq_ttest_arguments)
+    calc_t_statistic(seq_ttest_arguments)
   non_centrality_parameter <-
-    calc_seq_ttest_non_centrality_parameter(seq_ttest_arguments)
+    calc_non_centrality_parameter_ttest(seq_ttest_arguments)
   df <- 18
   likelihoods <-
-    calc_seq_ttest_likelihoods(
+    calc_likelihoods_ttest(
       seq_ttest_arguments,
       t_statistic,
       df,
@@ -21,7 +21,7 @@ test_that("calc_seq_ttest_likelihoods: check log", {
 
 })
 
-test_that("calc_seq_ttest_likelihoods: Check warnings & messages", {
+test_that("calc_likelihoods_ttest: Check warnings & messages", {
   x <- rnorm(2000000)
   d <- 5
   expect_warning(seq_ttest(x, d = d),
@@ -35,13 +35,13 @@ test_that("calc_seq_ttest_likelihoods: Check warnings & messages", {
   seq_ttest_arguments@alternative <- "less"
 
   t_statistic <-
-    calc_seq_ttest_t_statistic(seq_ttest_arguments)
+    calc_t_statistic(seq_ttest_arguments)
   non_centrality_parameter <-
-    calc_seq_ttest_non_centrality_parameter(seq_ttest_arguments)
+    calc_non_centrality_parameter_ttest(seq_ttest_arguments)
   df <- 78
 
   expect_warning(
-    calc_seq_ttest_likelihoods(
+    calc_likelihoods_ttest(
       seq_ttest_arguments,
       t_statistic,
       df,

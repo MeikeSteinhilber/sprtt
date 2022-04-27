@@ -1,6 +1,22 @@
+#' @title Draw Samples
+#' @description Draw exemplary samples for the sequential ANOVA function.
+
+
+
+#' @param k_groups number of groups (levels of factor_A)
+#' @param f cohens f.
+#' @param sd standard deviations of the goups
+#' @param max_n sample size for the groups (total sample size = max_n*k_groups)
+#'
+#' @return returns a data.frame with the columns y (observations) and x (factor_A).
+#'
 #' @export
+#'
+#' @example inst/examples/draw_sample.R
+
+
 draw_sample <- function(k_groups = 3, f = 0.25, sd = c(1, 1, 1), max_n = 50) {
-  if(k_groups != length(sd)) {stop(" k_groups needs to be equal to length of sd.")}
+  if (k_groups != length(sd)) {stop("k_groups needs to be equal to length of sd.")}
 
   raw_means <- rnorm(k_groups)
   f_new <- f*sqrt(sum(sd^2)/k_groups)

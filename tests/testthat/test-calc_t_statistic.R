@@ -1,8 +1,8 @@
 #* @testing
 # set.seed(26753)
 
-context("calc_seq_ttest_t_statistic: Check output")
-test_that("calc_seq_ttest_t_statistic", {
+context("calc_t_statistic: Check output")
+test_that("calc_t_statistic", {
   arguments <- new("seq_ttest_arguments",
                    x = rnorm(15),
                    y = NULL,
@@ -16,25 +16,25 @@ test_that("calc_seq_ttest_t_statistic", {
                    data_name = "data name",
                    na.rm = FALSE
                    )
-  results_package <- calc_seq_ttest_t_statistic(arguments)
+  results_package <- calc_t_statistic(arguments)
   results_ttest <- t.test(x = arguments@x)
   expect_equal(results_package$statistic[[1]] , results_ttest$statistic[[1]])
 
   arguments@y <- arguments@x # error
   arguments@one_sample <- FALSE
   arguments@paired <- TRUE
-  expect_error(calc_seq_ttest_t_statistic(arguments),
+  expect_error(calc_t_statistic(arguments),
                "not possible to calculate the t-value")
 
   arguments@y <- rnorm(15)
   arguments@one_sample <- FALSE
   arguments@paired <- TRUE
-  results_package <- calc_seq_ttest_t_statistic(arguments)
+  results_package <- calc_t_statistic(arguments)
   results_ttest <- t.test(x = arguments@x, y = arguments@y, paired = TRUE)
   expect_equal(results_package$statistic[[1]] , results_ttest$statistic[[1]])
 
   arguments@alternative <- "greater"
-  results_package <- calc_seq_ttest_t_statistic(arguments)
+  results_package <- calc_t_statistic(arguments)
   results_ttest <- t.test(x = arguments@x,
                           y = arguments@y,
                           alternative = arguments@alternative,
@@ -42,7 +42,7 @@ test_that("calc_seq_ttest_t_statistic", {
   expect_equal(results_package$statistic[[1]] , results_ttest$statistic[[1]])
 
   arguments@alternative <- "less"
-  results_package <- calc_seq_ttest_t_statistic(arguments)
+  results_package <- calc_t_statistic(arguments)
   results_ttest <- t.test(x = arguments@x,
                           y = arguments@y,
                           alternative = arguments@alternative,

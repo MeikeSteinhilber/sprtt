@@ -14,18 +14,20 @@ check_data_ttest <- function(x, y, paired) {
       stop("Invalid argument <paired>: Must be logical.")
   }
 
-  check_constant_data(x, y)
+  check_constant_data_ttest(x, y)
 }
 
 check_data_anova <- function(data) {
 
   if (!is.numeric(data$y))
     stop(paste("Invalid argument: y must be numeric (y~factor_A)."))
-  if ((length(data$y) < 3))
-    stop("one-way ANOVA: requires at least 3 observations.")
+  if (length(levels(data$factor_A)) == 2 && (length(data$y) < 3))
+    stop("ANOVA: requires at least 3 observations.")
+  if (length(levels(data$factor_A)) > 2 && (length(data$y) < 6))
+    stop("ANOVA: every group needs at least two observations.")
   # if (!is.logical(paired))
   #   stop("Invalid argument <paired>: Must be logical.")
 
-  check_constant_data(data$y, data$factor_A)
+  check_constant_data_anova(data)
 }
 
