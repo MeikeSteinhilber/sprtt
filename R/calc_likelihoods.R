@@ -65,7 +65,20 @@ calc_likelihoods_anova <- function(
   likelihood_ratio <- likelihood_1 / likelihood_0
   likelihood_ratio_log <- likelihood_1_log - likelihood_0_log
 
-  #Check likelihooods: duplicated code calc_likelihoods_ttest
+  if (likelihood_1 == 0 ||
+      likelihood_0 == 0
+  ) {
+    warning("At least one likelihood is equal to 0.
+            The test works with the logarithm of the likelihoods.")
+  }
+
+  if (likelihood_1_log == -Inf ||
+      likelihood_0_log == -Inf ||
+      likelihood_1_log ==  Inf ||
+      likelihood_0_log ==  Inf
+  ) {
+    warning("At least one log-likelihood reached infinity.")
+  }
 
   return(list(
     likelihood_1 = likelihood_1,

@@ -1,4 +1,6 @@
 #* @testing calc_likelihoods_ttest
+
+# t-test -----------------------------------------------------------------------
 context("calc_likelihoods_ttest")
 
 test_that("calc_likelihoods_ttest: check log", {
@@ -51,9 +53,5 @@ test_that("calc_likelihoods_ttest: Check warnings & messages", {
   )
 })
 
+# ANOVA ------------------------------------------------------------------------
 
-
-# test_that("", {
-#
-#
-# })

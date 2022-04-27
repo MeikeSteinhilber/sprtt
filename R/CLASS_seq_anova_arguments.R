@@ -39,7 +39,11 @@ setMethod(
 )
 
 #' Method to retrieve the contents of a slot of an object of the
-#'  [`seq_anova_arguments-class`] class.
+#'  seq_anova_arguments class.
+#'
+#' @description This method is only used internally to process
+#' the input arguments of the [`seq_anova`] function. As a normal user,
+#' you can ignore this specific documentation.
 #'
 #' @param seq_anova_arguments the corresponding class to this method.
 #' @param x the seq_anova_arguments object.
@@ -48,7 +52,7 @@ setMethod(
 #' @param drop not used.
 #'
 #' @return Returns the contents of the specified slot. For more information,
-#' see the documentation for the [`seq_anova_arguments-class`] class.
+#' see the documentation for the seq_anova_arguments class.
 #' @export
 #'
 # #' @examples
