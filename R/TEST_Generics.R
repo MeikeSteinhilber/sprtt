@@ -27,3 +27,20 @@
 # test_function(seq_ttest_arguments, data, )
 # test_function(seq_anova_arguments, verbose = "TRUES")
 #
+
+# Test messwiederholte ANOVA Daten -----------------------------------------------
+
+# tdef <- defData(varname = "T", dist = "binary", formula = 0.5)
+# tdef <- defData(tdef, varname = "Y0", dist = "normal", formula = 10, variance = 1)
+# tdef <- defData(tdef, varname = "Y1", dist = "normal", formula = "Y0 + 5 + 5 * T", variance = 1)
+# # tdef <- defData(tdef, varname = "Y2", dist = "normal", formula = "Y0 + 10 + 5 * T", variance = 1)
+# dtTrial <- genData(5, tdef)
+# dtTrial
+# dtTime <- addPeriods(dtTrial,
+#                      nPeriods = 2, idvars = "id",
+#                      timevars = c("Y0", "Y1"), timevarName = "Y"
+# )
+# dtTime$period <- as.factor(dtTime$period)
+#
+# results <- sprtt::seq_ttest(Y~period, data = dtTime, d = 0.2, paired = TRUE)
+# results
