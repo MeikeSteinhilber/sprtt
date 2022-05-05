@@ -60,7 +60,7 @@ check_formula_anova <- function(formula, data) {
   if (!is.factor(factor_A)) {
     stop(paste(
       formula[[3]],
-      "muste be a factor."))
+      "must be a factor."))
   }
 
   if (length(levels(factor_A)) < 2) {
