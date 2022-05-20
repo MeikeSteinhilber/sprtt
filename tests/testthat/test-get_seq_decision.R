@@ -26,8 +26,3 @@ test_that("get_seq_decision", {
 
 })
 
-
-# test_that("", {
-#
-#
-# })

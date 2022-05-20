@@ -127,7 +127,7 @@ test_that("check_formula_anova: Check structure: Correct error messages", {
   data$x <- as.double(data$x)
   expect_error(
     check_formula_anova(formula, data),
-    'x muste be a factor'
+    'x must be a factor'
   )
   data$x <- as.factor(double(length(data$x)))
   expect_error(
