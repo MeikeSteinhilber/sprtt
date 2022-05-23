@@ -2,8 +2,8 @@
 
 test_that("Compare ttest with anova results (two groups)", {
   # load packages
-  library(testthis)
-  library(dplyr)
+  # library(testthis)
+  # library(dplyr)
 
   # skip the tests in special situations
   skip_on_cran() # skip on CRAN checks: necessary!

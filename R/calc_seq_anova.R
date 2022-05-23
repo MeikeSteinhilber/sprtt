@@ -38,6 +38,11 @@ calc_seq_anova <- function(seq_anova_arguments) {
       likelihood_ratio = likelihoods$ratio_log,
       boundaries = boundaries
     )
+  f_empiric <-
+    calc_cohens_f(
+      seq_anova_arguments,
+      F_statistic
+    )
   seq_anova_results <-
     build_seq_anova_results(
       seq_anova_arguments,
@@ -47,7 +52,8 @@ calc_seq_anova <- function(seq_anova_arguments) {
       non_centrality_parameter,
       ss_effect,
       ss_residual,
-      F_statistic
+      F_statistic,
+      f_empiric
     )
 
   seq_anova_results

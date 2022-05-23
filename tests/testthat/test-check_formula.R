@@ -100,6 +100,8 @@ test_that("check_formula_anova: Check structure: Correct error messages", {
   data <- draw_sample()
   formula <- y~x
 
+  # Sys.setenv("LANGUAGE"="EN")
+
   expect_error(
     check_formula_anova(formula = "y~x", data),
     "The formula argument must be a formula"

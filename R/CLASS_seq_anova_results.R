@@ -9,6 +9,7 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot A_boundary_log the lower logarithmic boundary of the test.
 #' @slot B_boundary_log the upper logarithmic boundary of the test.
 #' @slot f a number indicating the specified effect size (Cohen's f).
+#' @slot f_empiric a number indicating the calculated empirical effect size (Cohen's f).
 #' @slot alpha the type I error. A number between 0 and 1.
 #' @slot power 1 - beta (beta is the type II error probability). A number
 #' between 0 and 1.
@@ -35,6 +36,7 @@ setClass(
     A_boundary_log = "numeric",
     B_boundary_log = "numeric",
     f = "numeric",
+    f_empiric = "numeric",
     alpha = "numeric",
     power = "numeric",
     likelihood_ratio = "numeric",
@@ -87,6 +89,7 @@ setMethod(
     if (i == "A_boundary_log") {return(x@A_boundary_log)}
     if (i == "B_boundary_log") {return(x@B_boundary_log)}
     if (i == "f") {return(x@f)}
+    if (i == "f_empiric") {return(x@f_empiric)}
     if (i == "alpha") {return(x@alpha)}
     if (i == "power") {return(x@power)}
     if (i == "likelihood_1") {return(x@likelihood_1)}
