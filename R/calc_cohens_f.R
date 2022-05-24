@@ -70,3 +70,7 @@ cohens_f <- function(formula, data) {
 
 # cohens_f(formula, data)
 # effectsize::cohens_f(lm(formula, data))$Cohens_f
+
+
+# m <- lm(formula, data)
+# parameters::model_parameters(anova(m))

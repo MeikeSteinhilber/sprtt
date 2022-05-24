@@ -4,11 +4,7 @@ calc_ss_residual <- function(seq_anova_arguments) {
 
 calc_ss_effect <- function(seq_anova_arguments) {
   # n_group <- dplyr::count(seq_anova_arguments@data, .data$factor_A)$n[1]
-  n_group <- seq_anova_arguments@data %>%
-    group_by(.data$factor_A) %>%
-    summarise(n_of_group = dplyr::count(., .data$factor_A)$n[1]) %>%
-    select(n_of_group) %>%
-    unlist()
+  n_group <- table(seq_anova_arguments@data$factor_A)
 
   grand_mean_factor_A <- mean(seq_anova_arguments@data$y)
   group_mean_A <- unique(seq_anova_arguments@data$group_mean_A)
