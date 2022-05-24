@@ -6,8 +6,10 @@ build_seq_anova_results <- function(
   non_centrality_parameter,
   ss_effect,
   ss_residual,
+  ss_total,
   F_statistic,
-  f_empiric
+  f_empiric,
+  eta_squared
 ){
 
   seq_anova_results <-
@@ -20,6 +22,7 @@ build_seq_anova_results <- function(
       B_boundary_log = boundaries["B"][[1]],
       f = seq_anova_arguments["f"],
       f_empiric = f_empiric,
+      eta_squared = eta_squared,
       alpha = seq_anova_arguments["alpha"],
       power = seq_anova_arguments["power"],
       likelihood_1 = likelihoods["likelihood_1"][[1]],
@@ -32,6 +35,7 @@ build_seq_anova_results <- function(
       df_2 = F_statistic["df_2"][[1]],
       ss_effect = ss_effect,
       ss_residual = ss_residual,
+      ss_total = ss_total,
       data_name = seq_anova_arguments["data_name"],
       verbose = seq_anova_arguments["verbose"]
     )

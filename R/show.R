@@ -80,12 +80,15 @@ setMethod(
 
       cat("\nalternative hypothesis: true difference in means is not equal to 0.")
 
-      cat("\nspecified effect size: Cohen's f =", object@f)
+      cat("\nspecified effect size: Cohen's f =", object@f,
+          "\nempirical Cohen's f = ", object@f_empiric,
+          "\nempirical eta^2 = ", object@eta_squared)
       cat("\ndegrees of freedom: df1 = ", object@df_1,
           ", df2 = ", object@df_2,
           sep = "")
       cat("\nSS effect = ", object@ss_effect,
           ", SS residual = ", object@ss_residual,
+          ", SS total = ", object@ss_total,
           sep = "")
       # cat("\nsample estimates:\n")
       # print(round(object@mean_estimate[[1]], 5))

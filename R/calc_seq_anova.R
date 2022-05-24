@@ -15,6 +15,10 @@ calc_seq_anova <- function(seq_anova_arguments) {
     calc_ss_residual(
       seq_anova_arguments
     )
+  ss_total <-
+    calc_ss_total(
+      seq_anova_arguments
+    )
   F_statistic <-
     calc_F_statistic_(
       seq_anova_arguments,
@@ -38,11 +42,9 @@ calc_seq_anova <- function(seq_anova_arguments) {
       likelihood_ratio = likelihoods$ratio_log,
       boundaries = boundaries
     )
-  f_empiric <-
-    calc_cohens_f(
-      seq_anova_arguments,
-      F_statistic
-    )
+  eta_squared <- calc_eta_squared(ss_effect, ss_total)
+  f_empiric <- sqrt(eta_squared/(1-eta_squared))
+
   seq_anova_results <-
     build_seq_anova_results(
       seq_anova_arguments,
@@ -52,8 +54,10 @@ calc_seq_anova <- function(seq_anova_arguments) {
       non_centrality_parameter,
       ss_effect,
       ss_residual,
+      ss_total,
       F_statistic,
-      f_empiric
+      f_empiric,
+      eta_squared
     )
 
   seq_anova_results

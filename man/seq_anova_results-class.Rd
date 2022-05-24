@@ -21,6 +21,8 @@ or "continue sampling".}
 
 \item{\code{f}}{a number indicating the specified effect size (Cohen's f).}
 
+\item{\code{f_empiric}}{a number indicating the calculated empirical effect size (Cohen's f).}
+
 \item{\code{alpha}}{the type I error. A number between 0 and 1.}
 
 \item{\code{power}}{1 - beta (beta is the type II error probability). A number

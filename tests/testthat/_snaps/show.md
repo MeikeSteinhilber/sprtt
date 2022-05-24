@@ -197,9 +197,11 @@
        alternative hypothesis = -3.23291
        null hypothesis = -9.58592
       alternative hypothesis: true difference in means is not equal to 0.
-      specified effect size: Cohen's f = 0.25
+      specified effect size: Cohen's f = 0.25 
+      empirical Cohen's f =  0.3705601 
+      empirical eta^2 =  0.120736
       degrees of freedom: df1 = 2, df2 = 147
-      SS effect = 17.65564, SS residual = 128.5778
+      SS effect = 17.65564, SS residual = 128.5778, SS total = 146.2335
       Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -219,9 +221,11 @@
        alternative hypothesis = -2.61739
        null hypothesis = -1.47718
       alternative hypothesis: true difference in means is not equal to 0.
-      specified effect size: Cohen's f = 0.25
+      specified effect size: Cohen's f = 0.25 
+      empirical Cohen's f =  0.1415123 
+      empirical eta^2 =  0.01963259
       degrees of freedom: df1 = 2, df2 = 147
-      SS effect = 2.847138, SS residual = 142.1739
+      SS effect = 2.847138, SS residual = 142.1739, SS total = 145.021
       Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -241,9 +245,11 @@
        alternative hypothesis = -1.16688
        null hypothesis = -1.28951
       alternative hypothesis: true difference in means is not equal to 0.
-      specified effect size: Cohen's f = 0.1
+      specified effect size: Cohen's f = 0.1 
+      empirical Cohen's f =  0.2403722 
+      empirical eta^2 =  0.05462274
       degrees of freedom: df1 = 3, df2 = 76
-      SS effect = 4.625079, SS residual = 80.04807
+      SS effect = 4.625079, SS residual = 80.04807, SS total = 84.67315
       Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -263,8 +269,10 @@
        alternative hypothesis = -6.89213
        null hypothesis = -16.38537
       alternative hypothesis: true difference in means is not equal to 0.
-      specified effect size: Cohen's f = 0.25
+      specified effect size: Cohen's f = 0.25 
+      empirical Cohen's f =  0.509929 
+      empirical eta^2 =  0.2063666
       degrees of freedom: df1 = 1, df2 = 118
-      SS effect = 40.02376, SS residual = 153.9212
+      SS effect = 40.02376, SS residual = 153.9212, SS total = 193.945
       Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
