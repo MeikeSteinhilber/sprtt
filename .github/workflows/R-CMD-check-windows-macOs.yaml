@@ -10,11 +10,13 @@ on:
       - main
       - master
       - develop
+      - Feature/seq_ANOVA
   pull_request:
     branches:
       - main
       - master
       - develop
+      - Feature/seq_ANOVA
 
 name: R-CMD-check-windows-macOs
 
