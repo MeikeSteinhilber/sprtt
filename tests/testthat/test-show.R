@@ -1,7 +1,7 @@
 context("show: Check output")
 
-
-test_that("show: print output?", {
+# t-TEST -----------------------------------------------------------------------
+test_that("show: print output ttest?", {
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
   set.seed(4657)
@@ -56,8 +56,6 @@ test_that("show: print output?", {
   )
 })
 
-
-
 test_that("show: verbose", {
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
@@ -82,3 +80,50 @@ test_that("show: verbose", {
 
 })
 
+# ANOVA ------------------------------------------------------------------------
+test_that("show: print output anova?", {
+  # 3.ed edition necessary for expect_snapshot
+  testthat::local_edition(3)
+  set.seed(4657)
+
+  data <- draw_sample(f = 0.25)
+  expect_snapshot(
+    show(
+      seq_anova(
+        y ~ x,
+        f = 0.25,
+        data = data)
+    )
+  )
+
+  data <- draw_sample(f = 0.25)
+  colnames(data) <- c("happiness", "job_satisfaction")
+  expect_snapshot(
+    show(
+      seq_anova(
+        happiness ~ job_satisfaction,
+        f = 0.25,
+        data = data)
+    )
+  )
+
+  data <- draw_sample(k_groups = 4, f = 0.1, sd = c(1,1,1,1), max_n = 20)
+  expect_snapshot(
+    show(
+      seq_anova(
+        y ~ x,
+        f = 0.1,
+        data = data)
+    )
+  )
+
+  data <- draw_sample(k_groups = 2, f = 0.5, sd = c(1, 1), max_n = 60)
+  expect_snapshot(
+    show(
+      seq_anova(
+        y ~ x,
+        f = 0.25,
+        data = data)
+    )
+  )
+})

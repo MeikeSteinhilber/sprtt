@@ -1,5 +1,5 @@
-check_constant_data <- function(x, y, paired = NULL) {
-  message <- "Can't perform SPRT on constant data."
+check_constant_data_ttest <- function(x, y) {
+  message <- "Can't perform sequential t-test on constant data."
 
   if (!is.null(y) && !is.factor(y)) {
     sd.check <- c(sd(x), sd(y))
@@ -18,4 +18,13 @@ check_constant_data <- function(x, y, paired = NULL) {
     if (!(sd.check > 0))
       stop(message)
   }
+}
+
+# ANOVA ------------------------------------------------------------------------
+check_constant_data_anova <- function(data) {
+  message <- "Can't perform sequential ANOVA on constant data."
+  sd.check <- tapply(data$y, INDEX = data$factor_A, FUN = sd)
+  sd.check <- ifelse(is.na(sd.check), 0, sd.check)
+  if (!(max(sd.check) > 0))
+    stop(message)
 }

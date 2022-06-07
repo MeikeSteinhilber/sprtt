@@ -1,5 +1,4 @@
-check_formula <- function(formula, data, paired) {
-
+check_formula_ttest <- function(formula, data, paired) {
   # check structure
   if ((length(formula) != 3L) || (length(formula[[3]]) != 1L))
     stop(
@@ -35,6 +34,45 @@ check_formula <- function(formula, data, paired) {
       stop("Unequal number of observations per group. Independent samples?")
     }
   }
+}
 
 
+check_formula_anova <- function(formula, data) {
+
+  if (class(formula) != "formula")
+    stop("The formula argument must be a formula (class(formula) == 'formula'")
+  # check structure
+  # one-way ANOVA check: formula[[3]] can have only one element
+  # if (length(formula[[1]]) != "~")
+  #   stop("'formula' is incorrect. Please specify as 'y~factor_A'.")
+  if (length(formula[[2]]) != 1L)
+    stop("'formula' is incorrect. Please specify as 'y~factor_A'.")
+  if (length(formula[[3]]) != 1L)
+    stop(
+      "one-way ANOVA: 'formula' is incorrect. Please specify as 'y~factor_A'."
+    )
+
+  # quick extraction of the formula for testing y
+  data_matrix_formula <- model.frame(formula, data)
+  factor_A <- data_matrix_formula[, 2]
+
+  # check y
+  if (!is.factor(factor_A)) {
+    stop(paste(
+      formula[[3]],
+      "must be a factor."))
+  }
+
+  if (length(levels(factor_A)) < 2) {
+    stop(paste("Grouping factor must contain at least two levels."))
+  }
+
+  # if (paired == TRUE) {
+  #   if (length(y) == 1 & y[1] == 1) {
+  #     stop("Paired test: The second group is missing.")
+  #   }
+  #   if (!(table(y)[[1]] == table(y)[[2]])) {
+  #     stop("Unequal number of observations per group. Independent samples?")
+  #   }
+  # }
 }
