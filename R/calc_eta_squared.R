@@ -1,21 +1,14 @@
 # seq_anova_arguments <- build_prototype_seq_anova_arguments(56, 1000)
 
-# calc_cohens_f <- function(seq_anova_arguments, F_statistic, eta_squared) {
-#   # k_groups <- length(unique(seq_anova_arguments@data$factor_A))
-#   # N <- length(seq_anova_arguments@data$y)
-#   #
-#   # f_empiric_corrected <- sqrt((k_groups - 1)/N * (F_statistic$F_value - 1))
-#
-#   f_etha <- sqrt(eta_squared/(1-eta_squared))
-#
-#   return(f_etha)
-# }
+calc_eta_squared <- function(ss_effect, ss_total) {
+  ss_effect/ss_total
+}
 
 
 # data = draw_sample(k_groups = 3, f = 0.25, sd = c(1, 1, 1), max_n = 50)
 # formula = y~x
 
-#' Calculate Cohen's f.
+#' Calculate eta squared.
 #'
 #' @param formula formula
 #' @param data data set
@@ -24,7 +17,7 @@
 #' @export
 #'
 #' @examples "no test yet"
-cohens_f <- function(formula, data) {
+eta_squared <- function(formula, data) {
   seq_anova_arguments <-
     build_seq_anova_arguments(
       formula,
@@ -57,16 +50,10 @@ cohens_f <- function(formula, data) {
       ss_effect,
       ss_residual
     )
-  eta_squared <- calc_eta_squared(ss_effect, ss_total)
-
-  sqrt(eta_squared/(1-eta_squared))
-
-
+  calc_eta_squared(ss_effect, ss_total)
 }
 
 # cohens_f(formula, data)
 # effectsize::cohens_f(lm(formula, data))$Cohens_f
 
 
-# m <- lm(formula, data)
-# parameters::model_parameters(anova(m))

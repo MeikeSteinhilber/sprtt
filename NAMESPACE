@@ -2,6 +2,7 @@
 
 export(cohens_f)
 export(draw_sample)
+export(eta_squared)
 export(seq_anova)
 export(seq_ttest)
 exportMethods("[")
