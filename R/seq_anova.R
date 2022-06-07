@@ -10,7 +10,7 @@
 #'
 #' @param formula a formula.
 #' @param data data frame.
-#' @param f cohens f.
+#' @param f cohens f (expected minimal effect size or effect size of interest).
 #' @param alpha the type I error. A number between 0 and 1.
 #' @param power 1 - beta (beta is the type II error probability). A number
 #' between 0 and 1.
