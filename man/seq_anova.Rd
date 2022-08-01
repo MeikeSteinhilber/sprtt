@@ -9,7 +9,7 @@ seq_anova(formula, f, alpha = 0.05, power = 0.95, data, verbose = TRUE)
 \arguments{
 \item{formula}{a formula.}
 
-\item{f}{cohens f.}
+\item{f}{cohens f (expected minimal effect size or effect size of interest).}
 
 \item{alpha}{the type I error. A number between 0 and 1.}
 

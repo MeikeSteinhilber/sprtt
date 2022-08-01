@@ -8,8 +8,7 @@ build_seq_anova_results <- function(
   ss_residual,
   ss_total,
   F_statistic,
-  f_empiric,
-  eta_squared
+  effect_sizes
 ){
 
   seq_anova_results <-
@@ -21,8 +20,7 @@ build_seq_anova_results <- function(
       A_boundary_log = boundaries["A"][[1]],
       B_boundary_log = boundaries["B"][[1]],
       f = seq_anova_arguments["f"],
-      f_empiric = f_empiric,
-      eta_squared = eta_squared,
+      effect_sizes = effect_sizes,
       alpha = seq_anova_arguments["alpha"],
       power = seq_anova_arguments["power"],
       likelihood_1 = likelihoods["likelihood_1"][[1]],

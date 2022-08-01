@@ -81,8 +81,8 @@ setMethod(
       cat("\nalternative hypothesis: true difference in means is not equal to 0.")
 
       cat("\nspecified effect size: Cohen's f =", object@f,
-          "\nempirical Cohen's f = ", object@f_empiric,
-          "\nempirical eta^2 = ", object@eta_squared)
+          "\nempirical Cohen's f = ", object@effect_sizes$cohens_f,
+          "\nempirical eta^2 = ", object@effect_sizes$eta_squared)
       cat("\ndegrees of freedom: df1 = ", object@df_1,
           ", df2 = ", object@df_2,
           sep = "")
