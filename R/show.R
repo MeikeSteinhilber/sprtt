@@ -4,7 +4,7 @@ setMethod(
   signature = "seq_ttest_results",
   function(object){
     cat("\n*****  Sequential ", object@ttest_method, " *****\n", sep = "")
-    cat("\ndata:", object@data_name)
+    cat("\nformula:", object@data_name)
     cat("\ntest statistic:\n")
     cat(" log-likelihood ratio",
         " = ",
@@ -45,7 +45,7 @@ setMethod(
       cat("\ndegrees of freedom: df =", object@df)
       cat("\nsample estimates:\n")
       print(round(object@mean_estimate[[1]], 5))
-      cat('Note: to get access to the object of the results use the @ or [] instead of the $ operator.\n')
+      cat('*Note: to get access to the object of the results use the @ or [] instead of the $ operator.\n')
     }
 })
 
@@ -56,7 +56,7 @@ setMethod(
   function(object){
     # cat("\n*****  Sequential ", object@anova_method, " *****\n", sep = "")
     cat("\n*****  Sequential ANOVA *****\n", sep = "")
-    cat("\ndata:", object@data_name)
+    cat("\nformula:", object@data_name)
     cat("\ntest statistic:\n")
     cat(" log-likelihood ratio",
         " = ",
@@ -80,9 +80,12 @@ setMethod(
 
       cat("\nalternative hypothesis: true difference in means is not equal to 0.")
 
-      cat("\nspecified effect size: Cohen's f =", object@f,
+      cat("\nspecified effect size: Cohen's f = ", object@f,
           "\nempirical Cohen's f = ", object@effect_sizes$cohens_f,
-          "\nempirical eta^2 = ", object@effect_sizes$eta_squared)
+          ", 95% CI[", object@effect_sizes$ci_cohens_f_lower, ", ",
+          object@effect_sizes$ci_cohens_f_upper, "]",
+          "\nempirical eta^2 = ", object@effect_sizes$eta_squared,
+          sep = "")
       cat("\ndegrees of freedom: df1 = ", object@df_1,
           ", df2 = ", object@df_2,
           sep = "")
@@ -92,6 +95,11 @@ setMethod(
           sep = "")
       # cat("\nsample estimates:\n")
       # print(round(object@mean_estimate[[1]], 5))
-      cat('\nNote: to get access to the object of the results use the @ or [] instead of the $ operator.\n')
+      cat('\n*Note: to get access to the object of the results use the @ or [] instead of the $ operator.\n')
     }
   })
+
+
+# results = seq_anova(y~x, f = 0.25, data = draw_sample())
+# results
+# seq_anova(y~x, f = 0.25, data = draw_sample(), verbose = FALSE)
