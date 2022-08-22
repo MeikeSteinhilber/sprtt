@@ -27,6 +27,7 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot ss_effect ss_effect.
 #' @slot ss_residual ss_residual.
 #' @slot ss_total ss_total.
+#' @slot total_sample_size total sample size.
 #' @slot data_name a character string giving the name(s) of the data.
 #' @slot verbose a logical value whether you want a verbose output or not.
 setClass(
@@ -52,6 +53,7 @@ setClass(
     ss_effect = "numeric",
     ss_residual = "numeric",
     ss_total = "numeric",
+    total_sample_size = "numeric",
     data_name = "character",
     verbose = "logical"
   )
@@ -105,6 +107,7 @@ setMethod(
     if (i == "ss_effect") {return(x@ss_effect)}
     if (i == "ss_residual") {return(x@ss_residual)}
     if (i == "ss_total") {return(x@ss_total)}
+    if (i == "total_sample_size") {return(x@total_sample_size)}
     if (i == "data_name") {return(x@data_name)}
     if (i == "verbose") {return(x@verbose)}
     stop(paste("Wrong slot name: '", i, "' is not a slot name of the class 'seq_anova_results'"))

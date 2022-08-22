@@ -11,7 +11,6 @@ build_seq_anova_arguments <- function(
   check_formula_anova(formula = formula, data = data)
   data <- extract_formula_anova(formula = formula, data = data)
 
-
   check_data_anova(data)
   seq_anova_arguments <-
     new(
@@ -20,6 +19,7 @@ build_seq_anova_arguments <- function(
       f = f,
       alpha = alpha,
       power = power,
+      total_sample_size = length(data$y),
       data_name = data_name,
       verbose = verbose
     )

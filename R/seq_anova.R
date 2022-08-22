@@ -1,6 +1,7 @@
 #---- GENERAL SETTINGS ---------------------------------------------------------
 #' @importFrom stats dt df model.frame
 #' @importFrom methods callNextMethod new validObject
+#' @importFrom MBESS conf.limits.ncf
 #' @import dplyr
 #'
 #'

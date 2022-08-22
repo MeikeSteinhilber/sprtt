@@ -43,7 +43,12 @@ calc_seq_anova <- function(seq_anova_arguments) {
       boundaries = boundaries
     )
 
-  effect_sizes <- calc_effect_sizes(ss_effect, ss_total, F_statistic)
+  effect_sizes <- calc_effect_sizes(
+    seq_anova_arguments,
+    ss_effect,
+    ss_total,
+    F_statistic,
+    decision)
 
   seq_anova_results <-
     build_seq_anova_results(

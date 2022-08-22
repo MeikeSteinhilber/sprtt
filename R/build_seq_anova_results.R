@@ -34,6 +34,7 @@ build_seq_anova_results <- function(
       ss_effect = ss_effect,
       ss_residual = ss_residual,
       ss_total = ss_total,
+      total_sample_size = seq_anova_arguments["total_sample_size"],
       data_name = seq_anova_arguments["data_name"],
       verbose = seq_anova_arguments["verbose"]
     )

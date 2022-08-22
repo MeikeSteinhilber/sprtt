@@ -1,13 +1,44 @@
 # seq_anova_arguments <- build_prototype_seq_anova_arguments(56, 1000)
 
-calc_effect_sizes <- function(ss_effect, ss_total, F_statistic) {
+calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statistic, decision = "NULL") {
   eta_squared <- ss_effect/ss_total
   partial_eta_squared <- (F_statistic$F_value * F_statistic$df_1) / (F_statistic$F_value * F_statistic$df_1 + F_statistic$df_2)
+  cohens_f <- sqrt(eta_squared/(1-eta_squared))
+
+  # Confidence Interval for the Non Centrality Parameter
+  # Using a non central F distribution
+  ci_non_centrality_parameter <- MBESS::conf.limits.ncf(
+    F_statistic$F_value,
+    conf.level = 0.95,
+    F_statistic$df_1,
+    F_statistic$df_2
+  )
+  ci_ncp_lower <- ci_non_centrality_parameter$Lower.Limit
+  ci_ncp_upper <- ci_non_centrality_parameter$Upper.Limit
+
+  # MBESS Package returns NA if the CIs are 0 -> transform them to 0
+  if(is.na(ci_ncp_lower) & decision == "accept H0"){ci_ncp_lower = 0}
+  if(is.na(ci_ncp_upper) &
+     cohens_f < 0.005 &
+     decision == "accept H0" &
+     ci_ncp_lower == 0
+  ) {
+    ci_ncp_upper = 0
+  }
+
+  ci_cohens_f_lower <- sqrt(ci_ncp_lower/seq_anova_arguments@total_sample_size)
+  ci_cohens_f_upper <- sqrt(ci_ncp_upper/seq_anova_arguments@total_sample_size)
+
+
   effect_sizes = list(
-    "cohens_f" = sqrt(eta_squared/(1-eta_squared)),
+    "cohens_f" = cohens_f,
+    "ci_cohens_f_lower" = ci_cohens_f_lower,
+    "ci_cohens_f_upper" = ci_cohens_f_upper,
     "eta_squared" = eta_squared,
     "partial_eta_squared" = partial_eta_squared,
-    "adjusted_eta_squared" = partial_eta_squared - (1 - partial_eta_squared) * F_statistic$df_1 / F_statistic$df_2
+    "adjusted_eta_squared" = partial_eta_squared - (1 - partial_eta_squared) * F_statistic$df_1 / F_statistic$df_2,
+    "ci_ncp_lower" = ci_ncp_lower,
+    "ci_ncp_upper" = ci_ncp_upper
   )
   effect_sizes
 }
@@ -29,7 +60,7 @@ calc_effect_sizes <- function(ss_effect, ss_total, F_statistic) {
 #' @param formula formula
 #' @param data data set
 #'
-#' @return numerica value
+#' @return MISSING DESCRIPTION
 #' @export
 #'
 #' @examples "no test yet"
@@ -38,7 +69,7 @@ effect_sizes <- function(formula, data) {
     build_seq_anova_arguments(
       formula,
       data,
-      f = 0,
+      f = 0.5,
       alpha = 0.1,
       power = 0.1,
       data_name = "test_name",
@@ -67,7 +98,11 @@ effect_sizes <- function(formula, data) {
       ss_residual
     )
 
-  calc_effect_sizes(ss_effect, ss_total, F_statistic)
+  calc_effect_sizes(
+    seq_anova_arguments,
+    ss_effect,
+    ss_total,
+    F_statistic)
 
 }
 # data = draw_sample(k_groups = 3, f = 0.25, sd = c(1, 1, 1), max_n = 50)

@@ -18,4 +18,5 @@
        9  0.535  3               0.650
       10  1.56   1              -0.240
       # … with 290 more rows
+      # ℹ Use `print(n = ...)` to see more rows
 
