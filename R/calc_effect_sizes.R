@@ -8,9 +8,18 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   partial_eta_squared <- (F_statistic$F_value * F_statistic$df_1) / (F_statistic$F_value * F_statistic$df_1 + F_statistic$df_2)
   adjusted_eta_squared = partial_eta_squared - (1 - partial_eta_squared) * F_statistic$df_1 / F_statistic$df_2
 
-  cohens_f <- sqrt(eta_squared/(1-eta_squared))
+  if (eta_squared < 0) {
+    cohens_f <- 0
+  } else{
+    cohens_f <- sqrt(eta_squared/(1-eta_squared))
+  }
   # adjusted f using adjusted eta2
-  cohens_f_adj <- sqrt(adjusted_eta_squared/(1-adjusted_eta_squared))
+  if (adjusted_eta_squared < 0) {
+    cohens_f_adj <- 0
+  } else{
+    cohens_f_adj <- sqrt(adjusted_eta_squared/(1-adjusted_eta_squared))
+  }
+
   # adjusted f using Correction: Grissom Effect Size for Research 2005
   cohens_f_unbiased <- sqrt(((k_group-1)/seq_anova_arguments@total_sample_size)*(F_statistic$F_value-1))
 
