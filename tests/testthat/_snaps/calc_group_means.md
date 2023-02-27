@@ -3,7 +3,7 @@
     Code
       show(calc_group_means(seq_anova_arguments))
     Output
-      # A tibble: 300 x 3
+      # A tibble: 300 × 3
       # Groups:   factor_A [3]
                y factor_A group_mean_A
            <dbl> <fct>           <dbl>
@@ -17,5 +17,5 @@
        8 -0.0781 2              -0.222
        9  0.535  3               0.650
       10  1.56   1              -0.240
-      # ... with 290 more rows
+      # … with 290 more rows
 

@@ -3,7 +3,38 @@
 calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statistic, decision = "NULL") {
   eta_squared <- ss_effect/ss_total
   partial_eta_squared <- (F_statistic$F_value * F_statistic$df_1) / (F_statistic$F_value * F_statistic$df_1 + F_statistic$df_2)
+  adjusted_eta_squared = partial_eta_squared - (1 - partial_eta_squared) * F_statistic$df_1 / F_statistic$df_2
+
   cohens_f <- sqrt(eta_squared/(1-eta_squared))
+  cohens_f_adj <- sqrt(adjusted_eta_squared/(1-adjusted_eta_squared))
+
+  # calculate Cohen's f manually
+  k_groups <- length(unique(seq_anova_arguments@data$factor_A))
+  n_group <- seq_anova_arguments@data %>%
+    group_by(factor_A) %>%
+    mutate(n_group = length(factor_A)) %>%
+    group_by(n_group, factor_A) %>%
+    summarise() %>%
+    pull(n_group)
+  sd_group <- seq_anova_arguments@data %>%
+    group_by(factor_A) %>%
+    mutate(sd_group = sd(y)) %>%
+    group_by(sd_group, factor_A) %>%
+    summarise() %>%
+    pull(sd_group)
+  mean_group <- seq_anova_arguments@data %>%
+    group_by(factor_A) %>%
+    mutate(mean_group = mean(y)) %>%
+    group_by(mean_group, factor_A) %>%
+    summarise() %>%
+    pull(mean_group)
+  pooled_sd_groups <- sqrt(
+    sum(sd_group^2*(n_group - 1)) /
+      (sum(n_group) - k_groups)
+  )
+  sd_means <- sqrt(sum((mean_group - mean(mean_group))^2)/k_groups)
+  cohens_f_manual <- sd_means/pooled_sd_groups
+
 
   # Confidence Interval for the Non Centrality Parameter
   # Using a non central F distribution
@@ -32,11 +63,13 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
 
   effect_sizes = list(
     "cohens_f" = cohens_f,
+    "cohens_f_manual" = cohens_f_manual,
+    "cohens_f_adj" = cohens_f_adj,
     "ci_cohens_f_lower" = ci_cohens_f_lower,
     "ci_cohens_f_upper" = ci_cohens_f_upper,
     "eta_squared" = eta_squared,
     "partial_eta_squared" = partial_eta_squared,
-    "adjusted_eta_squared" = partial_eta_squared - (1 - partial_eta_squared) * F_statistic$df_1 / F_statistic$df_2,
+    "adjusted_eta_squared" = adjusted_eta_squared,
     "ci_ncp_lower" = ci_ncp_lower,
     "ci_ncp_upper" = ci_ncp_upper
   )
@@ -108,8 +141,6 @@ effect_sizes <- function(formula, data) {
 # data = draw_sample(k_groups = 3, f = 0.25, sd = c(1, 1, 1), max_n = 50)
 # formula = y~x
 # effect_sizes(formula, data)
-
-
 # effectsize::cohens_f(lm(formula, data))$Cohens_f
 
 
