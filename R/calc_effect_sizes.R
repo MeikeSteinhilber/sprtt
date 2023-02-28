@@ -1,5 +1,5 @@
-# seq_anova_arguments <- build_prototype_seq_anova_arguments(seed = 56, max_n = 1000)
-# seq_anova_arguments <- build_prototype_seq_anova_arguments(seed = 33, max_n = 500)
+# seq_anova_arguments <- build_prototype_seq_anova_arguments(seed = 56, max_n = 1000, f = 0.40)
+# seq_anova_arguments <- build_prototype_seq_anova_arguments(seed = 31, max_n = 90, f = 0)
 
 calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statistic, decision = "NULL") {
   k_group <- length(unique(seq_anova_arguments@data$factor_A))
@@ -21,7 +21,13 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   }
 
   # adjusted f using Correction: Grissom Effect Size for Research 2005
-  cohens_f_unbiased <- sqrt(((k_group-1)/seq_anova_arguments@total_sample_size)*(F_statistic$F_value-1))
+  cohens_f_unbiased <- ((k_group-1)/seq_anova_arguments@total_sample_size)*(F_statistic$F_value-1)
+  if (cohens_f_unbiased < 0) {
+    cohens_f_unbiased <- 0
+  }else{
+    cohens_f_unbiased <- sqrt(cohens_f_unbiased)
+  }
+
 
   # calculate Cohen's f manually
 
