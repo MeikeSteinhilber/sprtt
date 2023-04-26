@@ -13,12 +13,6 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   } else{
     cohens_f <- sqrt(eta_squared/(1-eta_squared))
   }
-  # adjusted f using adjusted eta2
-  if (adjusted_eta_squared < 0) {
-    cohens_f_adj <- 0
-  } else{
-    cohens_f_adj <- sqrt(adjusted_eta_squared/(1-adjusted_eta_squared))
-  }
 
   # adjusted f using Correction: Grissom Effect Size for Research 2005
   cohens_f_unbiased <- ((k_group-1)/seq_anova_arguments@total_sample_size)*(F_statistic$F_value-1)
@@ -27,6 +21,28 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   }else{
     cohens_f_unbiased <- sqrt(cohens_f_unbiased)
   }
+
+  # adjusted f using Correction: Maxwell et al. 2017
+  F_adust <- (seq_anova_arguments@total_sample_size - k_group - 2) / (seq_anova_arguments@total_sample_size - k_group)
+  cohens_f_adj <- ((k_group-1)/seq_anova_arguments@total_sample_size)*(F_adust * F_statistic$F_value-1)
+  if (cohens_f_adj < 0) {
+    cohens_f_adj <- 0
+  }else{
+    cohens_f_adj <- sqrt(cohens_f_adj)
+  }
+
+  cohens_f_median <- MBESS::ci.srsnr(F.value = F_statistic$F_value,
+                                     df.1 = F_statistic$df_1,
+                                     df.2 = F_statistic$df_2,
+                                     N = seq_anova_arguments@total_sample_size,
+                                     alpha.lower = 0.5,
+                                     alpha.upper = 0
+                                     )$Lower
+  # fix NA in MBESS only if Maxwell unbiased estimator is 0
+  if (is.na(cohens_f_median) & cohens_f_adj == 0) {
+    cohens_f_median <- 0
+  }
+
 
 
   # calculate Cohen's f manually
@@ -66,8 +82,8 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   ci_ncp_upper <- ci_non_centrality_parameter$Upper.Limit
 
   # MBESS Package returns NA if the CIs are 0 -> transform them to 0
-  if(is.na(ci_ncp_lower) & decision == "accept H0"){ci_ncp_lower = 0}
-  if(is.na(ci_ncp_upper) &
+  if (is.na(ci_ncp_lower) & decision == "accept H0") {ci_ncp_lower = 0}
+  if (is.na(ci_ncp_upper) &
      cohens_f < 0.005 &
      decision == "accept H0" &
      ci_ncp_lower == 0
@@ -81,6 +97,7 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
 
   effect_sizes = list(
     "cohens_f" = cohens_f,
+    "cohens_f_median" = cohens_f_median,
     "cohens_f_manual" = cohens_f_manual,
     "cohens_f_adj" = cohens_f_adj,
     "cohens_f_unbiased" = cohens_f_unbiased,
