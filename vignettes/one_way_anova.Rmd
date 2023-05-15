@@ -1,5 +1,5 @@
 ---
-title: "Sequential t-test"
+title: "Sequential One-Way ANOVA"
 author: "Meike Steinhilber"
 date: "`r Sys.Date()`"
 output:
@@ -7,9 +7,9 @@ output:
     toc: true
     toc_depth: 4
 description: >
-  This vignette describes the sequential t-test.
+  This vignette describes the sequential one-way ANOVA.
 vignette: >
-  %\VignetteIndexEntry{Sequential t-test}
+  %\VignetteIndexEntry{Sequential One-Way ANOVA}
   %\VignetteEncoding{UTF-8}{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 bibliography: references.bib
@@ -22,33 +22,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Overview
+```{r, child="children/sprts.Rmd"}
 
-The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette describes the theoretical background of these tests.
+```
 
-Other recommended vignettes cover:
 
--   a [general guide](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html), how to use the package and
-
--   an extended [use case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
-
-## Sequential *t*-Test
-
-### What is a sequential test procedure?
-
-With a sequential approach, data is continuously collected and an analysis is performed after each data point, which can lead to three different results [@wald1945a]:
-
--   The data collection is *terminated* because enough evidence has been collected for the null hypothesis (H~0~).
-
--   The data collection is *terminated* because enough evidence has been collected for the alternative hypothesis (H~1~).
-
--   The data collection *will continue* as there is not yet enough evidence for either of the two hypotheses.
-
-Basically it is not necessary to perform an analysis after each data point --- several data points can also be added at once. However, this affects the sample size (N) and the error rates [@schnuerch2020a].
-
-The efficiency of sequential designs has already been examined. Reductions in the sample by 50% and more were found in comparison to analyses with fixed sample sizes [@wald1945a; @schnuerch2020a]. Sequential hypothesis testing is therefore particularly suitable when resources are limited because the required sample size is reduced without compromising predefined error probabilities.
-
-### What is the sequential *t*-test?
+## What is the sequential *t*-test?
 
 The sequential *t*-test is based on the Sequential Probability Ratio Test (SPRT) by Abraham @wald1947, which is a highly efficient sequential hypothesis test. However, the usage of Wald´s SPRT is limited in the case of normally distributed data, because the variance has to be known or specified in the hypothesis. Rushton [-@rushton1950a; -@rushton1952] and @hajnal1961 have further developed the SPRT using the *t*-statistic. The basic idea is to transform the sequence of observations (which is dependent on the variance) into a sequence of the associated *t*-statistic (which is *in*dependent of the variance).
 
@@ -111,5 +90,11 @@ In summary, three specifications are required to calculate a sequential *t*-test
 -   the 𝛽 error probability (usually .20 or less), and
 
 -   Cohen´s d (either as the expected effect size or as the lower limit for a substantial effect).
+
+## What is the sequential one-way ANOVA?
+
+The sequential one-way fixed effects ANOVA is also a variant of SPRTs but can be used if the means of two or more groups are compared.
+The b
+
 
 ## References

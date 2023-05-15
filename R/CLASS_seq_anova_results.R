@@ -9,8 +9,7 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot A_boundary_log the lower logarithmic boundary of the test.
 #' @slot B_boundary_log the upper logarithmic boundary of the test.
 #' @slot f a number indicating the specified effect size (Cohen's f).
-#' @slot f_empiric a number indicating the calculated empirical effect size (Cohen's f).
-#' @slot eta_squared a number indicating the calculated empirical effect size (eta^2).
+#' @slot effect_sizes a list with effect sizes (Cohen's f, eta squared, ...).
 #' @slot alpha the type I error. A number between 0 and 1.
 #' @slot power 1 - beta (beta is the type II error probability). A number
 #' between 0 and 1.
@@ -28,6 +27,7 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot ss_effect ss_effect.
 #' @slot ss_residual ss_residual.
 #' @slot ss_total ss_total.
+#' @slot total_sample_size total sample size.
 #' @slot data_name a character string giving the name(s) of the data.
 #' @slot verbose a logical value whether you want a verbose output or not.
 setClass(
@@ -38,8 +38,7 @@ setClass(
     A_boundary_log = "numeric",
     B_boundary_log = "numeric",
     f = "numeric",
-    f_empiric = "numeric",
-    eta_squared = "numeric",
+    effect_sizes = "ANY",
     alpha = "numeric",
     power = "numeric",
     likelihood_ratio = "numeric",
@@ -54,6 +53,7 @@ setClass(
     ss_effect = "numeric",
     ss_residual = "numeric",
     ss_total = "numeric",
+    total_sample_size = "numeric",
     data_name = "character",
     verbose = "logical"
   )
@@ -93,8 +93,7 @@ setMethod(
     if (i == "A_boundary_log") {return(x@A_boundary_log)}
     if (i == "B_boundary_log") {return(x@B_boundary_log)}
     if (i == "f") {return(x@f)}
-    if (i == "f_empiric") {return(x@f_empiric)}
-    if (i == "eta_squared") {return(x@eta_squared)}
+    if (i == "effect_sizes") {return(x@effect_sizes)}
     if (i == "alpha") {return(x@alpha)}
     if (i == "power") {return(x@power)}
     if (i == "likelihood_1") {return(x@likelihood_1)}
@@ -108,6 +107,7 @@ setMethod(
     if (i == "ss_effect") {return(x@ss_effect)}
     if (i == "ss_residual") {return(x@ss_residual)}
     if (i == "ss_total") {return(x@ss_total)}
+    if (i == "total_sample_size") {return(x@total_sample_size)}
     if (i == "data_name") {return(x@data_name)}
     if (i == "verbose") {return(x@verbose)}
     stop(paste("Wrong slot name: '", i, "' is not a slot name of the class 'seq_anova_results'"))
@@ -115,3 +115,7 @@ setMethod(
 )
 
 
+## @slot f_empiric a number indicating the calculated empirical effect size (Cohen's f).
+## @slot eta_squared a number indicating the calculated empirical effect size (eta^2).
+# if (i == "f_empiric") {return(x@f_empiric)}
+# if (i == "eta_squared") {return(x@eta_squared)}

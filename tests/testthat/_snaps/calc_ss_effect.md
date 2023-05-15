@@ -3,5 +3,5 @@
     Code
       show(calc_ss_effect(seq_anova_arguments))
     Output
-      [1] 57.22555
+      [1] 40.40913
 

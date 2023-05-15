@@ -5,11 +5,11 @@ build_seq_ttest_arguments <- function(
   mu, d, alpha, power, alternative, paired, data_name, na.rm
 ){
 
-  if (class(input1) == "formula") {
+  if (inherits(input1,"formula")) {
     check_formula_ttest(formula = input1, data = data, paired = paired)
     x <- extract_formula_ttest(formula = input1, data = data, wanted = "x")
     y <- extract_formula_ttest(formula = input1, data = data, wanted = "y")
-  } else if (class(input1) == "numeric") {
+  } else if (is.numeric(input1)) {
     x <- input1
   } else {
     stop(

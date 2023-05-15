@@ -42,8 +42,13 @@ calc_seq_anova <- function(seq_anova_arguments) {
       likelihood_ratio = likelihoods$ratio_log,
       boundaries = boundaries
     )
-  eta_squared <- calc_eta_squared(ss_effect, ss_total)
-  f_empiric <- sqrt(eta_squared/(1-eta_squared))
+
+  effect_sizes <- calc_effect_sizes(
+    seq_anova_arguments,
+    ss_effect,
+    ss_total,
+    F_statistic,
+    decision)
 
   seq_anova_results <-
     build_seq_anova_results(
@@ -56,8 +61,7 @@ calc_seq_anova <- function(seq_anova_arguments) {
       ss_residual,
       ss_total,
       F_statistic,
-      f_empiric,
-      eta_squared
+      effect_sizes
     )
 
   seq_anova_results

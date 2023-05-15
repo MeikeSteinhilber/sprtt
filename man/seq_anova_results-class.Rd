@@ -21,9 +21,7 @@ or "continue sampling".}
 
 \item{\code{f}}{a number indicating the specified effect size (Cohen's f).}
 
-\item{\code{f_empiric}}{a number indicating the calculated empirical effect size (Cohen's f).}
-
-\item{\code{eta_squared}}{a number indicating the calculated empirical effect size (eta^2).}
+\item{\code{effect_sizes}}{a list with effect sizes (Cohen's f, eta squared, ...).}
 
 \item{\code{alpha}}{the type I error. A number between 0 and 1.}
 
@@ -55,6 +53,8 @@ Hypothesis (H0).}
 \item{\code{ss_residual}}{ss_residual.}
 
 \item{\code{ss_total}}{ss_total.}
+
+\item{\code{total_sample_size}}{total sample size.}
 
 \item{\code{data_name}}{a character string giving the name(s) of the data.}
 
