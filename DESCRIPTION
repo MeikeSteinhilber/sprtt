@@ -41,7 +41,8 @@ Depends:
 Imports:
     methods,
     stats,
-    dplyr
+    dplyr,
+    MBESS
 Suggests:
     knitr,
     rmarkdown,

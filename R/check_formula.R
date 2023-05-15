@@ -39,7 +39,7 @@ check_formula_ttest <- function(formula, data, paired) {
 
 check_formula_anova <- function(formula, data) {
 
-  if (class(formula) != "formula")
+  if (!inherits(formula,"formula"))
     stop("The formula argument must be a formula (class(formula) == 'formula'")
   # check structure
   # one-way ANOVA check: formula[[3]] can have only one element

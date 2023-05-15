@@ -14,13 +14,13 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
     cohens_f <- sqrt(eta_squared/(1-eta_squared))
   }
 
-  # adjusted f using Correction: Grissom Effect Size for Research 2005
-  cohens_f_unbiased <- ((k_group-1)/seq_anova_arguments@total_sample_size)*(F_statistic$F_value-1)
-  if (cohens_f_unbiased < 0) {
-    cohens_f_unbiased <- 0
-  }else{
-    cohens_f_unbiased <- sqrt(cohens_f_unbiased)
-  }
+  # # adjusted f using Correction: Grissom Effect Size for Research 2005
+  # cohens_f_unbiased <- ((k_group-1)/seq_anova_arguments@total_sample_size)*(F_statistic$F_value-1)
+  # if (cohens_f_unbiased < 0) {
+  #   cohens_f_unbiased <- 0
+  # }else{
+  #   cohens_f_unbiased <- sqrt(cohens_f_unbiased)
+  # }
 
   # adjusted f using Correction: Maxwell et al. 2017
   F_adust <- (seq_anova_arguments@total_sample_size - k_group - 2) / (seq_anova_arguments@total_sample_size - k_group)
@@ -45,30 +45,30 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
 
 
 
-  # calculate Cohen's f manually
-
-  n_group <- seq_anova_arguments@data %>%
-    group_by(factor_A) %>%
-    mutate(n_group = length(factor_A)) %>%
-    group_by(n_group, factor_A) %>%
-    summarise(.groups = "drop") %>%
-    pull(n_group)
-  sd_group <- seq_anova_arguments@data %>%
-    group_by(factor_A) %>%
-    mutate(sd_group = sd(y)) %>%
-    group_by(sd_group, factor_A) %>%
-    summarise(.groups = "drop") %>%
-    pull(sd_group)
-  mean_group <- seq_anova_arguments@data %>%
-    group_by(factor_A, group_mean_A) %>%
-    summarise(.groups = "drop") %>%
-    pull(group_mean_A)
-  pooled_sd_group <- sqrt(
-    sum(sd_group^2*(n_group - 1)) /
-      (sum(n_group) - k_group)
-  )
-  sd_means <- sqrt(sum((mean_group - mean(mean_group))^2)/k_group)
-  cohens_f_manual <- sd_means/pooled_sd_group
+  # # calculate Cohen's f manually
+  #
+  # n_group <- seq_anova_arguments@data %>%
+  #   group_by(factor_A) %>%
+  #   mutate(n_group = length(factor_A)) %>%
+  #   group_by(n_group, factor_A) %>%
+  #   summarise(.groups = "drop") %>%
+  #   pull(n_group)
+  # sd_group <- seq_anova_arguments@data %>%
+  #   group_by(factor_A) %>%
+  #   mutate(sd_group = sd(y)) %>%
+  #   group_by(sd_group, factor_A) %>%
+  #   summarise(.groups = "drop") %>%
+  #   pull(sd_group)
+  # mean_group <- seq_anova_arguments@data %>%
+  #   group_by(factor_A, group_mean_A) %>%
+  #   summarise(.groups = "drop") %>%
+  #   pull(group_mean_A)
+  # pooled_sd_group <- sqrt(
+  #   sum(sd_group^2*(n_group - 1)) /
+  #     (sum(n_group) - k_group)
+  # )
+  # sd_means <- sqrt(sum((mean_group - mean(mean_group))^2)/k_group)
+  # cohens_f_manual <- sd_means/pooled_sd_group
 
   # Confidence Interval for the Non Centrality Parameter
   # Using a non central F distribution
@@ -98,9 +98,9 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   effect_sizes = list(
     "cohens_f" = cohens_f,
     "cohens_f_median" = cohens_f_median,
-    "cohens_f_manual" = cohens_f_manual,
+    # "cohens_f_manual" = cohens_f_manual,
     "cohens_f_adj" = cohens_f_adj,
-    "cohens_f_unbiased" = cohens_f_unbiased,
+    # "cohens_f_unbiased" = cohens_f_unbiased, # Grissom 2005
     "ci_cohens_f_lower" = ci_cohens_f_lower,
     "ci_cohens_f_upper" = ci_cohens_f_upper,
     "eta_squared" = eta_squared,
@@ -112,17 +112,6 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   effect_sizes
 }
 
-# calc_cohens_f <- function(seq_anova_arguments, F_statistic, eta_squared) {
-#   # k_groups <- length(unique(seq_anova_arguments@data$factor_A))
-#   # N <- length(seq_anova_arguments@data$y)
-#   #
-#   # f_empiric_corrected <- sqrt((k_groups - 1)/N * (F_statistic$F_value - 1))
-#
-#   f_etha <- sqrt(eta_squared/(1-eta_squared))
-#
-#   return(f_etha)
-# }
-
 
 #' Calculate effect sizes.
 #'
@@ -132,7 +121,7 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
 #' @return MISSING DESCRIPTION
 #' @export
 #'
-#' @examples "no test yet"
+#' @examples "no examples yet"
 effect_sizes <- function(formula, data) {
   seq_anova_arguments <-
     build_seq_anova_arguments(

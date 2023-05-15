@@ -62,7 +62,7 @@ seq_ttest <- function(
 ){
   # get the original names of the variables
   input1_name <- deparse(substitute(x))
-  if (class(x) == "numeric" &&
+  if (is.numeric(x) &&
       !is.null(y)) {
     y_name <- deparse(substitute(y))
     data_name <- paste(input1_name, "and ", y_name)
