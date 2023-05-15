@@ -19,6 +19,8 @@ For detailed instructions on the \code{sprtt} package, see:
 \itemize{
 \item \code{\link{seq_ttest}} Performs one and two sample sequential t-tests on vectors of
 data.
+\item \code{\link{seq_anova}} Performs a sequential one-way ANOVA on vectors of
+data.
 }
 }
 

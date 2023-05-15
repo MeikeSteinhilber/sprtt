@@ -2,7 +2,6 @@
 
 export(draw_sample)
 export(effect_sizes)
-export(eta_squared)
 export(seq_anova)
 export(seq_ttest)
 exportMethods("[")

@@ -27,3 +27,4 @@ This method is only used internally to process
 the input arguments of the \code{\link{seq_anova}} function. As a normal user,
 you can ignore this specific documentation.
 }
+\keyword{internal}

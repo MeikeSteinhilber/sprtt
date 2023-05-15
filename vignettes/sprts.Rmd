@@ -1,3 +1,22 @@
+---
+title: "Sequential Testing"
+author: "Meike Steinhilber"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+description: >
+  This vignette describes the sequential one-way ANOVA.
+vignette: >
+  %\VignetteIndexEntry{Sequential Testing}
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: references.bib
+csl: "apa.csl"
+---
+
+
 ## Overview
 
 The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests toolbox (**sprtt**). This vignette describes the theoretical background of these tests.

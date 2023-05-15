@@ -61,3 +61,4 @@ Hypothesis (H0).}
 \item{\code{verbose}}{a logical value whether you want a verbose output or not.}
 }}
 
+\keyword{internal}

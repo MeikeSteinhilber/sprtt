@@ -30,6 +30,8 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot total_sample_size total sample size.
 #' @slot data_name a character string giving the name(s) of the data.
 #' @slot verbose a logical value whether you want a verbose output or not.
+#'
+#' @keywords internal
 setClass(
   "seq_anova_results",
   slots = c(
@@ -82,6 +84,7 @@ setMethod(
 #' see the documentation for the [`seq_anova_results-class`] class.
 #' @export
 #'
+#' @keywords internal
 # #' @examples
 setMethod(
   f = "[",

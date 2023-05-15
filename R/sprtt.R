@@ -10,9 +10,13 @@
 #' @section sprtt functions:
 #' * [`seq_ttest`] Performs one and two sample sequential t-tests on vectors of
 #' data.
+#' * [`seq_anova`] Performs a sequential one-way ANOVA on vectors of
+#' data.
 #'
 #' @docType package
 #' @name sprtt
+#'
+#' @keywords internal
 NULL
 #> NULL
 

@@ -63,6 +63,7 @@ setMethod(
 #' see the documentation for the seq_anova_arguments class.
 #' @export
 #'
+#' @keywords internal
 # #' @examples
 setMethod(
   f = "[",
