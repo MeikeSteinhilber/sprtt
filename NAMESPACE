@@ -2,10 +2,12 @@
 
 export(draw_sample)
 export(effect_sizes)
+export(eta_squared)
 export(seq_anova)
 export(seq_ttest)
 exportMethods("[")
 import(dplyr)
+importFrom(MBESS,conf.limits.ncf)
 importFrom(methods,callNextMethod)
 importFrom(methods,new)
 importFrom(methods,validObject)

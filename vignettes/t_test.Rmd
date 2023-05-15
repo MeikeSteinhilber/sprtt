@@ -9,7 +9,7 @@ output:
 description: >
   This vignette describes the sequential t-test.
 vignette: >
-  %\VignetteIndexEntry{Sequential t-test}
+  %\VignetteIndexEntry{Sequential t-Test}
   %\VignetteEncoding{UTF-8}{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 bibliography: references.bib
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r, child="./vignettes/sprts.Rmd"}
+```{r, child="children/sprts.Rmd"}
 
 ```
 
