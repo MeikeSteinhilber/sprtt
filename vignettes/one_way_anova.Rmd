@@ -1,5 +1,5 @@
 ---
-title: "Sequential t-test"
+title: "Sequential One-Way ANOVA"
 author: "Meike Steinhilber"
 date: "`r Sys.Date()`"
 output:
@@ -7,9 +7,9 @@ output:
     toc: true
     toc_depth: 4
 description: >
-  This vignette describes the sequential t-test.
+  This vignette describes the sequential one-way ANOVA.
 vignette: >
-  %\VignetteIndexEntry{Sequential t-test}
+  %\VignetteIndexEntry{Sequential One-Way ANOVA}
   %\VignetteEncoding{UTF-8}{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 bibliography: references.bib
@@ -22,30 +22,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Overview
+```{r, child="./vignettes/sprts.Rmd"}
 
-The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests toolbox (**sprtt**). This vignette describes the theoretical background of these tests.
+```
 
-Other recommended vignettes cover:
-
--   a [general guide](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html), how to use the package and
-
--   an extended [use case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
-
-
-## What is a sequential test procedure?
-
-With a sequential approach, data is continuously collected and an analysis is performed after each data point, which can lead to three different results [@wald1945a]:
-
--   The data collection is *terminated* because enough evidence has been collected for the null hypothesis (H~0~).
-
--   The data collection is *terminated* because enough evidence has been collected for the alternative hypothesis (H~1~).
-
--   The data collection *will continue* as there is not yet enough evidence for either of the two hypotheses.
-
-Basically it is not necessary to perform an analysis after each data point --- several data points can also be added at once. However, this affects the sample size (N) and the error rates [@schnuerch2020a].
-
-The efficiency of sequential designs has already been examined. Reductions in the sample by 50% and more were found in comparison to analyses with fixed sample sizes [@wald1945a; @schnuerch2020a]. Sequential hypothesis testing is therefore particularly suitable when resources are limited because the required sample size is reduced without compromising predefined error probabilities.
 
 ## What is the sequential *t*-test?
 
