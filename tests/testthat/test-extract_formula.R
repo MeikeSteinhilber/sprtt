@@ -30,19 +30,25 @@ test_that("extract_formula_ttest: effect in data: data are correct", {
 test_that("extract_formula_anova: effect in data: data are correct", {
   # one-way ANOVA
   formula <- y ~ factor_A
-  data <- draw_sample()
+  data <- draw_sample(k_groups = 4, f = 0, max_n = 30)
   colnames(data) <- c("y", "factor_A")
   data_test <- cbind(data, test = rnorm(nrow(data)))
+  results <- extract_formula_anova(formula, data_test)
+  expect_equivalent(data, results)
 
+  formula <- "y ~ factor_A"
+  data <- draw_sample(k_groups = 4, f = 0, max_n = 30)
+  colnames(data) <- c("y", "factor_A")
+  data_test <- cbind(data, test = rnorm(nrow(data)))
   results <- extract_formula_anova(formula, data_test)
   expect_equivalent(data, results)
 
   # two-way ANOVA
   formula <- y ~ factor_A+factor_B
-  data <- draw_sample()
+  data <- draw_sample(k_groups = 4, f = 0, max_n = 30)
   colnames(data) <- c("y", "factor_A")
   data_test <- cbind(data,
-                     factor_B = as.factor(rep(c(1,0), 25)))
+                     factor_B = as.factor(rep(c(1,0), 30)))
 
   results <- extract_formula_anova(formula, data_test)
   expect_equivalent(data_test, results)

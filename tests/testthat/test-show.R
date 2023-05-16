@@ -86,7 +86,7 @@ test_that("show: print output anova?", {
   testthat::local_edition(3)
   set.seed(4657)
 
-  data <- draw_sample(f = 0.25)
+  data <- draw_sample(5, 0.25, 66)
   expect_snapshot(
     show(
       seq_anova(
@@ -96,14 +96,14 @@ test_that("show: print output anova?", {
     )
   )
 
-  data <- draw_sample(f = 0.25)
-  colnames(data) <- c("happiness", "job_satisfaction")
+  df_job <- draw_sample(2, 0.6, 24)
+  colnames(df_job) <- c("happiness", "job_satisfaction")
   expect_snapshot(
     show(
       seq_anova(
         happiness ~ job_satisfaction,
         f = 0.25,
-        data = data)
+        data = df_job)
     )
   )
 
@@ -123,7 +123,20 @@ test_that("show: print output anova?", {
       seq_anova(
         y ~ x,
         f = 0.25,
+        alpha = .30,
+        power = .95,
         data = data)
+    )
+  )
+
+  data <- draw_sample(k_groups = 2, f = 0.5, sd = c(1, 1), max_n = 60)
+  expect_snapshot(
+    show(
+      seq_anova(
+        y ~ x,
+        f = 0.25,
+        data = data,
+        verbose = FALSE)
     )
   )
 })

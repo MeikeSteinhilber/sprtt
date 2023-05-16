@@ -8,11 +8,11 @@
       
       formula: rnorm(20)
       test statistic:
-       log-likelihood ratio = -5.78262, decision = accept H0
+       log-likelihood ratio = -5.783, decision = accept H0
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -5.67562
+       alternative hypothesis = -5.676
        null hypothesis = 0.107
       alternative hypothesis: true mean is not equal to 0.
       specified effect size: Cohen's d = 0.8
@@ -32,12 +32,12 @@
       
       formula: x_special_name
       test statistic:
-       log-likelihood ratio = 12.35816, decision = accept H1
+       log-likelihood ratio = 12.358, decision = accept H1
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -17.9164
-       null hypothesis = -30.27455
+       alternative hypothesis = -17.916
+       null hypothesis = -30.275
       alternative hypothesis: true mean is less than 2.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 19
@@ -56,12 +56,12 @@
       
       formula: x
       test statistic:
-       log-likelihood ratio = -9.38542, decision = accept H0
+       log-likelihood ratio = -9.385, decision = accept H0
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -10.71105
-       null hypothesis = -1.32563
+       alternative hypothesis = -10.711
+       null hypothesis = -1.326
       alternative hypothesis: true mean is greater than 0.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 19
@@ -82,10 +82,10 @@
       test statistic:
        log-likelihood ratio = -3.2, decision = accept H0
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = 3.45532
-       null hypothesis = 6.65532
+       alternative hypothesis = 3.455
+       null hypothesis = 6.655
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 38
@@ -104,12 +104,12 @@
       
       formula: x and  y
       test statistic:
-       log-likelihood ratio = -5.22476, decision = accept H0
+       log-likelihood ratio = -5.225, decision = accept H0
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -6.48626
-       null hypothesis = -1.26149
+       alternative hypothesis = -6.486
+       null hypothesis = -1.261
       alternative hypothesis: true difference in means is less than 0.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 38
@@ -128,12 +128,12 @@
       
       formula: x ~ y
       test statistic:
-       log-likelihood ratio = -1.59606, decision = continue sampling
+       log-likelihood ratio = -1.596, decision = continue sampling
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = 0.4989
-       null hypothesis = 2.09495
+       alternative hypothesis = 0.499
+       null hypothesis = 2.095
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 18
@@ -152,12 +152,12 @@
       
       formula: x and y
       test statistic:
-       log-likelihood ratio = 2.19276, decision = continue sampling
+       log-likelihood ratio = 2.193, decision = continue sampling
       SPRT thresholds:
-       lower log(B) = -1.55814, upper log(A) = 2.77259
+       lower log(B) = -1.558, upper log(A) = 2.773
       Log-Likelihood of the:
-       alternative hypothesis = -3.20056
-       null hypothesis = -5.39332
+       alternative hypothesis = -3.201
+       null hypothesis = -5.393
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's d = 0.8
       degrees of freedom: df = 18
@@ -176,9 +176,9 @@
       
       formula: x and y
       test statistic:
-       log-likelihood ratio = 2.19276, decision = continue sampling
+       log-likelihood ratio = 2.193, decision = continue sampling
       SPRT thresholds:
-       lower log(B) = -1.55814, upper log(A) = 2.77259
+       lower log(B) = -1.558, upper log(A) = 2.773
 
 # show: print output anova?
 
@@ -190,42 +190,42 @@
       
       formula: y ~ x
       test statistic:
-       log-likelihood ratio = 6.35301, decision = accept H1
+       log-likelihood ratio = 25.766, decision = accept H1
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -3.23291
-       null hypothesis = -9.58592
+       alternative hypothesis = -15.634
+       null hypothesis = -41.399
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.25
-      empirical Cohen's f = 0.3705601, 95% CI[0.187928, 0.5241576]
-      empirical eta^2 = 0.120736
-      degrees of freedom: df1 = 2, df2 = 147
-      SS effect = 17.65564, SS residual = 128.5778, SS total = 146.2335
+      empirical Cohen's f = 0.5684415, 95% CI[0.4381841, 0.6727351]
+      Cohen's f adjusted = 0.551
+      degrees of freedom: df1 = 4, df2 = 325
+      SS effect = 101.4047, SS residual = 313.8243, SS total = 415.229
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
 
     Code
-      show(seq_anova(happiness ~ job_satisfaction, f = 0.25, data = data))
+      show(seq_anova(happiness ~ job_satisfaction, f = 0.25, data = df_job))
     Output
       
       *****  Sequential ANOVA *****
       
       formula: happiness ~ job_satisfaction
       test statistic:
-       log-likelihood ratio = -1.14021, decision = continue sampling
+       log-likelihood ratio = 6.301, decision = accept H1
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -2.61739
-       null hypothesis = -1.47718
+       alternative hypothesis = -11.577
+       null hypothesis = -17.878
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.25
-      empirical Cohen's f = 0.1415123, 95% CI[NA, 0.2838251]
-      empirical eta^2 = 0.01963259
-      degrees of freedom: df1 = 2, df2 = 147
-      SS effect = 2.847138, SS residual = 142.1739, SS total = 145.021
+      empirical Cohen's f = 0.9490388, 95% CI[0.5851251, 1.265912]
+      Cohen's f adjusted = 0.897
+      degrees of freedom: df1 = 1, df2 = 46
+      SS effect = 38.46891, SS residual = 42.71121, SS total = 81.18012
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -238,41 +238,55 @@
       
       formula: y ~ x
       test statistic:
-       log-likelihood ratio = 0.12262, decision = continue sampling
+       log-likelihood ratio = 0.301, decision = continue sampling
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -1.16688
-       null hypothesis = -1.28951
+       alternative hypothesis = -1.701
+       null hypothesis = -2.003
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.1
-      empirical Cohen's f = 0.2403722, 95% CI[NA, 0.4156694]
-      empirical eta^2 = 0.05462274
+      empirical Cohen's f = 0.2860107, 95% CI[NA, 0.4669503]
+      Cohen's f adjusted = 0.195
       degrees of freedom: df1 = 3, df2 = 76
-      SS effect = 4.625079, SS residual = 80.04807, SS total = 84.67315
+      SS effect = 8.419127, SS residual = 102.9206, SS total = 111.3398
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
 
     Code
-      show(seq_anova(y ~ x, f = 0.25, data = data))
+      show(seq_anova(y ~ x, f = 0.25, alpha = 0.3, power = 0.95, data = data))
     Output
       
       *****  Sequential ANOVA *****
       
       formula: y ~ x
       test statistic:
-       log-likelihood ratio = 9.49323, decision = accept H1
+       log-likelihood ratio = 12.131, decision = accept H1
       SPRT thresholds:
-       lower log(B) = -2.94444, upper log(A) = 2.94444
+       lower log(B) = -2.639, upper log(A) = 1.153
       Log-Likelihood of the:
-       alternative hypothesis = -6.89213
-       null hypothesis = -16.38537
+       alternative hypothesis = -11.005
+       null hypothesis = -23.137
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.25
-      empirical Cohen's f = 0.509929, 95% CI[0.3145369, 0.6948803]
-      empirical eta^2 = 0.2063666
+      empirical Cohen's f = 0.6372944, 95% CI[0.4346269, 0.8270501]
+      Cohen's f adjusted = 0.62
       degrees of freedom: df1 = 1, df2 = 118
-      SS effect = 40.02376, SS residual = 153.9212, SS total = 193.945
+      SS effect = 53.44752, SS residual = 131.5974, SS total = 185.0449
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+
+---
+
+    Code
+      show(seq_anova(y ~ x, f = 0.25, data = data, verbose = FALSE))
+    Output
+      
+      *****  Sequential ANOVA *****
+      
+      formula: y ~ x
+      test statistic:
+       log-likelihood ratio = 14.19, decision = accept H1
+      SPRT thresholds:
+       lower log(B) = -2.944, upper log(A) = 2.944
 

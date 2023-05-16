@@ -42,7 +42,8 @@ Imports:
     methods,
     stats,
     dplyr,
-    MBESS
+    MBESS,
+    purrr
 Suggests:
     knitr,
     rmarkdown,

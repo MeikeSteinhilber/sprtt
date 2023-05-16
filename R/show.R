@@ -1,3 +1,5 @@
+digits <- 3
+
 # t-Test -----------------------------------------------------------------------
 setMethod(
   "show",
@@ -8,23 +10,23 @@ setMethod(
     cat("\ntest statistic:\n")
     cat(" log-likelihood ratio",
         " = ",
-        round(object@likelihood_ratio_log, digits = 5),
+        round(object@likelihood_ratio_log, digits = digits),
         ", decision = ",
         object@decision,
         sep = ""
         )
 
     cat("\nSPRT thresholds:\n")
-    cat(" lower log(B) = ", round(object@B_boundary_log, digits = 5),
+    cat(" lower log(B) = ", round(object@B_boundary_log, digits = digits),
         ", ",
-        "upper log(A) = ", round(object@A_boundary_log, digits = 5),
+        "upper log(A) = ", round(object@A_boundary_log, digits = digits),
         sep = ""
         )
 
     if (object@verbose == TRUE) {
       cat("\nLog-Likelihood of the:")
-      cat("\n alternative hypothesis =", round(object@likelihood_1_log, 5))
-      cat("\n null hypothesis =", round(object@likelihood_0_log, 5))
+      cat("\n alternative hypothesis =", round(object@likelihood_1_log, digits))
+      cat("\n null hypothesis =", round(object@likelihood_0_log, digits))
 
       cat("\nalternative hypothesis: true",
           if (object@one_sample == TRUE) {
@@ -60,23 +62,23 @@ setMethod(
     cat("\ntest statistic:\n")
     cat(" log-likelihood ratio",
         " = ",
-        round(object@likelihood_ratio_log, digits = 5),
+        round(object@likelihood_ratio_log, digits = digits),
         ", decision = ",
         object@decision,
         sep = ""
     )
 
     cat("\nSPRT thresholds:\n")
-    cat(" lower log(B) = ", round(object@B_boundary_log, digits = 5),
+    cat(" lower log(B) = ", round(object@B_boundary_log, digits = digits),
         ", ",
-        "upper log(A) = ", round(object@A_boundary_log, digits = 5),
+        "upper log(A) = ", round(object@A_boundary_log, digits = digits),
         sep = ""
     )
 
     if (object@verbose == TRUE) {
       cat("\nLog-Likelihood of the:")
-      cat("\n alternative hypothesis =", round(object@likelihood_1_log, 5))
-      cat("\n null hypothesis =", round(object@likelihood_0_log, 5))
+      cat("\n alternative hypothesis =", round(object@likelihood_1_log, digits))
+      cat("\n null hypothesis =", round(object@likelihood_0_log, digits))
 
       cat("\nalternative hypothesis: true difference in means is not equal to 0.")
 
@@ -84,7 +86,7 @@ setMethod(
           "\nempirical Cohen's f = ", object@effect_sizes$cohens_f,
           ", 95% CI[", object@effect_sizes$ci_cohens_f_lower, ", ",
           object@effect_sizes$ci_cohens_f_upper, "]",
-          "\nempirical eta^2 = ", object@effect_sizes$eta_squared,
+          "\nCohen's f adjusted = ", round(object@effect_sizes$cohens_f_adj, digits),
           sep = "")
       cat("\ndegrees of freedom: df1 = ", object@df_1,
           ", df2 = ", object@df_2,
@@ -100,6 +102,6 @@ setMethod(
   })
 
 
-# results = seq_anova(y~x, f = 0.25, data = draw_sample())
-# results
+# object = seq_anova(y~x, f = 0.25, data = draw_sample())
+# object
 # seq_anova(y~x, f = 0.25, data = draw_sample(), verbose = FALSE)

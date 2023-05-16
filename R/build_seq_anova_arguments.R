@@ -7,7 +7,7 @@ build_seq_anova_arguments <- function(
   data_name,
   verbose
 ) {
-
+  formula <- formula(formula)
   check_formula_anova(formula = formula, data = data)
   data <- extract_formula_anova(formula = formula, data = data)
 

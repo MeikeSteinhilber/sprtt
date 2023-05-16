@@ -1,7 +1,7 @@
 context("CLASS_seq_anova_results: Check class")
 
 test_that("CLASS_seq_anova_results: Check access to class", {
-  data <- draw_sample()
+  data <- draw_sample(4, 0.23, 35)
   results <- seq_anova(y~x, f = 0.25, data = data)
 
   expect_equal(results["likelihood_ratio_log"], results@likelihood_ratio_log)
@@ -9,6 +9,7 @@ test_that("CLASS_seq_anova_results: Check access to class", {
   expect_equal(results["A_boundary_log"], results@A_boundary_log)
   expect_equal(results["B_boundary_log"], results@B_boundary_log)
   expect_equal(results["f"], results@f)
+  expect_equal(results["effect_sizes"], results@effect_sizes)
   expect_equal(results["alpha"], results@alpha)
   expect_equal(results["power"], results@power)
   expect_equal(results["likelihood_ratio"], results@likelihood_ratio)
@@ -22,6 +23,8 @@ test_that("CLASS_seq_anova_results: Check access to class", {
   expect_equal(results["df_2"], results@df_2)
   expect_equal(results["ss_effect"], results@ss_effect)
   expect_equal(results["ss_residual"], results@ss_residual)
+  expect_equal(results["ss_total"], results@ss_total)
+  expect_equal(results["total_sample_size"], results@total_sample_size)
   expect_equal(results["data_name"], results@data_name)
   expect_equal(results["verbose"], results@verbose)
 

@@ -81,14 +81,16 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   ci_ncp_lower <- ci_non_centrality_parameter$Lower.Limit
   ci_ncp_upper <- ci_non_centrality_parameter$Upper.Limit
 
+  if(!is.null(decision)) {
   # MBESS Package returns NA if the CIs are 0 -> transform them to 0
-  if (is.na(ci_ncp_lower) & decision == "accept H0") {ci_ncp_lower = 0}
-  if (is.na(ci_ncp_upper) &
-     cohens_f < 0.005 &
-     decision == "accept H0" &
-     ci_ncp_lower == 0
-  ) {
-    ci_ncp_upper = 0
+    if (is.na(ci_ncp_lower) & decision == "accept H0") {ci_ncp_lower = 0}
+    if (is.na(ci_ncp_upper) &
+       cohens_f < 0.005 &
+       decision == "accept H0" &
+       ci_ncp_lower == 0
+    ) {
+      ci_ncp_upper = 0
+    }
   }
 
   ci_cohens_f_lower <- sqrt(ci_ncp_lower/seq_anova_arguments@total_sample_size)
@@ -97,12 +99,12 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
 
   effect_sizes = list(
     "cohens_f" = cohens_f,
-    "cohens_f_median" = cohens_f_median,
-    # "cohens_f_manual" = cohens_f_manual,
-    "cohens_f_adj" = cohens_f_adj,
-    # "cohens_f_unbiased" = cohens_f_unbiased, # Grissom 2005
     "ci_cohens_f_lower" = ci_cohens_f_lower,
     "ci_cohens_f_upper" = ci_cohens_f_upper,
+    "cohens_f_adj" = cohens_f_adj,
+    "cohens_f_median" = cohens_f_median,
+    # "cohens_f_manual" = cohens_f_manual,
+    # "cohens_f_unbiased" = cohens_f_unbiased, # Grissom 2005
     "eta_squared" = eta_squared,
     "partial_eta_squared" = partial_eta_squared,
     "adjusted_eta_squared" = adjusted_eta_squared,
