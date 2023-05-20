@@ -41,11 +41,23 @@ test_that("draw_sample: check error messages", {
     'argument "f" is missing'
   )
   expect_error(
-    draw_sample(k_groups = 3, f = .4, max_n = 40, sd = c(1,1,1,1),),
+    draw_sample(k_groups = 3, max_n = 1),
+    'max_n'
+  )
+  expect_error(
+    draw_sample(k_groups = 3, f = .4, max_n = 40, sd = c(1,1,1,1)),
     'sd'
+  )
+  expect_error(
+    draw_sample(k_groups = 3, f = .4, max_n = 40, sd = c("1,1,1,1"))
+    , 'numeric'
   )
   expect_error(
     draw_sample(k_groups = 3, f = .4, max_n = 40, sample_ratio = c(1,1)),
     'sample_ratio'
+  )
+  expect_error(
+    draw_sample(k_groups = 3, f = .4, max_n = 40, sample_ratio = c("1","1")),
+    'numeric'
   )
 })
