@@ -12,3 +12,21 @@ results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data)
 results@decision
 # test results
 results
+
+# calculate sequential ANOVA ---------------------------------------------------
+results <- sprtt::seq_anova(y ~ x,
+                            f = 0.25,
+                            data = data,
+                            alpha = 0.01,
+                            power = .80,
+                            verbose = TRUE)
+results
+
+# calculate sequential ANOVA ---------------------------------------------------
+results <- sprtt::seq_anova(y ~ x,
+                            f = 0.15,
+                            data = data,
+                            alpha = 0.05,
+                            power = .80,
+                            verbose = FALSE)
+results

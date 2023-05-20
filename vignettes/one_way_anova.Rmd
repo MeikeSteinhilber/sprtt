@@ -61,7 +61,7 @@ $$
 
 For the calculation of the degrees of freedom, only the sample size of the group(s) is needed. The non-centrality parameter also requires a specification of the expected effect size in form of Cohen\`s d (*d*).
 
-To eventually calculate the LR of the sequential *t*-test, only the current t~*m*~-statistic is necessary. @rushton1950a demonstrated that an SPRT can be performed by simply considering the ratio of probability densities for the most recent t~*m*~ statistic under the alternative and null hypothesis at any *m-*th stage. Thus, the test statistic for a one and two-sided sequential t-test can be calculated as follows:
+To eventually calculate the LR of the sequential *t*-test, only the current t~*m*~-statistic is necessary. @rushton1950 demonstrated that an SPRT can be performed by simply considering the ratio of probability densities for the most recent t~*m*~ statistic under the alternative and null hypothesis at any *m-*th stage. Thus, the test statistic for a one and two-sided sequential t-test can be calculated as follows:
 
 $$
 LR_{m,\ one-sided\ sequential\ t-test} 
@@ -73,7 +73,7 @@ $$
 
 To account for the fact that the algebraic sign is unknown in a two-sided test, the *t*-value is squared [@rushton1952].
 
-After the calculation of the test statistic, the decision will be either to continue sampling or to terminate the sampling and accept one of the hypotheses. @wald1945a defined the following rules for the SPRT:
+After the calculation of the test statistic, the decision will be either to continue sampling or to terminate the sampling and accept one of the hypotheses. @wald1945 defined the following rules for the SPRT:
 
 |    Condition    |                    Decision |
 |:---------------:|----------------------------:|

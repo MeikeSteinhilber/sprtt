@@ -4,16 +4,18 @@
 \alias{draw_sample}
 \title{Draw Samples}
 \usage{
-draw_sample(k_groups = 3, f = 0.25, sd = c(1, 1, 1), max_n = 50)
+draw_sample(k_groups, f, max_n, sd = NULL, sample_ratio = NULL)
 }
 \arguments{
 \item{k_groups}{number of groups (levels of factor_A)}
 
 \item{f}{cohens f.}
 
-\item{sd}{standard deviations of the goups}
-
 \item{max_n}{sample size for the groups (total sample size = max_n*k_groups)}
+
+\item{sd}{standard deviations of the groups. Default value is 1 for each group.}
+
+\item{sample_ratio}{sample ratio between th groups. Default value is 1 for each group.}
 }
 \value{
 returns a data.frame with the columns y (observations) and x (factor_A).
@@ -23,14 +25,28 @@ Draw exemplary samples for the sequential ANOVA function.
 }
 \examples{
 set.seed(333)
-data <- sprtt::draw_sample()
-data
 
 data <- sprtt::draw_sample(
-  k_groups = 4,
-  sd = c(1, 0.8, 1, 1),
+  k_groups = 2,
+  f = 0.20,
   max_n = 30
 )
 data
 
+data <- sprtt::draw_sample(
+  k_groups = 4,
+  f = 0,
+  max_n = 25,
+  sd = c(1, 2, 1, 8)
+)
+data
+
+data <- sprtt::draw_sample(
+  k_groups = 3,
+  f = 0.40,
+  max_n = 30,
+  sd = c(1, 0.8, 1),
+  sample_ratio = c(1, 2, 3)
+)
+data
 }
