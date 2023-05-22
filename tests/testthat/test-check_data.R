@@ -43,7 +43,7 @@ test_that("check_data_ttest: numeric: Correct activation of errors", {
 context("check_data_ttest: check correct behaviour")
 
 test_that("check_data_ttest: numeric: Correct activation of errors", {
-  data <- draw_sample(k_groups = 2, f = 0, max_n = 10)
+  data <- draw_sample_normal(k_groups = 2, f = 0, max_n = 10)
   colnames(data) <- c("y", "factor_A")
   formula <- y~factor_A
   data$y <- as.character(data$y)
@@ -52,7 +52,7 @@ test_that("check_data_ttest: numeric: Correct activation of errors", {
     "Invalid argument: y must be numeric "
   )
 
-  data <- draw_sample(k_groups = 2, f = 0, max_n = 2)[1:2,]
+  data <- draw_sample_normal(k_groups = 2, f = 0, max_n = 2)[1:2,]
   colnames(data) <- c("y", "factor_A")
   formula <- y~factor_A
   expect_error(
@@ -60,7 +60,7 @@ test_that("check_data_ttest: numeric: Correct activation of errors", {
     "Requires at least 3 observations"
   )
 
-  data <- draw_sample(k_groups = 2, f = 0, sample_ratio = c(3, 1), max_n = 2)[1:3,]
+  data <- draw_sample_normal(k_groups = 2, f = 0, sample_ratio = c(3, 1), max_n = 2)[1:3,]
   colnames(data) <- c("y", "factor_A")
   formula <- y~factor_A
   expect_error(
@@ -68,21 +68,21 @@ test_that("check_data_ttest: numeric: Correct activation of errors", {
     "A factor needs at least 2 levels."
   )
 
-  data <- draw_sample(k_groups = 2, f = 0, sd = c(1, 1), max_n = 2)
+  data <- draw_sample_normal(k_groups = 2, f = 0, sd = c(1, 1), max_n = 2)
   colnames(data) <- c("y", "factor_A")
   formula <- y~factor_A
   expect_silent(
     check_data_anova(data)
   )
 
-  data <- draw_sample(k_groups = 2, f = 0, sample_ratio = c(3, 1), max_n = 2)[1:4,]
+  data <- draw_sample_normal(k_groups = 2, f = 0, sample_ratio = c(3, 1), max_n = 2)[1:4,]
   colnames(data) <- c("y", "factor_A")
   formula <- y~factor_A
   expect_error(
     check_data_anova(data),
     "Every group needs at least two observations"
   )
-  data <- draw_sample(k_groups = 3, f = 0, sample_ratio = c(3, 2, 1), max_n = 2)[1:6,]
+  data <- draw_sample_normal(k_groups = 3, f = 0, sample_ratio = c(3, 2, 1), max_n = 2)[1:6,]
   colnames(data) <- c("y", "factor_A")
   formula <- y~factor_A
   expect_error(

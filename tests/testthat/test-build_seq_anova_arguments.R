@@ -4,7 +4,7 @@ context("build_seq_anova_arguments: Check structure of the class object")
 
 test_that("build_seq_anova_arguments: silent", {
   formula = y ~ x
-  data = draw_sample(4, 0.4, 20)
+  data = draw_sample_normal(4, 0.4, 20)
   f = 0.25
   alpha = 0.05
   power = 0.95
@@ -26,7 +26,7 @@ test_that("build_seq_anova_arguments: silent", {
 
 test_that("build_seq_anova_arguments: correct build", {
   formula = y ~ x
-  data = draw_sample(4, 0.4, 20)
+  data = draw_sample_normal(4, 0.4, 20)
   f = 0.25
   alpha = 0.05
   power = 0.95
@@ -55,7 +55,7 @@ test_that("build_seq_anova_arguments: correct build", {
 
 test_that("build_seq_anova_arguments: correct build", {
   formula = 5
-  data = draw_sample(4, 0.4, 20)
+  data = draw_sample_normal(4, 0.4, 20)
   f = 0.25
   alpha = 0.05
   power = 0.95

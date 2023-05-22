@@ -1,7 +1,7 @@
-# draw_sample: check correct behaviour
+# draw_sample_normal: check correct behaviour
 
     Code
-      show(draw_sample(k_groups = 2, f = 0.25, max_n = 30))
+      show(draw_sample_normal(k_groups = 2, f = 0.25, max_n = 30))
     Output
                     y x
       1  -2.407878032 1
@@ -68,7 +68,7 @@
 ---
 
     Code
-      show(draw_sample(k_groups = 4, f = 1, sd = c(1, 0.8, 1, 1), max_n = 30))
+      show(draw_sample_normal(k_groups = 4, f = 1, sd = c(1, 0.8, 1, 1), max_n = 30))
     Output
                     y x
       1    0.07085195 1
@@ -195,8 +195,8 @@
 ---
 
     Code
-      show(draw_sample(k_groups = 3, f = 0.12, sd = c(1, 0.8, 2), sample_ratio = c(1,
-        2, 1), max_n = 50))
+      show(draw_sample_normal(k_groups = 3, f = 0.12, sd = c(1, 0.8, 2),
+      sample_ratio = c(1, 2, 1), max_n = 50))
     Output
                      y x
       1   -0.999870659 1

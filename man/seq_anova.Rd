@@ -7,16 +7,16 @@
 seq_anova(formula, f, alpha = 0.05, power = 0.95, data, verbose = TRUE)
 }
 \arguments{
-\item{formula}{a formula.}
+\item{formula}{A formula specifying the model.}
 
-\item{f}{cohens f (expected minimal effect size or effect size of interest).}
+\item{f}{Cohen's f (expected minimal effect size or effect size of interest).}
 
 \item{alpha}{the type I error. A number between 0 and 1.}
 
 \item{power}{1 - beta (beta is the type II error probability). A number
 between 0 and 1.}
 
-\item{data}{data frame.}
+\item{data}{A data frame in which the variables specified in the formula will be found.}
 
 \item{verbose}{a logical value whether you want a verbose output or not.}
 }
@@ -28,12 +28,13 @@ To get access to the object use the
 See the examples below.
 }
 \description{
-Performs a sequential ANOVA.
+Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) <>
+for more information.
 }
 \examples{
 # simulate data ----------------------------------------------------------------
 set.seed(333)
-data <- sprtt::draw_sample(k_groups = 3,
+data <- sprtt::draw_sample_normal(k_groups = 3,
                     f = 0.25,
                     sd = c(1, 1, 1),
                     max_n = 50)

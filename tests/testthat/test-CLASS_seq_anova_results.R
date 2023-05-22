@@ -1,7 +1,7 @@
 context("CLASS_seq_anova_results: Check class")
 
 test_that("CLASS_seq_anova_results: Check access to class", {
-  data <- draw_sample(4, 0.23, 35)
+  data <- draw_sample_normal(4, 0.23, 35)
   results <- seq_anova(y~x, f = 0.25, data = data)
 
   expect_equal(results["likelihood_ratio_log"], results@likelihood_ratio_log)

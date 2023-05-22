@@ -97,7 +97,7 @@ test_that("check_formula_ttest: silent behaviour: no errors occur", {
 context("check_formula_anova: Correct error messages.")
 
 test_that("check_formula_anova: Check structure: Correct error messages", {
-  data <- draw_sample(k_groups = 4, f = 0, max_n = 30)
+  data <- draw_sample_normal(k_groups = 4, f = 0, max_n = 30)
   formula <- y~x
 
   expect_error(
@@ -137,7 +137,7 @@ test_that("check_formula_anova: Check structure: Correct error messages", {
 })
 
 test_that("check_formula_anova: silent behaviour: no errors occur", {
-  data <- draw_sample(k_groups = 4, f = 0, max_n = 30)
+  data <- draw_sample_normal(k_groups = 4, f = 0, max_n = 30)
   colnames(data) <- c("observation", "factor")
   formula <- observation ~ factor
 

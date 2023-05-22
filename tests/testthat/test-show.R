@@ -86,7 +86,7 @@ test_that("show: print output anova?", {
   testthat::local_edition(3)
   set.seed(4657)
 
-  data <- draw_sample(5, 0.25, 66)
+  data <- draw_sample_normal(5, 0.25, 66)
   expect_snapshot(
     show(
       seq_anova(
@@ -96,7 +96,7 @@ test_that("show: print output anova?", {
     )
   )
 
-  df_job <- draw_sample(2, 0.6, 24)
+  df_job <- draw_sample_normal(2, 0.6, 24)
   colnames(df_job) <- c("happiness", "job_satisfaction")
   expect_snapshot(
     show(
@@ -107,7 +107,7 @@ test_that("show: print output anova?", {
     )
   )
 
-  data <- draw_sample(k_groups = 4, f = 0.1, sd = c(1,1,1,1), max_n = 20)
+  data <- draw_sample_normal(k_groups = 4, f = 0.1, sd = c(1,1,1,1), max_n = 20)
   expect_snapshot(
     show(
       seq_anova(
@@ -117,7 +117,7 @@ test_that("show: print output anova?", {
     )
   )
 
-  data <- draw_sample(k_groups = 2, f = 0.5, sd = c(1, 1), max_n = 60)
+  data <- draw_sample_normal(k_groups = 2, f = 0.5, sd = c(1, 1), max_n = 60)
   expect_snapshot(
     show(
       seq_anova(
@@ -129,7 +129,7 @@ test_that("show: print output anova?", {
     )
   )
 
-  data <- draw_sample(k_groups = 2, f = 0.5, sd = c(1, 1), max_n = 60)
+  data <- draw_sample_normal(k_groups = 2, f = 0.5, sd = c(1, 1), max_n = 60)
   expect_snapshot(
     show(
       seq_anova(

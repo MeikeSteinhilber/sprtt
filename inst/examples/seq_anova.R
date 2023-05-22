@@ -1,6 +1,6 @@
 # simulate data ----------------------------------------------------------------
 set.seed(333)
-data <- sprtt::draw_sample(k_groups = 3,
+data <- sprtt::draw_sample_normal(k_groups = 3,
                     f = 0.25,
                     sd = c(1, 1, 1),
                     max_n = 50)

@@ -8,7 +8,7 @@ reference:
   contents:
   - seq_ttest
   - seq_anova
-  - draw_sample
+  - draw_sample_normal
   - effect_sizes
   - sprtt
 

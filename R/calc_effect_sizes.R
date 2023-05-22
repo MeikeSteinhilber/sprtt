@@ -166,7 +166,7 @@ effect_sizes <- function(formula, data) {
     F_statistic)
 
 }
-# data = draw_sample(k_groups = 3, f = 0.25, sd = c(1, 1, 1), max_n = 50)
+# data = draw_sample_normal(k_groups = 3, f = 0.25, sd = c(1, 1, 1), max_n = 50)
 # formula = y~x
 # effect_sizes(formula, data)
 # effectsize::cohens_f(lm(formula, data))$Cohens_f

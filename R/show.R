@@ -102,6 +102,6 @@ setMethod(
   })
 
 
-# object = seq_anova(y~x, f = 0.25, data = draw_sample())
+# object = seq_anova(y~x, f = 0.25, data = draw_sample_normal())
 # object
-# seq_anova(y~x, f = 0.25, data = draw_sample(), verbose = FALSE)
+# seq_anova(y~x, f = 0.25, data = draw_sample_normal(), verbose = FALSE)

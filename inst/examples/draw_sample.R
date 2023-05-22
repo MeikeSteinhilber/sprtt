@@ -1,13 +1,13 @@
 set.seed(333)
 
-data <- sprtt::draw_sample(
+data <- sprtt::draw_sample_normal(
   k_groups = 2,
   f = 0.20,
   max_n = 30
 )
 data
 
-data <- sprtt::draw_sample(
+data <- sprtt::draw_sample_normal(
   k_groups = 4,
   f = 0,
   max_n = 25,
@@ -15,7 +15,7 @@ data <- sprtt::draw_sample(
 )
 data
 
-data <- sprtt::draw_sample(
+data <- sprtt::draw_sample_normal(
   k_groups = 3,
   f = 0.40,
   max_n = 30,

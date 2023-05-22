@@ -48,12 +48,12 @@ test_that("seq_anova: snapshots", {
   testthat::local_edition(3)
   set.seed(4657)
 
-  data <- draw_sample(4, 0.4, 20, sd = c(1,2,3,4), sample_ratio = c(1,2,1,3))
+  data <- draw_sample_normal(4, 0.4, 20, sd = c(1,2,3,4), sample_ratio = c(1,2,1,3))
   expect_snapshot(
     seq_anova(y~x, f = 0.40, data = data)
   )
 
-  df_age <- draw_sample(4, 0.4, 20, sd = c(1,2,3,4), sample_ratio = c(1,2,1,3))
+  df_age <- draw_sample_normal(4, 0.4, 20, sd = c(1,2,3,4), sample_ratio = c(1,2,1,3))
   colnames(df_age) <- c("age", "sex")
   expect_snapshot(
     seq_anova(age~sex, f = 0.40, data = df_age)
@@ -65,7 +65,7 @@ test_that("seq_anova: ttest vs anova", {
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
   set.seed(4657)
-  data <- draw_sample(2, 0.4, 20)
+  data <- draw_sample_normal(2, 0.4, 20)
   results_anova <- seq_anova(y~x, f = 0.40, data = data)
   results_ttest <- seq_ttest(y~x, d = 0.80, data = data)
 

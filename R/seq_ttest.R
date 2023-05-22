@@ -10,7 +10,7 @@
 #---- MAIN FUNCTION DOCUMENTATION----
 #' @title Sequential Probability Ratio Test using t-statistic
 #' @description Performs one and two sample sequential t-tests on vectors of
-#' data.
+#' data. For more information on the sequential t-test, see Schnuerch & Erdfelder (2019) <doi:10.1037/met0000234>.
 #'
 #' @param x Works with two classes: `numeric` and `formula`. Therefore you can
 #' write `"x"` or `"x~y"`.

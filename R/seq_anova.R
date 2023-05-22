@@ -7,11 +7,12 @@
 #'
 #---- MAIN FUNCTION DOCUMENTATION ----------------------------------------------
 #' @title Sequential Analysis of Variance
-#' @description Performs a sequential ANOVA.
+#' @description Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) <>
+#' for more information.
 #'
-#' @param formula a formula.
-#' @param data data frame.
-#' @param f cohens f (expected minimal effect size or effect size of interest).
+#' @param formula A formula specifying the model.
+#' @param data A data frame in which the variables specified in the formula will be found.
+#' @param f Cohen's f (expected minimal effect size or effect size of interest).
 #' @param alpha the type I error. A number between 0 and 1.
 #' @param power 1 - beta (beta is the type II error probability). A number
 #' between 0 and 1.

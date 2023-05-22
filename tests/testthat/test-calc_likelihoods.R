@@ -59,15 +59,15 @@ context("calc_likelihoods_anova")
 test_that("calc_likelihoods_anova: Check warnings & messages", {
   set.seed(333)
 
-  data <- draw_sample(f = 100000, k_groups = 3, max_n = 100)
+  data <- draw_sample_normal(f = 100000, k_groups = 3, max_n = 100)
   expect_warning(seq_anova(y~x, f = 0.1, data = data),
                  "At least one likelihood is equal to 0")
 
-  data <- draw_sample(f = 1000000000, k_groups = 3, max_n = 100)
+  data <- draw_sample_normal(f = 1000000000, k_groups = 3, max_n = 100)
   expect_warning(seq_anova(y~x, f = 0.000001, data = data),
                  "At least one log-likelihood reached infinity.")
 
-  data <- draw_sample(f = 0, k_groups = 3, max_n = 100)
+  data <- draw_sample_normal(f = 0, k_groups = 3, max_n = 100)
   expect_warning(seq_anova(y~x, f = 10000, data = data),
                  "At least one likelihood is equal to 0")
 
