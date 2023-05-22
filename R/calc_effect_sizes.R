@@ -8,11 +8,7 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
   partial_eta_squared <- (F_statistic$F_value * F_statistic$df_1) / (F_statistic$F_value * F_statistic$df_1 + F_statistic$df_2)
   adjusted_eta_squared = partial_eta_squared - (1 - partial_eta_squared) * F_statistic$df_1 / F_statistic$df_2
 
-  if (eta_squared < 0) {
-    cohens_f <- 0
-  } else{
-    cohens_f <- sqrt(eta_squared/(1-eta_squared))
-  }
+  cohens_f <- sqrt(eta_squared/(1-eta_squared))
 
   # # adjusted f using Correction: Grissom Effect Size for Research 2005
   # cohens_f_unbiased <- ((k_group-1)/seq_anova_arguments@total_sample_size)*(F_statistic$F_value-1)
@@ -125,6 +121,11 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
 #'
 #' @examples "no examples yet"
 effect_sizes <- function(formula, data) {
+  if (is.null(formula)) {stop("formula argument is missing")}
+  if (is.null(data)) {stop("data argument is missing")}
+
+  formula <- as.formula(formula)
+
   seq_anova_arguments <-
     build_seq_anova_arguments(
       formula,

@@ -1,9 +1,20 @@
 
-
 test_that("calc_effect_sizes", {
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
   set.seed(333)
+
+  expect_error(
+    effect_sizes(NULL, 1:10),
+    "formula"
+  )
+
+  expect_error(
+    effect_sizes(x~k, NULL),
+    "data"
+  )
+
+
   formula <- y ~ x
   df_no_effect <- draw_sample(k_groups = 4, f = 0, max_n = 20)
   df_0.01_effect <- draw_sample(k_groups = 4, f = 0.01, max_n = 500)
@@ -52,7 +63,7 @@ test_that("snaphot: effect_size", {
   testthat::local_edition(3)
   set.seed(333)
 
-  df_no_effect <- draw_sample(k_groups = 4, f = 0, max_n = 20)
+  df_no_effect <- draw_sample(k_groups = 4, f = 0, max_n = 2000)
   df_no_effect_extreme <- draw_sample(k_groups = 4, f = 0, max_n = 20000)
   df_0.01_effect <- draw_sample(k_groups = 4, f = 0.01, max_n = 500)
   df_0.10_effect <- draw_sample(k_groups = 4, f = 0.10, max_n = 200)
@@ -79,4 +90,25 @@ test_that("snaphot: effect_size", {
   expect_snapshot(effect_sizes(formula, df_0.25_effect))
   expect_snapshot(effect_sizes(formula, df_0.40_effect))
   expect_snapshot(effect_sizes(formula, df_2_effect))
+
+
+
+  set.seed(7)
+  df_no_effect <- draw_sample(k_groups = 4, f = 0, max_n = 2000,
+                              sd = c(1,2,4,4),
+                              sample_ratio = c(1,2,1,2))
+  # effect_sizes(formula, df_no_effect)$eta
+  results <- seq_anova(formula, 0.10, data =  df_no_effect)
+  expect_equal(results@effect_sizes$ci_ncp_upper, 0)
+
+  set.seed(7)
+  df_no_effect <- draw_sample(k_groups = 4, f = 0,
+                              max_n = 8000,
+                              sd = c(1,1,1,1),
+                              sample_ratio = c(1,1,8,8))
+  # effect_sizes(formula, df_no_effect)$eta
+  results <- seq_anova(formula, 0.10, data =  df_no_effect)
+  results@effect_sizes$eta_squared
+
+
 })
