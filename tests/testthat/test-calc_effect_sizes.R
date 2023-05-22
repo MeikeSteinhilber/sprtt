@@ -101,14 +101,4 @@ test_that("snaphot: effect_size", {
   results <- seq_anova(formula, 0.10, data =  df_no_effect)
   expect_equal(results@effect_sizes$ci_ncp_upper, 0)
 
-  set.seed(7)
-  df_no_effect <- draw_sample(k_groups = 4, f = 0,
-                              max_n = 8000,
-                              sd = c(1,1,1,1),
-                              sample_ratio = c(1,1,8,8))
-  # effect_sizes(formula, df_no_effect)$eta
-  results <- seq_anova(formula, 0.10, data =  df_no_effect)
-  results@effect_sizes$eta_squared
-
-
 })
