@@ -162,8 +162,6 @@ for (i in 1:rep_n) {
   if (i == 1) {
     sample <- draw_sample_mixture(k_groups = k_groups,
                                  f = f,
-                                 sd = sd,
-                                 sample_ratio = sample_ratio,
                                  max_n = max_n)
     data[, a] <- as.numeric(sample$x)
     data[, b] <- sample$y
@@ -173,8 +171,6 @@ for (i in 1:rep_n) {
   } else{
     sample <- draw_sample_mixture(k_groups = k_groups,
                                  f = f,
-                                 sd = sd,
-                                 sample_ratio = sample_ratio,
                                  max_n = max_n)
     f_estimated[i] <- effect_sizes(y~x, sample)$cohens_f
     data[, a] <- sample$y
@@ -184,3 +180,4 @@ for (i in 1:rep_n) {
 
 mean_f_est <- mean(f_estimated)
 mean_f_est
+sd_f_est
