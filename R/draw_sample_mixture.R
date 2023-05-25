@@ -20,7 +20,7 @@ rnorm_mix <- function(n, mu1, sig1, mu2, sig2, gamma) {
 #'
 #' @export
 #'
-#' @example inst/examples/draw_sample_normal.R
+#' @example inst/examples/draw_sample_mixture.R
 
 
 draw_sample_mixture <- function(
