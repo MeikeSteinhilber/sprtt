@@ -36,7 +36,9 @@ Imports:
     stats,
     dplyr,
     MBESS,
-    purrr
+    purrr,
+    glue,
+    ggplot2
 Suggests:
     knitr,
     rmarkdown,
