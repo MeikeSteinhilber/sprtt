@@ -1,31 +1,36 @@
-
-#' Title
+#' Plot Results of SPRTs
 #'
-#' @param sample_size
-#' @param lr_log
-#' @param A_boundary
-#' @param B_boundary
-#' @param labels
-#' @param position_labels_x
-#' @param position_labels_y
-#' @param font_size
-#' @param line_size
+#' @param sample_size sample size.
+#' @param lr_log log-likelihood-ratio.
+#' @param A_boundary_log Log of the A boundary.
+#' @param B_boundary_log Log of the B boundary.
+#' @param labels show labels.
+#' @param position_labels_x position of the boundary labels on the x-axis
+#' @param position_labels_y position of the boundary labels on the y-axis
+#' @param font_size font size of the plot
+#' @param line_size line size of the plot
 #'
-#' @return
+#' @return is a plot
 #' @export
 #'
-#' @examples
-plot_sprt <- function(sample_size, lr_log, A_boundary, B_boundary,
+#' @examples inst/examples/sprt_plot.R
+plot_sprt <- function(sample_size, lr_log, A_boundary_log, B_boundary_log,
                       labels = TRUE,
                       position_labels_x = 0.15,
                       position_labels_y = 0.075,
-                      font_size = 15,
-                      line_size = 0.8
+                      font_size = 25,
+                      line_size = 1.5
                       ) {
+
+  library(dplyr)
+  library(purrr)
+  library(glue)
+  library(ggplot2)
+
   results <- data.frame(sample_size, lr_log) %>%
     mutate(decision = case_when(
-      lr_log >= A_boundary ~ "H1",
-      lr_log <= B_boundary ~ "H0",
+      lr_log >= A_boundary_log ~ "H1",
+      lr_log <= B_boundary_log ~ "H0",
       TRUE ~ "CC"
     ))
 
@@ -52,8 +57,8 @@ plot_sprt <- function(sample_size, lr_log, A_boundary, B_boundary,
     ggplot(aes(x = sample_size, y = lr_log)) +
     xlim(0 , sample_size[N] + sample_size[N]*0.15) +
     geom_line(linewidth = line_size) +
-    geom_hline(yintercept = A_boundary, linetype = "dashed", linewidth = line_size) +
-    geom_hline(yintercept = B_boundary, linetype = "dashed", linewidth = line_size) +
+    geom_hline(yintercept = A_boundary_log, linetype = "dashed", linewidth = line_size) +
+    geom_hline(yintercept = B_boundary_log, linetype = "dashed", linewidth = line_size) +
     labs(#title = glue("f expected = {f_expected}, f simulated = {f_simulated}"),
          x = "Sample Size N",
          y = "Log-Likelihood Ratio") +
@@ -94,16 +99,16 @@ plot_sprt <- function(sample_size, lr_log, A_boundary, B_boundary,
     if (labels == TRUE) {
       distance_h <- ceiling(max_lr*position_labels_y)
       plot <- plot +
-        annotate(geom = "text", x = N*position_labels_x, y = A_boundary + distance_h,
+        annotate(geom = "text", x = N*position_labels_x, y = A_boundary_log + distance_h,
                 label = "Accept~ H[1]", size = font_size/.pt, parse = TRUE) +
-        annotate(geom = "text", x = N*position_labels_x, y = B_boundary - distance_h,
+        annotate(geom = "text", x = N*position_labels_x, y = B_boundary_log - distance_h,
                  label = "Accept~ H[0]", size = font_size/.pt, parse = TRUE)
-        # annotate(geom = "text", x = 10, y = B_boundary + distance_h/2,
+        # annotate(geom = "text", x = 10, y = B_boundary_log + distance_h/2,
         #         label = "Continue Sampling")
     }
   plot
 }
-
+#
 # set.seed(333)
 # k_groups = 2
 # f_simulated = 0.40
@@ -135,8 +140,7 @@ plot_sprt <- function(sample_size, lr_log, A_boundary, B_boundary,
 #   sample_size[i] <- step
 #   i <- i + 1
 # }
-
-# plot_sprt(sample_size, lr_log,
+# sprtt::plot_sprt(sample_size, lr_log,
 #           seq_results@A_boundary_log,
 #           seq_results@B_boundary_log
 #           )

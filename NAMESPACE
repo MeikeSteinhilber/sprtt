@@ -3,6 +3,7 @@
 export(draw_sample_mixture)
 export(draw_sample_normal)
 export(effect_sizes)
+export(plot_sprt)
 export(seq_anova)
 export(seq_ttest)
 exportMethods("[")
