@@ -5,27 +5,19 @@
 \title{Plot Results of SPRTs}
 \usage{
 plot_sprt(
-  sample_size,
-  lr_log,
-  A_boundary_log,
-  B_boundary_log,
+  sprt_results,
   labels = TRUE,
   position_labels_x = 0.15,
   position_labels_y = 0.075,
-  font_size = 15,
-  line_size = 0.8
+  font_size = 25,
+  line_size = 1.5,
+  highlight_color = "#CD2626"
 )
 }
 \arguments{
-\item{sample_size}{sample size.}
+\item{sprt_results}{result object of a seq_ttest() or a seq_anova()}
 
-\item{lr_log}{log-likelihood-ratio.}
-
-\item{A_boundary_log}{Log of the A boundary.}
-
-\item{B_boundary_log}{Log of the B boundary.}
-
-\item{labels}{show labels.}
+\item{labels}{show labels in the plot.}
 
 \item{position_labels_x}{position of the boundary labels on the x-axis}
 
@@ -34,9 +26,11 @@ plot_sprt(
 \item{font_size}{font size of the plot}
 
 \item{line_size}{line size of the plot}
+
+\item{highlight_color}{highlighting color, default is red.}
 }
 \value{
-is a plot
+returns a plot
 }
 \description{
 Plot Results of SPRTs

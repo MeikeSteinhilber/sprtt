@@ -5,11 +5,12 @@
 # #' @param A_boundary_log Log of the A boundary.
 # #' @param B_boundary_log Log of the B boundary.
 #' @param sprt_results result object of a seq_ttest() or a seq_anova()
-#' @param labels show labels.
+#' @param labels show labels in the plot.
 #' @param position_labels_x position of the boundary labels on the x-axis
 #' @param position_labels_y position of the boundary labels on the y-axis
 #' @param font_size font size of the plot
 #' @param line_size line size of the plot
+#' @param highlight_color highlighting color, default is red.
 #'
 #' @return returns a plot
 #' @export
@@ -20,7 +21,8 @@ plot_sprt <- function(sprt_results,
                       position_labels_x = 0.15,
                       position_labels_y = 0.075,
                       font_size = 25,
-                      line_size = 1.5
+                      line_size = 1.5,
+                      highlight_color = "#CD2626"
                       ) {
   library(dplyr)
   library(purrr)
@@ -54,10 +56,10 @@ plot_sprt <- function(sprt_results,
   max_lr <- max(abs(results$lr_log))
 
   # set defaults ---------------------------------------------------------------
-  palette <- "Dark2"
-  green <- "#69b3a2"
-  blue <- "#404080"
-  red <- 	"#CD2626" #"#8B0000"
+  # palette <- "Dark2"
+  # green <- "#69b3a2"
+  # blue <- "#404080"
+  # red <- 	"#CD2626" #"#8B0000"
   theme_set(theme_bw(base_size = font_size))
 
   # create plot ----------------------------------------------------------------
@@ -77,7 +79,7 @@ plot_sprt <- function(sprt_results,
     if (decision_sample_position > 0) {
       plot <- plot +
         geom_point(aes(x = sample_size[decision_sample_position], y = lr_log[decision_sample_position]),
-                 color = red, size = line_size*4)
+                 color = highlight_color, size = line_size*4)
       if (labels == TRUE) {
         LR <- round(exp(results$lr_log[decision_sample_position]), 2)
         nLR <- results$sample_size[decision_sample_position]
@@ -86,12 +88,12 @@ plot_sprt <- function(sprt_results,
           x = results$sample_size[decision_sample_position] + results$sample_size[decision_sample_position]*0.05, y = 0,
           label = glue("LR[{nLR}] ==~ {LR}"),
           parse = TRUE,
-          size = font_size/.pt, color = red)
+          size = font_size/.pt, color = highlight_color)
       }
     } else{
       plot <- plot +
         geom_point(aes(x = results$sample_size[N_steps], y = results$lr_log[N_steps]),
-                   color = red, size = line_size*4)
+                   color = highlight_color, size = line_size*4)
       if (labels == TRUE) {
         LR <- round(exp(results$lr_log[N_steps]), 2)
         nLR <- results$sample_size[N_steps]
@@ -102,7 +104,7 @@ plot_sprt <- function(sprt_results,
                    y = y_,
                    label = glue("LR[{nLR}] ==~ {LR}"),
                    parse = TRUE,
-                   size = font_size/.pt, color = red)
+                   size = font_size/.pt, color = highlight_color)
       }
     }
 
@@ -112,9 +114,9 @@ plot_sprt <- function(sprt_results,
         h1_col <- "black"
       } else if (results$decision[decision_sample_position] == "H1") {
         h0_col <- "black"
-        h1_col <- red
+        h1_col <- highlight_color
       } else if (results$decision[decision_sample_position] == "H0") {
-        h0_col <- red
+        h0_col <- highlight_color
         h1_col <- "black"
       }
       distance_h <- ceiling(max_lr*position_labels_y)

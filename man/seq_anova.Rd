@@ -4,7 +4,16 @@
 \alias{seq_anova}
 \title{Sequential Analysis of Variance}
 \usage{
-seq_anova(formula, f, alpha = 0.05, power = 0.95, data, verbose = TRUE)
+seq_anova(
+  formula,
+  f,
+  alpha = 0.05,
+  power = 0.95,
+  data,
+  verbose = TRUE,
+  plot = FALSE,
+  seq_steps = "single"
+)
 }
 \arguments{
 \item{formula}{A formula specifying the model.}
@@ -19,6 +28,8 @@ between 0 and 1.}
 \item{data}{A data frame in which the variables specified in the formula will be found.}
 
 \item{verbose}{a logical value whether you want a verbose output or not.}
+
+\item{plot}{create an automatic plot.}
 }
 \value{
 An object of the S4 class \code{\linkS4class{seq_anova_results}}. Click on the
