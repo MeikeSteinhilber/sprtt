@@ -1,47 +1,57 @@
 #' Plot Results of SPRTs
 #'
-#' @param sample_size sample size.
-#' @param lr_log log-likelihood-ratio.
-#' @param A_boundary_log Log of the A boundary.
-#' @param B_boundary_log Log of the B boundary.
+# #' @param sample_size sample size.
+# #' @param lr_log log-likelihood-ratio.
+# #' @param A_boundary_log Log of the A boundary.
+# #' @param B_boundary_log Log of the B boundary.
+#' @param sprt_results result object of a seq_ttest() or a seq_anova()
 #' @param labels show labels.
 #' @param position_labels_x position of the boundary labels on the x-axis
 #' @param position_labels_y position of the boundary labels on the y-axis
 #' @param font_size font size of the plot
 #' @param line_size line size of the plot
 #'
-#' @return is a plot
+#' @return returns a plot
 #' @export
 #'
 #' @examples inst/examples/sprt_plot.R
-plot_sprt <- function(sample_size, lr_log, A_boundary_log, B_boundary_log,
+plot_sprt <- function(sprt_results,
                       labels = TRUE,
                       position_labels_x = 0.15,
                       position_labels_y = 0.075,
                       font_size = 25,
                       line_size = 1.5
                       ) {
-
   library(dplyr)
   library(purrr)
   library(glue)
   library(ggplot2)
 
-  results <- data.frame(sample_size, lr_log) %>%
+  if (!inherits(sprt_results, c("seq_anova_results", "seq_ttest_results"))) {
+    stop("sprt_results argument must be of class seq_anova_results or seq_ttest_results.")
+  }
+
+  A_boundary_log <- sprt_results@plot$A_boundary_log
+  B_boundary_log <- sprt_results@plot$B_boundary_log
+
+  results <- data.frame(lr_log = sprt_results@plot$lr_log,
+                        sample_size = sprt_results@plot$sample_size) %>%
     mutate(decision = case_when(
       lr_log >= A_boundary_log ~ "H1",
       lr_log <= B_boundary_log ~ "H0",
-      TRUE ~ "CC"
+      TRUE ~ "CS"
     ))
 
-  N <- nrow(results)
+  N_steps <- nrow(results)
+  N <- results$sample_size[N_steps]
+
   if (any(results$decision == "H1" | results$decision == "H0")) {
-    decision_sample_position <- which(results$decision != "CC")[1]
+    decision_sample_position <- which(results$decision != "CS")[1]
   } else{
     decision_sample_position <- 0
   }
 
-  max_lr <- max(abs(lr_log))
+  max_lr <- max(abs(results$lr_log))
 
   # set defaults ---------------------------------------------------------------
   palette <- "Dark2"
@@ -55,7 +65,7 @@ plot_sprt <- function(sample_size, lr_log, A_boundary_log, B_boundary_log,
   plot <- results %>%
     # slice(1:decision_sample_position) %>%
     ggplot(aes(x = sample_size, y = lr_log)) +
-    xlim(0 , sample_size[N] + sample_size[N]*0.15) +
+    xlim(0 , results$sample_size[N_steps] + results$sample_size[N_steps]*0.15) +
     geom_line(linewidth = line_size) +
     geom_hline(yintercept = A_boundary_log, linetype = "dashed", linewidth = line_size) +
     geom_hline(yintercept = B_boundary_log, linetype = "dashed", linewidth = line_size) +
@@ -69,26 +79,26 @@ plot_sprt <- function(sample_size, lr_log, A_boundary_log, B_boundary_log,
         geom_point(aes(x = sample_size[decision_sample_position], y = lr_log[decision_sample_position]),
                  color = red, size = line_size*4)
       if (labels == TRUE) {
-        LR <- round(exp(lr_log[decision_sample_position]))
-        nLR <- sample_size[decision_sample_position]
+        LR <- round(exp(results$lr_log[decision_sample_position]), 2)
+        nLR <- results$sample_size[decision_sample_position]
         plot <- plot +
           annotate(geom = "text",
-          x = sample_size[decision_sample_position] + sample_size[decision_sample_position]*0.05, y = 0,
+          x = results$sample_size[decision_sample_position] + results$sample_size[decision_sample_position]*0.05, y = 0,
           label = glue("LR[{nLR}] ==~ {LR}"),
           parse = TRUE,
           size = font_size/.pt, color = red)
       }
     } else{
       plot <- plot +
-        geom_point(aes(x = sample_size[N], y = lr_log[N]),
+        geom_point(aes(x = results$sample_size[N_steps], y = results$lr_log[N_steps]),
                    color = red, size = line_size*4)
       if (labels == TRUE) {
-        LR <- round(exp(lr_log[N]))
-        nLR <- sample_size[N]
-        if(lr_log[N]>0) {y_ = -0.5} else{y_ = 0.5}
+        LR <- round(exp(results$lr_log[N_steps]), 2)
+        nLR <- results$sample_size[N_steps]
+        if (results$lr_log[N_steps]>0) {y_ = -0.5} else{y_ = 0.5}
         plot <- plot +
           annotate(geom = "text",
-                   x = sample_size[N] + sample_size[N]*0.05,
+                   x = results$sample_size[N_steps] + results$sample_size[N_steps]*0.05,
                    y = y_,
                    label = glue("LR[{nLR}] ==~ {LR}"),
                    parse = TRUE,
@@ -97,70 +107,30 @@ plot_sprt <- function(sample_size, lr_log, A_boundary_log, B_boundary_log,
     }
 
     if (labels == TRUE) {
+      if (decision_sample_position == 0) {
+        h0_col <- "black"
+        h1_col <- "black"
+      } else if (results$decision[decision_sample_position] == "H1") {
+        h0_col <- "black"
+        h1_col <- red
+      } else if (results$decision[decision_sample_position] == "H0") {
+        h0_col <- red
+        h1_col <- "black"
+      }
       distance_h <- ceiling(max_lr*position_labels_y)
       plot <- plot +
         annotate(geom = "text", x = N*position_labels_x, y = A_boundary_log + distance_h,
-                label = "Accept~ H[1]", size = font_size/.pt, parse = TRUE) +
+                label = "Accept~ H[1]", size = font_size/.pt, parse = TRUE, color = h1_col) +
         annotate(geom = "text", x = N*position_labels_x, y = B_boundary_log - distance_h,
-                 label = "Accept~ H[0]", size = font_size/.pt, parse = TRUE)
+                 label = "Accept~ H[0]", size = font_size/.pt, parse = TRUE, color = h0_col)
         # annotate(geom = "text", x = 10, y = B_boundary_log + distance_h/2,
         #         label = "Continue Sampling")
     }
   plot
 }
-#
-# set.seed(333)
-# k_groups = 2
-# f_simulated = 0.40
-# f_expected = 0.40
-# alpha = 0.05
-# power = .95
-# max_n = 300
-# df <- sprtt::draw_sample_normal(k_groups, f_simulated,max_n)
-# N <- nrow(df)
-# seq_steps <- seq(k_groups*2, N, k_groups)
-# N_reduced <- length(seq_steps)
-# decision <- character(N_reduced)
-# lr_log <- double(N_reduced)
-# lr <- double(N_reduced)
-# f_empiric <- double(N_reduced)
-# sample_size <- double(N_reduced)
-# i = 1
-# for (step in seq_steps) {
-#   data <- df[1:step, ]
-#   seq_results <- sprtt::seq_anova(y~x,
-#                                   f = f_expected,
-#                                   alpha,
-#                                   power,
-#                                   data = data)
-#   decision[i] <- seq_results@decision
-#   lr_log[i] <- seq_results@likelihood_ratio_log
-#   lr[i] <- seq_results@likelihood_ratio
-#   f_empiric[i] <- seq_results@effect_sizes$cohens_f
-#   sample_size[i] <- step
-#   i <- i + 1
-# }
-# sprtt::plot_sprt(sample_size, lr_log,
-#           seq_results@A_boundary_log,
-#           seq_results@B_boundary_log
-#           )
-#
-# plot_sprt(sample_size, lr_log,
-#           seq_results@A_boundary_log,
-#           seq_results@B_boundary_log
-#           )
 
-# plot_sprt(sample_size, lr_log,
-#           seq_results@A_boundary_log,
-#           seq_results@B_boundary_log,
-#           labels = TRUE,
-#           position_labels_x = 1,
-#           position_labels_y = 1,
-#           font_size = 20,
-#           line_size = 1.5
-#           )
-
-# plot_sprt(sample_size, lr_log,
-#           seq_results@A_boundary_log,
-#           seq_results@B_boundary_log,
-#           labels = FALSE)
+# labels = TRUE
+# position_labels_x = 0.15
+# position_labels_y = 0.075
+# font_size = 25
+# line_size = 1.5

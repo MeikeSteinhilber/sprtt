@@ -17,7 +17,7 @@ build_prototype_seq_anova_arguments <- function(seed = 333, max_n = 50, f = 0.4,
   set.seed(seed)
   data <- draw_sample_normal(k_groups = k_groups, f = f, max_n = max_n)
   formula <- y~x
-  build_seq_anova_arguments(formula, data, 0.5, 0.05, 0.95, "test name", TRUE)
+  build_seq_anova_arguments(formula, data, 0.4, 0.05, 0.95, "test name", TRUE)
 }
 
 setValidity(

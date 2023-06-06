@@ -17,6 +17,7 @@
 #' @param power 1 - beta (beta is the type II error probability). A number
 #' between 0 and 1.
 #' @param verbose a logical value whether you want a verbose output or not.
+#' @param plot create an automatic plot.
 #'
 #'@return An object of the S4 class [`seq_anova_results-class`]. Click on the
 #' class link to see the full description of the slots.
@@ -36,7 +37,9 @@ seq_anova <- function(
   alpha = 0.05,
   power = 0.95,
   data,
-  verbose = TRUE
+  verbose = TRUE,
+  plot = FALSE,
+  seq_steps = "single"
 ) {
   # get the original names of the variables
   data_name <- deparse(substitute(formula))
@@ -56,5 +59,11 @@ seq_anova <- function(
     calc_seq_anova(
       seq_anova_arguments
     )
+  if (plot){
+    seq_anova_results <- calc_plot_anova(
+      seq_anova_arguments,
+      seq_steps
+    )
+  }
   seq_anova_results
 }
