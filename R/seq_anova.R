@@ -17,7 +17,16 @@
 #' @param power 1 - beta (beta is the type II error probability). A number
 #' between 0 and 1.
 #' @param verbose a logical value whether you want a verbose output or not.
-#' @param plot create an automatic plot.
+#' @param plot calculates the ANOVA sequentially on the data and saves the results in the slot called plot.
+#' This calculation is necessary for the plot_sprt() function.
+#' @param seq_steps Defines the sequential steps for the sequential calculation if `plot = TRUE`.
+#' Argument takes either a vector of numbers or the argument `single` or `balanced`.
+#' A vector of numbers specifies the sample sizes at which the anova is calculated.
+#' `single` specifies that after each single point the test statistic is calculated (step size = 1).
+#' Attention: the calculation starts at the number of groups times two.
+#' If the data do not fit to this, you have to specify the sequential steps yourself in this argument.
+#' `balanced` specifies that the step size is equal to the number of groups.
+#' Attention: the calculation starts at the number of groups times two.
 #'
 #'@return An object of the S4 class [`seq_anova_results-class`]. Click on the
 #' class link to see the full description of the slots.

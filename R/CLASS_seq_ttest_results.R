@@ -62,7 +62,8 @@ setClass(
     one_sample = "logical",
     ttest_method = "character",
     data_name = "character",
-    verbose = "logical"
+    verbose = "logical",
+    plot = "ANY"
   )
 )
 
