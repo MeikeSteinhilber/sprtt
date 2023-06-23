@@ -13,14 +13,16 @@ draw_sample_normal(k_groups, f, max_n, sd = NULL, sample_ratio = NULL)
 
 \item{max_n}{sample size for the groups (total sample size = max_n*k_groups)}
 
-\item{sd}{standard deviations of the groups. Default value is 1 for each group.}
+\item{sd}{vector of standard deviations of the groups. Default value is 1 for each group.}
 
-\item{sample_ratio}{sample ratio between th groups. Default value is 1 for each group.}
+\item{sample_ratio}{vector of sample ratios between th groups. Default value is 1 for each group.}
 }
 \value{
 returns a data.frame with the columns y (observations) and x (factor_A).
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Draws exemplary samples with a certain effect size for the sequential one-oway ANOVA or the sequential t-test.
 }
 \examples{

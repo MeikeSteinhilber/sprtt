@@ -111,15 +111,8 @@ calc_effect_sizes <- function(seq_anova_arguments, ss_effect, ss_total, F_statis
 }
 
 
-#' Calculate effect sizes.
-#'
-#' @param formula formula
-#' @param data data set
-#'
-#' @return MISSING DESCRIPTION
-#' @export
-#'
-#' @examples "no examples yet"
+# potentially a public function ------------------------------------------------
+
 effect_sizes <- function(formula, data) {
   if (is.null(formula)) {stop("formula argument is missing")}
   if (is.null(data)) {stop("data argument is missing")}

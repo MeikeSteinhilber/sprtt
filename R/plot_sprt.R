@@ -1,25 +1,33 @@
-#' Plot Results of SPRTs
+#' Plot Sequential ANOVA Results
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' Creates plots for the results of the seq_anova() function.
 #'
 # #' @param sample_size sample size.
 # #' @param lr_log log-likelihood-ratio.
 # #' @param A_boundary_log Log of the A boundary.
 # #' @param B_boundary_log Log of the B boundary.
-#' @param sprt_results result object of a seq_ttest() or a seq_anova()
+#' @param anova_results result object of the seq_anova() function (argument must be of class seq_anova_results).
 #' @param labels show labels in the plot.
-#' @param position_labels_x position of the boundary labels on the x-axis
-#' @param position_labels_y position of the boundary labels on the y-axis
-#' @param font_size font size of the plot
-#' @param line_size line size of the plot
+#' @param position_labels_x position of the boundary labels on the x-axis.
+#' @param position_labels_y position of the boundary labels on the y-axis.
+#' @param position_lr_x scales the position of the LR label on the x-axis.
+#' @param font_size font size of the plot.
+#' @param line_size line size of the plot.
 #' @param highlight_color highlighting color, default is red.
 #'
 #' @return returns a plot
 #' @export
 #'
-#' @examples inst/examples/sprt_plot.R
-plot_sprt <- function(sprt_results,
+#' @example inst/examples/plot_anova.R
+#'
+plot_anova <- function(anova_results,
                       labels = TRUE,
                       position_labels_x = 0.15,
                       position_labels_y = 0.075,
+                      position_lr_x = 0.05,
                       font_size = 25,
                       line_size = 1.5,
                       highlight_color = "#CD2626"
@@ -29,15 +37,18 @@ plot_sprt <- function(sprt_results,
   library(glue)
   library(ggplot2)
 
-  if (!inherits(sprt_results, c("seq_anova_results", "seq_ttest_results"))) {
-    stop("sprt_results argument must be of class seq_anova_results or seq_ttest_results.")
+  if (inherits(anova_results, c("seq_ttest_results"))) {
+    stop("The plot_anova() function only works for sequential anovas (anova_results argument must be of class seq_anova_results).")
+  }
+  if (!inherits(anova_results, c("seq_anova_results"))) {
+    stop("anova_results argument must be of class seq_anova_results.")
   }
 
-  A_boundary_log <- sprt_results@plot$A_boundary_log
-  B_boundary_log <- sprt_results@plot$B_boundary_log
+  A_boundary_log <- anova_results@plot$A_boundary_log
+  B_boundary_log <- anova_results@plot$B_boundary_log
 
-  results <- data.frame(lr_log = sprt_results@plot$lr_log,
-                        sample_size = sprt_results@plot$sample_size) %>%
+  results <- data.frame(lr_log = anova_results@plot$lr_log,
+                        sample_size = anova_results@plot$sample_size) %>%
     mutate(decision = case_when(
       lr_log >= A_boundary_log ~ "H1",
       lr_log <= B_boundary_log ~ "H0",
@@ -85,14 +96,14 @@ plot_sprt <- function(sprt_results,
         nLR <- results$sample_size[decision_sample_position]
         plot <- plot +
           annotate(geom = "text",
-          x = results$sample_size[decision_sample_position] + results$sample_size[decision_sample_position]*0.05, y = 0,
+          x = results$sample_size[decision_sample_position] + results$sample_size[decision_sample_position]*position_lr_x, y = 0,
           label = glue("LR[{nLR}] ==~ {LR}"),
           parse = TRUE,
           size = font_size/.pt, color = highlight_color)
       }
     } else{
       plot <- plot +
-        geom_point(aes(x = results$sample_size[N_steps], y = results$lr_log[N_steps]),
+        geom_point(aes(x = sample_size[N_steps], y = lr_log[N_steps]),
                    color = highlight_color, size = line_size*4)
       if (labels == TRUE) {
         LR <- round(exp(results$lr_log[N_steps]), 2)
@@ -100,7 +111,7 @@ plot_sprt <- function(sprt_results,
         if (results$lr_log[N_steps]>0) {y_ = -0.5} else{y_ = 0.5}
         plot <- plot +
           annotate(geom = "text",
-                   x = results$sample_size[N_steps] + results$sample_size[N_steps]*0.05,
+                   x = results$sample_size[N_steps] + results$sample_size[N_steps]*position_lr_x,
                    y = y_,
                    label = glue("LR[{nLR}] ==~ {LR}"),
                    parse = TRUE,
@@ -136,3 +147,5 @@ plot_sprt <- function(sprt_results,
 # position_labels_y = 0.075
 # font_size = 25
 # line_size = 1.5
+# highlight_color = "#CD2626"
+# position_lr_x = 0.05

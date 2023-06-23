@@ -38,7 +38,8 @@ Imports:
     MBESS,
     purrr,
     glue,
-    ggplot2
+    ggplot2,
+    lifecycle
 Suggests:
     knitr,
     rmarkdown,

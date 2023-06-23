@@ -7,7 +7,10 @@
 #'
 #---- MAIN FUNCTION DOCUMENTATION ----------------------------------------------
 #' @title Sequential Analysis of Variance
-#' @description Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) <>
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) <>
 #' for more information.
 #'
 #' @param formula A formula specifying the model.
@@ -18,7 +21,7 @@
 #' between 0 and 1.
 #' @param verbose a logical value whether you want a verbose output or not.
 #' @param plot calculates the ANOVA sequentially on the data and saves the results in the slot called plot.
-#' This calculation is necessary for the plot_sprt() function.
+#' This calculation is necessary for the plot_anova() function.
 #' @param seq_steps Defines the sequential steps for the sequential calculation if `plot = TRUE`.
 #' Argument takes either a vector of numbers or the argument `single` or `balanced`.
 #' A vector of numbers specifies the sample sizes at which the anova is calculated.
@@ -68,7 +71,7 @@ seq_anova <- function(
     calc_seq_anova(
       seq_anova_arguments
     )
-  if (plot){
+  if (plot) {
     seq_anova_results <- calc_plot_anova(
       seq_anova_arguments,
       seq_steps

@@ -10,5 +10,5 @@
     Code
       show(calc_non_centrality_parameter_anova(seq_anova_arguments))
     Output
-      [1] 50
+      [1] 32
 

@@ -34,16 +34,6 @@
 #' @param na.rm a logical value indicating whether `NA` values should be
 #' stripped before the computation proceeds.
 #' @param verbose a logical value whether you want a verbose output or not.
-#' @param plot calculates the ANOVA sequentially on the data and saves the results in the slot called plot.
-#' This calculation is necessary for the plot_sprt() function.
-#' @param seq_steps Defines the sequential steps for the sequential calculation if `plot = TRUE`.
-#' Argument takes either a vector of numbers or the argument `single` or `balanced`.
-#' A vector of numbers specifies the sample sizes at which the t-test is calculated.
-#' `single` specifies that after each single point the test statistic is calculated (step size = 1).
-#' Attention: the calculation starts at the number of groups times two.
-#' If the data do not fit to this, you have to specify the sequential steps yourself in this argument.
-#' `balanced` specifies that the step size is equal to the number of groups.
-#' Attention: the calculation starts at the number of groups times two.
 #'
 #' @return An object of the S4 class [`seq_ttest_results-class`]. Click on the
 #' class link to see the full description of the slots.
@@ -68,9 +58,7 @@ seq_ttest <- function(
   alternative = "two.sided",
   paired = FALSE,
   na.rm = TRUE,
-  verbose = TRUE,
-  plot = FALSE,
-  seq_steps = "balanced"
+  verbose = TRUE
 ){
   # get the original names of the variables
   input1_name <- deparse(substitute(x))
@@ -102,12 +90,6 @@ seq_ttest <- function(
       seq_ttest_arguments,
       verbose
     )
-  if (plot) {
-    seq_ttest_results <- calc_plot_ttest(
-      seq_ttest_arguments,
-      seq_steps
-    )
-  }
   seq_ttest_results
 }
 

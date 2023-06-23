@@ -13,14 +13,16 @@ draw_sample_mixture(k_groups, f, max_n, counter_n = 100, verbose = FALSE)
 
 \item{max_n}{sample size for the groups (total sample size = max_n*k_groups)}
 
-\item{counter_n}{number of times the functions. Default value is 1 for each group.}
+\item{counter_n}{number of times the function tries to find a possible parameter combination for the distribution. Default value is set to 100.}
 
-\item{sample_ratio}{sample ratio between th groups. Default value is 1 for each group.}
+\item{verbose}{\code{TRUE} or \code{FALSE.} Print out more information about the internal process of drawing parameters.}
 }
 \value{
 returns a data.frame with the columns y (observations) and x (factor_A).
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Draws exemplary samples with a certain effect size for the sequential one-oway ANOVA or the sequential t-test.
 }
 \examples{

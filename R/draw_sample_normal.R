@@ -1,9 +1,12 @@
 #' @title Draw Samples from a Normal Distribution
-#' @description Draws exemplary samples with a certain effect size for the sequential one-oway ANOVA or the sequential t-test.
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' Draws exemplary samples with a certain effect size for the sequential one-oway ANOVA or the sequential t-test.
 #' @param k_groups number of groups (levels of factor_A)
 #' @param f Cohen's f. The simulated effect size.
-#' @param sd standard deviations of the groups. Default value is 1 for each group.
-#' @param sample_ratio sample ratio between th groups. Default value is 1 for each group.
+#' @param sd vector of standard deviations of the groups. Default value is 1 for each group.
+#' @param sample_ratio vector of sample ratios between th groups. Default value is 1 for each group.
 #' @param max_n sample size for the groups (total sample size = max_n*k_groups)
 #'
 #' @return returns a data.frame with the columns y (observations) and x (factor_A).
@@ -13,12 +16,13 @@
 #' @example inst/examples/draw_sample_normal.R
 
 
+
 draw_sample_normal <- function(
-    k_groups,
-    f,
-    max_n,
-    sd = NULL,
-    sample_ratio = NULL
+  k_groups,
+  f,
+  max_n,
+  sd = NULL,
+  sample_ratio = NULL
 ) {
 
   if (is.null(sd)) {sd <- rep(1, k_groups)}

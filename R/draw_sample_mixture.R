@@ -9,12 +9,15 @@ rnorm_mix <- function(n, mu1, sig1, mu2, sig2, gamma) {
 
 
 #' @title Draw Samples from a Gaussian Mixture Distribution
-#' @description Draws exemplary samples with a certain effect size for the sequential one-oway ANOVA or the sequential t-test.
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' Draws exemplary samples with a certain effect size for the sequential one-oway ANOVA or the sequential t-test.
 #' @param k_groups number of groups (levels of factor_A)
 #' @param f Cohen's f. The simulated effect size.
 #' @param max_n sample size for the groups (total sample size = max_n*k_groups)
-#' @param counter_n number of times the functions. Default value is 1 for each group.
-#' @param sample_ratio sample ratio between th groups. Default value is 1 for each group.
+#' @param counter_n number of times the function tries to find a possible parameter combination for the distribution. Default value is set to 100.
+#' @param verbose `TRUE` or `FALSE.` Print out more information about the internal process of drawing parameters.
 #'
 #' @return returns a data.frame with the columns y (observations) and x (factor_A).
 #'
@@ -23,12 +26,13 @@ rnorm_mix <- function(n, mu1, sig1, mu2, sig2, gamma) {
 #' @example inst/examples/draw_sample_mixture.R
 
 
+
 draw_sample_mixture <- function(
-    k_groups,
-    f,
-    max_n,
-    counter_n = 100,
-    verbose = FALSE
+  k_groups,
+  f,
+  max_n,
+  counter_n = 100,
+  verbose = FALSE
 ) {
   gamma <- 0.5
   sd <- rep(1, k_groups)

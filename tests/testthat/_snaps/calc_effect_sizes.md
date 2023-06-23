@@ -107,18 +107,18 @@
       
       formula: formula
       test statistic:
-       log-likelihood ratio = -0.02, decision = continue sampling
+       log-likelihood ratio = -0.052, decision = continue sampling
       SPRT thresholds:
        lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -0.618
-       null hypothesis = -0.599
+       alternative hypothesis = -0.412
+       null hypothesis = -0.36
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.01
-      empirical Cohen's f = 0.03505691, 95% CI[NA, 0.06839278]
+      empirical Cohen's f = 0.02693014, 95% CI[NA, 0.05742471]
       Cohen's f adjusted = 0
       degrees of freedom: df1 = 3, df2 = 1996
-      SS effect = 2.382222, SS residual = 1938.363, SS total = 1940.745
+      SS effect = 1.405763, SS residual = 1938.363, SS total = 1939.768
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -127,34 +127,34 @@
       effect_sizes(formula, df_0.01_effect)
     Output
       $cohens_f
-      [1] 0.03505691
+      [1] 0.02693014
       
       $ci_cohens_f_lower
       [1] NA
       
       $ci_cohens_f_upper
-      [1] 0.06839278
+      [1] 0.05742471
       
       $cohens_f_adj
       [1] 0
       
       $cohens_f_median
-      [1] 0.00736012
+      [1] 0
       
       $eta_squared
-      [1] 0.001227478
+      [1] 0.0007247067
       
       $partial_eta_squared
-      [1] 0.001227478
+      [1] 0.0007247067
       
       $adjusted_eta_squared
-      [1] -0.0002736831
+      [1] -0.00077721
       
       $ci_ncp_lower
       [1] NA
       
       $ci_ncp_upper
-      [1] 9.355144
+      [1] 6.595196
       
 
 ---
@@ -163,34 +163,34 @@
       effect_sizes(formula, df_0.10_effect)
     Output
       $cohens_f
-      [1] 0.1684673
+      [1] 0.08548456
       
       $ci_cohens_f_lower
-      [1] 0.08794376
+      [1] NA
       
       $ci_cohens_f_upper
-      [1] 0.231446
+      [1] 0.1432724
       
       $cohens_f_adj
-      [1] 0.1562638
+      [1] 0.05918448
       
       $cohens_f_median
-      [1] 0.1603155
+      [1] 0.06829665
       
       $eta_squared
-      [1] 0.02759796
+      [1] 0.007254596
       
       $partial_eta_squared
-      [1] 0.02759796
+      [1] 0.007254596
       
       $adjusted_eta_squared
-      [1] 0.02393312
+      [1] 0.003513093
       
       $ci_ncp_lower
-      [1] 6.187283
+      [1] NA
       
       $ci_ncp_upper
-      [1] 42.8538
+      [1] 16.42159
       
 
 ---
@@ -199,34 +199,34 @@
       effect_sizes(formula, df_0.25_effect)
     Output
       $cohens_f
-      [1] 0.5876266
+      [1] 0.3951891
       
       $ci_cohens_f_lower
-      [1] 0.4005198
+      [1] 0.212692
       
       $ci_cohens_f_upper
-      [1] 0.7491918
+      [1] 0.5496487
       
       $cohens_f_adj
-      [1] 0.5660932
+      [1] 0.3709923
       
       $cohens_f_median
-      [1] 0.5748888
+      [1] 0.3818288
       
       $eta_squared
-      [1] 0.2566742
+      [1] 0.1350786
       
       $partial_eta_squared
-      [1] 0.2566742
+      [1] 0.1350786
       
       $adjusted_eta_squared
-      [1] 0.2465609
+      [1] 0.123311
       
       $ci_ncp_lower
-      [1] 24.06241
+      [1] 6.785684
       
       $ci_ncp_upper
-      [1] 84.19325
+      [1] 45.31705
       
 
 ---
@@ -235,34 +235,34 @@
       effect_sizes(formula, df_0.40_effect)
     Output
       $cohens_f
-      [1] 1.234514
+      [1] 0.5759504
       
       $ci_cohens_f_lower
-      [1] 0.7656959
+      [1] 0.1342421
       
       $ci_cohens_f_upper
-      [1] 1.513616
+      [1] 0.7988566
       
       $cohens_f_adj
-      [1] 1.109352
+      [1] 0.4530764
       
       $cohens_f_median
-      [1] 1.13752
+      [1] 0.4838036
       
       $eta_squared
-      [1] 0.6038075
+      [1] 0.2490908
       
       $partial_eta_squared
-      [1] 0.6038075
+      [1] 0.2490908
       
       $adjusted_eta_squared
-      [1] 0.5685904
+      [1] 0.1823433
       
       $ci_ncp_lower
-      [1] 29.31451
+      [1] 0.9010465
       
       $ci_ncp_upper
-      [1] 114.5517
+      [1] 31.90859
       
 
 ---
@@ -271,34 +271,34 @@
       effect_sizes(formula, df_2_effect)
     Output
       $cohens_f
-      [1] 2.676148
+      [1] 1.710485
       
       $ci_cohens_f_lower
-      [1] 1.598912
+      [1] 0.928781
       
       $ci_cohens_f_upper
-      [1] 3.462505
+      [1] 2.297912
       
       $cohens_f_adj
-      [1] 2.383152
+      [1] 1.513475
       
       $cohens_f_median
-      [1] 2.494348
+      [1] 1.595753
       
       $eta_squared
-      [1] 0.8774775
+      [1] 0.7452722
       
       $partial_eta_squared
-      [1] 0.8774775
+      [1] 0.7452722
       
       $adjusted_eta_squared
-      [1] 0.8706707
+      [1] 0.7311207
       
       $ci_ncp_lower
-      [1] 51.1304
+      [1] 17.25268
       
       $ci_ncp_upper
-      [1] 239.7788
+      [1] 105.608
       
 
 ---
@@ -343,34 +343,34 @@
       effect_sizes(formula, df_0.01_effect)
     Output
       $cohens_f
-      [1] 0.03505691
+      [1] 0.02693014
       
       $ci_cohens_f_lower
       [1] NA
       
       $ci_cohens_f_upper
-      [1] 0.06839278
+      [1] 0.05742471
       
       $cohens_f_adj
       [1] 0
       
       $cohens_f_median
-      [1] 0.00736012
+      [1] 0
       
       $eta_squared
-      [1] 0.001227478
+      [1] 0.0007247067
       
       $partial_eta_squared
-      [1] 0.001227478
+      [1] 0.0007247067
       
       $adjusted_eta_squared
-      [1] -0.0002736831
+      [1] -0.00077721
       
       $ci_ncp_lower
       [1] NA
       
       $ci_ncp_upper
-      [1] 9.355144
+      [1] 6.595196
       
 
 ---
@@ -379,34 +379,34 @@
       effect_sizes(formula, df_0.10_effect)
     Output
       $cohens_f
-      [1] 0.1684673
+      [1] 0.08548456
       
       $ci_cohens_f_lower
-      [1] 0.08794376
+      [1] NA
       
       $ci_cohens_f_upper
-      [1] 0.231446
+      [1] 0.1432724
       
       $cohens_f_adj
-      [1] 0.1562638
+      [1] 0.05918448
       
       $cohens_f_median
-      [1] 0.1603155
+      [1] 0.06829665
       
       $eta_squared
-      [1] 0.02759796
+      [1] 0.007254596
       
       $partial_eta_squared
-      [1] 0.02759796
+      [1] 0.007254596
       
       $adjusted_eta_squared
-      [1] 0.02393312
+      [1] 0.003513093
       
       $ci_ncp_lower
-      [1] 6.187283
+      [1] NA
       
       $ci_ncp_upper
-      [1] 42.8538
+      [1] 16.42159
       
 
 ---
@@ -415,34 +415,34 @@
       effect_sizes(formula, df_0.25_effect)
     Output
       $cohens_f
-      [1] 0.5876266
+      [1] 0.3951891
       
       $ci_cohens_f_lower
-      [1] 0.4005198
+      [1] 0.212692
       
       $ci_cohens_f_upper
-      [1] 0.7491918
+      [1] 0.5496487
       
       $cohens_f_adj
-      [1] 0.5660932
+      [1] 0.3709923
       
       $cohens_f_median
-      [1] 0.5748888
+      [1] 0.3818288
       
       $eta_squared
-      [1] 0.2566742
+      [1] 0.1350786
       
       $partial_eta_squared
-      [1] 0.2566742
+      [1] 0.1350786
       
       $adjusted_eta_squared
-      [1] 0.2465609
+      [1] 0.123311
       
       $ci_ncp_lower
-      [1] 24.06241
+      [1] 6.785684
       
       $ci_ncp_upper
-      [1] 84.19325
+      [1] 45.31705
       
 
 ---
@@ -451,34 +451,34 @@
       effect_sizes(formula, df_0.40_effect)
     Output
       $cohens_f
-      [1] 1.234514
+      [1] 0.5759504
       
       $ci_cohens_f_lower
-      [1] 0.7656959
+      [1] 0.1342421
       
       $ci_cohens_f_upper
-      [1] 1.513616
+      [1] 0.7988566
       
       $cohens_f_adj
-      [1] 1.109352
+      [1] 0.4530764
       
       $cohens_f_median
-      [1] 1.13752
+      [1] 0.4838036
       
       $eta_squared
-      [1] 0.6038075
+      [1] 0.2490908
       
       $partial_eta_squared
-      [1] 0.6038075
+      [1] 0.2490908
       
       $adjusted_eta_squared
-      [1] 0.5685904
+      [1] 0.1823433
       
       $ci_ncp_lower
-      [1] 29.31451
+      [1] 0.9010465
       
       $ci_ncp_upper
-      [1] 114.5517
+      [1] 31.90859
       
 
 ---
@@ -487,33 +487,33 @@
       effect_sizes(formula, df_2_effect)
     Output
       $cohens_f
-      [1] 2.676148
+      [1] 1.710485
       
       $ci_cohens_f_lower
-      [1] 1.598912
+      [1] 0.928781
       
       $ci_cohens_f_upper
-      [1] 3.462505
+      [1] 2.297912
       
       $cohens_f_adj
-      [1] 2.383152
+      [1] 1.513475
       
       $cohens_f_median
-      [1] 2.494348
+      [1] 1.595753
       
       $eta_squared
-      [1] 0.8774775
+      [1] 0.7452722
       
       $partial_eta_squared
-      [1] 0.8774775
+      [1] 0.7452722
       
       $adjusted_eta_squared
-      [1] 0.8706707
+      [1] 0.7311207
       
       $ci_ncp_lower
-      [1] 51.1304
+      [1] 17.25268
       
       $ci_ncp_upper
-      [1] 239.7788
+      [1] 105.608
       
 

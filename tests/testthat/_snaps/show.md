@@ -190,18 +190,18 @@
       
       formula: y ~ x
       test statistic:
-       log-likelihood ratio = 25.766, decision = accept H1
+       log-likelihood ratio = 5.579, decision = accept H1
       SPRT thresholds:
        lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -15.634
-       null hypothesis = -41.399
+       alternative hypothesis = -1.768
+       null hypothesis = -7.348
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.25
-      empirical Cohen's f = 0.5684415, 95% CI[0.4381841, 0.6727351]
-      Cohen's f adjusted = 0.551
+      empirical Cohen's f = 0.255582, 95% CI[0.1175887, 0.3478401]
+      Cohen's f adjusted = 0.228
       degrees of freedom: df1 = 4, df2 = 325
-      SS effect = 101.4047, SS residual = 313.8243, SS total = 415.229
+      SS effect = 20.49968, SS residual = 313.8243, SS total = 334.324
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -214,18 +214,18 @@
       
       formula: happiness ~ job_satisfaction
       test statistic:
-       log-likelihood ratio = 6.301, decision = accept H1
+       log-likelihood ratio = 4.66, decision = accept H1
       SPRT thresholds:
        lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -11.577
-       null hypothesis = -17.878
+       alternative hypothesis = -6.628
+       null hypothesis = -11.288
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.25
-      empirical Cohen's f = 0.9490388, 95% CI[0.5851251, 1.265912]
-      Cohen's f adjusted = 0.897
+      empirical Cohen's f = 0.6758475, 95% CI[0.3452897, 0.9720489]
+      Cohen's f adjusted = 0.631
       degrees of freedom: df1 = 1, df2 = 46
-      SS effect = 38.46891, SS residual = 42.71121, SS total = 81.18012
+      SS effect = 19.50919, SS residual = 42.71121, SS total = 62.2204
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -238,18 +238,18 @@
       
       formula: y ~ x
       test statistic:
-       log-likelihood ratio = 0.301, decision = continue sampling
+       log-likelihood ratio = -0.036, decision = continue sampling
       SPRT thresholds:
        lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:
-       alternative hypothesis = -1.701
-       null hypothesis = -2.003
+       alternative hypothesis = -0.799
+       null hypothesis = -0.763
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.1
-      empirical Cohen's f = 0.2860107, 95% CI[NA, 0.4669503]
-      Cohen's f adjusted = 0.195
+      empirical Cohen's f = 0.1958652, 95% CI[NA, 0.3634934]
+      Cohen's f adjusted = 0
       degrees of freedom: df1 = 3, df2 = 76
-      SS effect = 8.419127, SS residual = 102.9206, SS total = 111.3398
+      SS effect = 3.948363, SS residual = 102.9206, SS total = 106.869
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -262,18 +262,18 @@
       
       formula: y ~ x
       test statistic:
-       log-likelihood ratio = 12.131, decision = accept H1
+       log-likelihood ratio = 7.792, decision = accept H1
       SPRT thresholds:
        lower log(B) = -2.639, upper log(A) = 1.153
       Log-Likelihood of the:
-       alternative hypothesis = -11.005
-       null hypothesis = -23.137
+       alternative hypothesis = -5.07
+       null hypothesis = -12.862
       alternative hypothesis: true difference in means is not equal to 0.
       specified effect size: Cohen's f = 0.25
-      empirical Cohen's f = 0.6372944, 95% CI[0.4346269, 0.8270501]
-      Cohen's f adjusted = 0.62
+      empirical Cohen's f = 0.4366689, 95% CI[0.2449371, 0.6194111]
+      Cohen's f adjusted = 0.42
       degrees of freedom: df1 = 1, df2 = 118
-      SS effect = 53.44752, SS residual = 131.5974, SS total = 185.0449
+      SS effect = 25.09296, SS residual = 131.5974, SS total = 156.6904
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 ---
@@ -286,7 +286,7 @@
       
       formula: y ~ x
       test statistic:
-       log-likelihood ratio = 14.19, decision = accept H1
+       log-likelihood ratio = 10.2, decision = accept H1
       SPRT thresholds:
        lower log(B) = -2.944, upper log(A) = 2.944
 

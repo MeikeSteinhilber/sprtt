@@ -30,7 +30,7 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' @slot total_sample_size total sample size.
 #' @slot data_name a character string giving the name(s) of the data.
 #' @slot verbose a logical value whether you want a verbose output or not.
-#' @param plot list with all arguments for the plot_sprt() function
+#' @param plot list with all arguments for the plot_anova() function
 #'
 #' @keywords internal
 setClass(

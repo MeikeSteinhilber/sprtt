@@ -5,7 +5,7 @@
 \alias{seq_anova_results-class}
 \title{An S4 class to represent the results of a sequential anova.}
 \arguments{
-\item{plot}{list with all arguments for the plot_sprt() function}
+\item{plot}{list with all arguments for the plot_anova() function}
 }
 \description{
 An S4 class to represent the results of a sequential anova.
