@@ -17,7 +17,7 @@ rnorm_mix <- function(n, mu1, sig1, mu2, sig2, gamma) {
 #' @param f Cohen's f. The simulated effect size.
 #' @param max_n sample size for the groups (total sample size = max_n*k_groups)
 #' @param counter_n number of times the function tries to find a possible parameter combination for the distribution. Default value is set to 100.
-#' @param verbose `TRUE` or `FALSE.` Print out more information about the internal process of drawing parameters.
+#' @param verbose `TRUE` or `FALSE.` Print out more information about the internal process of sampling the parameters.
 #'
 #' @return returns a data.frame with the columns y (observations) and x (factor_A).
 #'
@@ -87,13 +87,13 @@ draw_sample_mixture <- function(
   if (verbose == TRUE & f > 1.5) {message(paste(c("f values larger than 1.5 should not be used in this function.")))}
   if (any(test)) {stop("Internal calulation failed: try to increase counter_n or decrease f and set verbose to TRUE.")}
 
-
-
   # calculate variance
   factor <- runif(k_groups, min = 0.8, max = 1)
   variance_12 = 2*sd^2-0.5*(mean1-mean2)^2
   sigma1 = sqrt(variance_12 * factor)
   sigma2 = sqrt(variance_12 * (1-factor))
+
+  if (verbose) {print(glue::glue("{rep('\n',k_groups)}group{1:k_groups}:\nmean1 = {mean1}, mean2 = {mean2},\nsigma1 = {sigma1}, sigma2 = {sigma2}"))}
 
   position <- 1
   data <- matrix(double(total_sample_size*2), ncol = 2)
@@ -117,12 +117,18 @@ draw_sample_mixture <- function(
   data.frame(y = data[, 1], x = as.factor(data[, 2]))
 }
 
-
+# data <- draw_sample_mixture(
+#     k_groups = 2,
+#     f = 0.4,
+#     max_n = 10,
+#     counter_n = 100,
+#     verbose = TRUE
+# )
 
 
 # k_groups = 4
-# f = 1
-# f = 1.51
+# f = 0.4
+# # f = 1.51
 # max_n = 50
 # counter_n = 100
-# verbose = FALSE
+# verbose = TRUE

@@ -15,7 +15,7 @@ draw_sample_mixture(k_groups, f, max_n, counter_n = 100, verbose = FALSE)
 
 \item{counter_n}{number of times the function tries to find a possible parameter combination for the distribution. Default value is set to 100.}
 
-\item{verbose}{\code{TRUE} or \code{FALSE.} Print out more information about the internal process of drawing parameters.}
+\item{verbose}{\code{TRUE} or \code{FALSE.} Print out more information about the internal process of sampling the parameters.}
 }
 \value{
 returns a data.frame with the columns y (observations) and x (factor_A).
