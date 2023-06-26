@@ -46,7 +46,8 @@ Suggests:
     testthat (>= 3.0.0),
     testthis,
     effsize,
-    effectsize
+    effectsize,
+    vdiffr
 VignetteBuilder:
     knitr
 Encoding: UTF-8

@@ -1,5 +1,5 @@
 #---- GENERAL SETTINGS ---------------------------------------------------------
-#' @importFrom stats dt df model.frame
+#' @importFrom stats dt df model.frame as.formula runif
 #' @importFrom methods callNextMethod new validObject
 #' @importFrom MBESS conf.limits.ncf
 #' @import dplyr

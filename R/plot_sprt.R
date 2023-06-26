@@ -18,6 +18,8 @@
 #' @param line_size line size of the plot.
 #' @param highlight_color highlighting color, default is red.
 #'
+#' @import ggplot2 glue purrr
+#'
 #' @return returns a plot
 #' @export
 #'
@@ -32,10 +34,6 @@ plot_anova <- function(anova_results,
                       line_size = 1.5,
                       highlight_color = "#CD2626"
                       ) {
-  library(dplyr)
-  library(purrr)
-  library(glue)
-  library(ggplot2)
 
   if (inherits(anova_results, c("seq_ttest_results"))) {
     stop("The plot_anova() function only works for sequential anovas (anova_results argument must be of class seq_anova_results).")
@@ -50,8 +48,8 @@ plot_anova <- function(anova_results,
   results <- data.frame(lr_log = anova_results@plot$lr_log,
                         sample_size = anova_results@plot$sample_size) %>%
     mutate(decision = case_when(
-      lr_log >= A_boundary_log ~ "H1",
-      lr_log <= B_boundary_log ~ "H0",
+      .data$lr_log >= A_boundary_log ~ "H1",
+      .data$lr_log <= B_boundary_log ~ "H0",
       TRUE ~ "CS"
     ))
 
@@ -77,7 +75,7 @@ plot_anova <- function(anova_results,
 
   plot <- results %>%
     # slice(1:decision_sample_position) %>%
-    ggplot(aes(x = sample_size, y = lr_log)) +
+    ggplot(aes(x = .data$sample_size, y = .data$lr_log)) +
     xlim(0 , results$sample_size[N_steps] + results$sample_size[N_steps]*0.15) +
     geom_line(linewidth = line_size) +
     geom_hline(yintercept = A_boundary_log, linetype = "dashed", linewidth = line_size) +
@@ -89,7 +87,7 @@ plot_anova <- function(anova_results,
 
     if (decision_sample_position > 0) {
       plot <- plot +
-        geom_point(aes(x = sample_size[decision_sample_position], y = lr_log[decision_sample_position]),
+        geom_point(aes(x = .data$sample_size[decision_sample_position], y = .data$lr_log[decision_sample_position]),
                  color = highlight_color, size = line_size*4)
       if (labels == TRUE) {
         LR <- round(exp(results$lr_log[decision_sample_position]), 2)
@@ -103,7 +101,7 @@ plot_anova <- function(anova_results,
       }
     } else{
       plot <- plot +
-        geom_point(aes(x = sample_size[N_steps], y = lr_log[N_steps]),
+        geom_point(aes(x = .data$sample_size[N_steps], y = .data$lr_log[N_steps]),
                    color = highlight_color, size = line_size*4)
       if (labels == TRUE) {
         LR <- round(exp(results$lr_log[N_steps]), 2)
