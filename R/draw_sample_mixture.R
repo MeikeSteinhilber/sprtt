@@ -38,9 +38,6 @@ draw_sample_mixture <- function(
   sd <- rep(1, k_groups)
   sample_ratio <- rep(1, k_groups)
 
-  if (is.null(sd)) {sd <- rep(1, k_groups)}
-  if (is.null(sample_ratio)) {sample_ratio <- rep(1, k_groups)}
-
   if (!is.numeric(k_groups)) {stop("argument k_groups must be numeric.")}
   if (k_groups <= 1) {stop("argument k_groups must be larger than 1.")}
 
@@ -52,12 +49,6 @@ draw_sample_mixture <- function(
 
   if (!is.numeric(counter_n)) {stop("argument counter_n must be numeric.")}
   if (counter_n < 1) {stop("argument counter_n must be equal to or larger than 1.")}
-
-  if (!is.numeric(sd)) {stop("argument sd must be numeric.")}
-  if (length(sd) != k_groups) {stop("argument sd must contain as many elements as defined in k_groups argument.")}
-
-  if (!is.numeric(sample_ratio)) {stop("argument sample_ratio must be numeric.")}
-  if (length(sample_ratio) != k_groups) {stop("argument sample_ratio must contain as many elements as defined in k_groups argument.")}
 
   sample_sizes_max <- max_n * sample_ratio
   total_sample_size <- sum(max_n*sample_ratio)

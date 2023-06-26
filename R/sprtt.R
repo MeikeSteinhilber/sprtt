@@ -24,9 +24,9 @@ NULL
 #' @docType package
 #' @name sprtt
 #'
-#' @keywords internal
-NULL
-#> NULL
+# #' @keywords internal
+# NULL
+# #> NULL
 
 
 
