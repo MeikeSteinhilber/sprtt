@@ -272,7 +272,7 @@ test_that("draw_sample_mixture: check error messages", {
   "f values larger than 1.5 should not be used in this function."
   )
   expect_error(
-    draw_sample_mixture(k_groups = 4, f = 1.3, max_n = 5,
+    draw_sample_mixture(k_groups = 4, f = 4, max_n = 5,
                         counter_n = 100, verbose = TRUE),
   "Internal calulation failed:"
   )

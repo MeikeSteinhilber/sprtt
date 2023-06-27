@@ -22,9 +22,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ```{r, child="children/sprts.Rmd"}
-# 
-# ```
+```{r, child="sprts.Rmd"}
+
+```
 
 
 ## What is the sequential *t*-test?
@@ -90,11 +90,5 @@ In summary, three specifications are required to calculate a sequential *t*-test
 -   the 𝛽 error probability (usually .20 or less), and
 
 -   Cohen´s d (either as the expected effect size or as the lower limit for a substantial effect).
-
-## What is the sequential one-way ANOVA?
-
-The sequential one-way fixed effects ANOVA is also a variant of SPRTs but can be used if the means of two or more groups are compared.
-The b
-
 
 ## References

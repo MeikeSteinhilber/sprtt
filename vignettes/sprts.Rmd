@@ -1,5 +1,5 @@
 ---
-title: "Sequential Testing"
+title: "SPRTs"
 author: "Meike Steinhilber"
 date: "`r Sys.Date()`"
 output:
@@ -7,9 +7,9 @@ output:
     toc: true
     toc_depth: 4
 description: >
-  This vignette describes the sequential one-way ANOVA.
+  This vignette describes SPRTs in general.
 vignette: >
-  %\VignetteIndexEntry{Sequential Testing}
+  %\VignetteIndexEntry{SPRTs}
   %\VignetteEncoding{UTF-8}{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 bibliography: references.bib
