@@ -23,7 +23,7 @@ conf.int <- Vectorize(function(x, n, a){
 }, "x")
 
 # draws the full sample
-draw_sample <- function(n, d) {
+draw_sample_normal <- function(n, d) {
   matrix(rnorm(n * 2, mean = c(d, 0)),
          nrow = n, byrow = TRUE)
 }
@@ -86,7 +86,7 @@ sim <- foreach(batch=1:getDoParWorkers(), .combine = rbind) %dopar% {
 
         for (i in 1:max_s) {
 
-          maxsamp <- draw_sample(maxN, d0)
+          maxsamp <- draw_sample_normal(maxN, d0)
           normal_finalhit <- FALSE
           error <- as.numeric(NA)
           normal_finaldec <- -1

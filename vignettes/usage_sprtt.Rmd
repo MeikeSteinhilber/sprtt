@@ -36,7 +36,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette demonstrates the usage of the package including the `seq_ttest()` function and all arguments with short examples. The theoretical background of the sequential *t*-test will not be covered by this vignette.
+The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests **t**oolbox (**sprtt**). This vignette demonstrates the usage of the package using the `seq_ttest()` function and all arguments with short examples. The theoretical background of the sequential *t*-test will not be covered by this vignette.
 
 The `seq_ttest()` function has arguments to specify the requested sequential *t*-test. The table below shows all possible combinations which can be performed with the package.
 

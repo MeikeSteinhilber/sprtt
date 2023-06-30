@@ -1,0 +1,94 @@
+---
+title: "Sequential t-Test"
+author: "Meike Steinhilber"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+description: >
+  This vignette describes the sequential t-test.
+vignette: >
+  %\VignetteIndexEntry{Sequential t-Test}
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: references.bib
+csl: "apa.csl"
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+```
+
+```{r, child="sprts.Rmd"}
+
+```
+
+
+## What is the sequential *t*-test?
+
+The sequential *t*-test is based on the Sequential Probability Ratio Test (SPRT) by Abraham @wald1947, which is a highly efficient sequential hypothesis test. However, the usage of Wald´s SPRT is limited in the case of normally distributed data, because the variance has to be known or specified in the hypothesis. Rushton [-@rushton1950; -@rushton1952] and @hajnal1961 have further developed the SPRT using the *t*-statistic. The basic idea is to transform the sequence of observations (which is dependent on the variance) into a sequence of the associated *t*-statistic (which is *in*dependent of the variance).
+
+In the SPRT the null and alternative hypotheses are defined as follows, with 𝜃 representing the model parameter :
+
+$$
+H_0:\ 𝜃\ =\ 𝜃_0 \\
+H_1:\ 𝜃\ =\ 𝜃_1
+$$
+
+The test statistic of the SPRT is based on a likelihood ratio, which is a measure of the relative evidence in the data for the given hypotheses. More specifically, it is the ratio of the likelihood of the alternative hypothesis to the likelihood of the null hypothesis at the *m*-th step of the sampling process (LR~m~).
+
+$$
+LR_{m} 
+= \frac {f(data_m | H_1)} {f(data_m | H_0)}
+= \frac {𝑓(x_1,...,x_m | 𝜃_1)} {𝑓(x_1,...,x_m  | 𝜃_0)} 
+$$
+
+Before the transformation into the *t*-statistic, the model parameter 𝜃 contains the parameters of a normal distribution: the mean (*µ*) and the standard deviation (𝜎). Therefore, the Wald SPRT requires prior knowledge about the variance (𝜎^2^) or a specification in the hypotheses.
+
+After the transformation of the observed values into the associated t-statistic, the model parameter 𝜃 contains the parameters of the non-central t-distribution: the degrees of freedom (*df*) and the non-centrality parameter (𝛥).
+
+$$
+{𝑓(x_1,...,x_m | µ,𝜎)} => {𝑓(t_2,...,t_m  | df,𝛥)} 
+$$
+
+For the calculation of the degrees of freedom, only the sample size of the group(s) is needed. The non-centrality parameter also requires a specification of the expected effect size in form of Cohen\`s d (*d*).
+
+To eventually calculate the LR of the sequential *t*-test, only the current t~*m*~-statistic is necessary. @rushton1950 demonstrated that an SPRT can be performed by simply considering the ratio of probability densities for the most recent t~*m*~ statistic under the alternative and null hypothesis at any *m-*th stage. Thus, the test statistic for a one and two-sided sequential t-test can be calculated as follows:
+
+$$
+LR_{m,\ one-sided\ sequential\ t-test} 
+= \frac {𝑓(t_m | 𝜃_1)} {𝑓(t_m | 𝜃_0)}
+\\
+LR_{m,\ two-sided\ sequential\ t-test} 
+= \frac {𝑓(t_m^2 | 𝜃_1)} {𝑓(t_m^2 | 𝜃_0)}.
+$$
+
+To account for the fact that the algebraic sign is unknown in a two-sided test, the *t*-value is squared [@rushton1952].
+
+After the calculation of the test statistic, the decision will be either to continue sampling or to terminate the sampling and accept one of the hypotheses. @wald1945 defined the following rules for the SPRT:
+
+|    Condition    |                    Decision |
+|:---------------:|----------------------------:|
+|    LR~m~ ≤ B    | accept H~0~ and reject H~1~ |
+| B \< LR~m~ \< A |           continue sampling |
+|    LR~m~ ≤ A    | accept H~1~ and reject H~0~ |
+
+The A and B boundaries are calculated with the previously defined error rates 𝛼 (Type I error) and 𝛽 (Type II error) as follows:
+
+$$
+A = \left( \frac{1 - 𝛽}{𝛼} \right) \\
+B = \left( \frac{𝛽}{1 - 𝛼} \right).
+$$
+
+In summary, three specifications are required to calculate a sequential *t*-test:
+
+-   the 𝛼 error probability (usually 0.05 or less),
+
+-   the 𝛽 error probability (usually .20 or less), and
+
+-   Cohen´s d (either as the expected effect size or as the lower limit for a substantial effect).
+
+## References

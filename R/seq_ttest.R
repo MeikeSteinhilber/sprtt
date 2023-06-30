@@ -1,15 +1,3 @@
-################################################################################
-#     sprtt package                                                            #
-#                                                                              #
-#     master thesis project                                                    #
-#     master thesis title: "sprtt: An R Package for Sequential Probability     #
-#     Ratio Tests Using the Associated t-Statistic"                            #
-#     author: Meike Steinhilber                                                #
-#                                                                              #
-#     This package provides the implementation of sequential probability       #
-#     ratio tests using t-statistic.                                           #
-#                                                                              #
-################################################################################
 #--- GENERAL SETTINGS ----
 #' @importFrom stats rnorm dt df model.frame sd t.test
 #' @importFrom methods callNextMethod new validObject
@@ -22,7 +10,7 @@
 #---- MAIN FUNCTION DOCUMENTATION----
 #' @title Sequential Probability Ratio Test using t-statistic
 #' @description Performs one and two sample sequential t-tests on vectors of
-#' data.
+#' data. For more information on the sequential t-test, see Schnuerch & Erdfelder (2019) <doi:10.1037/met0000234>.
 #'
 #' @param x Works with two classes: `numeric` and `formula`. Therefore you can
 #' write `"x"` or `"x~y"`.
@@ -74,7 +62,7 @@ seq_ttest <- function(
 ){
   # get the original names of the variables
   input1_name <- deparse(substitute(x))
-  if (class(x) == "numeric" &&
+  if (is.numeric(x) &&
       !is.null(y)) {
     y_name <- deparse(substitute(y))
     data_name <- paste(input1_name, "and ", y_name)
@@ -88,7 +76,8 @@ seq_ttest <- function(
       input1 = x,
       y,
       data,
-      mu, d,
+      mu,
+      d,
       alpha,
       power,
       alternative,

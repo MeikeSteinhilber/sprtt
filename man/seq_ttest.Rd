@@ -63,7 +63,7 @@ See the examples below.
 }
 \description{
 Performs one and two sample sequential t-tests on vectors of
-data.
+data. For more information on the sequential t-test, see Schnuerch & Erdfelder (2019) \url{doi:10.1037/met0000234}.
 }
 \examples{
 # set seed --------------------------------------------------------------------

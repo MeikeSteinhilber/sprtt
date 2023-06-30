@@ -1,7 +1,7 @@
 context("show: Check output")
 
-
-test_that("show: print output?", {
+# t-TEST -----------------------------------------------------------------------
+test_that("show: print output ttest?", {
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
   set.seed(4657)
@@ -56,8 +56,6 @@ test_that("show: print output?", {
   )
 })
 
-
-
 test_that("show: verbose", {
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
@@ -82,3 +80,63 @@ test_that("show: verbose", {
 
 })
 
+# ANOVA ------------------------------------------------------------------------
+test_that("show: print output anova?", {
+  # 3.ed edition necessary for expect_snapshot
+  testthat::local_edition(3)
+  set.seed(4657)
+
+  data <- draw_sample_normal(5, 0.25, 66)
+  expect_snapshot(
+    show(
+      seq_anova(
+        y ~ x,
+        f = 0.25,
+        data = data)
+    )
+  )
+
+  df_job <- draw_sample_normal(2, 0.6, 24)
+  colnames(df_job) <- c("happiness", "job_satisfaction")
+  expect_snapshot(
+    show(
+      seq_anova(
+        happiness ~ job_satisfaction,
+        f = 0.25,
+        data = df_job)
+    )
+  )
+
+  data <- draw_sample_normal(k_groups = 4, f = 0.1, sd = c(1,1,1,1), max_n = 20)
+  expect_snapshot(
+    show(
+      seq_anova(
+        y ~ x,
+        f = 0.1,
+        data = data)
+    )
+  )
+
+  data <- draw_sample_normal(k_groups = 2, f = 0.5, sd = c(1, 1), max_n = 60)
+  expect_snapshot(
+    show(
+      seq_anova(
+        y ~ x,
+        f = 0.25,
+        alpha = .30,
+        power = .95,
+        data = data)
+    )
+  )
+
+  data <- draw_sample_normal(k_groups = 2, f = 0.5, sd = c(1, 1), max_n = 60)
+  expect_snapshot(
+    show(
+      seq_anova(
+        y ~ x,
+        f = 0.25,
+        data = data,
+        verbose = FALSE)
+    )
+  )
+})

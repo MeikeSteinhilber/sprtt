@@ -26,3 +26,4 @@ see the documentation for the \code{\linkS4class{seq_ttest_results}} class.
 Method to retrieve the contents of a slot of an object of the
 \code{\linkS4class{seq_ttest_results}} class.
 }
+\keyword{internal}

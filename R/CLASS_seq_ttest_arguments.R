@@ -94,6 +94,7 @@ setMethod(
 #' @param j not used.
 #' @param drop not used.
 #'
+#' @keywords internal
 #' @return Returns the contents of the specified slot of an
 #' seq_ttest_arguments object. For more information, see the arguments of the
 #' [`seq_ttest`] function.

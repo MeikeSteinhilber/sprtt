@@ -1,7 +1,6 @@
 #* @testing get_one_sample
 context("get_one_sample: Check correct output.")
 test_that("get_one_sample: Check correct output.", {
-
   y <- NULL
   expect_equal(
     get_one_sample(y),
@@ -27,7 +26,6 @@ test_that("get_one_sample: Check correct output.", {
     get_one_sample(y),
     FALSE
   )
-
 })
 
 # #* @testing get_one_sided

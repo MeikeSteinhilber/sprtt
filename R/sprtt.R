@@ -1,3 +1,11 @@
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+#' @importFrom lifecycle deprecated
+## usethis namespace: end
+NULL
+
 #' sprtt: help page.
 #'
 #' This package provides the implementation of sequential probability
@@ -10,11 +18,12 @@
 #' @section sprtt functions:
 #' * [`seq_ttest`] Performs one and two sample sequential t-tests on vectors of
 #' data.
+#' * [`seq_anova`] Performs a sequential one-way ANOVA on vectors of
+#' data.
 #'
 #' @docType package
 #' @name sprtt
-NULL
-#> NULL
+#'
 
 
 

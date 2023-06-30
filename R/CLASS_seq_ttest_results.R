@@ -35,6 +35,8 @@ setClassUnion("numericORnull", c("numeric","NULL"))
 #' performed.
 #' @slot data_name a character string giving the name(s) of the data.
 #' @slot verbose a logical value whether you want a verbose output or not.
+#'
+#' @keywords internal
 setClass(
   "seq_ttest_results",
   slots = c(
@@ -60,7 +62,8 @@ setClass(
     one_sample = "logical",
     ttest_method = "character",
     data_name = "character",
-    verbose = "logical"
+    verbose = "logical",
+    plot = "ANY"
   )
 )
 
@@ -77,6 +80,7 @@ setClass(
 #' see the documentation for the [`seq_ttest_results-class`] class.
 #' @export
 #'
+#' @keywords internal
 # #' @examples
 setMethod(
   f = "[",

@@ -13,7 +13,7 @@ test_that("Check error rates", {
   # test setup: simulate the data
   source_dir(
     "testdata-raw/",
-    pattern = "\\.[rR]$",
+    pattern = "sided\\.[rR]$",
     env = test_env(),
     chdir = TRUE,
     wrap = TRUE

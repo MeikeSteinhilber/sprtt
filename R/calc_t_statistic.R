@@ -1,4 +1,4 @@
-calc_seq_ttest_t_statistic <- function(seq_ttest_arguments) {
+calc_t_statistic <- function(seq_ttest_arguments) {
 
   if (seq_ttest_arguments["one_sample"] == TRUE) {
     t_statistic <- t.test(

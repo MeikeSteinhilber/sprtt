@@ -1,0 +1,36 @@
+---
+title: "Sequential One-Way ANOVA"
+author: "Meike Steinhilber"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+description: >
+  This vignette describes the sequential one-way ANOVA.
+vignette: >
+  %\VignetteIndexEntry{Sequential One-Way ANOVA}
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: references.bib
+csl: "apa.csl"
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+```
+
+```{r, child="sprts.Rmd"}
+
+```
+
+## What is the sequential one-way ANOVA?
+
+The sequential one-way fixed effects ANOVA is based on the Sequential Probability Ratio Test (SPRT) by Abraham @wald1947, which is a highly efficient sequential hypothesis test.
+It can be used instead of *t*-tests if the means of two or more groups are compared.
+For detailed information see the public preprint [@steinhilber2023a].
+
+
+## References

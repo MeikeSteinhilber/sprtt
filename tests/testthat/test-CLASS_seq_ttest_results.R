@@ -1,4 +1,5 @@
 context("CLASS_seq_ttest_results: Check class")
+
 test_that("CLASS_seq_ttest_results: Check access to class", {
   x <- rnorm(20)
   d <- 0.8

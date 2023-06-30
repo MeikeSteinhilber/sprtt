@@ -5,7 +5,7 @@ editor_options:
     mode: gfm
 ---
 
-<a href='https://meikesteinhilber.github.io/sprtt/'><img src="man/figures/logo.png" align="right" height="139"/></a> <br> <br>
+<!-- <a href='https://meikesteinhilber.github.io/sprtt/'><img src="man/figures/logo.png" align="right" height="139"/></a> <br> <br> -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -22,19 +22,28 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 <!-- badges: start -->
 
-[![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt) [![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml) [![R-CMD-check-windows-macOs](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-windows-macOs/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions) [![R-CMD-check-ubuntu20.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu20.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions) [![R-CMD-check-ubuntu16.04](https://github.com/MeikeSteinhilber/sprtt/workflows/R-CMD-check-ubuntu16.04/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sprtt?color=green)](https://cran.r-project.org/package=sprtt)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/sprtt)](https://cran.r-project.org/package=sprtt)
+[![monthly](https://cranlogs.r-pkg.org/badges/sprtt)](https://cran.r-project.org/package=sprtt)
+[![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt) [![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml) [![R-CMD-check](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check-windows-macOs.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check-windows-macOs.yaml)
+
 
 <!-- badges: end -->
 
 ## Overview
 
-The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**).
+The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests **t**oolbox (**sprtt**).
 
 The package contains:
 
--   `seq_ttest()` calculates the sequential test statistic and
+-   `seq_ttest()`, `seq_anova()` calculates sequential t-test and sequential one-way ANOVAs
 
--   three data sets (`df_income`, `df_stress`, `df_cancer`) to run the examples in the documentation
+-   three data sets (`df_income`, `df_stress`, `df_cancer`) to run the examples in the t-test documentation
+
+-   `plot_anova()` plots results of sequential ANOVAs
+
+-   `draw_sample_normal()`, `draw_sample_mixture()` simulation of data sets
+
 
 ## Installation
 
