@@ -70,9 +70,7 @@
     <a class="dropdown-item" href="articles/t_test.html">Sequential t-Test</a>
     <a class="dropdown-item" href="articles/one_way_anova.html">Sequential One-Way ANOVA</a>
     <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Theoretical Backgound</h6>
-    <a class="dropdown-item" href="articles/usage_sprtt.html">How to use the sprtt package</a>
-    <a class="dropdown-item" href="articles/use_case.html">Use Case</a>
+    <h6 class="dropdown-header" data-toc-skip>Further Topics</h6>
     <a class="dropdown-item" href="articles/sprts.html">SPRTs</a>
   </div>
 </li>
@@ -109,11 +107,13 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The <code>sprtt</code> package is the implementation of <strong>s</strong>equential <strong>p</strong>robability <strong>r</strong>atio <strong>t</strong>ests using the associated <strong>t</strong>-statistic (<strong>sprtt</strong>).</p>
+<p>The <code>sprtt</code> package is a <strong>s</strong>equential <strong>p</strong>robability <strong>r</strong>atio <strong>t</strong>ests <strong>t</strong>oolbox (<strong>sprtt</strong>).</p>
 <p>The package contains:</p>
 <ul>
-<li><p><code><a href="reference/seq_ttest.html">seq_ttest()</a></code> calculates the sequential test statistic and</p></li>
-<li><p>three data sets (<code>df_income</code>, <code>df_stress</code>, <code>df_cancer</code>) to run the examples in the documentation</p></li>
+<li><p><code><a href="reference/seq_ttest.html">seq_ttest()</a></code>, <code><a href="reference/seq_anova.html">seq_anova()</a></code> calculates sequential t-test and sequential one-way ANOVAs</p></li>
+<li><p>three data sets (<code>df_income</code>, <code>df_stress</code>, <code>df_cancer</code>) to run the examples in the t-test documentation</p></li>
+<li><p><code><a href="reference/plot_anova.html">plot_anova()</a></code> plots results of sequential ANOVAs</p></li>
+<li><p><code><a href="reference/draw_sample_normal.html">draw_sample_normal()</a></code>, <code><a href="reference/draw_sample_mixture.html">draw_sample_mixture()</a></code> simulation of data sets</p></li>
 </ul>
 </div>
 <div class="section level2">
@@ -183,10 +183,10 @@
 <span><span class="co">#&gt; test statistic:</span></span>
 <span><span class="co">#&gt;  log-likelihood ratio = 5.347, decision = accept H1</span></span>
 <span><span class="co">#&gt; SPRT thresholds:</span></span>
-<span><span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span></span>
+<span><span class="co">#&gt;  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
 <span><span class="co">#&gt; Log-Likelihood of the:</span></span>
-<span><span class="co">#&gt;  alternative hypothesis = -4.21063</span></span>
-<span><span class="co">#&gt;  null hypothesis = -9.55763</span></span>
+<span><span class="co">#&gt;  alternative hypothesis = -4.211</span></span>
+<span><span class="co">#&gt;  null hypothesis = -9.558</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span></span>
 <span><span class="co">#&gt; specified effect size: Cohen's d = 0.8</span></span>
 <span><span class="co">#&gt; degrees of freedom: df = 38</span></span>
@@ -204,12 +204,12 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; formula: stress_level ~ sex</span></span>
 <span><span class="co">#&gt; test statistic:</span></span>
-<span><span class="co">#&gt;  log-likelihood ratio = -1.45506, decision = continue sampling</span></span>
+<span><span class="co">#&gt;  log-likelihood ratio = -1.455, decision = continue sampling</span></span>
 <span><span class="co">#&gt; SPRT thresholds:</span></span>
-<span><span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span></span>
+<span><span class="co">#&gt;  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
 <span><span class="co">#&gt; Log-Likelihood of the:</span></span>
-<span><span class="co">#&gt;  alternative hypothesis = -1.23287</span></span>
-<span><span class="co">#&gt;  null hypothesis = 0.2222</span></span>
+<span><span class="co">#&gt;  alternative hypothesis = -1.233</span></span>
+<span><span class="co">#&gt;  null hypothesis = 0.222</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span></span>
 <span><span class="co">#&gt; specified effect size: Cohen's d = 0.8</span></span>
 <span><span class="co">#&gt; degrees of freedom: df = 18</span></span>
@@ -227,12 +227,12 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; formula: stress_level ~ sex</span></span>
 <span><span class="co">#&gt; test statistic:</span></span>
-<span><span class="co">#&gt;  log-likelihood ratio = -0.3585, decision = continue sampling</span></span>
+<span><span class="co">#&gt;  log-likelihood ratio = -0.359, decision = continue sampling</span></span>
 <span><span class="co">#&gt; SPRT thresholds:</span></span>
-<span><span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span></span>
+<span><span class="co">#&gt;  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
 <span><span class="co">#&gt; Log-Likelihood of the:</span></span>
 <span><span class="co">#&gt;  alternative hypothesis = -1.923</span></span>
-<span><span class="co">#&gt;  null hypothesis = -1.5645</span></span>
+<span><span class="co">#&gt;  null hypothesis = -1.564</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span></span>
 <span><span class="co">#&gt; specified effect size: Cohen's d = 0.8</span></span>
 <span><span class="co">#&gt; degrees of freedom: df = 18</span></span>
@@ -248,12 +248,12 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; formula: monthly_income ~ sex</span></span>
 <span><span class="co">#&gt; test statistic:</span></span>
-<span><span class="co">#&gt;  log-likelihood ratio = -9.51391, decision = accept H0</span></span>
+<span><span class="co">#&gt;  log-likelihood ratio = -9.514, decision = accept H0</span></span>
 <span><span class="co">#&gt; SPRT thresholds:</span></span>
-<span><span class="co">#&gt;  lower log(B) = -2.94444, upper log(A) = 2.94444</span></span>
+<span><span class="co">#&gt;  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
 <span><span class="co">#&gt; Log-Likelihood of the:</span></span>
-<span><span class="co">#&gt;  alternative hypothesis = -8.09254</span></span>
-<span><span class="co">#&gt;  null hypothesis = 1.42137</span></span>
+<span><span class="co">#&gt;  alternative hypothesis = -8.093</span></span>
+<span><span class="co">#&gt;  null hypothesis = 1.421</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span></span>
 <span><span class="co">#&gt; specified effect size: Cohen's d = 0.8</span></span>
 <span><span class="co">#&gt; degrees of freedom: df = 118</span></span>
