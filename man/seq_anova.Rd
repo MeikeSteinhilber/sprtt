@@ -51,7 +51,7 @@ See the examples below.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) <>
+Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) \url{doi:10.31234/osf.io/m64ne}
 for more information.
 }
 \examples{

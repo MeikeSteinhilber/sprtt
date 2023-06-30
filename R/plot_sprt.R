@@ -9,14 +9,14 @@
 # #' @param lr_log log-likelihood-ratio.
 # #' @param A_boundary_log Log of the A boundary.
 # #' @param B_boundary_log Log of the B boundary.
-#' @param anova_results result object of the seq_anova() function (argument must be of class seq_anova_results).
+#' @param anova_results result object of the seq_anova() function (argument must be of class `seq_anova_results`).
 #' @param labels show labels in the plot.
 #' @param position_labels_x position of the boundary labels on the x-axis.
 #' @param position_labels_y position of the boundary labels on the y-axis.
 #' @param position_lr_x scales the position of the LR label on the x-axis.
 #' @param font_size font size of the plot.
 #' @param line_size line size of the plot.
-#' @param highlight_color highlighting color, default is red.
+#' @param highlight_color highlighting color, default is "#CD2626" (red).
 #'
 #' @import ggplot2 glue purrr
 #'

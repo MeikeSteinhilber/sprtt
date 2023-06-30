@@ -1,11 +1,12 @@
 # sprtt 0.2.0
 
--   Add: the `seq_anova()` function, which performs a sequential ANOVA
-
-# sprtt 0.1.1
-
--   Bug fix: update text in show(), if mu is not equal to 0
+-   Add: the `seq_anova()` function, which performs a sequential one-way fixed effects ANOVA
+-   Add: `draw_sample_normal()` function, which simulates data for a sequential ANOVA using normal distributions.
+-   Add: `draw_sample_mixture()` function, which simulates data for a sequential ANOVA using Gaussian Mixture distributions
+-   Add: `plot_anova()` plot function for the results of the `seq_anova()` function.
+-   Bug fix: update text in show(), if `mu` is not equal to 0
 -   Change: sprtt logo
+
 
 # sprtt 0.1.0
 

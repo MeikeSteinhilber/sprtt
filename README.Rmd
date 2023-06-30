@@ -32,13 +32,18 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 ## Overview
 
-The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**).
+The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests **t**oolbox (**sprtt**).
 
 The package contains:
 
--   `seq_ttest()` calculates the sequential test statistic and
+-   `seq_ttest()`, `seq_anova()` calculates sequential t-test and sequential one-way ANOVAs
 
--   three data sets (`df_income`, `df_stress`, `df_cancer`) to run the examples in the documentation
+-   three data sets (`df_income`, `df_stress`, `df_cancer`) to run the examples in the t-test documentation
+
+-   `plot_anova()` plots results of sequential ANOVAs
+
+-   `draw_sample_normal()`, `draw_sample_mixture()` simulation of data sets
+
 
 ## Installation
 

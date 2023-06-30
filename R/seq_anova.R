@@ -10,7 +10,7 @@
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) <>
+#' Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) <doi:10.31234/osf.io/m64ne>
 #' for more information.
 #'
 #' @param formula A formula specifying the model.

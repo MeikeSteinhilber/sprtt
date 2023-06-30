@@ -19,7 +19,7 @@ csl: "apa.csl"
 
 ## Overview
 
-The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests toolbox (**sprtt**). This vignette describes the theoretical background of these tests.
+The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests **t**oolbox (**sprtt**). This vignette describes the theoretical background of these tests.
 
 Other recommended vignettes cover:
 

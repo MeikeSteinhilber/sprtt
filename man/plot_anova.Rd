@@ -16,7 +16,7 @@ plot_anova(
 )
 }
 \arguments{
-\item{anova_results}{result object of the seq_anova() function (argument must be of class seq_anova_results).}
+\item{anova_results}{result object of the seq_anova() function (argument must be of class \code{seq_anova_results}).}
 
 \item{labels}{show labels in the plot.}
 
@@ -30,7 +30,7 @@ plot_anova(
 
 \item{line_size}{line size of the plot.}
 
-\item{highlight_color}{highlighting color, default is red.}
+\item{highlight_color}{highlighting color, default is "#CD2626" (red).}
 }
 \value{
 returns a plot

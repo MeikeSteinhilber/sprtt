@@ -21,21 +21,19 @@ reference:
   - df_cancer
 
 articles:
-- title: Get started
+- title: Get Started
   navbar: Getting Started
   contents:
   - usage_sprtt
   - use_case
 
-- title: Tests
+- title: Sequential Tests
   navbar: Sequential Tests
   contents:
   - t_test
   - one_way_anova
 
-- title: Theory
-  navbar: Theoretical Backgound
+- title: Further Topics
+  navbar: Further Topics
   contents:
-  - usage_sprtt
-  - use_case
   - sprts

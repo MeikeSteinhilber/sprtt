@@ -16,16 +16,21 @@
 
 ## Overview
 
-The `sprtt` package is the implementation of **s**equential
-**p**robability **r**atio **t**ests using the associated **t**-statistic
-(**sprtt**).
+The `sprtt` package is a **s**equential **p**robability **r**atio
+**t**ests **t**oolbox (**sprtt**).
 
 The package contains:
 
-- `seq_ttest()` calculates the sequential test statistic and
+- `seq_ttest()`, `seq_anova()` calculates sequential t-test and
+  sequential one-way ANOVAs
 
 - three data sets (`df_income`, `df_stress`, `df_cancer`) to run the
-  examples in the documentation
+  examples in the t-test documentation
+
+- `plot_anova()` plots results of sequential ANOVAs
+
+- `draw_sample_normal()`, `draw_sample_mixture()` simulation of data
+  sets
 
 ## Installation
 
@@ -105,10 +110,10 @@ seq_ttest(treatment_group, control_group, d = 0.8)
 #> test statistic:
 #>  log-likelihood ratio = 5.347, decision = accept H1
 #> SPRT thresholds:
-#>  lower log(B) = -2.94444, upper log(A) = 2.94444
+#>  lower log(B) = -2.944, upper log(A) = 2.944
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -4.21063
-#>  null hypothesis = -9.55763
+#>  alternative hypothesis = -4.211
+#>  null hypothesis = -9.558
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedom: df = 38
@@ -126,12 +131,12 @@ seq_ttest(stress_level ~ sex, d = 0.8)
 #> 
 #> formula: stress_level ~ sex
 #> test statistic:
-#>  log-likelihood ratio = -1.45506, decision = continue sampling
+#>  log-likelihood ratio = -1.455, decision = continue sampling
 #> SPRT thresholds:
-#>  lower log(B) = -2.94444, upper log(A) = 2.94444
+#>  lower log(B) = -2.944, upper log(A) = 2.944
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -1.23287
-#>  null hypothesis = 0.2222
+#>  alternative hypothesis = -1.233
+#>  null hypothesis = 0.222
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedom: df = 18
@@ -149,12 +154,12 @@ seq_ttest(stress_level ~ sex, d = 0.8, na.rm = TRUE)
 #> 
 #> formula: stress_level ~ sex
 #> test statistic:
-#>  log-likelihood ratio = -0.3585, decision = continue sampling
+#>  log-likelihood ratio = -0.359, decision = continue sampling
 #> SPRT thresholds:
-#>  lower log(B) = -2.94444, upper log(A) = 2.94444
+#>  lower log(B) = -2.944, upper log(A) = 2.944
 #> Log-Likelihood of the:
 #>  alternative hypothesis = -1.923
-#>  null hypothesis = -1.5645
+#>  null hypothesis = -1.564
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedom: df = 18
@@ -170,12 +175,12 @@ seq_ttest(monthly_income ~ sex, data = df_income, d = 0.8)
 #> 
 #> formula: monthly_income ~ sex
 #> test statistic:
-#>  log-likelihood ratio = -9.51391, decision = accept H0
+#>  log-likelihood ratio = -9.514, decision = accept H0
 #> SPRT thresholds:
-#>  lower log(B) = -2.94444, upper log(A) = 2.94444
+#>  lower log(B) = -2.944, upper log(A) = 2.944
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -8.09254
-#>  null hypothesis = 1.42137
+#>  alternative hypothesis = -8.093
+#>  null hypothesis = 1.421
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's d = 0.8
 #> degrees of freedom: df = 118
