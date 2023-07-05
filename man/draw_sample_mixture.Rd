@@ -15,7 +15,8 @@ draw_sample_mixture(k_groups, f, max_n, counter_n = 100, verbose = FALSE)
 
 \item{counter_n}{number of times the function tries to find a possible parameter combination for the distribution. Default value is set to 100.}
 
-\item{verbose}{\code{TRUE} or \code{FALSE.} Print out more information about the internal process of sampling the parameters.}
+\item{verbose}{\code{TRUE} or \code{FALSE.} Print out more information about the internal process of sampling the parameters
+(the internal counter that was reached, some additional hints and the drawn parameters for the Gaussian Mixture distributions.)}
 }
 \value{
 returns a data.frame with the columns y (observations) and x (factor_A).
@@ -38,7 +39,7 @@ data
 data <- sprtt::draw_sample_mixture(
   k_groups = 4,
   f = 1.2, # very large effect size
-  max_n = 2,
+  max_n = 4,
   counter_n = 1000, # increase of counter is necessary
   verbose = TRUE # prints more information to the console
 )
