@@ -62,6 +62,9 @@ test_that("plot with ANOVA", {
 
   expect_error(plot_anova("ttest_results"),
                "must be of class seq_anova_results")
+
+  expect_error(plot_anova(sprtt::seq_anova(y~x, f = 0.25, data = data)),
+               "The anova_results@plot is NULL.")
 })
 
 # # ttest ------------------------------------------------------------------------

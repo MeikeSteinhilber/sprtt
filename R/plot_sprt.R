@@ -42,6 +42,10 @@ plot_anova <- function(anova_results,
     stop("anova_results argument must be of class seq_anova_results.")
   }
 
+  if (is.null(anova_results@plot)) {
+    stop("The anova_results@plot is NULL. Tip: The function argument `plot` must be set to TRUE in the seq_anova() function.")
+  }
+
   A_boundary_log <- anova_results@plot$A_boundary_log
   B_boundary_log <- anova_results@plot$B_boundary_log
 

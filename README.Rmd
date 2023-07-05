@@ -5,7 +5,7 @@ editor_options:
     mode: gfm
 ---
 
-<!-- <a href='https://meikesteinhilber.github.io/sprtt/'><img src="man/figures/logo.png" align="right" height="139"/></a> <br> <br> -->
+<!-- ATTENTION! see below -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -84,6 +84,13 @@ Short examples can be found in the following paragraph.
 >
 > `#> results of function()`: is console output
 
-```{r, code=xfun::read_utf8('inst/examples/seq_ttest.R')}
+<!--
+
+ATTENTION!
+
+in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
+<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+-->
+```{r, code=xfun::read_utf8('inst/examples/sprtt_examples.R')}
 
 ```

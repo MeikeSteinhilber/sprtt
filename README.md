@@ -1,5 +1,5 @@
 
-<!-- <a href='https://meikesteinhilber.github.io/sprtt/'><img src="man/figures/logo.png" align="right" height="139"/></a> <br> <br> -->
+<!-- ATTENTION! see below -->
 
 # sprtt
 
@@ -79,6 +79,12 @@ Short examples can be found in the following paragraph.
 >
 > `#> results of function()`: is console output
 
+<!--
+&#10;ATTENTION!
+&#10;in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
+<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+-->
+
 ``` r
 # set seed --------------------------------------------------------------------
 set.seed(333)
@@ -86,6 +92,7 @@ set.seed(333)
 # load library ----------------------------------------------------------------
 library(sprtt)
 
+# t-TEST ----------------------------------------------------------------------
 # one sample: numeric input ---------------------------------------------------
 treatment_group <- rnorm(20, mean = 0, sd = 1)
 results <- seq_ttest(treatment_group, mu = 1, d = 0.8)
@@ -99,93 +106,42 @@ results@likelihood_ratio
 results["likelihood_ratio"]
 #> [1] 965.0728
 
-# two sample: numeric input----------------------------------------------------
-treatment_group <- stats::rnorm(20, mean = 0, sd = 1)
-control_group <- stats::rnorm(20, mean = 1, sd = 1)
-seq_ttest(treatment_group, control_group, d = 0.8)
+# ANOVA -----------------------------------------------------------------------
+# simulate data ---------------------------------------------------------------
+set.seed(333)
+data <- sprtt::draw_sample_normal(k_groups = 3,
+                                  f = 0.25,
+                                  sd = c(1, 1, 1),
+                                  max_n = 25)
+
+# calculate sequential ANOVA --------------------------------------------------
+results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data, plot = TRUE)
+# test decision
+results@decision
+#> [1] "continue sampling"
+# test results
+results
 #> 
-#> *****  Sequential  Two Sample t-test *****
+#> *****  Sequential ANOVA *****
 #> 
-#> formula: treatment_group and  control_group
+#> formula: y ~ x
 #> test statistic:
-#>  log-likelihood ratio = 5.347, decision = accept H1
+#>  log-likelihood ratio = 2.892, decision = continue sampling
 #> SPRT thresholds:
 #>  lower log(B) = -2.944, upper log(A) = 2.944
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -4.211
-#>  null hypothesis = -9.558
+#>  alternative hypothesis = -2.715
+#>  null hypothesis = -5.607
 #> alternative hypothesis: true difference in means is not equal to 0.
-#> specified effect size: Cohen's d = 0.8
-#> degrees of freedom: df = 38
-#> sample estimates:
-#> mean of x mean of y 
-#>  -0.05204   1.18768 
+#> specified effect size: Cohen's f = 0.25
+#> empirical Cohen's f = 0.4045074, 95% CI[0.129478, 0.6171581]
+#> Cohen's f adjusted = 0.355
+#> degrees of freedom: df1 = 2, df2 = 72
+#> SS effect = 10.74731, SS residual = 65.68208, SS total = 76.42939
 #> *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
-# two sample: formula input ---------------------------------------------------
-stress_level <- stats::rnorm(20, mean = 0, sd = 1)
-sex <- as.factor(c(rep(1, 10), rep(2, 10)))
-seq_ttest(stress_level ~ sex, d = 0.8)
-#> 
-#> *****  Sequential  Two Sample t-test *****
-#> 
-#> formula: stress_level ~ sex
-#> test statistic:
-#>  log-likelihood ratio = -1.455, decision = continue sampling
-#> SPRT thresholds:
-#>  lower log(B) = -2.944, upper log(A) = 2.944
-#> Log-Likelihood of the:
-#>  alternative hypothesis = -1.233
-#>  null hypothesis = 0.222
-#> alternative hypothesis: true difference in means is not equal to 0.
-#> specified effect size: Cohen's d = 0.8
-#> degrees of freedom: df = 18
-#> sample estimates:
-#> mean of x mean of y 
-#>  -0.23286  -0.08217 
-#> *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
-
-# NA in the data --------------------------------------------------------------
-stress_level <- c(NA, stats::rnorm(20, mean = 0, sd = 2), NA)
-sex <- as.factor(c(rep(1, 11), rep(2, 11)))
-seq_ttest(stress_level ~ sex, d = 0.8, na.rm = TRUE)
-#> 
-#> *****  Sequential  Two Sample t-test *****
-#> 
-#> formula: stress_level ~ sex
-#> test statistic:
-#>  log-likelihood ratio = -0.359, decision = continue sampling
-#> SPRT thresholds:
-#>  lower log(B) = -2.944, upper log(A) = 2.944
-#> Log-Likelihood of the:
-#>  alternative hypothesis = -1.923
-#>  null hypothesis = -1.564
-#> alternative hypothesis: true difference in means is not equal to 0.
-#> specified effect size: Cohen's d = 0.8
-#> degrees of freedom: df = 18
-#> sample estimates:
-#> mean of x mean of y 
-#>  -0.40818   0.42068 
-#> *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
-
-# work with dataset (data are in the package included) ------------------------
-seq_ttest(monthly_income ~ sex, data = df_income, d = 0.8)
-#> 
-#> *****  Sequential  Two Sample t-test *****
-#> 
-#> formula: monthly_income ~ sex
-#> test statistic:
-#>  log-likelihood ratio = -9.514, decision = accept H0
-#> SPRT thresholds:
-#>  lower log(B) = -2.944, upper log(A) = 2.944
-#> Log-Likelihood of the:
-#>  alternative hypothesis = -8.093
-#>  null hypothesis = 1.421
-#> alternative hypothesis: true difference in means is not equal to 0.
-#> specified effect size: Cohen's d = 0.8
-#> degrees of freedom: df = 118
-#> sample estimates:
-#> mean of x mean of y 
-#>  3072.086  3080.715 
-#> *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+# plot results -----------------------------------------------------------------
+sprtt::plot_anova(results)
 ```
+
+<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
