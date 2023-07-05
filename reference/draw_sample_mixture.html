@@ -91,7 +91,8 @@ Draws exemplary samples with a certain effect size for the sequential one-oway A
 
 
 <dt>verbose</dt>
-<dd><p><code>TRUE</code> or <code>FALSE.</code> Print out more information about the internal process of sampling the parameters.</p></dd>
+<dd><p><code>TRUE</code> or <code>FALSE.</code> Print out more information about the internal process of sampling the parameters
+(the internal counter that was reached, some additional hints and the drawn parameters for the Gaussian Mixture distributions.)</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -120,7 +121,7 @@ Draws exemplary samples with a certain effect size for the sequential one-oway A
 <span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu">draw_sample_mixture</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  k_groups <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>  f <span class="op">=</span> <span class="fl">1.2</span>, <span class="co"># very large effect size</span></span></span>
-<span class="r-in"><span>  max_n <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  max_n <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>  counter_n <span class="op">=</span> <span class="fl">1000</span>, <span class="co"># increase of counter is necessary</span></span></span>
 <span class="r-in"><span>  verbose <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># prints more information to the console</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -142,15 +143,23 @@ Draws exemplary samples with a certain effect size for the sequential one-oway A
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean1 = 2.60899963472551, mean2 = 0.636633580470748,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sigma1 = 0.224572574962626, sigma2 = 0.0667325451814857</span>
 <span class="r-in"><span><span class="va">data</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            y x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -3.5762655 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.7385727 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.1367248 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.6237656 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.7708177 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.0060454 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -1.7081033 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.6918255 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             y x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -3.5762655 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0.7385727 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -0.1367248 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0.6237656 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  -0.7708177 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1.0060454 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -1.7081033 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   0.6918255 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -2.4084128 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  0.1284941 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 -1.9372623 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  2.5216276 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 -2.0195175 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 -0.1744742 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 -2.1017450 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  0.6802637 4</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
