@@ -8,7 +8,7 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sprtt?color=green)](https://cran.r-project.org/package=sprtt)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/sprtt)](https://cran.r-project.org/package=sprtt)
 [![monthly](https://cranlogs.r-pkg.org/badges/sprtt)](https://cran.r-project.org/package=sprtt)
-[![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://codecov.io/gh/MeikeSteinhilber/sprtt)
+[![codecov](https://codecov.io/gh/MeikeSteinhilber/sprtt/branch/main/graph/badge.svg?token=IQHTDTRBAW)](https://app.codecov.io/gh/MeikeSteinhilber/sprtt)
 [![pkgdown](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/pkgdown-pak.yaml)
 [![R-CMD-check](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check-windows-macOs.yaml/badge.svg)](https://github.com/MeikeSteinhilber/sprtt/actions/workflows/R-CMD-check-windows-macOs.yaml)
 
