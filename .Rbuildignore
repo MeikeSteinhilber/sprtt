@@ -18,3 +18,4 @@
 ^compare_anova_script\.csv$
 ^revdep$
 ^lastMiKTeXException$
+^CRAN-SUBMISSION$
