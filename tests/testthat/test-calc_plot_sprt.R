@@ -54,6 +54,12 @@ test_that("plot with ANOVA", {
   # check errors ---------------------------------------------------------------
   expect_error(sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE, seq_steps = "X"),
                "seq_steps")
+  # wrong first data points - unequal sample sizes
+  set.seed(333)
+  data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 30, sample_ratio = c(1,2,2))
+  data <- data[sample(nrow(data)),] # destroy the perfect order of the data
+  expect_error(sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE),
+               "Every group needs two data points.")
 
   data <- sprtt::draw_sample_normal(2, f = 0.25, max_n = 30)
   ttest_results <- sprtt::seq_ttest(y~x, d = 0.25, data = data)

@@ -21,3 +21,7 @@ sprtt::plot_anova(anova_results,
 sprtt::plot_anova(anova_results,
                  labels = FALSE
                  )
+
+# further information ----------------------------------------------------------
+# run this code:
+vignette("one_way_anova", package = "sprtt")

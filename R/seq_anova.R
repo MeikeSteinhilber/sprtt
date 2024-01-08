@@ -11,7 +11,7 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) <doi:10.31234/osf.io/m64ne>
-#' for more information.
+#' for more information. The repeated measurement ANOVA is not implemented yet in this function. For more information check out the vignette `vignette("one_way_anova", package = "sprtt")`
 #'
 #' @param formula A formula specifying the model.
 #' @param data A data frame in which the variables specified in the formula will be found.
@@ -30,6 +30,7 @@
 #' If the data do not fit to this, you have to specify the sequential steps yourself in this argument.
 #' `balanced` specifies that the step size is equal to the number of groups.
 #' Attention: the calculation starts at the number of groups times two.
+#' If the data do not fit to this, you have to specify the sequential steps yourself in this argument.
 #'
 #'@return An object of the S4 class [`seq_anova_results-class`]. Click on the
 #' class link to see the full description of the slots.

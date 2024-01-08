@@ -19,10 +19,16 @@ calc_plot_anova <- function(seq_anova_arguments, seq_steps) {
     stop("wrong input for seq_steps argument.")
   }
 
-
   lr_log <- double(length(seq_steps))
   sample_size <- double(length(seq_steps))
   i = 1
+
+  k_groups_start <- table(seq_anova_arguments@data[1:seq_steps[1], 2])
+
+  if (any(k_groups_start < 2)) {
+    stop("The first 2*k_groups data points are not balanced. Every group needs two data points.
+         Solution: Use the argument 'plot' to define a customized vector with the sample size steps in the seq_anova() function")
+  }
 
   for (position in seq_steps) {
     temp_arguments@data <- seq_anova_arguments@data[1:position, ]
