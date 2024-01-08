@@ -873,7 +873,7 @@
 
     Code
       show(draw_sample_mixture(k_groups = 4, f = 1, max_n = 30, verbose = TRUE))
-    Message <simpleMessage>
+    Message
       Internal counter reached = 20
     Output
       
@@ -1018,7 +1018,7 @@
 
     Code
       show(draw_sample_mixture(k_groups = 3, f = 0.12, max_n = 50, verbose = TRUE))
-    Message <simpleMessage>
+    Message
       Internal counter reached = 1
     Output
       
