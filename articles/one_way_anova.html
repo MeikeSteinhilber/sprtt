@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Sequential One-Way ANOVA">
 <meta property="og:description" content="This vignette describes the sequential one-way ANOVA.
@@ -93,7 +93,7 @@
                         <h4 data-toc-skip class="author">Meike
 Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2023-07-06</h4>
+            <h4 data-toc-skip class="date">2024-01-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/HEAD/vignettes/one_way_anova.Rmd" class="external-link"><code>vignettes/one_way_anova.Rmd</code></a></small>
       <div class="d-none name"><code>one_way_anova.Rmd</code></div>
@@ -152,7 +152,69 @@ Probability Ratio Test (SPRT) by Abraham <span class="citation">Abraham
 Wald (1947)</span>, which is a highly efficient sequential hypothesis
 test. It can be used instead of <em>t</em>-tests if the means of two or
 more groups are compared. For detailed information see the public
-preprint <span class="citation">(Steinhilber et al., 2023)</span>.</p>
+preprint <span class="citation">(Steinhilber et al., 2023)</span>. Note:
+keep in mind that the repeated measurement ANOVA is not implemented yet
+in the sprtt package.</p>
+</div>
+<div class="section level2">
+<h2 id="how-to-plot-the-anova-results">How to plot the ANOVA results<a class="anchor" aria-label="anchor" href="#how-to-plot-the-anova-results"></a>
+</h2>
+<div class="section level3">
+<h3 id="scenario-1-perfect-data">Scenario 1: Perfect data<a class="anchor" aria-label="anchor" href="#scenario-1-perfect-data"></a>
+</h3>
+<p>In this case, we have data that are perfectly balanced and in a
+perfect sampling order. Here, we can use the default value of the ‘plot’
+argument ‘single’ or we can choose ‘balanced’.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">333</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># calculate the SPRT -----------------------------------------------------------</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, seq_steps <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, seq_steps <span class="op">=</span> <span class="st">"balanced"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot the results -------------------------------------------------------------</span></span>
+<span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_anova.html">plot_anova</a></span><span class="op">(</span><span class="va">anova_results</span><span class="op">)</span></span></code></pre></div>
+<p><img src="one_way_anova_files/figure-html/example-1-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="scenario-2-unbalanced-data-in-an-imperfect-order">Scenario 2: Unbalanced data in an imperfect order<a class="anchor" aria-label="anchor" href="#scenario-2-unbalanced-data-in-an-imperfect-order"></a>
+</h3>
+<p>In this case, we have a data set with unbalanced sample sizes between
+the groups and the data points are not in a perfect order. Because the
+order is not perfect, it does not make sense to use the ‘balanced’
+option. Because the first data points (2*k_groups) are not equally
+distributed between the groups (some groups have less than 2 data
+points), the option ‘single’ would output an error.</p>
+<p><strong>Thus, we need to define the sequential steps
+ourselves.</strong></p>
+<p>Here, we start later (after 12 data points) but then calculate the LR
+after every single data point.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">333</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">50</span>, sample_ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span> <span class="co"># destroy the perfect order of the data</span></span>
+<span></span>
+<span><span class="co"># calculate the SPRT -----------------------------------------------------------</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>,</span>
+<span>                                  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                  seq_steps <span class="op">=</span> <span class="fl">12</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="co"># we start with the first 12 data points instead of the first 6</span></span>
+<span>                                  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot the results -------------------------------------------------------------</span></span>
+<span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_anova.html">plot_anova</a></span><span class="op">(</span><span class="va">anova_results</span>,</span>
+<span>                 labels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                 position_labels_x <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>                 position_labels_y <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>                 position_lr_x <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>                 position_lr_y <span class="op">=</span> <span class="op">-</span><span class="fl">1.8</span>,</span>
+<span>                 font_size <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>                 line_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                 highlight_color <span class="op">=</span> <span class="st">"darkblue"</span></span>
+<span>                 <span class="op">)</span></span></code></pre></div>
+<p><img src="one_way_anova_files/figure-html/example-2-1.png" width="700"></p>
+</div>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
