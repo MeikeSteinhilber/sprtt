@@ -39,7 +39,8 @@ A vector of numbers specifies the sample sizes at which the anova is calculated.
 Attention: the calculation starts at the number of groups times two.
 If the data do not fit to this, you have to specify the sequential steps yourself in this argument.
 \code{balanced} specifies that the step size is equal to the number of groups.
-Attention: the calculation starts at the number of groups times two.}
+Attention: the calculation starts at the number of groups times two.
+If the data do not fit to this, you have to specify the sequential steps yourself in this argument.}
 }
 \value{
 An object of the S4 class \code{\linkS4class{seq_anova_results}}. Click on the
@@ -52,7 +53,7 @@ See the examples below.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) \url{doi:10.31234/osf.io/m64ne}
-for more information.
+for more information. The repeated measurement ANOVA is not implemented yet in this function. For more information check out the vignette \code{vignette("one_way_anova", package = "sprtt")}
 }
 \examples{
 # simulate data ----------------------------------------------------------------

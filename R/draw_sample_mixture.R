@@ -17,7 +17,8 @@ rnorm_mix <- function(n, mu1, sig1, mu2, sig2, gamma) {
 #' @param f Cohen's f. The simulated effect size.
 #' @param max_n sample size for the groups (total sample size = max_n*k_groups)
 #' @param counter_n number of times the function tries to find a possible parameter combination for the distribution. Default value is set to 100.
-#' @param verbose `TRUE` or `FALSE.` Print out more information about the internal process of sampling the parameters.
+#' @param verbose `TRUE` or `FALSE.` Print out more information about the internal process of sampling the parameters
+#' (the internal counter that was reached, some additional hints and the drawn parameters for the Gaussian Mixture distributions.)
 #'
 #' @return returns a data.frame with the columns y (observations) and x (factor_A).
 #'

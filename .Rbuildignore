@@ -16,3 +16,6 @@
 ^CRAN-RELEASE$
 ^test_ANOVA\.R$
 ^compare_anova_script\.csv$
+^revdep$
+^lastMiKTeXException$
+^CRAN-SUBMISSION$

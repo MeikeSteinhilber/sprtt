@@ -34,7 +34,7 @@ library(sprtt)
 
 ## Overview
 
-The `sprtt` package is the implementation of **s**equential **p**robability **r**atio **t**ests using the associated **t**-statistic (**sprtt**). This vignette describes an exemplary use case to improve the understanding of the package and the sequential t-test.
+The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests toolbox (**sprtt**). This vignette describes an exemplary use case to improve the understanding of the package and the sequential t-test.
 
 Other recommended vignettes cover:
 
