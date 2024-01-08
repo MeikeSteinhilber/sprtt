@@ -1,54 +1,26 @@
 ## Test environments
-* local R installation (on windows), R 4.1.0
-* ubuntu-16.04 (on GitHub Actions), R 4.0.0
-* ubuntu-20.04 (on GitHub Actions)
-* macOS-latest (on GitHub Actions)
-* windows-latest (on GitHub Actions)
-* R-hub
-- Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-- Ubuntu Linux 20.04.1 LTS, R-release, GCC
-- Fedora Linux, R-devel, clang, gfortran
-* win builder
-- using R version 4.1.0 (2021-05-18), using platform: x86_64-w64-mingw32 (64-bit)
-- using R Under development (unstable) (2021-07-25 r80663), using platform: x86_64-w64-mingw32 (64-bit)
+* GitHub Action
+macos-latest (release)
+windows-latest (release)
+ubuntu-latest (devel)
+ubuntu-latest (release)
+ubuntu-latest (oldrel-1)
 
+* macOS builder
+Build system: r-release-macosx-arm64|4.3.0|macosx|macOS 13.3.1 (22E261)|Mac mini|Apple M1||en_US.UTF-8|macOS 11.3|clang-1403.0.22.14.1|GNU Fortran (GCC) 12.2.0 
+* win-builder
 
 ## R CMD check results
-New submission
-==> This is my first submission
+── R CMD check results ────────────────── sprtt 0.2.0 ────
+Duration: 2m 28.5s
 
-Possibly mis-spelled words in DESCRIPTION:
-  Erdfelder (31:34)
-  Hajnal (25:5)
-  Rushton (24:49)
-  SPRT (22:54, 25:33, 31:5)
-  Schnuerch (31:22)
-==> spelling is correct
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-Found the following (possibly) invalid DOIs:
-  DOI: 10.2307/2332385
-    From: DESCRIPTION
-    Status: Forbidden
-    Message: 403
-  DOI: 10.2307/2333131
-    From: DESCRIPTION
-    Status: Forbidden
-    Message: 403
-  DOI: 10.2307/2334026
-    From: DESCRIPTION
-    Status: Forbidden
-    Message: 403
+R CMD check succeeded
 
-==> DOIs are correct!
+## Reverse Dependencies
+0 reverse dependencies
 
-0 errors √ | 0 warnings √ | 1 note x
-
-## last CRAN feedback
-Please add () behind all function names in the description texts (DESCRIPTION file). e.g: 'seq_ttest' --> seq_ttest()
-==> DONE
-
-Please write references in the description of the DESCRIPTION file in the form authors (year) <doi:...> 
-==> DONE
-
-Please add \value to .Rd files regarding exported methods and explain the functions results in the documentation. 
-==> DONE
+## Change of licence from GPL to AGPL
+all authors of the package accepted the change
+(see open issue: https://github.com/MeikeSteinhilber/sprtt/issues/33)

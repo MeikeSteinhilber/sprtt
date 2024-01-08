@@ -11,9 +11,10 @@
 # #' @param B_boundary_log Log of the B boundary.
 #' @param anova_results result object of the seq_anova() function (argument must be of class `seq_anova_results`).
 #' @param labels show labels in the plot.
-#' @param position_labels_x position of the boundary labels on the x-axis.
-#' @param position_labels_y position of the boundary labels on the y-axis.
-#' @param position_lr_x scales the position of the LR label on the x-axis.
+#' @param position_labels_x position of the boundary labels on the x-axis. 0 positions the center on the 0 of the x-axis.
+#' @param position_labels_y position of the boundary labels on the y-axis. 0 positions the labels on the dotted lines.
+#' @param position_lr_x scales the position of the LR label on the x-axis. 0 positions the label directly under the last calculated LR.
+#' @param position_lr_y scales the position of the LR label on the x-axis. 0 positions the label on the 0 of the y-axis
 #' @param font_size font size of the plot.
 #' @param line_size line size of the plot.
 #' @param highlight_color highlighting color, default is "#CD2626" (red).
@@ -30,6 +31,7 @@ plot_anova <- function(anova_results,
                       position_labels_x = 0.15,
                       position_labels_y = 0.075,
                       position_lr_x = 0.05,
+                      position_lr_y = NULL,
                       font_size = 25,
                       line_size = 1.5,
                       highlight_color = "#CD2626"
@@ -40,6 +42,10 @@ plot_anova <- function(anova_results,
   }
   if (!inherits(anova_results, c("seq_anova_results"))) {
     stop("anova_results argument must be of class seq_anova_results.")
+  }
+
+  if (is.null(anova_results@plot)) {
+    stop("The anova_results@plot is NULL. Solution: The function argument `plot` must be set to TRUE in the seq_anova() function.")
   }
 
   A_boundary_log <- anova_results@plot$A_boundary_log
@@ -106,11 +112,13 @@ plot_anova <- function(anova_results,
       if (labels == TRUE) {
         LR <- round(exp(results$lr_log[N_steps]), 2)
         nLR <- results$sample_size[N_steps]
-        if (results$lr_log[N_steps]>0) {y_ = -0.5} else{y_ = 0.5}
+        if (is.null(position_lr_y)) {
+          if (results$lr_log[N_steps]>0) {position_lr_y = -0.5} else{position_lr_y = 0.5}
+        }
         plot <- plot +
           annotate(geom = "text",
                    x = results$sample_size[N_steps] + results$sample_size[N_steps]*position_lr_x,
-                   y = y_,
+                   y = position_lr_y,
                    label = glue("LR[{nLR}] ==~ {LR}"),
                    parse = TRUE,
                    size = font_size/.pt, color = highlight_color)

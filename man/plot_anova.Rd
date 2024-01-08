@@ -10,6 +10,7 @@ plot_anova(
   position_labels_x = 0.15,
   position_labels_y = 0.075,
   position_lr_x = 0.05,
+  position_lr_y = NULL,
   font_size = 25,
   line_size = 1.5,
   highlight_color = "#CD2626"
@@ -20,11 +21,13 @@ plot_anova(
 
 \item{labels}{show labels in the plot.}
 
-\item{position_labels_x}{position of the boundary labels on the x-axis.}
+\item{position_labels_x}{position of the boundary labels on the x-axis. 0 positions the center on the 0 of the x-axis.}
 
-\item{position_labels_y}{position of the boundary labels on the y-axis.}
+\item{position_labels_y}{position of the boundary labels on the y-axis. 0 positions the labels on the dotted lines.}
 
-\item{position_lr_x}{scales the position of the LR label on the x-axis.}
+\item{position_lr_x}{scales the position of the LR label on the x-axis. 0 positions the label directly under the last calculated LR.}
+
+\item{position_lr_y}{scales the position of the LR label on the x-axis. 0 positions the label on the 0 of the y-axis}
 
 \item{font_size}{font size of the plot.}
 
@@ -64,4 +67,8 @@ sprtt::plot_anova(anova_results,
 sprtt::plot_anova(anova_results,
                  labels = FALSE
                  )
+
+# further information ----------------------------------------------------------
+# run this code:
+vignette("one_way_anova", package = "sprtt")
 }
