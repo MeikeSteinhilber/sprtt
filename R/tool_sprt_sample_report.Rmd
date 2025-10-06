@@ -1,0 +1,496 @@
+---
+title: "Report: Sample size planning for SPRTs"
+author: "created by the sprtt package"
+output:
+  html_document:
+    theme: flatly
+    toc: true
+    toc_float: true
+    number_sections: false
+    code_folding: hide
+params:
+  n_rep: 100
+  pick_f_expected: 0.25
+  pick_power: 0.8
+  pick_k_groups: 3
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+```{r, include=FALSE}
+n_rep = params$n_rep
+pick_f_expected = params$pick_f_expected
+pick_power = params$pick_power
+pick_k_groups = params$pick_k_groups
+
+library(dplyr)
+library(tidyr)
+library(kableExtra)
+library(gridExtra)
+library(glue)
+library(here)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(gt)
+library(ggtext)
+library(scales)
+library(latex2exp)
+```
+
+```{r, include=FALSE}
+load(glue("meta_data/sprt_tool_samples_{n_rep}.RData"))
+
+# variables -------------------------------------------------------------------
+digits <- 2
+
+palette <- "RdYlBu"  #"Dark2"
+light_green <- "#a5d1c7"
+green <- "#69b3a2"
+dark_green <- "#548f81"
+dark2_green <- "#104949"
+light_blue <- "#cce5ff" 
+grey_blue <- "#bccfe5"
+blue <- "#2c7bb6"  #"#404080"
+dark_blue <- "#1b3c70"
+magenta <- "#e61be5"
+rosa <- "#ff0088"
+hell_rosa <- "#ffa1c2"
+light_red <- "#e72b2e"
+red <- "#e72b2e"
+# red <- 	"#d7191c" #"#ca0020" "#CD2626" "#8B0000"
+dark_red <- "#8b1012"
+black_red <- "#4b1919" # "#651718"
+
+light_orange <- "#fffcf9"
+orange <- "#fdae61"
+dark_orange <- "#fc8715"
+yellow <- "#ffffbf"
+
+dpi = 150
+base_size <- 20
+linewidth = 1.5
+theme_set(theme_bw(base_size = base_size))
+```
+
+
+<br><br>
+These results are based on a simulation with `r n_rep` iterations per condition.
+
+See XXX for the simulation code.
+
+<br>
+
+## Core Insights
+
+### Power curve
+
+### Influence of f expected
+
+### violin plot
+
+```{r, fig.height=8, fig.width=5, out.width="30%", fig.align="left"}
+# pick_f_simulated = c(0, pick_f_expected)
+pick_f_simulated = pick_f_expected
+
+# titles
+title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
+subtitle_html <- glue(
+  "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
+  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
+)
+
+df_all %>% 
+  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+         fill_group = factor(as.integer(f_simulated))) %>% 
+  filter(f_expected == pick_f_expected,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>% 
+  filter(f_simulated %in% pick_f_simulated) %>%
+  {. ->> cases} %>% 
+  ggplot(aes(x = as.factor(pick_k_groups), y = n)) +
+  geom_violin(trim = FALSE, fill = light_blue,
+              scale = "count",
+              #draw_quantiles = c(0.25, 0.50, 0.75),
+              linewidth = 0.3) +
+  # scale_fill_manual(values = light_blue) +
+  geom_point(aes(x = as.factor(pick_k_groups), y = fix_n),
+             position = position_dodge(0.9),
+             shape = 18,
+             color = red,
+             size = 11) +
+  geom_point(aes(x = as.factor(pick_k_groups), y = mean(mean_n)),
+             position = position_dodge(0.9),
+             shape = 15,
+             color = dark_blue,
+             size = 8) + 
+  labs(
+    x = "<i>f</i><sub>true</sub>",
+    title = title_html,
+    caption = subtitle_html  ) +
+  theme(plot.title = element_markdown(),
+        plot.caption = element_markdown(),
+        axis.title.x = element_markdown(),
+        panel.grid.minor.y = element_blank()
+        ) -> p_violin 
+p_violin
+```
+
+```{r}
+table_cases <- df_all %>%
+  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+         fill_group = factor(as.integer(f_simulated))) %>%
+  filter(f_expected == pick_f_expected,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>%
+  filter(f_simulated %in% pick_f_simulated) %>%
+  ungroup() %>% 
+  mutate(
+    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
+    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
+    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
+    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
+    decision_status_100 = if_else(decision != "continue sampling", 1, 0)
+  ) %>% 
+  summarize(
+    alpha_error_rate = mean(decision_error[f_simulated == 0], na.rm = TRUE),
+    beta_error_rate = mean(decision_error[f_simulated != 0], na.rm = TRUE),
+    mean_n = mean(n),
+    median_n = median(n),
+    max_n = max(n),
+    min_n = min(n),
+    decision_rate_100 = sum(decision_status_100)/n(),
+    q25_n = quantile(n, 0.25),
+    q50_n = quantile(n, 0.50),
+    q75_n = quantile(n, 0.75),
+    q90_n = quantile(n, 0.90),
+    q95_n = quantile(n, 0.95),
+    sd_error_n  = sd(n)/sqrt(length((n))),
+    decision_rate_50 = sum(decision_status_50)/n(),
+    decision_rate_75 = sum(decision_status_75)/n(),
+    decision_rate_90 = sum(decision_status_90)/n(),
+    decision_rate_95 = sum(decision_status_95)/n()
+  )
+
+```
+
+
+## Extended Results
+
+```{r}
+pick_f_simulated = c(0,
+                     pick_f_expected - 0.05,
+                     pick_f_expected,
+                     pick_f_expected + 0.15)
+```
+
+
+### violin
+
+```{r, fig.height=8, fig.width=10, out.width="80%", fig.align="left"}
+# violin_colors <- c(light_blue, hell_rosa, light_blue, light_blue)
+
+title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
+subtitle_html <- glue(
+  # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
+  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br>",
+  "groups = {pick_k_groups}"
+)
+
+
+p_violin <- df_all %>%
+  mutate(
+    f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+    fill_label = ifelse(f_simulated == pick_f_expected - 0.05,
+                        "Reference scenario",
+                        "Other scenarios")
+  ) %>%
+  filter(
+    f_expected == pick_f_expected,
+    power == pick_power,
+    k_groups == pick_k_groups
+  ) %>%
+  filter(f_simulated %in% pick_f_simulated) %>%
+  ggplot(aes(x = as.factor(f_simulated), y = n, fill = fill_label)) +
+  
+  # violins (fill legend only)
+  geom_violin(
+    trim = FALSE,
+    scale = "count",
+    draw_quantiles = c(0.25, 0.50, 0.75),
+    linewidth = 0.1,
+    color = "lightgrey"
+  ) +
+  scale_fill_manual(
+    name = "Scenario",
+    values = c("Other scenarios" = light_blue,
+               "Reference scenario" = hell_rosa)
+  ) +
+  
+  # red diamond = fixed sample size
+  geom_point(
+    aes(y = fix_n, color = "Fixed sample size"),
+    position = position_dodge(0.9),
+    shape = 18,     # diamond, no border
+    size  = 7,
+    stroke = 0      # ensures no black outline
+  ) +
+  
+  # blue square = mean sample size
+  geom_point(
+    aes(y = mean_n, color = "Mean sample size"),
+    position = position_dodge(0.9),
+    shape = 15,     # square, no border
+    size  = 6,
+    stroke = 0      # ensures no black outline
+  ) +
+scale_color_manual(
+  name   = "Estimates",
+  values = c("Fixed sample size" = red,
+             "Mean sample size"  = dark_blue),
+  labels = c("Fixed sample size" = "Fixed design",
+             "Mean sample size"  = "Sequential designs")
+) +
+  labs(
+    x = "<i>f</i><sub>true</sub>",
+    title = title_html,
+    caption = subtitle_html  
+  ) +
+  
+  # clean legend appearance
+  guides(
+    fill  = guide_legend(override.aes = list(shape = NA)),  # patches only
+    color = guide_legend(override.aes = list(stroke = 0, size = 5)) # points only
+  ) +
+  theme(
+    legend.key = element_blank(),  # no background box around keys
+    plot.title = element_markdown(),
+    plot.caption = element_markdown(),
+    axis.title.x = element_markdown(),
+    panel.grid.minor.y = element_blank()
+  )
+
+p_violin
+
+
+```
+
+
+### table
+
+```{r}
+table_cases <- df_all %>% 
+  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+         fill_group = factor(as.integer(f_simulated))) %>% 
+  filter(f_expected == pick_f_expected,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>% 
+  filter(f_simulated %in% pick_f_simulated) %>% 
+    group_by(
+    f_simulated,
+    f_expected,
+    k_groups,
+    alpha,
+    power,
+    distribution,
+    sd,
+    sample_ratio) %>% 
+  mutate(
+    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
+    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
+    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
+    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
+    decision_status_100 = if_else(decision != "continue sampling", 1, 0)
+  ) %>% 
+  group_by(f_simulated, f_expected, power) %>%
+  summarize(
+    decision_error_rate = mean(decision_error),
+    fix_n = as.integer(mean(fix_n)),
+    mean_n = mean(n),
+    median_n = as.integer(median(n)),
+    min_n = as.integer(min(n)),
+    max_n = max(n),
+    decision_rate_100 = sum(decision_status_100)/n(),
+    q25_n = quantile(n, 0.25),
+    q50_n = quantile(n, 0.50),
+    q75_n = quantile(n, 0.75),
+    q90_n = quantile(n, 0.90),
+    q95_n = quantile(n, 0.95),
+    sd_error_n  = sd(n)/sqrt(length((n))),
+    decision_rate_50 = sum(decision_status_50)/n(),
+    decision_rate_75 = sum(decision_status_75)/n(),
+    decision_rate_90 = sum(decision_status_90)/n(),
+    decision_rate_95 = sum(decision_status_95)/n()
+  ) %>% mutate(
+    simulated_power = if_else(f_simulated != 0, 1 - decision_error_rate, NA),
+    .after = power
+  ) %>% 
+  select(-power) %>% 
+    ungroup() %>%
+    select(
+    f_simulated,
+    f_expected,
+    simulated_power,
+    decision_error_rate,
+    fix_n,
+    mean_n,
+    median_n,
+    min_n,
+    max_n,
+    decision_rate_90,
+    q95_n,
+    decision_rate_95
+  )# %>% 
+  # mutate(f_simulated = as.double(f_simulated))
+
+table_cases %>%
+  ungroup() %>% 
+  mutate(decision_error_rate = decision_error_rate) %>% 
+  gt() %>%
+  tab_header(
+    title = gt::html("<i>Summary Table</i>")
+  ) %>%
+  cols_label(
+    f_simulated         = gt::html("<i>f</i><sub>true</sub>"),
+    f_expected          = gt::html("<i>f</i><sub>exp</sub>"),
+    simulated_power     = "simulated power",
+    decision_error_rate = "Error rate %",
+    fix_n               = "Fixed n",
+    mean_n              = "Mean n",
+    median_n            = "Median n",
+    min_n               = "Min",
+    max_n               = "Max",
+    decision_rate_90    = "90% decision rate",
+    q95_n               = "95% n",
+    decision_rate_95    = "95% decision rate"
+  ) %>%
+  fmt_number(
+    columns = where(is.double),
+    decimals = 2
+  )
+
+
+```
+
+
+### Power curve
+
+
+```{r}
+plot_cases <- df_all %>% 
+  mutate(fill_group = factor(as.integer(f_simulated))) %>% 
+  filter(f_expected == pick_f_expected,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>% 
+  filter(f_simulated != 0) %>% 
+  group_by(
+    f_simulated,
+    f_expected,
+    k_groups,
+    alpha,
+    power,
+    distribution,
+    sd,
+    sample_ratio) %>% 
+  mutate(
+    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
+    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
+    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
+    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
+    decision_status_100 = if_else(decision != "continue sampling", 1, 0)
+  ) %>% 
+  summarize(
+    error_rate = mean(decision_error),
+    mean_n = mean(n),
+    median_n = median(n),
+    q90_n = quantile(n, 0.90),
+  ) %>% mutate(
+    simulated_power = if_else(f_simulated != 0, 1 - error_rate, NA),
+    .after = power
+  )
+
+
+plot_cases %>% 
+ggplot(aes(x = f_simulated, y = simulated_power)) +
+  # shaded rectangle
+  # annotate("rect",
+  #          xmin = pick_f_expected, xmax = Inf,
+  #          ymin = pick_power, ymax = Inf,
+  #          fill = "lightblue", alpha = 0.2) +
+  # shaded area under the curve, starting at f_expected
+  geom_ribbon(
+    data = subset(plot_cases, f_simulated >= pick_f_expected),
+    aes(ymin = pick_power, ymax = simulated_power),
+    fill = light_green, alpha = 0.7
+  ) +
+  geom_ribbon(
+    data = subset(plot_cases, f_simulated < pick_f_expected),
+    aes(ymin = simulated_power, ymax = pick_power),
+    fill = light_red, alpha = 0.5
+  ) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 4) +
+  geom_hline(yintercept = pick_power, linetype = "dashed") +
+  annotate("text", x = min(plot_cases$f_simulated), y = pick_power,
+           label = paste0(" target power = ", percent(pick_power)),
+           hjust = 0, vjust = 2, size = base_size*0.3) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, by = 0.1),
+    labels = percent_format(accuracy = 1)
+  ) +
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.02)),
+                     breaks = unique(plot_cases$f_simulated)) +
+  labs(
+    title    = "Simulated power across true effect sizes",
+    x = expression(italic(f)[true]),
+    y = "Simulated power",
+    subtitle = glue("<i>f</i><sub>exp</sub> = {pick_f_expected},",
+                    "1 - &beta; = {pick_power}, &alpha; = 0.05, groups = {pick_k_groups}")
+  ) +
+  theme(
+    panel.grid.minor = element_blank(),
+    plot.title.position = "plot",
+    plot.subtitle = element_markdown()
+  )
+
+```
+
+### cumultative
+
+```{r}
+df_cum <- df_all %>%
+  filter(f_expected == pick_f_expected,
+         power      == pick_power,
+         k_groups   == pick_k_groups) %>% 
+  filter(decision != "continue sampling") %>%
+  transmute(f_simulated, n_decision = n) %>% 
+  group_by(f_simulated) %>%
+  arrange(n_decision, .by_group = TRUE) %>%
+  mutate(cum_prop = row_number() / n()) %>%
+  ungroup()
+
+# 4) Find the minimum n that achieves at least 90% decided
+cut90 <- df_cum %>%
+  group_by(f_simulated) %>%
+  summarise(n_at_90 = min(n_decision[cum_prop >= 0.90]), .groups = "drop")
+
+# 5) Plot: ECDF of decision n, with a 90% line and vertical markers at n_at_90
+ggplot(df_cum, aes(x = n_decision, y = cum_prop, colour = factor(f_simulated), group = f_simulated)) +
+  geom_step(linewidth = 1.2) +
+  geom_hline(yintercept = 0.90) +
+  labs(
+    x = "Sample size n",
+    y = "Cumulative proportion with a decision",
+    colour = "f_simulated"
+  ) +
+  scale_y_continuous(limits = c(0, 1)) 
+```
+
