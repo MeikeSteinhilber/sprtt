@@ -9,11 +9,16 @@ output:
     number_sections: false
     code_folding: hide
 params:
+  # report controls
   n_rep: 100
   pick_f_expected: 0.25
   pick_power: 0.8
   pick_k_groups: 3
+  # data wiring
+  data_path: "data/sprt_tool_samples_100.RData"
 ---
+
+
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
@@ -42,7 +47,8 @@ library(latex2exp)
 ```
 
 ```{r, include=FALSE}
-load(glue("meta_data/sprt_tool_samples_{n_rep}.RData"))
+load(params$data_path)
+# load(glue("meta_data/sprt_tool_samples_{n_rep}.RData"))
 
 # variables -------------------------------------------------------------------
 digits <- 2
