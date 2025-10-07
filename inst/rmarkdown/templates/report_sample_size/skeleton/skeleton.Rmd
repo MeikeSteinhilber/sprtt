@@ -16,6 +16,13 @@ params:
   pick_k_groups: 3
 ---
 
+<style>
+/* Hide headings in the body, but keep them in the DOM so the TOC still lists them */
+h1.toc-only, h2.toc-only, h3.toc-only, h4.toc-only, h5.toc-only, h6.toc-only {
+  display: none;
+}
+</style>
+
 ```{r, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
@@ -325,7 +332,7 @@ pick_f_simulated = c(0,
 ```
 
 
-### violin
+### violin {.toc-only}
 
 This violin plot shows the distribution of required sample sizes $n$ across simulations for different assumed true effects $f_{\text{true}}$.
 Each violin summarizes how often a given $n$ occurred: wider sections indicate that sample sizes in that range were more frequent.
@@ -436,7 +443,7 @@ p_violin
 ```
 
 
-### table
+### table {.toc-only}
 
 ```{r}
 table_cases <- df_all %>% 
