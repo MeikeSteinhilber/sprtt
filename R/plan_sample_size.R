@@ -1,10 +1,10 @@
-#' Generate an HTML report for sample size planning in sequential probability ratio testing (SPRT)
+#' Generate an HTML report for sample size planning for sequential ANOVAs.
 #'
 #' @description
 #' Renders a parameterized R Markdown report that helps plan sample size for an SPRT analysis.
 #' The function takes expected effect size (`f_expected`), number of groups (`k_groups`),
 #' and desired power, then generates a reproducible HTML report summarizing the simulation-based
-#' sample size recommendations.
+#' sample size recommendations. The alpha level is always 0.05.
 #'
 #' The report template is part of the **sprtt** package and is located under
 #' `inst/rmarkdown/templates/report_sample_size/skeleton/skeleton.Rmd`.
@@ -12,7 +12,7 @@
 #' @param f_expected Numeric scalar. The expected standardized effect size (e.g., Cohen’s *f*).
 #'   Must be greater than 0.
 #' @param k_groups Integer scalar. The number of groups to compare. Must be at least 2.
-#' @param power Numeric scalar between 0 and 1 (default = 0.95). Desired statistical power for the design.
+#' @param power Numeric scalar (default = 0.95). Desired statistical power for the design.
 #' @param output_dir Character string. Directory in which to save the rendered HTML report.
 #'   Defaults to a temporary directory (`tempdir()`).
 #' @param output_file Character string. File name of the generated HTML report.
@@ -25,12 +25,7 @@
 #'
 #' @details
 #' This function is a front-end utility for rendering a pre-defined R Markdown report using
-#' `rmarkdown::render()`. It validates key inputs, constructs the report parameters,
-#' and controls overwriting behavior for the output file. The rendering environment is isolated
-#' from the global workspace to ensure reproducibility.
-#'
-#' The report includes simulation-based summaries and visualizations of the relationship
-#' between expected effect size, number of groups, and desired power for SPRT planning.
+#' `rmarkdown::render()`.
 #'
 #' @return
 #' Invisibly returns the path to the rendered HTML file (character string).
@@ -64,12 +59,12 @@
 
 
 plan_sample_size <- function(f_expected,
-                                 k_groups,
-                                 power = 0.95,
-                                 output_dir = tempdir(),
-                                 output_file = "sprtt-report-sample-size-planning.html",
-                                 open = interactive(),
-                                 overwrite = FALSE) {
+                             k_groups,
+                             power = 0.95,
+                             output_dir = tempdir(),
+                             output_file = "sprtt-report-sample-size-planning.html",
+                             open = interactive(),
+                             overwrite = FALSE) {
   if (!requireNamespace("rmarkdown", quietly = TRUE)) {
     stop("Package 'rmarkdown' must be installed to render the report.", call. = FALSE)
   }
@@ -78,6 +73,25 @@ plan_sample_size <- function(f_expected,
   stopifnot(length(f_expected) == 1, is.numeric(f_expected))
   stopifnot(length(power) == 1, is.numeric(power), power > 0, power < 1)
   stopifnot(length(k_groups) == 1, is.numeric(k_groups), k_groups >= 2)
+
+
+  # check input parameters
+  df <- sprtt::df
+  if (!f_expected %in% df$f_expected) {
+    stop(
+      glue("`f_expected` = {f_expected} is not available. Please choose one of {glue_collapse(shQuote(sort(unique(df$f_expected))), ', ', last = ' or ')}")
+    )
+  }
+  if (!power %in% df$power) {
+    stop(
+      glue("`power` = {power} is not available. Please choose one of {glue_collapse(shQuote(sort(unique(df$power))), ', ', last = ' or ')}")
+    )
+  }
+  if (!k_groups %in% df$k_groups) {
+    stop(
+      glue("`k_groups` = {k_groups} is not available. Please choose one of {glue_collapse(shQuote(sort(unique(df$k_groups))), ', ', last = ' or ')}")
+    )
+  }
 
   # Construct full output path
   output_path <- file.path(output_dir, output_file)
@@ -135,4 +149,15 @@ plan_sample_size <- function(f_expected,
 
 # plan_sample_size(0.25, 3, overwrite = FALSE)
 
+### error messages
 
+# plan_sample_size(0.24, 3, overwrite = FALSE)
+
+
+#   plan_sample_size(0.10, 3)
+#   plan_sample_size(0.15, 3)
+#   plan_sample_size(0.20, 3)
+#   plan_sample_size(0.25, 3)
+#   plan_sample_size(0.30, 3)
+#   plan_sample_size(0.35, 3)
+#   plan_sample_size(0.40, 3)

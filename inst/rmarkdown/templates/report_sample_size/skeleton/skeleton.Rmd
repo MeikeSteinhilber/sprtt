@@ -41,11 +41,16 @@ library(scales)
 library(latex2exp)
 ```
 
+
 ```{r, include=FALSE}
+# data -------------------------------------------------------------------------
 load(params$data_path)
 # load(glue("meta_data/sprt_tool_samples_{n_rep}.RData"))
+```
 
-# variables -------------------------------------------------------------------
+
+```{r, include=FALSE}
+# variables --------------------------------------------------------------------
 digits <- 2
 
 palette <- "RdYlBu"  #"Dark2"
@@ -96,7 +101,124 @@ See XXX for the simulation code.
 
 ### Power curve
 
-### Influence of f expected
+
+```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
+plot_cases <- df_all %>% 
+  mutate(fill_group = factor(as.integer(f_simulated))) %>% 
+  filter(f_expected == pick_f_expected,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>% 
+  filter(f_simulated != 0) %>% 
+  group_by(
+    f_simulated,
+    f_expected,
+    k_groups,
+    alpha,
+    power,
+    distribution,
+    sd,
+    sample_ratio) %>% 
+  mutate(
+    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
+    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
+    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
+    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
+    decision_status_100 = if_else(decision != "continue sampling", 1, 0)
+  ) %>% 
+  summarize(
+    error_rate = mean(decision_error),
+    mean_n = mean(n),
+    median_n = median(n),
+    q90_n = quantile(n, 0.90),
+  ) %>% mutate(
+    simulated_power = if_else(f_simulated != 0, 1 - error_rate, NA),
+    .after = power
+  )
+
+# 1) Build a dense x-grid and linearly interpolate simulated_power
+rng  <- range(plot_cases$f_simulated)
+grid <- tibble(f_simulated = seq(rng[1], rng[2], length.out = 1000))
+grid$simulated_power <- with(plot_cases,
+  approx(x = f_simulated, y = simulated_power, xout = grid$f_simulated,
+         method = "linear", rule = 2)$y
+)
+
+# 2) Compute above/below and y-bounds for one ribbon layer
+shade <- grid %>%
+  mutate(
+    above  = simulated_power >= pick_power,
+    ymin   = pmin(simulated_power, pick_power),
+    ymax   = pmax(simulated_power, pick_power)
+  )
+
+# 3) Plot: one ribbon (colored by above/below), then your original line/points
+ggplot() +
+  geom_ribbon(
+    data = shade,
+    aes(x = f_simulated, ymin = ymin, ymax = ymax, fill = above),
+    alpha = 0.25, colour = NA
+  ) +
+  scale_fill_manual(values = c(`TRUE` = light_green, `FALSE` = light_red), guide = "none") +
+  geom_line(data = plot_cases, aes(f_simulated, simulated_power),
+            linewidth = 1.2, colour = flatly_dark) +
+  geom_point(data = plot_cases, aes(f_simulated, simulated_power),
+             size = 3.8, colour = flatly_blue, fill = flatly_blue,
+             shape = 21, stroke = 1.2) +
+  geom_hline(yintercept = pick_power, linetype = "dashed", colour = flatly_dark) +
+  scale_y_continuous(limits = c(0, 1.1), breaks = seq(0, 1, by = 0.25),
+                     labels = scales::percent_format(accuracy = 1)) +
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.02)),
+                     breaks = unique(plot_cases$f_simulated)) +
+  labs(
+    title = "Simulated power across true effect sizes",
+    x = expression(italic(f)[true]),
+    y = "Simulated power",
+    subtitle = glue::glue(
+      "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
+      "1 - &beta; = {pick_power}, ",
+      "&alpha; = 0.05, groups = {pick_k_groups}"
+    )
+  ) +
+  theme_minimal(base_size = base_size) +
+  theme(
+    plot.title = element_text(face = "bold", size = base_size, hjust = 0),
+    plot.subtitle = ggtext::element_markdown(size = base_size*0.7, colour = "grey40"),
+    axis.title = element_text(face = "bold"),
+    axis.text  = element_text(colour = "grey20"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    legend.position = "none",
+    plot.title.position = "plot"
+  )  -> plot
+
+
+if (pick_f_expected == 0.10){
+  plot + annotate(
+    "text",
+    x = min(plot_cases$f_simulated),
+    y = 0.95,
+    label = paste0(" target power = ", percent(pick_power)),
+    hjust = 0,
+    vjust = 2,
+    size = base_size * 0.25,
+    colour = flatly_dark
+  )
+    
+} else{
+    plot + annotate(
+    "text",
+    x = min(plot_cases$f_simulated),
+    y = 1.05,
+    label = paste0(" target power = ", percent(pick_power)),
+    hjust = 0,
+    vjust = 2,
+    size = base_size * 0.25,
+    colour = flatly_dark
+  )
+}
+
+```
 
 ### violin plot
 
@@ -138,8 +260,10 @@ df_all %>%
              size = 8) + 
   labs(
     x = "<i>f</i><sub>true</sub>",
+    y = "sample size",
     subtitle = title_html,
     caption = subtitle_html  ) +
+    theme_minimal(base_size = base_size) +
   theme(plot.title = element_markdown(),
         plot.subtitle = element_markdown(),
         plot.caption = element_markdown(),
@@ -196,18 +320,31 @@ table_cases <- df_all %>%
 pick_f_simulated = c(0,
                      pick_f_expected - 0.05,
                      pick_f_expected,
-                     pick_f_expected + 0.15)
+                     pick_f_expected + 0.05,
+                     pick_f_expected + 0.10)
 ```
 
 
 ### violin
 
-```{r, fig.height=12, fig.width=20, out.width="100%", fig.align="left"}
+This violin plot shows the distribution of required sample sizes $n$ across simulations for different assumed true effects $f_{\text{true}}$.
+Each violin summarizes how often a given $n$ occurred: wider sections indicate that sample sizes in that range were more frequent.
+
+The violin colors indicate whether the test achieves the target power at each true effect.
+
+  - **Blue** marks settings where $f_{\text{true}} \geq f_{\text{exp}}$ (or $f_{\text{true}} = 0$); at these settings the test reaches the target power $1-\beta$ = `r pick_power`.
+  
+  - **Red** marks settings where power falls short, so such effects would often not be detected with the specified power `r pick_power` at significance level $\alpha$ = 0.05. If `f_expected = 0.1` is selected, no red violin is shown as it is outside of the simulated scope.
+
+
+The red diamond marks the fixed sample size from an a priori power analysis, and the blue square shows the mean sample size observed across simulations.
+
+
+```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 # violin_colors <- c(light_blue, hell_rosa, light_blue, light_blue)
 
-title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
-subtitle_html <- glue(
-  # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
+# title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
+caption_html <- glue(
   "1 - &beta; = {pick_power}, &alpha; = 0.05,<br>",
   "groups = {pick_k_groups}"
 )
@@ -217,8 +354,8 @@ p_violin <- df_all %>%
   mutate(
     f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
     fill_label = ifelse(f_simulated == pick_f_expected - 0.05,
-                        "Reference scenario",
-                        "Other scenarios")
+                        "not enough power",
+                        "enough power")
   ) %>%
   filter(
     f_expected == pick_f_expected,
@@ -232,14 +369,14 @@ p_violin <- df_all %>%
   geom_violin(
     trim = FALSE,
     scale = "count",
-    draw_quantiles = c(0.25, 0.50, 0.75),
-    linewidth = 0.1,
+    # draw_quantiles = c(0.25, 0.50, 0.75),
+    # linewidth = 0.1,
     color = "lightgrey"
   ) +
   scale_fill_manual(
-    name = "Scenario",
-    values = c("Other scenarios" = light_blue,
-               "Reference scenario" = hell_rosa)
+    name = "Power",
+    values = c("enough power" = light_blue,
+               "not enough power" = hell_rosa)
   ) +
   
   # red diamond = fixed sample size
@@ -260,16 +397,18 @@ p_violin <- df_all %>%
     stroke = 0      # ensures no black outline
   ) +
 scale_color_manual(
-  name   = "Estimates",
+  name   = "Legend",
   values = c("Fixed sample size" = red,
              "Mean sample size"  = dark_blue),
-  labels = c("Fixed sample size" = "Fixed design",
-             "Mean sample size"  = "Sequential designs")
+  labels = c("Fixed sample size" = "a priori power analysis",
+             "Mean sample size"  = "mean sample size")
 ) +
   labs(
     x = "<i>f</i><sub>true</sub>",
-    subtitle = title_html,
-    caption = subtitle_html  
+    y = "sample size",
+    title = "Required sample sizes to reach a decision",
+    subtitle = as.expression(bquote(paste(italic(f)[exp], " = ", .(pick_f_expected)))),
+    caption = caption_html  
   ) +
   
   # clean legend appearance
@@ -277,16 +416,19 @@ scale_color_manual(
     fill  = guide_legend(override.aes = list(shape = NA)),  # patches only
     color = guide_legend(override.aes = list(stroke = 0, size = 5)) # points only
   ) +
+  theme_minimal(base_size = base_size) +
   theme(
     legend.key = element_blank(),  # no background box around keys
-    plot.title = element_markdown(),
-    plot.subtitle = element_markdown(),
+    # plot.title = element_markdown(),
+    # plot.subtitle = element_markdown(),
     plot.caption = element_markdown(),
     axis.title.x = element_markdown(),
-    panel.grid.minor.y = element_blank(),
+    # panel.grid.minor.y = element_blank(),
     panel.grid.minor.x = element_blank(),
-    panel.grid.major.x = element_blank()
-  )
+    panel.grid.major.x = element_blank(),
+    plot.title = element_text(face = "bold", size = base_size, hjust = 0),
+    plot.subtitle = element_text(size = base_size*0.7, colour = "grey40")
+  ) 
 
 p_violin
 
@@ -325,16 +467,18 @@ table_cases <- df_all %>%
   summarize(
     decision_error_rate = mean(decision_error),
     fix_n = as.integer(mean(fix_n)),
-    mean_n = mean(n),
+    mean_n = as.integer(round(mean(n))),
     median_n = as.integer(median(n)),
     min_n = as.integer(min(n)),
     max_n = max(n),
     decision_rate_100 = sum(decision_status_100)/n(),
-    q25_n = quantile(n, 0.25),
-    q50_n = quantile(n, 0.50),
-    q75_n = quantile(n, 0.75),
-    q90_n = quantile(n, 0.90),
-    q95_n = quantile(n, 0.95),
+    q25_n = as.integer(round(quantile(n, 0.25))),
+    q50_n = as.integer(round(quantile(n, 0.50))),
+    q75_n = as.integer(round(quantile(n, 0.75))),
+    q80_n = as.integer(round(quantile(n, 0.80))),
+    q85_n = as.integer(round(quantile(n, 0.85))),
+    q90_n = as.integer(round(quantile(n, 0.90))),
+    q95_n = as.integer(round(quantile(n, 0.95))),
     sd_error_n  = sd(n)/sqrt(length((n))),
     decision_rate_50 = sum(decision_status_50)/n(),
     decision_rate_75 = sum(decision_status_75)/n(),
@@ -348,18 +492,23 @@ table_cases <- df_all %>%
     ungroup() %>%
     select(
     f_simulated,
-    f_expected,
+    # f_expected,
     simulated_power,
     decision_error_rate,
-    fix_n,
     mean_n,
     median_n,
     min_n,
     max_n,
-    decision_rate_90,
-    q95_n,
-    decision_rate_95
-  )# %>% 
+    fix_n,
+    # decision_rate_90,
+    q75_n,
+    q80_n,
+    q85_n,
+    q90_n,
+    q95_n
+    # decision_rate_95,
+  ) %>% 
+  mutate()
   # mutate(f_simulated = as.double(f_simulated))
 
 table_cases %>%
@@ -367,21 +516,41 @@ table_cases %>%
   mutate(decision_error_rate = decision_error_rate) %>% 
   gt() %>%
   tab_header(
-    title = gt::html("<i>Summary Table</i>")
+    title = gt::html("<i>Summary Table</i>"),
+    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}"))
   ) %>%
+  # center all data columns
+  cols_align(align = "center", columns = everything()) %>%
+  # center column labels and the heading
+  tab_options(
+    heading.align = "left"
+  ) %>% 
   cols_label(
     f_simulated         = gt::html("<i>f</i><sub>true</sub>"),
-    f_expected          = gt::html("<i>f</i><sub>exp</sub>"),
+    # f_expected          = gt::html("<i>f</i><sub>exp</sub>"),
     simulated_power     = "simulated power",
     decision_error_rate = "Error rate %",
-    fix_n               = "Fixed n",
-    mean_n              = "Mean n",
-    median_n            = "Median n",
+    fix_n               = "Fixed design",
+    mean_n              = "Mean",
+    median_n            = "Median",
     min_n               = "Min",
     max_n               = "Max",
-    decision_rate_90    = "90% decision rate",
-    q95_n               = "95% n",
-    decision_rate_95    = "95% decision rate"
+    # decision_rate_90    = "90% decision rate",
+    q75_n               = "75%",
+    q80_n               = "80%",
+    q85_n               = "85%",
+    q90_n               = "90%",
+    q95_n               = "95%"
+    # decision_rate_95    = "95% decision rate"
+  ) %>%
+   # high-level headers (spanners)
+  tab_spanner(
+    label   = "Sample size (N)",
+    columns = c(fix_n, mean_n, median_n, min_n, max_n)
+  ) %>%
+  tab_spanner(
+    label   = html("<i>N</i> to reach decision rate (%)"),
+    columns = c(q75_n, q80_n, q85_n, q90_n, q95_n)
   ) %>%
   fmt_number(
     columns = where(is.double),
@@ -392,112 +561,19 @@ table_cases %>%
 ```
 
 
-### Power curve
 
-
-```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
-plot_cases <- df_all %>% 
-  mutate(fill_group = factor(as.integer(f_simulated))) %>% 
-  filter(f_expected == pick_f_expected,
-         power == pick_power,
-         k_groups == pick_k_groups
-  ) %>% 
-  filter(f_simulated != 0) %>% 
-  group_by(
-    f_simulated,
-    f_expected,
-    k_groups,
-    alpha,
-    power,
-    distribution,
-    sd,
-    sample_ratio) %>% 
-  mutate(
-    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
-    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
-    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
-    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
-    decision_status_100 = if_else(decision != "continue sampling", 1, 0)
-  ) %>% 
-  summarize(
-    error_rate = mean(decision_error),
-    mean_n = mean(n),
-    median_n = median(n),
-    q90_n = quantile(n, 0.90),
-  ) %>% mutate(
-    simulated_power = if_else(f_simulated != 0, 1 - error_rate, NA),
-    .after = power
-  )
-
-
-plot_cases %>%
-  ggplot(aes(x = f_simulated, y = simulated_power)) +
-  # Shaded area: above/below target power
-  geom_ribbon(
-    data = subset(plot_cases, f_simulated >= pick_f_expected),
-    aes(ymin = pick_power, ymax = simulated_power),
-    fill = light_green, alpha = 0.25
-  ) +
-  geom_ribbon(
-    data = subset(plot_cases, f_simulated < pick_f_expected),
-    aes(ymin = simulated_power, ymax = pick_power),
-    fill = light_red, alpha = 0.25
-  ) +
-  geom_line(linewidth = 1.2, colour = flatly_dark) +
-  geom_point(size = 3.8, colour = flatly_blue, fill = "white", shape = 21, stroke = 1.2) +
-  geom_hline(yintercept = pick_power, linetype = "dashed", colour = "grey50") +
-  annotate(
-    "text",
-    x = min(plot_cases$f_simulated),
-    y = pick_power,
-    label = paste0(" target power = ", percent(pick_power)),
-    hjust = 0,
-    vjust = 2,
-    size = base_size * 0.3,
-    colour = "grey30"
-  ) +
-  scale_y_continuous(
-    limits = c(0, 1),
-    breaks = seq(0, 1, by = 0.1),
-    labels = percent_format(accuracy = 1)
-  ) +
-  scale_x_continuous(
-    expand = expansion(mult = c(0.02, 0.02)),
-    breaks = unique(plot_cases$f_simulated)
-  ) +
-  labs(
-    title    = "Simulated power across true effect sizes",
-    x        = expression(italic(f)[true]),
-    y        = "Simulated power",
-    subtitle = glue(
-      "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
-      "1 - &beta; = {pick_power}, ",
-      "&alpha; = 0.05, groups = {pick_k_groups}"
-    )
-  ) +
-  theme_minimal(base_size = base_size) +
-  theme(
-    plot.title = element_text(face = "bold", size = base_size, hjust = 0),
-    plot.subtitle = element_markdown(size = base_size*0.7, colour = "grey40"),
-    axis.title = element_text(face = "bold"),
-    axis.text = element_text(colour = "grey20"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank(),
-    legend.position = "none",
-    plot.title.position = "plot"
-  )
-
-```
 
 ### cumultative
 
-```{r, fig.height=10, fig.width=12, out.width="100%", fig.align="left"}
+```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 df_cum <- df_all %>%
   filter(f_expected == pick_f_expected,
          power      == pick_power,
          k_groups   == pick_k_groups) %>% 
+  filter(f_simulated == 0 |
+         f_simulated >= pick_f_expected) %>% 
   filter(decision != "continue sampling") %>%
-  transmute(f_simulated, n_decision = n) %>% 
+  transmute(f_simulated,fix_n, n_decision = n) %>% 
   group_by(f_simulated) %>%
   arrange(n_decision, .by_group = TRUE) %>%
   mutate(cum_prop = row_number() / n()) %>%
@@ -512,7 +588,19 @@ cut90 <- df_cum %>%
 ggplot(df_cum, aes(x = n_decision, y = cum_prop, colour = factor(f_simulated), group = f_simulated)) +
   geom_step(linewidth = 1.1) +
   # Horizontal 90% line
-  geom_hline(yintercept = 0.90, linetype = "dashed", colour = "grey50") +
+  geom_hline(yintercept = 0.90, linetype = "dotted", colour = flatly_dark) +
+  geom_vline(xintercept = unique(df_cum$fix_n), color = flatly_dark,  linetype = "dashed") +
+  annotate(
+  "text",
+  x = unique(df_cum$fix_n) + (unique(df_cum$fix_n) * 0.05),
+  y = 0.05,
+  label = "fixed sample size",
+  angle = 90,         # rotate text
+  hjust = 0.1,
+  vjust = 0.5,
+  size = base_size * 0.25,
+  colour = flatly_dark
+) +
   # Vertical markers for 90%-decision points
   # geom_vline(data = cut90, aes(xintercept = n_at_90, colour = factor(f_simulated)),
              # linetype = "dotted", linewidth = 0.9, show.legend = FALSE) +
@@ -525,6 +613,7 @@ ggplot(df_cum, aes(x = n_decision, y = cum_prop, colour = factor(f_simulated), g
   # ) +
   scale_y_continuous(
     limits = c(0, 1),
+    breaks = c(0, 0.25, 0.5, 0.75, 0.9, 1),
     labels = percent_format(accuracy = 1)
   ) +
   scale_color_brewer(palette = "Set2") +   # modern pastel Flatly-compatible palette
@@ -533,12 +622,14 @@ ggplot(df_cum, aes(x = n_decision, y = cum_prop, colour = factor(f_simulated), g
     y = "",  #"Cumulative proportion\nwith a decision",
     colour = expression(italic(f)[true]),
     title = "Cumulative decision proportions across simulated\neffect sizes",
-    subtitle = "Dashed line: 90% decision threshold"
+    # subtitle = "Dashed line: 90% decision threshold"
+    subtitle = as.expression(
+      bquote(paste(italic(f)[exp], " = ", .(pick_f_expected))))
   ) +
   theme_minimal(base_size = base_size) +
   theme(
     plot.title = element_text(face = "bold", size = base_size, hjust = 0),
-    plot.subtitle = element_markdown(size = base_size*0.7, colour = "grey40"),
+    plot.subtitle = element_text(size = base_size * 0.7, colour = "grey40"),
     panel.grid.minor = element_blank(),
     panel.grid.major.x = element_blank(),
     #legend.position = "bottom",

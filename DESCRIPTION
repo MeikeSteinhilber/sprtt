@@ -43,9 +43,12 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     testthis,
+    withr,
+    xml2,
     effsize,
     effectsize,
-    vdiffr
+    vdiffr,
+    diffviewer
 VignetteBuilder:
     knitr
 Encoding: UTF-8
@@ -53,3 +56,4 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
