@@ -156,7 +156,7 @@ plan_sample_size <- function(f_expected,
 
 #   plan_sample_size(0.10, 3)
 #   plan_sample_size(0.15, 3)
-#   plan_sample_size(0.20, 3)
+#   plan_sample_size(0.20, 3, power = 0.80)
 #   plan_sample_size(0.25, 3)
 #   plan_sample_size(0.30, 3)
 #   plan_sample_size(0.35, 3)
