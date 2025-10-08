@@ -1,12 +1,12 @@
 ---
 title: "Report: Sample size planning for sequential ANOVAs"
-author: "<i>created by the</i> sprtt <i>package</i>"
+# author: "<i>created by the</i> sprtt <i>package</i> `r print(citation('sprtt'), style = 'text')`"
 output:
   html_document:
     theme: flatly
     toc: true
     toc_float: true
-    number_sections: false
+    number_sections: true
     code_folding: hide
 params:
   data_path: !r system.file("data", "sprt_tool_samples_100.RData", package = "sprtt")     #"data/sprt_tool_df_all_100.rds"  
@@ -93,7 +93,8 @@ magenta <- "#e61be5"
 rosa <- "#ff0088"
 hell_rosa <- "#ffa1c2"
 light_red <- "#e72b2e"
-red <- "#e72b2e"
+red <- "#d7191c"
+
 # red <- 	"#d7191c" #"#ca0020" "#CD2626" "#8B0000"
 dark_red <- "#8b1012"
 black_red <- "#4b1919" # "#651718"
@@ -104,12 +105,18 @@ dark_orange <- "#fc8715"
 yellow <- "#ffffbf"
 
 # Define Flatly-compatible accent colors (muted, modern)
-light_green <- "#18BC9C"  # Flatly teal
-light_red   <- "#E74C3C"  # Flatly red
-flatly_blue <- "#387ba8"  # Accent for lines
-flatly_dark <- "#2c3e50"  # blue of the theme
+light_green       <- "#18BC9C"  # Flatly teal
+flatly_yellow     <- "#F1C40F"  # gold
+light_red         <- "#E74C3C"  # Flatly red
+flatly_red_dark   <- "#C0392B"  # darker red
+flatly_blue       <- "#387ba8"  # Accent for lines
+flatly_dark       <- "#2c3e50"  # blue of the theme
+flatly_purple     <- "#A569BD"  # amethyst
+flatly_gray_light <- "#ECF0F1"  # very light gray (bg)
+flatly_gray_dark  <- "#7F8C8D"  # dark gray
+flatly_border     <- "#BDC3C7"  # subtle borders
 
-
+fixed_color <- light_red
 
 dpi = 150
 base_size <- 30
@@ -118,8 +125,22 @@ theme_set(theme_bw(base_size = base_size))
 
 ```
 
+```{r, echo=FALSE, results='asis', warning=FALSE}
+sprtt_cit <- paste(format(citation("sprtt"), style = "text"), collapse = " ")
+cat(
+  sprintf(
+    '<p class="author-line"><i>created by the</i> sprtt <i>package</i> — %s</p>',
+    htmltools::htmlEscape(sprtt_cit)
+  )
+)
+```
+
+
 
 <br><br>
+
+## Simulation details {#txt-sim .unlisted .unnumbered}
+
 This report summarizes a simulation with `r n_rep` iterations per condition.
 Data were generated from a normal distribution, $\mathcal{N}(\mu,\sigma^2)$, under equal variances across groups and strictly balanced group sizes throughout data collection.
 
@@ -135,17 +156,30 @@ The analyses below use the following specifications:
  
 See XXX for the simulation code.
 
-This report contains multiple helpful aspects in order to plan a study using a sequential ANOVA, where the final sample size is unknown beforehand.
-The first chapter visualizes the consequence of picking a specific effect size of interest ($f_{exp}$) in the context of multiple true effects ($f_{true}$).
-This information is not specific to sequential testing, but is essential in choosing the correct expected efefct size.
+### Overview {#txt-overview .unlisted .unnumbered}
 
-The second chapter, contains the core information to plan a sequential study. In there, just two cases are taken into consideration - the case where the effect is exactly as specified ($f_{exp} = f_{true}$), or the true effect is zero ($f_{true} = 0$).
+This report provides practical guidance for planning a study with **sequential ANOVA**, where the final sample size is not fixed in advance.
 
-For more advanced users or curious readers, the third chapter contains extended plots and tables with more diverse true effect sizes.
+**Chapter 1** illustrates the consequences of choosing a target effect size $f_{\text{exp}}$ across a range of possible true effects $f_{\text{true}}$. Although not specific to sequential designs, this perspective is essential for selecting a sensible expected effect size.
+
+**Chapter 2** presents the core planning results for a sequential study, focusing on two benchmark cases: (a) the true effect equals the specified value ($f_{\text{true}} = f_{\text{exp}}$) and (b) there is no true effect ($f_{\text{true}} = 0$).
+
+**Chapter 3** offers extended plots and tables to explore additional scenarios with more varied $f_{\text{true}}$ values.
+
 
 <br>
 
-## Influence of $f_{exp}$ on the power curve
+## Influence of $f_{exp}$
+
+Choosing $f_{\text{exp}}$ is critical because it determines (i) which effect sizes can be detected with the target power and (ii) how much data (sample size) are typically required to reach a decision.
+
+In this report, the specified effect size is $f_{\text{exp}} = `r pick_f_expected`$.
+The plot below shows the power curve across possible true effects in the population, $f_{\text{true}}$.
+
+It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**: power declines quickly for effects smaller than $f_{\text{exp}}$, whereas choosing a much larger $f_{\text{exp}}$ may shorten data collection but risks missing practically relevant effects just below that value.
+
+
+### Power curve {#power-curve .toc-only}
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 plot_cases <- df_all %>% 
@@ -266,6 +300,66 @@ if (pick_f_expected == 0.10){
 
 ```
 
+### Sequential vs fixed design {#sample-size-diff .toc-only}
+
+This plot visualizes the rewuired sample sizes, when the true vaue is set and one uses different 
+
+```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
+
+pick_f_simulated = 0.30
+
+# titles
+title_html <- glue("<i>f</i><sub>true</sub> = {pick_f_simulated}")
+subtitle_html <- glue(
+  # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
+  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
+)
+
+df_all %>% 
+  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+         fill_group = factor(as.integer(f_simulated))
+         ) %>% 
+  filter(f_simulated == pick_f_simulated,
+         f_expected <= pick_f_simulated,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>%
+  mutate(f_expected = factor(f_expected)) %>% 
+  group_by(f_expected) %>% 
+  # filter(f_simulated %in% pick_f_simulated) %>%
+  {. ->> cases} %>% 
+  ggplot(aes(x = f_expected, y = n)) +
+  geom_violin(trim = FALSE, fill = light_blue,
+              scale = "count",
+              #draw_quantiles = c(0.25, 0.50, 0.75),
+              linewidth = 0.3) +
+  # scale_fill_manual(values = light_blue) +
+  geom_point(aes(x = f_expected, y = fix_n),
+             position = position_dodge(0.9),
+             shape = 18,
+             color = fixed_color,
+             size = 9) +
+  geom_point(aes(x = f_expected, y = mean_n),
+             position = position_dodge(0.9),
+             shape = 15,
+             color = flatly_dark,
+             size = 6) + 
+  labs(
+    x = "<i>f</i><sub>exp</sub>",
+    y = "sample size",
+    title = "Required sample sizes to reach a decision",
+    subtitle = as.expression(bquote(paste(italic(f)[true], " = ", .(pick_f_expected)))),
+    caption = subtitle_html) +
+    theme_minimal(base_size = base_size) +
+    theme(plot.title = element_text(face = "bold", size = base_size, hjust = 0, colour = flatly_dark),
+        plot.subtitle = element_text(size = base_size*0.7, colour = "grey40"),
+        plot.caption = element_markdown(),
+        axis.title.x = element_markdown(),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank()
+        ) -> p_violin 
+p_violin
+```
 
 ## Sample size recommendations
 
@@ -300,12 +394,12 @@ df_all %>%
   geom_point(aes(x = f_simulated, y = fix_n),
              position = position_dodge(0.9),
              shape = 18,
-             color = red,
+             color = fixed_color,
              size = 11) +
-  geom_point(aes(x = f_simulated, y = mean(mean_n)),
+  geom_point(aes(x = f_simulated, y = mean_n),
              position = position_dodge(0.9),
              shape = 15,
-             color = dark_blue,
+             color = flatly_dark,
              size = 8) + 
   labs(
     x = "<i>f</i><sub>true</sub>",
@@ -545,8 +639,8 @@ p_violin <- df_all %>%
   ) +
 scale_color_manual(
   name   = "Legend",
-  values = c("Fixed sample size" = red,
-             "Mean sample size"  = dark_blue),
+  values = c("Fixed sample size" = fixed_color,
+             "Mean sample size"  = flatly_dark),
   labels = c("Fixed sample size" = "a priori power analysis",
              "Mean sample size"  = "mean sample size")
 ) +
