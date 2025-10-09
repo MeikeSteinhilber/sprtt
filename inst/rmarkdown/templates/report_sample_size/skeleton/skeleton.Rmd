@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
     number_sections: true
-    code_folding: hide
+    # code_folding: hide
 params:
   data_path: !r system.file("data", "sprt_tool_samples_100.RData", package = "sprtt")     #"data/sprt_tool_df_all_100.rds"  
   n_rep: 100
@@ -44,7 +44,7 @@ h1.toc-only, h2.toc-only, h3.toc-only, h4.toc-only, h5.toc-only, h6.toc-only {
 </style>
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 ```{r, include=FALSE}
@@ -125,23 +125,68 @@ theme_set(theme_bw(base_size = base_size))
 
 ```
 
+
 ```{r, echo=FALSE, results='asis', warning=FALSE}
+# sprtt_cit <- paste(format(citation("sprtt"), style = "text"), collapse = " ")
+# sprtt_cit <- gsub("_(.+?)_", "<em>\\1</em>", sprtt_cit, perl = TRUE)
+# 
+# # Match the last angle-bracket URL by greedily capturing the prefix
+# sprtt_cit <- sub("(?s)^(.*)&lt;\\s*(https?://[^&\\s]+)\\s*&gt;(.*)$",
+#                  '\\1<br><a href="\\2" target="_blank" rel="noopener">\\2</a>\\3',
+#                  sprtt_cit, perl = TRUE)
+# sprtt_cit <- sub("(?s)^(.*)<\\s*(https?://[^>\\s]+)\\s*>(.*)$",
+#                  '\\1<br><a href="\\2" target="_blank" rel="noopener">\\2</a>\\3',
+#                  sprtt_cit, perl = TRUE)
+# 
+# cat(sprintf(
+#   '<p class="author-line"><i>created by the</i> [sprtt](https://meikesteinhilber.github.io/sprtt/) <i>package</i><br>
+#    <cite style="font-size:0.85em;color:#555;line-height:1.4;overflow-wrap:anywhere;">%s</cite></p>',
+#   sprtt_cit
+# ))
+# 
 sprtt_cit <- paste(format(citation("sprtt"), style = "text"), collapse = " ")
-cat(
-  sprintf(
-    '<p class="author-line"><i>created by the</i> sprtt <i>package</i> — %s</p>',
-    htmltools::htmlEscape(sprtt_cit)
-  )
-)
+sprtt_cit <- gsub("_(.+?)_", "<em>\\1</em>", sprtt_cit, perl = TRUE)
+
+# Remove URLs in angle brackets (both escaped & literal), plus a trailing dot if present
+sprtt_cit <- gsub("&lt;\\s*https?://[^&\\s>]+\\s*&gt;\\.?","", sprtt_cit, perl=TRUE)
+sprtt_cit <- gsub("<\\s*https?://[^>\\s]+\\s*>\\.?","", sprtt_cit, perl=TRUE)
+
+# (Optional) also remove bare URLs that might appear without <...>
+sprtt_cit <- gsub("\\bhttps?://[^\\s<>]+\\b\\.?","", sprtt_cit, perl=TRUE)
+
+# Clean up leftover spaces/punctuation
+sprtt_cit <- gsub("\\s+,", ",", sprtt_cit)
+sprtt_cit <- gsub("\\s+\\.", ".", sprtt_cit)
+sprtt_cit <- gsub("\\s{2,}", " ", sprtt_cit)
+sprtt_cit <- trimws(sprtt_cit)
+
+cat(sprintf(
+  '<p class="author-line"><i>created by the</i> <a href="https://meikesteinhilber.github.io/sprtt/" target="_blank" rel="noopener">sprtt</a> <i>package</i><br>
+   <cite style="font-size:0.85em;color:#555;line-height:1.4;">%s</cite></p>',
+  sprtt_cit
+))
+
+
 ```
 
 
 
 <br><br>
 
+### Overview {#txt-overview .unlisted .unnumbered}
+
+This report provides practical guidance for planning a study with **sequential ANOVA**, where the final sample size is not fixed in advance.
+
+**Chapter 1** illustrates the consequences of choosing a target effect size $f_{\text{exp}}$ across a range of possible true effects $f_{\text{true}}$. Although not specific to sequential designs, this perspective is essential for selecting a sensible expected effect size.
+
+**Chapter 2** presents the core planning results for a sequential study, focusing on two benchmark cases: (a) the true effect equals the specified value ($f_{\text{true}} = f_{\text{exp}}$) and (b) there is no true effect ($f_{\text{true}} = 0$).
+
+**Chapter 3** offers extended plots and tables to explore additional scenarios with more varied $f_{\text{true}}$ values.
+
+
 ## Simulation details {#txt-sim .unlisted .unnumbered}
 
-This report summarizes a simulation with `r n_rep` iterations per condition.
+The following results are based on a simulation with `r n_rep` iterations per condition.
 Data were generated from a normal distribution, $\mathcal{N}(\mu,\sigma^2)$, under equal variances across groups and strictly balanced group sizes throughout data collection.
 
 The analyses below use the following specifications:
@@ -155,17 +200,6 @@ The analyses below use the following specifications:
  - $\alpha$ = 0.05
  
 See XXX for the simulation code.
-
-### Overview {#txt-overview .unlisted .unnumbered}
-
-This report provides practical guidance for planning a study with **sequential ANOVA**, where the final sample size is not fixed in advance.
-
-**Chapter 1** illustrates the consequences of choosing a target effect size $f_{\text{exp}}$ across a range of possible true effects $f_{\text{true}}$. Although not specific to sequential designs, this perspective is essential for selecting a sensible expected effect size.
-
-**Chapter 2** presents the core planning results for a sequential study, focusing on two benchmark cases: (a) the true effect equals the specified value ($f_{\text{true}} = f_{\text{exp}}$) and (b) there is no true effect ($f_{\text{true}} = 0$).
-
-**Chapter 3** offers extended plots and tables to explore additional scenarios with more varied $f_{\text{true}}$ values.
-
 
 <br>
 
