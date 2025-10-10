@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Meike Steinhilber \email{Meike.Steinhilber@aol.com} (\href{https://orcid.org/0000-0002-7144-2100}{ORCID})
+\strong{Maintainer}: Meike Snijder-Steinhilber \email{Meike.Steinhilber@aol.com} (\href{https://orcid.org/0000-0002-7144-2100}{ORCID})
 
 Authors:
 \itemize{

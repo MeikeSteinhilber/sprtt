@@ -2,6 +2,7 @@
 
 export(draw_sample_mixture)
 export(draw_sample_normal)
+export(plan_sample_size)
 export(plot_anova)
 export(seq_anova)
 export(seq_ttest)
