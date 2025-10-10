@@ -1,3 +1,8 @@
+#---- GENERAL SETTINGS ---------------------------------------------------------
+# #' @importFrom stats dt df model.frame as.formula runif
+#'
+#'
+#' #---- MAIN FUNCTION DOCUMENTATION ----------------------------------------------
 #' Generate an HTML report for sample size planning for sequential ANOVAs.
 #'
 #' @description
@@ -36,6 +41,8 @@
 #'   - and `overwrite = FALSE`, the user is asked whether to overwrite (in interactive sessions);
 #'     otherwise, an error is thrown.
 #'   - If `overwrite = TRUE`, the file is replaced silently.
+#'
+#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -126,7 +133,6 @@ plan_sample_size <- function(f_expected,
   output <- rmarkdown::render(
     rmd_path,
     params = list(
-      n_rep = 100,
       pick_f_expected = f_expected,
       pick_power = power,
       pick_k_groups = k_groups
