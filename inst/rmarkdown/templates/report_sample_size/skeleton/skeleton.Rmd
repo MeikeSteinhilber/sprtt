@@ -74,8 +74,8 @@ library(latex2exp)
 #load(glue("{params$data_path}/sprt_tool_samples_{n_rep}.RData"))
 # load(glue("meta_data/sprt_tool_samples_{n_rep}.RData"))
 
-df_all <- sprtt:::df_all
-#df <- sprtt:::df
+df_all <- get("df_all", envir = asNamespace("sprtt"))
+df <- get("df", envir = asNamespace("sprtt"))
 ```
 
 
