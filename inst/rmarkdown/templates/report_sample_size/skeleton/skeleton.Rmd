@@ -9,7 +9,7 @@ output:
     number_sections: true
     # code_folding: hide
 params:
-  data_path: !r system.file("data", package = "sprtt")     #"data/sprt_tool_df_all_100.rds"  
+  #data_path: !r system.file("sample_tool_data", package = "sprtt")     #"data/sprt_tool_df_all_100.rds"  
   n_rep: 2000
   pick_f_expected: 0.25
   pick_power: 0.8
@@ -71,7 +71,7 @@ library(latex2exp)
 
 ```{r, include=FALSE}
 # data -------------------------------------------------------------------------
-load(glue("{params$data_path}/sprt_tool_samples_{n_rep}.RData"))
+#load(glue("{params$data_path}/sprt_tool_samples_{n_rep}.RData"))
 # load(glue("meta_data/sprt_tool_samples_{n_rep}.RData"))
 ```
 
