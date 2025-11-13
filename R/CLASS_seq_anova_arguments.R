@@ -13,11 +13,11 @@ setClass(
     verbose = "logical"
   )
 )
-build_prototype_seq_anova_arguments <- function(seed = 333, max_n = 50, f = 0.4, k_groups = 4) {
+build_prototype_seq_anova_arguments <- function(seed = 333, max_n = 50, f_sim = 0.4, f_exp = 0.4, k_groups = 4, alpha = 0.05, power = 0.95) {
   set.seed(seed)
-  data <- draw_sample_normal(k_groups = k_groups, f = f, max_n = max_n)
+  data <- draw_sample_normal(k_groups = k_groups, f = f_sim, max_n = max_n)
   formula <- y~x
-  build_seq_anova_arguments(formula, data, 0.4, 0.05, 0.95, "test name", TRUE)
+  build_seq_anova_arguments(formula, data, f_exp, alpha, power, "test name", TRUE)
 }
 
 setValidity(

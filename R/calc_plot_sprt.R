@@ -1,4 +1,8 @@
 # seq_anova_arguments <- build_prototype_seq_anova_arguments(max_n = 15, seed = 22)
+# seq_anova_arguments <- build_prototype_seq_anova_arguments(
+#                         seed = 333, max_n = 50, f_sim = 0.4, f_exp = 0.4,
+#                         k_groups = 4,
+#                         alpha = 0.05, power = 0.95)
 # seq_anova_results <- calc_seq_anova(seq_anova_arguments)
 # seq_steps <- "single"
 # seq_steps <- "balanced"
@@ -21,6 +25,7 @@ calc_plot_anova <- function(seq_anova_arguments, seq_steps) {
 
   lr_log <- double(length(seq_steps))
   sample_size <- double(length(seq_steps))
+  decision <- character(length(seq_steps))
   i = 1
 
   k_groups_start <- table(seq_anova_arguments@data[1:seq_steps[1], 2])
@@ -35,6 +40,7 @@ calc_plot_anova <- function(seq_anova_arguments, seq_steps) {
     temp_arguments@total_sample_size <- position
     seq_anova_results <- calc_seq_anova(temp_arguments)
     lr_log[i] <- seq_anova_results@likelihood_ratio_log
+    decision[i] <- seq_anova_results@decision
     sample_size[i] <- position
     i <- i + 1
   }
@@ -44,10 +50,10 @@ calc_plot_anova <- function(seq_anova_arguments, seq_steps) {
   #           seq_anova_results@B_boundary_log
   # )
 
-  seq_anova_results@plot <- list(lr_log = lr_log,
-                                 sample_size = sample_size,
-                                 A_boundary_log = seq_anova_results@A_boundary_log,
-                                 B_boundary_log = seq_anova_results@B_boundary_log)
+  seq_anova_results@plot <- data.frame(
+    lr_log = lr_log,
+    sample_size = sample_size,
+    decision = decision)
   seq_anova_results
 }
 
