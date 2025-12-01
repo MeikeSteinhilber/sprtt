@@ -83,8 +83,8 @@ plan_sample_size <- function(f_expected,
 
 
   # check input parameters
-  if (is.null(df)) df <- get("df", envir = asNamespace("sprtt"))
-  if (is.null(df_all)) df_all <- get("df_all", envir = asNamespace("sprtt"))
+  # if (is.null(df)) df <- get("df", envir = asNamespace("sprtt"))
+  # if (is.null(df_all)) df_all <- get("df_all", envir = asNamespace("sprtt"))
 
   if (!f_expected %in% df$f_expected) {
     stop(
