@@ -32,18 +32,21 @@ pick_power = params$pick_power
 pick_k_groups = params$pick_k_groups
 
 library(dplyr)
-library(tidyr)
+# library(tidyr)
 library(kableExtra)
-library(gridExtra)
+# library(gridExtra)
 library(glue)
-library(here)
+# library(here)
 library(ggplot2)
 library(knitr)
-library(kableExtra)
-library(gt)
-library(ggtext)
-library(scales)
-library(latex2exp)
+# library(kableExtra)
+# library(gt)
+# library(ggtext)
+# library(scales)
+
+
+
+# library(latex2exp)
 ```
 
 ```{r, include=FALSE}
