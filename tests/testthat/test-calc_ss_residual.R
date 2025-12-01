@@ -1,4 +1,3 @@
-context("calc_ss_residual")
 
 # ANOVA ------------------------------------------------------------------------
 test_that("calc_ss_residual", {

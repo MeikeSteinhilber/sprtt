@@ -75,7 +75,7 @@
     Code
       seq_anova(formula, 1, data = df_no_effect_extreme)
     Condition
-      [1m[33mWarning[39m in `calc_likelihoods_anova()`:[22m
+      Warning in `calc_likelihoods_anova()`:
       At least one likelihood is equal to 0.
                   The test works with the logarithm of the likelihoods.
     Output

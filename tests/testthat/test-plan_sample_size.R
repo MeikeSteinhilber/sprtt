@@ -70,9 +70,9 @@ test_that("renders HTML to the specified directory", {
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
-    f_expected = sprtt::df$f_expected[1],
-    k_groups   = sprtt::df$k_groups[1],
-    power      = sprtt::df$power[1],
+    f_expected = sprtt:::df$f_expected[1],
+    k_groups   = sprtt:::df$k_groups[1],
+    power      = sprtt:::df$power[1],
     output_dir = tmp,
     output_file = "report.html",
     open = FALSE,
@@ -97,9 +97,9 @@ test_that("renders HTM too", {
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
-    f_expected = sprtt::df$f_expected[1],
-    k_groups   = sprtt::df$k_groups[1],
-    power      = sprtt::df$power[1],
+    f_expected = sprtt:::df$f_expected[1],
+    k_groups   = sprtt:::df$k_groups[1],
+    power      = sprtt:::df$power[1],
     output_dir = tmp,
     output_file = "report.htm",
     open = FALSE,
@@ -117,9 +117,9 @@ test_that("overwrite protection works when open = FALSE", {
 
   expect_error(
     plan_sample_size(
-      f_expected = sprtt::df$f_expected[1],
-      k_groups   = sprtt::df$k_groups[1],
-      power      = sprtt::df$power[1],
+      f_expected = sprtt:::df$f_expected[1],
+      k_groups   = sprtt:::df$k_groups[1],
+      power      = sprtt:::df$power[1],
       output_dir = tmp,
       output_file = basename(path),
       open = FALSE,
@@ -133,9 +133,9 @@ test_that("overwrite protection works when open = FALSE", {
   testthat::skip_if_not_installed("rmarkdown")
   testthat::skip_if_not(rmarkdown::pandoc_available())
   out <- plan_sample_size(
-    f_expected = sprtt::df$f_expected[1],
-    k_groups   = sprtt::df$k_groups[1],
-    power      = sprtt::df$power[1],
+    f_expected = sprtt:::df$f_expected[1],
+    k_groups   = sprtt:::df$k_groups[1],
+    power      = sprtt:::df$power[1],
     output_dir = tmp,
     output_file = basename(path),
     open = FALSE,

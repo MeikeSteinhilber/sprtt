@@ -1,5 +1,3 @@
-context("show: Check output")
-
 # t-TEST -----------------------------------------------------------------------
 test_that("show: print output ttest?", {
   # 3.ed edition necessary for expect_snapshot

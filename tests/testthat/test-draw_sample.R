@@ -1,6 +1,5 @@
 #* @testing draw_sample_normal
 
-context("draw_sample_normal")
 
 test_that("draw_sample_normal: check correct behaviour", {
   set.seed(333)
