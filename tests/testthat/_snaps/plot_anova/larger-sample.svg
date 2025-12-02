@@ -48,12 +48,12 @@
 <line x1='70.07' y1='125.94' x2='707.55' y2='125.94' style='stroke-width: 3.20; stroke-dasharray: 17.07,17.07; stroke-linecap: butt;' />
 <line x1='70.07' y1='468.31' x2='707.55' y2='468.31' style='stroke-width: 3.20; stroke-dasharray: 17.07,17.07; stroke-linecap: butt;' />
 <circle cx='363.61' cy='124.21' r='7.21' style='stroke-width: 1.61; stroke: #CD2626; fill: #CD2626;' />
-<text x='298.52' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='13.90px' lengthAdjust='spacingAndGlyphs'>L</text>
-<text x='312.43' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='18.06px' lengthAdjust='spacingAndGlyphs'>R</text>
-<text x='330.49' y='308.08' style='font-size: 17.50px; fill: #CD2626; font-family: sans;' textLength='29.20px' lengthAdjust='spacingAndGlyphs'>189</text>
-<text x='365.48' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='19.41px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='390.67' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='6.25px' lengthAdjust='spacingAndGlyphs'> </text>
-<text x='396.93' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='62.56px' lengthAdjust='spacingAndGlyphs'>19.57</text>
+<text x='309.58' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='13.90px' lengthAdjust='spacingAndGlyphs'>L</text>
+<text x='323.49' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='18.06px' lengthAdjust='spacingAndGlyphs'>R</text>
+<text x='341.55' y='308.08' style='font-size: 17.50px; fill: #CD2626; font-family: sans;' textLength='29.20px' lengthAdjust='spacingAndGlyphs'>189</text>
+<text x='376.53' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='19.41px' lengthAdjust='spacingAndGlyphs'>=</text>
+<text x='401.73' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='6.25px' lengthAdjust='spacingAndGlyphs'> </text>
+<text x='407.99' y='303.46' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='62.56px' lengthAdjust='spacingAndGlyphs'>19.57</text>
 <text x='119.38' y='115.09' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='16.68px' lengthAdjust='spacingAndGlyphs'>A</text>
 <text x='136.06' y='115.09' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='12.51px' lengthAdjust='spacingAndGlyphs'>c</text>
 <text x='148.57' y='115.09' style='font-size: 25.00px; fill: #CD2626; font-family: sans;' textLength='12.51px' lengthAdjust='spacingAndGlyphs'>c</text>
@@ -95,6 +95,6 @@
 <text x='658.97' y='530.77' text-anchor='middle' style='font-size: 20.00px; fill: #4D4D4D; font-family: sans;' textLength='33.37px' lengthAdjust='spacingAndGlyphs'>400</text>
 <text x='388.81' y='558.36' text-anchor='middle' style='font-size: 25.00px; font-family: sans;' textLength='165.38px' lengthAdjust='spacingAndGlyphs'>Sample Size N</text>
 <text transform='translate(29.66,278.79) rotate(-90)' text-anchor='middle' style='font-size: 25.00px; font-family: sans;' textLength='227.94px' lengthAdjust='spacingAndGlyphs'>Log-Likelihood Ratio</text>
-<text x='70.07' y='33.10' style='font-size: 30.00px; font-family: sans;' textLength='235.17px' lengthAdjust='spacingAndGlyphs'>change lr position</text>
+<text x='70.07' y='33.10' style='font-size: 30.00px; font-family: sans;' textLength='181.76px' lengthAdjust='spacingAndGlyphs'>larger sample</text>
 </g>
 </svg>

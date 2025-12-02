@@ -41,8 +41,8 @@ library(ggplot2)
 library(knitr)
 # library(kableExtra)
 # library(gt)
-# library(ggtext)
-# library(scales)
+library(ggtext)
+library(scales)
 
 
 

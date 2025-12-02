@@ -52,6 +52,42 @@ test_that("show: print output ttest?", {
         d = 0.8)
     )
   )
+
+  data <- sprtt::draw_sample_normal(2, 0.8, 40)
+  expect_snapshot(
+    show(
+      seq_ttest(
+        y ~ x,
+        d = 0.60,
+        data = data,
+        alternative = "less",
+        verbose = TRUE)
+    )
+  )
+
+  data <- sprtt::draw_sample_normal(2, 0.8, 40)
+  expect_snapshot(
+    show(
+      seq_ttest(
+        rnorm(50),
+        mu = 1,
+        d = 0.4,
+        verbose = TRUE,
+        alternative = "greater")
+    )
+  )
+
+  data <- sprtt::draw_sample_normal(2, 0.8, 40)
+  expect_snapshot(
+    show(
+      seq_ttest(
+        y ~ x,
+        d = 0.60,
+        data = data,
+        alternative = "greater",
+        verbose = TRUE)
+    )
+  )
 })
 
 test_that("show: verbose", {

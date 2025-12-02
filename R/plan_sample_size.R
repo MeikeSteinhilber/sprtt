@@ -72,10 +72,6 @@ plan_sample_size <- function(f_expected,
                              output_file = "sprtt-report-sample-size-planning.html",
                              open = interactive(),
                              overwrite = FALSE) {
-  if (!requireNamespace("rmarkdown", quietly = TRUE)) {
-    stop("Package 'rmarkdown' must be installed to render the report.", call. = FALSE)
-  }
-
   # Basic validation
   stopifnot(length(f_expected) == 1, is.numeric(f_expected))
   stopifnot(length(power) == 1, is.numeric(power), power > 0, power < 1)
