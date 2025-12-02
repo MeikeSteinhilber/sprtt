@@ -2,7 +2,11 @@
 #' @importFrom stats dt df model.frame as.formula runif
 #' @importFrom methods callNextMethod new validObject
 #' @importFrom MBESS conf.limits.ncf
-#' @import dplyr
+#' @importFrom glue glue
+#' @importFrom knitr opts_chunk
+#' @importFrom ggtext element_markdown
+#' @importFrom scales percent_format percent
+#' @import dplyr ggplot2 gt
 #'
 #'
 #---- MAIN FUNCTION DOCUMENTATION ----------------------------------------------

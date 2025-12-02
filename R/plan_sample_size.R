@@ -1,7 +1,3 @@
-#---- GENERAL SETTINGS ---------------------------------------------------------
-# #' @importFrom stats dt df model.frame as.formula runif
-#'
-#'
 #' #---- MAIN FUNCTION DOCUMENTATION ----------------------------------------------
 #' Generate an HTML report for sample size planning for sequential ANOVAs.
 #'
@@ -14,7 +10,7 @@
 #' The report template is part of the **sprtt** package and is located under
 #' `inst/rmarkdown/templates/report_sample_size/skeleton/skeleton.Rmd`.
 #'
-#' @param f_expected Numeric scalar. The expected standardized effect size (e.g., Cohen’s *f*).
+#' @param f_expected Numeric scalar. The expected standardized effect size (e.g., Cohen's f).
 #'   Must be greater than 0.
 #' @param k_groups Integer scalar. The number of groups to compare. Must be at least 2.
 #' @param power Numeric scalar (default = 0.95). Desired statistical power for the design.
@@ -23,7 +19,7 @@
 #' @param output_file Character string. File name of the generated HTML report.
 #'   Defaults to `"sprtt-report-sample-size-planning.html"`.
 #' @param open Logical (default = `interactive()`). If `TRUE`, the generated report is opened
-#'   in the system’s default web browser after rendering.
+#'   in the system's default web browser after rendering.
 #' @param overwrite Logical (default = `FALSE`). If `FALSE` and the target file already exists,
 #'   the user is prompted interactively whether to overwrite it. In non-interactive sessions,
 #'   an error is raised unless `overwrite = TRUE`.
@@ -110,7 +106,7 @@ plan_sample_size <- function(f_expected,
                               title = sprintf("File '%s' already exists. Overwrite?", output_file)
         )
         if (answer != 1) {
-          message("Aborted — file not overwritten.")
+          message("Aborted - file not overwritten.")
           return(invisible(NULL))
         }
       } else {

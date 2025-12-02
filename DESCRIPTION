@@ -41,7 +41,6 @@ Imports:
     lifecycle,
     knitr,
     rmarkdown,
-    glue,
     gt,
     ggtext,
     scales

@@ -16,7 +16,7 @@ plan_sample_size(
 )
 }
 \arguments{
-\item{f_expected}{Numeric scalar. The expected standardized effect size (e.g., Cohen’s \emph{f}).
+\item{f_expected}{Numeric scalar. The expected standardized effect size (e.g., Cohen's f).
 Must be greater than 0.}
 
 \item{k_groups}{Integer scalar. The number of groups to compare. Must be at least 2.}
@@ -30,7 +30,7 @@ Defaults to a temporary directory (\code{tempdir()}).}
 Defaults to \code{"sprtt-report-sample-size-planning.html"}.}
 
 \item{open}{Logical (default = \code{interactive()}). If \code{TRUE}, the generated report is opened
-in the system’s default web browser after rendering.}
+in the system's default web browser after rendering.}
 
 \item{overwrite}{Logical (default = \code{FALSE}). If \code{FALSE} and the target file already exists,
 the user is prompted interactively whether to overwrite it. In non-interactive sessions,
