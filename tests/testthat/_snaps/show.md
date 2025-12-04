@@ -142,6 +142,78 @@
         0.18073   0.16120 
       *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
+---
+
+    Code
+      show(seq_ttest(y ~ x, d = 0.6, data = data, alternative = "less", verbose = TRUE))
+    Output
+      
+      *****  Sequential  Two Sample t-test *****
+      
+      formula: y ~ x
+      test statistic:
+       log-likelihood ratio = 10.441, decision = accept H1
+      SPRT thresholds:
+       lower log(B) = -2.944, upper log(A) = 2.944
+      Log-Likelihood of the:
+       alternative hypothesis = -5.72
+       null hypothesis = -16.161
+      alternative hypothesis: true difference in means is less than 0.
+      specified effect size: Cohen's d = 0.6
+      degrees of freedom: df = 78
+      sample estimates:
+      mean of x mean of y 
+       -0.61169   0.80048 
+      *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+
+---
+
+    Code
+      show(seq_ttest(rnorm(50), mu = 1, d = 0.4, verbose = TRUE, alternative = "greater"))
+    Output
+      
+      *****  Sequential One Sample t-test *****
+      
+      formula: rnorm(50)
+      test statistic:
+       log-likelihood ratio = -7.213, decision = accept H0
+      SPRT thresholds:
+       lower log(B) = -2.944, upper log(A) = 2.944
+      Log-Likelihood of the:
+       alternative hypothesis = -27.124
+       null hypothesis = -19.91
+      alternative hypothesis: true mean is greater than 1.
+      specified effect size: Cohen's d = 0.4
+      degrees of freedom: df = 49
+      sample estimates:
+      mean of x 
+       -0.02995 
+      *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+
+---
+
+    Code
+      show(seq_ttest(y ~ x, d = 0.6, data = data, alternative = "greater", verbose = TRUE))
+    Output
+      
+      *****  Sequential  Two Sample t-test *****
+      
+      formula: y ~ x
+      test statistic:
+       log-likelihood ratio = 10.922, decision = accept H1
+      SPRT thresholds:
+       lower log(B) = -2.944, upper log(A) = 2.944
+      Log-Likelihood of the:
+       alternative hypothesis = -6.498
+       null hypothesis = -17.421
+      alternative hypothesis: true difference in means is greater than 0.
+      specified effect size: Cohen's d = 0.6
+      degrees of freedom: df = 78
+      sample estimates:
+      mean of x mean of y 
+        0.90448  -0.82173 
+      *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+
 # show: verbose
 
     Code

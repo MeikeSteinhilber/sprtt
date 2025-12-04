@@ -70,9 +70,15 @@ test_that("renders HTML to the specified directory", {
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
+<<<<<<< HEAD
     f_expected = 0.25,
     k_groups   = 3,
     power      = 0.95,
+=======
+    f_expected = sprtt:::df$f_expected[1],
+    k_groups   = sprtt:::df$k_groups[1],
+    power      = sprtt:::df$power[1],
+>>>>>>> 6531cdbe428b9a7aeea44d047fd39e159e25be12
     output_dir = tmp,
     output_file = "report.html",
     open = FALSE,
@@ -97,9 +103,15 @@ test_that("renders HTM too", {
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
+<<<<<<< HEAD
     f_expected = 0.25,
     k_groups   = 3,
     power      = 0.95,
+=======
+    f_expected = sprtt:::df$f_expected[1],
+    k_groups   = sprtt:::df$k_groups[1],
+    power      = sprtt:::df$power[1],
+>>>>>>> 6531cdbe428b9a7aeea44d047fd39e159e25be12
     output_dir = tmp,
     output_file = "report.htm",
     open = FALSE,
@@ -114,11 +126,27 @@ test_that("overwrite protection works when open = FALSE", {
   # testthat::skip_if_not_installed("rmarkdown")
   # testthat::skip_if_not(rmarkdown::pandoc_available())
 
+<<<<<<< HEAD
   tmp <- withr::local_tempdir()
 
   # the path that plan_sample_size should write to
   output_file <- "report.html"
   path <- file.path(tmp, output_file)
+=======
+  expect_error(
+    plan_sample_size(
+      f_expected = sprtt:::df$f_expected[1],
+      k_groups   = sprtt:::df$k_groups[1],
+      power      = sprtt:::df$power[1],
+      output_dir = tmp,
+      output_file = basename(path),
+      open = FALSE,
+      overwrite = FALSE
+    ),
+    regexp = "already exists.*overwrite = TRUE",
+    ignore.case = TRUE
+  )
+>>>>>>> 6531cdbe428b9a7aeea44d047fd39e159e25be12
 
   # pre-create the file so it "already exists"
   cat("<html></html>", file = path)
@@ -136,6 +164,7 @@ test_that("overwrite protection works when open = FALSE", {
 
   # 2) With overwrite = TRUE it should succeed and return an existing file
   out <- plan_sample_size(
+<<<<<<< HEAD
     f_expected  = 0.25,
     k_groups    = 3,
     power       = 0.95,
@@ -143,6 +172,15 @@ test_that("overwrite protection works when open = FALSE", {
     output_file = output_file,
     open        = FALSE,
     overwrite   = TRUE
+=======
+    f_expected = sprtt:::df$f_expected[1],
+    k_groups   = sprtt:::df$k_groups[1],
+    power      = sprtt:::df$power[1],
+    output_dir = tmp,
+    output_file = basename(path),
+    open = FALSE,
+    overwrite = TRUE
+>>>>>>> 6531cdbe428b9a7aeea44d047fd39e159e25be12
   )
 
   expect_true(file.exists(out))

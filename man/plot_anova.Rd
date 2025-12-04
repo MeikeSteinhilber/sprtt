@@ -9,7 +9,7 @@ plot_anova(
   labels = TRUE,
   position_labels_x = 0.15,
   position_labels_y = 0.075,
-  position_lr_x = 0.05,
+  position_lr_x = NULL,
   position_lr_y = NULL,
   font_size = 25,
   line_size = 1.5,
@@ -21,13 +21,32 @@ plot_anova(
 
 \item{labels}{show labels in the plot.}
 
-\item{position_labels_x}{position of the boundary labels on the x-axis. 0 positions the center on the 0 of the x-axis.}
+\item{position_labels_x}{Numeric value controlling the horizontal position of
+the decision labels ("Accept H0" / "Accept H1"). The value is interpreted
+as a proportion of the maximum sample size \code{N}, i.e., the labels are placed
+at \code{x = N * position_labels_x}. Defaults to \code{0.15}, which places the labels
+near the left side of the plot. \code{0.5} places the labels in the center.}
 
-\item{position_labels_y}{position of the boundary labels on the y-axis. 0 positions the labels on the dotted lines.}
+\item{position_labels_y}{Numeric value controlling the vertical offset of the
+decision labels from the decision boundaries. The value is multiplied by
+the maximum absolute log–likelihood ratio (\verb{max(|lr_log|)}) to obtain the
+vertical distance between the boundary lines and the corresponding text.
+Larger values move the labels further away from the boundary lines.
+Defaults to \code{0.075}.}
 
-\item{position_lr_x}{scales the position of the LR label on the x-axis. 0 positions the label directly under the last calculated LR.}
+\item{position_lr_x}{Optional numeric value specifying the x-coordinate of
+the LR label in data units (i.e., on the sample size axis). If \code{NULL}
+(default), the LR label is placed at the sample size where the highlighted
+point occurs: at the stopping sample size if a decision was reached, or at
+the final sample size otherwise.}
 
-\item{position_lr_y}{scales the position of the LR label on the x-axis. 0 positions the label on the 0 of the y-axis}
+\item{position_lr_y}{Optional numeric value specifying the y-coordinate of
+the LR label in data units (i.e., on the log–likelihood ratio axis). If
+\code{NULL} (default), the LR label is placed on the horizontal axis (\code{y = 0})
+when a decision was reached early. If no decision boundary was crossed, the
+LR label is placed slightly above or below zero, depending on the sign of
+the final log–likelihood ratio, so that the label does not overlap the
+highlighted point.}
 
 \item{font_size}{font size of the plot.}
 
@@ -46,27 +65,43 @@ Creates plots for the results of the seq_anova() function.
 \examples{
 # simulate data for the example ------------------------------------------------
 set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 30)
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
 
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE)
 
 # plot the results -------------------------------------------------------------
+# default settings
 sprtt::plot_anova(anova_results)
-
+# variant 1
 sprtt::plot_anova(anova_results,
                  labels = TRUE,
-                 position_labels_x = 0.5,
+                 position_labels_x = 1.1,
                  position_labels_y = 0.1,
-                 position_lr_x = -0.5,
+                 position_lr_x = 70,
+                 position_lr_y = 2,
                  font_size = 25,
                  line_size = 2,
                  highlight_color = "green"
                  )
-
+# variant 2
+sprtt::plot_anova(anova_results,
+                  labels = TRUE,
+                  position_labels_x = 0.05,
+                  position_labels_y = 0.3,
+                  position_lr_x = 70,
+                  position_lr_y = 3.5,
+                  font_size = 25,
+                  line_size = 2,
+                  highlight_color = "darkred"
+)
+# no labels
 sprtt::plot_anova(anova_results,
                  labels = FALSE
                  )
+# custom additions
+sprtt::plot_anova(anova_results) +
+  geom_vline(xintercept = 66, linewidth = 1, linetype = "dashed")
 
 # further information ----------------------------------------------------------
 # run this code:

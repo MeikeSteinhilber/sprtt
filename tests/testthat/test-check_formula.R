@@ -1,7 +1,6 @@
 #* @testing check_formula
 
 # t-test -----------------------------------------------------------------------
-context("check_formula_ttest: Correct error messages.")
 
 test_that("check_formula_ttest: Check structure: Correct error messages", {
   x <- 1:10
@@ -94,7 +93,6 @@ test_that("check_formula_ttest: silent behaviour: no errors occur", {
 })
 
 # ANOVA ------------------------------------------------------------------------
-context("check_formula_anova: Correct error messages.")
 
 test_that("check_formula_anova: Check structure: Correct error messages", {
   data <- draw_sample_normal(k_groups = 4, f = 0, max_n = 30)

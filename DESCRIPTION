@@ -2,6 +2,7 @@ Type: Package
 Package: sprtt
 Title: Sequential Probability Ratio Tests Toolbox
 Version: 0.2.1
+Date: 2025-12-02
 Authors@R:
     c(person(given = "Meike",
              family = "Snijder-Steinhilber",
@@ -37,10 +38,13 @@ Imports:
     purrr,
     glue,
     ggplot2,
-    lifecycle
-Suggests:
+    lifecycle,
     knitr,
     rmarkdown,
+    gt,
+    ggtext,
+    scales
+Suggests:
     testthat (>= 3.0.0),
     testthis,
     withr,

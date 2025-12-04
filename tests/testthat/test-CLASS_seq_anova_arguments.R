@@ -1,5 +1,3 @@
-context(("CLASS_seq_anova_arguments: Check class"))
-
 test_that("CLASS_seq_anova_arguments: Check getters", {
   arguments <- build_prototype_seq_anova_arguments()
 
