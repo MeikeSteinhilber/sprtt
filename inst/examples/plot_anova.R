@@ -36,7 +36,7 @@ sprtt::plot_anova(anova_results,
                  )
 # custom additions
 sprtt::plot_anova(anova_results) +
-  geom_vline(xintercept = 66, linewidth = 1, linetype = "dashed")
+  ggplot2::geom_vline(xintercept = 66, linewidth = 1, linetype = "dashed")
 
 # further information ----------------------------------------------------------
 # run this code:
