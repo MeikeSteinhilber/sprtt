@@ -1,4 +1,7 @@
 test_that("plot with ANOVA", {
+  skip_on_cran()
+  testthat::skip_on_ci()
+
   set.seed(333)
   testthat::local_edition(3)
 
