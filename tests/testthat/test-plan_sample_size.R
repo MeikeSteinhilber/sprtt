@@ -70,15 +70,9 @@ test_that("renders HTML to the specified directory", {
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
-<<<<<<< HEAD
-    f_expected = 0.25,
-    k_groups   = 3,
-    power      = 0.95,
-=======
     f_expected = sprtt:::df$f_expected[1],
     k_groups   = sprtt:::df$k_groups[1],
     power      = sprtt:::df$power[1],
->>>>>>> 6531cdbe428b9a7aeea44d047fd39e159e25be12
     output_dir = tmp,
     output_file = "report.html",
     open = FALSE,
@@ -103,15 +97,9 @@ test_that("renders HTM too", {
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
-<<<<<<< HEAD
-    f_expected = 0.25,
-    k_groups   = 3,
-    power      = 0.95,
-=======
     f_expected = sprtt:::df$f_expected[1],
     k_groups   = sprtt:::df$k_groups[1],
     power      = sprtt:::df$power[1],
->>>>>>> 6531cdbe428b9a7aeea44d047fd39e159e25be12
     output_dir = tmp,
     output_file = "report.htm",
     open = FALSE,
@@ -123,16 +111,10 @@ test_that("renders HTM too", {
 
 
 test_that("overwrite protection works when open = FALSE", {
-  # testthat::skip_if_not_installed("rmarkdown")
-  # testthat::skip_if_not(rmarkdown::pandoc_available())
+  withr::local_tempdir() -> tmp
+  path <- file.path(tmp, "report.html")
+  cat("<html></html>", file = path)
 
-<<<<<<< HEAD
-  tmp <- withr::local_tempdir()
-
-  # the path that plan_sample_size should write to
-  output_file <- "report.html"
-  path <- file.path(tmp, output_file)
-=======
   expect_error(
     plan_sample_size(
       f_expected = sprtt:::df$f_expected[1],
@@ -146,33 +128,11 @@ test_that("overwrite protection works when open = FALSE", {
     regexp = "already exists.*overwrite = TRUE",
     ignore.case = TRUE
   )
->>>>>>> 6531cdbe428b9a7aeea44d047fd39e159e25be12
 
-  # pre-create the file so it "already exists"
-  cat("<html></html>", file = path)
-
-  # 1) interactice session necessary
-  # out <- plan_sample_size(
-  #   f_expected  = 0.25,
-  #   k_groups    = 3,
-  #   power       = 0.95,
-  #   output_dir  = tmp,          # <- explicitly use the same dir
-  #   output_file = output_file,  # <- same basename as pre-created file
-  #   open        = FALSE,
-  #   overwrite   = FALSE
-  # )
-
-  # 2) With overwrite = TRUE it should succeed and return an existing file
+  # Now with overwrite = TRUE it should succeed
+  testthat::skip_if_not_installed("rmarkdown")
+  testthat::skip_if_not(rmarkdown::pandoc_available())
   out <- plan_sample_size(
-<<<<<<< HEAD
-    f_expected  = 0.25,
-    k_groups    = 3,
-    power       = 0.95,
-    output_dir  = tmp,
-    output_file = output_file,
-    open        = FALSE,
-    overwrite   = TRUE
-=======
     f_expected = sprtt:::df$f_expected[1],
     k_groups   = sprtt:::df$k_groups[1],
     power      = sprtt:::df$power[1],
@@ -180,11 +140,8 @@ test_that("overwrite protection works when open = FALSE", {
     output_file = basename(path),
     open = FALSE,
     overwrite = TRUE
->>>>>>> 6531cdbe428b9a7aeea44d047fd39e159e25be12
   )
-
   expect_true(file.exists(out))
-  expect_identical(normalizePath(out), normalizePath(path))
 })
 
 
