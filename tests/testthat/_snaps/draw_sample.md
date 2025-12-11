@@ -1,4 +1,4 @@
-# draw_sample_normal: check correct behaviour
+# I draw_sample_normal: check correct behaviour oh show
 
     Code
       show(draw_sample_normal(k_groups = 2, f = 0.25, max_n = 30))
@@ -400,7 +400,7 @@
       199 -0.083888348 2
       200 -1.498606763 3
 
----
+# II draw_sample_normal: check correct behaviour of show
 
     Code
       show(draw_sample_normal(k_groups = 2, f = 0.25, max_n = 30))
@@ -802,7 +802,7 @@
       199 -0.083888348 2
       200 -1.498606763 3
 
----
+# III draw_sample_normal: check correct behaviour of show
 
     Code
       show(draw_sample_mixture(k_groups = 2, f = 0.25, max_n = 30))
@@ -879,19 +879,19 @@
       
       group1:
       mean1 = 2.39757189786258, mean2 = 0.477274458301153,
-      sigma1 = 0.358633853981775, sigma2 = 0.166164468479555
+      sigma1 = 0.358633853981776, sigma2 = 0.166164468479555
       
       group2:
-      mean1 = 0.736981515751465, mean2 = 0.126439598953774,
+      mean1 = 0.736981515751464, mean2 = 0.126439598953774,
       sigma1 = 1.25288307963288, sigma2 = 0.493865642342263
       
       group3:
       mean1 = -1.67319856386094, mean2 = -0.161002627615745,
-      sigma1 = 0.849040039667254, sigma2 = 0.368459952021357
+      sigma1 = 0.849040039667253, sigma2 = 0.368459952021357
       
       group4:
-      mean1 = -1.75265800055532, mean2 = -0.151408278836959,
-      sigma1 = 0.810338771227711, sigma2 = 0.247690815723145
+      mean1 = -1.75265800055532, mean2 = -0.15140827883696,
+      sigma1 = 0.81033877122771, sigma2 = 0.247690815723145
                     y x
       1    2.49104456 1
       2    0.06753235 2
@@ -1023,11 +1023,11 @@
     Output
       
       group1:
-      mean1 = 0.0867802101979349, mean2 = 0.00955713831518447,
+      mean1 = 0.0867802101979348, mean2 = 0.00955713831518447,
       sigma1 = 1.30563697775076, sigma2 = 0.540675855679126
       
       group2:
-      mean1 = -0.279915446859539, mean2 = -0.0501030747645438,
+      mean1 = -0.279915446859539, mean2 = -0.0501030747645439,
       sigma1 = 1.28631183855406, sigma2 = 0.564796415367255
       
       group3:
