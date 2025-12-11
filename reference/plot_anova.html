@@ -9,7 +9,7 @@ Creates plots for the results of the seq_anova() function."><meta property="og:i
 
     <a class="navbar-brand me-2" href="../index.html">sprtt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@ Creates plots for the results of the seq_anova() function."><meta property="og:i
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Plot Sequential ANOVA Results</h1>
-      <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/R/plot_sprt.R" class="external-link"><code>R/plot_sprt.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/R/plot_sprt.R" class="external-link"><code>R/plot_sprt.R</code></a></small>
       <div class="d-none name"><code>plot_anova.Rd</code></div>
     </div>
 
@@ -60,7 +60,7 @@ Creates plots for the results of the seq_anova() function."><meta property="og:i
 <span>  labels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  position_labels_x <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>  position_labels_y <span class="op">=</span> <span class="fl">0.075</span>,</span>
-<span>  position_lr_x <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  position_lr_x <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  position_lr_y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  font_size <span class="op">=</span> <span class="fl">25</span>,</span>
 <span>  line_size <span class="op">=</span> <span class="fl">1.5</span>,</span>
@@ -81,19 +81,38 @@ Creates plots for the results of the seq_anova() function."><meta property="og:i
 
 
 <dt id="arg-position-labels-x">position_labels_x<a class="anchor" aria-label="anchor" href="#arg-position-labels-x"></a></dt>
-<dd><p>position of the boundary labels on the x-axis. 0 positions the center on the 0 of the x-axis.</p></dd>
+<dd><p>Numeric value controlling the horizontal position of
+the decision labels ("Accept H0" / "Accept H1"). The value is interpreted
+as a proportion of the maximum sample size <code>N</code>, i.e., the labels are placed
+at <code>x = N * position_labels_x</code>. Defaults to <code>0.15</code>, which places the labels
+near the left side of the plot. <code>0.5</code> places the labels in the center.</p></dd>
 
 
 <dt id="arg-position-labels-y">position_labels_y<a class="anchor" aria-label="anchor" href="#arg-position-labels-y"></a></dt>
-<dd><p>position of the boundary labels on the y-axis. 0 positions the labels on the dotted lines.</p></dd>
+<dd><p>Numeric value controlling the vertical offset of the
+decision labels from the decision boundaries. The value is multiplied by
+the maximum absolute log–likelihood ratio (<code>max(|lr_log|)</code>) to obtain the
+vertical distance between the boundary lines and the corresponding text.
+Larger values move the labels further away from the boundary lines.
+Defaults to <code>0.075</code>.</p></dd>
 
 
 <dt id="arg-position-lr-x">position_lr_x<a class="anchor" aria-label="anchor" href="#arg-position-lr-x"></a></dt>
-<dd><p>scales the position of the LR label on the x-axis. 0 positions the label directly under the last calculated LR.</p></dd>
+<dd><p>Optional numeric value specifying the x-coordinate of
+the LR label in data units (i.e., on the sample size axis). If <code>NULL</code>
+(default), the LR label is placed at the sample size where the highlighted
+point occurs: at the stopping sample size if a decision was reached, or at
+the final sample size otherwise.</p></dd>
 
 
 <dt id="arg-position-lr-y">position_lr_y<a class="anchor" aria-label="anchor" href="#arg-position-lr-y"></a></dt>
-<dd><p>scales the position of the LR label on the x-axis. 0 positions the label on the 0 of the y-axis</p></dd>
+<dd><p>Optional numeric value specifying the y-coordinate of
+the LR label in data units (i.e., on the log–likelihood ratio axis). If
+<code>NULL</code> (default), the LR label is placed on the horizontal axis (<code>y = 0</code>)
+when a decision was reached early. If no decision boundary was crossed, the
+LR label is placed slightly above or below zero, depending on the sign of
+the final log–likelihood ratio, so that the label does not overlap the
+highlighted point.</p></dd>
 
 
 <dt id="arg-font-size">font_size<a class="anchor" aria-label="anchor" href="#arg-font-size"></a></dt>
@@ -117,39 +136,48 @@ Creates plots for the results of the seq_anova() function."><meta property="og:i
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># simulate data for the example ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">333</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">22</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate the SPRT -----------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the results -------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># default settings</span></span></span>
 <span class="r-in"><span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu">plot_anova</span><span class="op">(</span><span class="va">anova_results</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>All aesthetics have length 1, but the data has 85 rows.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please consider using `annotate()` or provide this layer with data containing</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   a single row.</span>
 <span class="r-plt img"><img src="plot_anova-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># variant 1</span></span></span>
 <span class="r-in"><span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu">plot_anova</span><span class="op">(</span><span class="va">anova_results</span>,</span></span>
 <span class="r-in"><span>                 labels <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>                 position_labels_x <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
+<span class="r-in"><span>                 position_labels_x <span class="op">=</span> <span class="fl">1.1</span>,</span></span>
 <span class="r-in"><span>                 position_labels_y <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
-<span class="r-in"><span>                 position_lr_x <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>,</span></span>
+<span class="r-in"><span>                 position_lr_x <span class="op">=</span> <span class="fl">70</span>,</span></span>
+<span class="r-in"><span>                 position_lr_y <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>                 font_size <span class="op">=</span> <span class="fl">25</span>,</span></span>
 <span class="r-in"><span>                 line_size <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>                 highlight_color <span class="op">=</span> <span class="st">"green"</span></span></span>
 <span class="r-in"><span>                 <span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>All aesthetics have length 1, but the data has 85 rows.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please consider using `annotate()` or provide this layer with data containing</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   a single row.</span>
 <span class="r-plt img"><img src="plot_anova-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># variant 2</span></span></span>
+<span class="r-in"><span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu">plot_anova</span><span class="op">(</span><span class="va">anova_results</span>,</span></span>
+<span class="r-in"><span>                  labels <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                  position_labels_x <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
+<span class="r-in"><span>                  position_labels_y <span class="op">=</span> <span class="fl">0.3</span>,</span></span>
+<span class="r-in"><span>                  position_lr_x <span class="op">=</span> <span class="fl">70</span>,</span></span>
+<span class="r-in"><span>                  position_lr_y <span class="op">=</span> <span class="fl">3.5</span>,</span></span>
+<span class="r-in"><span>                  font_size <span class="op">=</span> <span class="fl">25</span>,</span></span>
+<span class="r-in"><span>                  line_size <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>                  highlight_color <span class="op">=</span> <span class="st">"darkred"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_anova-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># no labels</span></span></span>
 <span class="r-in"><span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu">plot_anova</span><span class="op">(</span><span class="va">anova_results</span>,</span></span>
 <span class="r-in"><span>                 labels <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>                 <span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>All aesthetics have length 1, but the data has 85 rows.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please consider using `annotate()` or provide this layer with data containing</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   a single row.</span>
-<span class="r-plt img"><img src="plot_anova-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot_anova-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># custom additions</span></span></span>
+<span class="r-in"><span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu">plot_anova</span><span class="op">(</span><span class="va">anova_results</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">66</span>, linewidth <span class="op">=</span> <span class="fl">1</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_anova-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># further information ----------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># run this code:</span></span></span>
@@ -162,7 +190,7 @@ Creates plots for the results of the seq_anova() function."><meta property="og:i
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Meike Steinhilber, Martin Schnuerch, Anna-Lena Schubert.</p>
+  <p>Developed by Meike Snijder-Steinhilber, Martin Schnuerch, Anna-Lena Schubert.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -71,9 +71,6 @@ anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE, seq_s
 
 # plot the results -------------------------------------------------------------
 sprtt::plot_anova(anova_results)
-## Warning in geom_point(aes(x = .data$sample_size[decision_sample_position], : All aesthetics have length 1, but the data has 29 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing
-##   a single row.
 ```
 
 ![](one_way_anova_files/figure-html/example-1-1.png)
@@ -114,9 +111,6 @@ sprtt::plot_anova(anova_results,
                  line_size = 1,
                  highlight_color = "darkblue"
                  )
-## Warning in geom_point(aes(x = .data$sample_size[decision_sample_position], : All aesthetics have length 1, but the data has 239 rows.
-## ℹ Please consider using `annotate()` or provide this layer with data containing
-##   a single row.
 ```
 
 ![](one_way_anova_files/figure-html/example-2-1.png)
@@ -128,10 +122,9 @@ hypothesis tests for multinomial processing tree models. *Journal of
 Mathematical Psychology*, *95*, 102326.
 <https://doi.org/10.1016/j.jmp.2020.102326>
 
-Steinhilber, M., Schnuerch, M., & Schubert, A.-L. (2023). Sequential
-one-way ANOVA: Increasing efficiency in psychological hypothesis testing
-using a variant of sequential probability ratio tests. *PsyArXiv*.
-<https://doi.org/10.31234/osf.io/m64ne>
+Steinhilber, M., Schnuerch, M., & Schubert, A.-L. (2023). *Sequential
+analysis of variance: Increasing effciency of hypothesis testing*.
+PsyArXiv. <https://doi.org/10.31234/osf.io/m64ne>
 
 Wald, A. (1945). Sequential tests of statistical hypotheses. *The Annals
 of Mathematical Statistics*, *16*(2), 117–186.

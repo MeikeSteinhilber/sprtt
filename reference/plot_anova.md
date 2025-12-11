@@ -12,7 +12,7 @@ plot_anova(
   labels = TRUE,
   position_labels_x = 0.15,
   position_labels_y = 0.075,
-  position_lr_x = 0.05,
+  position_lr_x = NULL,
   position_lr_y = NULL,
   font_size = 25,
   line_size = 1.5,
@@ -33,23 +33,39 @@ plot_anova(
 
 - position_labels_x:
 
-  position of the boundary labels on the x-axis. 0 positions the center
-  on the 0 of the x-axis.
+  Numeric value controlling the horizontal position of the decision
+  labels ("Accept H0" / "Accept H1"). The value is interpreted as a
+  proportion of the maximum sample size `N`, i.e., the labels are placed
+  at `x = N * position_labels_x`. Defaults to `0.15`, which places the
+  labels near the left side of the plot. `0.5` places the labels in the
+  center.
 
 - position_labels_y:
 
-  position of the boundary labels on the y-axis. 0 positions the labels
-  on the dotted lines.
+  Numeric value controlling the vertical offset of the decision labels
+  from the decision boundaries. The value is multiplied by the maximum
+  absolute log–likelihood ratio (`max(|lr_log|)`) to obtain the vertical
+  distance between the boundary lines and the corresponding text. Larger
+  values move the labels further away from the boundary lines. Defaults
+  to `0.075`.
 
 - position_lr_x:
 
-  scales the position of the LR label on the x-axis. 0 positions the
-  label directly under the last calculated LR.
+  Optional numeric value specifying the x-coordinate of the LR label in
+  data units (i.e., on the sample size axis). If `NULL` (default), the
+  LR label is placed at the sample size where the highlighted point
+  occurs: at the stopping sample size if a decision was reached, or at
+  the final sample size otherwise.
 
 - position_lr_y:
 
-  scales the position of the LR label on the x-axis. 0 positions the
-  label on the 0 of the y-axis
+  Optional numeric value specifying the y-coordinate of the LR label in
+  data units (i.e., on the log–likelihood ratio axis). If `NULL`
+  (default), the LR label is placed on the horizontal axis (`y = 0`)
+  when a decision was reached early. If no decision boundary was
+  crossed, the LR label is placed slightly above or below zero,
+  depending on the sign of the final log–likelihood ratio, so that the
+  label does not overlap the highlighted point.
 
 - font_size:
 
@@ -72,38 +88,47 @@ returns a plot
 ``` r
 # simulate data for the example ------------------------------------------------
 set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 30)
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
 
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE)
 
 # plot the results -------------------------------------------------------------
+# default settings
 sprtt::plot_anova(anova_results)
-#> Warning: All aesthetics have length 1, but the data has 85 rows.
-#> ℹ Please consider using `annotate()` or provide this layer with data containing
-#>   a single row.
 
-
+# variant 1
 sprtt::plot_anova(anova_results,
                  labels = TRUE,
-                 position_labels_x = 0.5,
+                 position_labels_x = 1.1,
                  position_labels_y = 0.1,
-                 position_lr_x = -0.5,
+                 position_lr_x = 70,
+                 position_lr_y = 2,
                  font_size = 25,
                  line_size = 2,
                  highlight_color = "green"
                  )
-#> Warning: All aesthetics have length 1, but the data has 85 rows.
-#> ℹ Please consider using `annotate()` or provide this layer with data containing
-#>   a single row.
 
+# variant 2
+sprtt::plot_anova(anova_results,
+                  labels = TRUE,
+                  position_labels_x = 0.05,
+                  position_labels_y = 0.3,
+                  position_lr_x = 70,
+                  position_lr_y = 3.5,
+                  font_size = 25,
+                  line_size = 2,
+                  highlight_color = "darkred"
+)
 
+# no labels
 sprtt::plot_anova(anova_results,
                  labels = FALSE
                  )
-#> Warning: All aesthetics have length 1, but the data has 85 rows.
-#> ℹ Please consider using `annotate()` or provide this layer with data containing
-#>   a single row.
+
+# custom additions
+sprtt::plot_anova(anova_results) +
+  ggplot2::geom_vline(xintercept = 66, linewidth = 1, linetype = "dashed")
 
 
 # further information ----------------------------------------------------------

@@ -2,7 +2,7 @@
 
 ## Authors
 
-- **Meike Steinhilber**. Author, maintainer.
+- **Meike Snijder-Steinhilber**. Author, maintainer.
   [](https://orcid.org/0000-0002-7144-2100)
 
 - **Martin Schnuerch**. Author, thesis advisor.
@@ -14,16 +14,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/MeikeSteinhilber/sprtt/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/MeikeSteinhilber/sprtt/blob/develop/DESCRIPTION)
 
-Steinhilber M, Schnuerch M, Schubert A (2025). *sprtt: Sequential
-Probability Ratio Tests Toolbox*. R package version 0.2.0,
+Snijder-Steinhilber M, Schnuerch M, Schubert A (2025). *sprtt:
+Sequential Probability Ratio Tests Toolbox*. R package version 0.2.1,
 <https://meikesteinhilber.github.io/sprtt/>.
 
     @Manual{,
       title = {sprtt: Sequential Probability Ratio Tests Toolbox},
-      author = {Meike Steinhilber and Martin Schnuerch and Anna-Lena Schubert},
+      author = {Meike Snijder-Steinhilber and Martin Schnuerch and Anna-Lena Schubert},
       year = {2025},
-      note = {R package version 0.2.0},
+      note = {R package version 0.2.1},
       url = {https://meikesteinhilber.github.io/sprtt/},
     }

@@ -8,6 +8,9 @@
   **\[experimental\]** : Sequential Analysis of Variance
 - [`plot_anova()`](https://meikesteinhilber.github.io/sprtt/reference/plot_anova.md)
   **\[experimental\]** : Plot Sequential ANOVA Results
+- [`plan_sample_size()`](https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.md)
+  : \#—- MAIN FUNCTION DOCUMENTATION ———————————————- Generate an HTML
+  report for sample size planning for sequential ANOVAs.
 - [`draw_sample_normal()`](https://meikesteinhilber.github.io/sprtt/reference/draw_sample_normal.md)
   **\[experimental\]** : Draw Samples from a Normal Distribution
 - [`draw_sample_mixture()`](https://meikesteinhilber.github.io/sprtt/reference/draw_sample_mixture.md)
