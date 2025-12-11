@@ -176,7 +176,7 @@
       
       formula: rnorm(50)
       test statistic:
-       log-likelihood ratio = -7.213, decision = accept H0
+       log-likelihood ratio = -7.214, decision = accept H0
       SPRT thresholds:
        lower log(B) = -2.944, upper log(A) = 2.944
       Log-Likelihood of the:

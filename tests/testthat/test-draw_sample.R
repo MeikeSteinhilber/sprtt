@@ -1,7 +1,7 @@
 #* @testing draw_sample_normal
 
 
-test_that("draw_sample_normal: check correct behaviour", {
+test_that("I draw_sample_normal: check correct behaviour oh show", {
   set.seed(333)
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
@@ -27,6 +27,7 @@ test_that("draw_sample_normal: check correct behaviour", {
 })
 
 test_that("draw_sample_normal: check error messages", {
+  set.seed(333)
   expect_error(
     draw_sample_normal(),
     'argument "k_groups" is missing, with no default'
@@ -93,7 +94,7 @@ test_that("draw_sample_normal: check error messages", {
   )
 })
 
-test_that("draw_sample_normal: check correct behaviour", {
+test_that("II draw_sample_normal: check correct behaviour of show", {
   set.seed(333)
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
@@ -119,6 +120,7 @@ test_that("draw_sample_normal: check correct behaviour", {
 })
 
 test_that("draw_sample_normal: check error messages", {
+  set.seed(333)
   expect_error(
     draw_sample_normal(),
     'argument "k_groups" is missing, with no default'
@@ -186,7 +188,7 @@ test_that("draw_sample_normal: check error messages", {
 })
 
 # mixture distribution ---------------------------------------------------------
-test_that("draw_sample_normal: check correct behaviour", {
+test_that("III draw_sample_normal: check correct behaviour of show", {
   set.seed(333)
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)
@@ -211,6 +213,7 @@ test_that("draw_sample_normal: check correct behaviour", {
 })
 
 test_that("draw_sample_mixture: check error messages", {
+  set.seed(333)
   expect_error(
     draw_sample_mixture(),
     'argument "k_groups" is missing, with no default'

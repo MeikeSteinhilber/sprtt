@@ -9,6 +9,7 @@ reference:
   - seq_ttest
   - seq_anova
   - plot_anova
+  - plan_sample_size
   - draw_sample_normal
   - draw_sample_mixture
   - sprtt
