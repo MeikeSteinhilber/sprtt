@@ -5,8 +5,12 @@ output:
   html_document:
     theme: flatly
     toc: true
-    toc_float: true
-    number_sections: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+    number_sections: false
+    toc_depth: 3
+    toc_collapsed: false
     # code_folding: hide
 params:
   #data_path: !r system.file("sample_tool_data", package = "sprtt")     #"data/sprt_tool_df_all_100.rds"  
@@ -17,6 +21,126 @@ params:
 ---
 
 <style>
+
+body {
+  font-size: 18px;
+}
+
+/* Make h3 same size as h2 with more spacing */
+h3 {
+  font-size: 1.5em !important;
+  margin-top: 1.5em !important;    /* Space above */
+  margin-bottom: 0.8em !important; /* Space below */
+}
+
+/* Custom alert box styling */
+.alert-info {
+  background-color: white !important;
+  border: 2px solid #2c3e50 !important;
+  border-left: 5px solid #2c3e50 !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+
+.alert-info::before {
+  content: "&#128712;";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+.alert-warning {
+  background-color: white !important;
+  border: 2px solid #18bc9c !important;
+  border-left: 5px solid #18bc9c !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+
+.alert-warning::before {
+  content: "⚠";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #18bc9c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+/* Make only top-level TOC items bold */
+.tocify-header.list-group {
+  font-weight: bold !important;
+}
+
+/* Make nested items normal weight */
+.tocify-subheader .tocify-item {
+  font-weight: normal !important;
+}
+
+
+/* Increase TOC width and move it to the left edge */
+.tocify {
+  width: 19% !important;
+  max-width: 400px !important;
+  left: 250px !important;  /* Pin to left edge */
+  top: 90px; /* leave extra space for .toc-text-top */
+}
+
+/* Adjust main content to not overlap with TOC */
+.col-md-9 {
+  width: 85% !important;
+  margin-left: 25% !important;  /* More margin to create space */
+}
+
+/* Ensure the main container uses full width */
+.container-fluid {
+  padding-left: 0 !important;
+}
+
+
+/* Custom header above TOC */
+.toc-text-top {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  width: 19%;
+  max-width: 400px;
+  padding: 20px;
+  z-index: 1000;
+  height: 150px;  /* Adjust based on your content */
+}
+
+
+/* Remove numbering from level 4 headings and deeper */
+.section.level4 h4 .header-section-number,
+.section.level5 h5 .header-section-number,
+.section.level6 h6 .header-section-number {
+  display: none;
+}
+
 /* Visually hide headings but keep them in the layout for TOC/scrollspy */
 .section.toc-only > h1,
 .section.toc-only > h2,
@@ -178,20 +302,60 @@ cat(sprintf(
 
 
 
+
+<div class="toc-text-top">
+<p style="font-size: 1.5em; font-weight: bold; margin-top: 1em; margin-bottom: 0.5em; ">
+$f_{exp}$ = `r pick_f_expected`
+</p>
+</div>
+
+<br><br>
 <br><br>
 
-### Overview {#txt-overview .unlisted .unnumbered}
+## Overview
 
-This report provides practical guidance for planning a study with **sequential ANOVA**, where the final sample size is not fixed in advance.
+<!-- ### Overview {#txt-overview .unlisted .unnumbered} -->
 
-**Chapter 1** illustrates the consequences of choosing a target effect size $f_{\text{exp}}$ across a range of possible true effects $f_{\text{true}}$. Although not specific to sequential designs, this perspective is essential for selecting a sensible expected effect size.
+This report provides practical guidance for planning studies using **sequential ANOVA** (SPRT), where the final sample size is not fixed in advance.
 
-**Chapter 2** presents the core planning results for a sequential study, focusing on two benchmark cases: (a) the true effect equals the specified value ($f_{\text{true}} = f_{\text{exp}}$) and (b) there is no true effect ($f_{\text{true}} = 0$).
+Unlike traditional sample size analyses, this report cannot predict the exact sample size needed to reach a decision in a specific study.
+Instead, it offers evidence-based recommendations derived from simulations, showing what sample sizes are typically required under various scenarios.
+Thus, these benchmarks enable realistic resource planning
 
-**Chapter 3** offers extended plots and tables to explore additional scenarios with more varied $f_{\text{true}}$ values.
+::: {.alert .alert-warning}
+The actual final sample size in any study may differ substantially from the following recommendations due to sampling variability and departures from the assumed effect structure.
+:::
+
+<!-- ::: {.alert .alert-info} -->
+<!--  &#128712; The actual sample size in any individual study may be considerably smaller or larger than the simulated averages presented here. -->
+<!-- ::: -->
+
+<!-- ::: {.alert .alert-warning} -->
+<!--  &#9888; The actual sample size in any individual study may be considerably smaller or larger than the simulated averages presented here. -->
+<!-- ::: -->
+
+### Abbreviations
+
+| Parameter | Description |
+|:-----------|:-------------|
+| $f_{\text{exp}}$ | Expected effect size (target effect) used for planning the sequential design |
+| $f_{\text{true}}$ | True effect size in the simulated population |
+| $\alpha$ | Type I error rate (probability of false positive) |
+| $\beta$ | Type II error rate (probability of false negative) |
+| $k$ | Number of groups  |
 
 
-## Simulation details {#txt-sim .unlisted .unnumbered}
+### Content
+
+**Chapter I** illustrates the consequences of choosing a target effect size $f_{\text{exp}}$ across a range of possible true effects $f_{\text{true}}$. Although not specific to sequential designs, this perspective is essential for selecting a sensible expected effect size.
+
+**Chapter II** presents the core planning results for a sequential study, focusing on two benchmark cases: the true effect equals the specified value ($f_{\text{true}} = f_{\text{exp}}$) and there is no true effect ($f_{\text{true}} = 0$).
+
+**Chapter III** offers extended plots and tables to explore additional scenarios with more varied $f_{\text{true}}$ values.
+
+
+### Technical details
+<!-- ### Technical details {#txt-sim .unlisted .unnumbered} -->
 
 The following results are based on a simulation with `r n_rep` iterations per condition.
 Data were generated from a normal distribution, $\mathcal{N}(\mu,\sigma^2)$, under equal variances across groups and strictly balanced group sizes throughout data collection.
@@ -210,17 +374,24 @@ See XXX for the simulation code.
 
 <br>
 
-## Influence of $f_{exp}$
+## I. Influence of $f_{exp}$
+
+In this report, the specified effect size is $f_{\text{exp}} = `r pick_f_expected`$.
 
 Choosing $f_{\text{exp}}$ is critical because it determines (i) which effect sizes can be detected with the target power and (ii) how much data (sample size) are typically required to reach a decision.
 
-In this report, the specified effect size is $f_{\text{exp}} = `r pick_f_expected`$.
+::: {.alert .alert-info}
+It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**: power declines quickly for effects smaller than $f_{\text{exp}}$, whereas choosing a much larger $f_{\text{exp}}$ may shorten data collection but risks missing practically relevant effects just below that value.
+:::
+
+
+<!-- ### Power curve -->
+### Power curve {#power-curve .toc-only}
+
 The plot below shows the power curve across possible true effects in the population, $f_{\text{true}}$.
 
-It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**: power declines quickly for effects smaller than $f_{\text{exp}}$, whereas choosing a much larger $f_{\text{exp}}$ may shorten data collection but risks missing practically relevant effects just below that value.
-
-
-### Power curve {#power-curve .toc-only}
+The red color indicates that the power to detect a true effect of the corresponding size falls below the target power of `r pick_power`, suggesting the design is underpowered for such effect sizes.
+The green color indicates that the power meets or exceeds the target power.
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 plot_cases <- df_all %>% 
@@ -286,6 +457,19 @@ ggplot() +
              size = 3.8, colour = flatly_blue, fill = flatly_blue,
              shape = 21, stroke = 1.2) +
   geom_hline(yintercept = pick_power, linetype = "dashed", colour = flatly_dark) +
+  geom_segment(aes(x = pick_f_expected, xend = pick_f_expected, 
+                 y = 0, yend = 1),  # Adjust yend to control where line stops
+             linetype = "dashed", colour = flatly_dark) +
+  annotate(
+    "text",
+    x = pick_f_expected,
+    y = 1,  # Position text just above the line
+    label = expression(italic(f)[exp]),
+    hjust = 0.5,  # Center horizontally
+    vjust = 0,    # Bottom of text at y position
+    size = base_size * 0.25,
+    colour = flatly_dark
+  ) +
   scale_y_continuous(limits = c(0, 1.1), breaks = seq(0, 1, by = 0.25),
                      labels = scales::percent_format(accuracy = 1)) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.02)),
@@ -326,6 +510,17 @@ if (pick_f_expected == 0.10){
     colour = flatly_dark
   )
     
+} else if (pick_f_expected == 0.15) {
+    plot + annotate(
+    "text",
+    x = max(plot_cases$f_simulated) - 0.07,
+    y = pick_power,
+    label = paste0(" target power = ", percent(pick_power)),
+    hjust = 0,
+    vjust = 2,
+    size = base_size * 0.25,
+    colour = flatly_dark
+  )
 } else{
     plot + annotate(
     "text",
@@ -341,13 +536,17 @@ if (pick_f_expected == 0.10){
 
 ```
 
+<br><br>
+
+<!-- ### Sequential vs fixed design -->
 ### Sequential vs fixed design {#sample-size-diff .toc-only}
 
-This plot visualizes the rewuired sample sizes, when the true vaue is set and one uses different 
+The next plot below visualizes the required sample sizes, when the true value is set and one uses different specification of $f_{\text{exp}}$.
+Here you can see how the specification of $f_{\text{exp}}$ influences the sample sizes also in direct comparison to a fixed sample plan.
+Sequential designs maintain efficiency despite underestimating $f_{\text{exp}}$, whereas fixed designs are locked into their initial specification -- a key advantage demonstrated in this plot
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
-
-pick_f_simulated = 0.30
+pick_f_simulated = pick_f_expected
 
 # titles
 title_html <- glue("<i>f</i><sub>true</sub> = {pick_f_simulated}")
@@ -355,7 +554,6 @@ subtitle_html <- glue(
   # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
   "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
 )
-
 df_all %>% 
   mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
          fill_group = factor(as.integer(f_simulated))
@@ -365,16 +563,20 @@ df_all %>%
          power == pick_power,
          k_groups == pick_k_groups
   ) %>%
-  mutate(f_expected = factor(f_expected)) %>% 
+  mutate(violin_color = if_else(f_expected < pick_f_expected & 
+                                f_expected != 0, 
+                                light_red, light_green),
+         f_expected = factor(f_expected)) %>% 
   group_by(f_expected) %>% 
   # filter(f_simulated %in% pick_f_simulated) %>%
   {. ->> cases} %>% 
   ggplot(aes(x = f_expected, y = n)) +
-  geom_violin(trim = FALSE, fill = light_blue,
+  geom_violin(aes(fill = violin_color), trim = FALSE,
               scale = "count",
               #draw_quantiles = c(0.25, 0.50, 0.75),
-              linewidth = 0.3) +
-  # scale_fill_manual(values = light_blue) +
+              linewidth = 0.3,
+              alpha = 0.25) +
+  scale_fill_identity() +
   geom_point(aes(x = f_expected, y = fix_n),
              position = position_dodge(0.9),
              shape = 18,
@@ -402,7 +604,7 @@ df_all %>%
 p_violin
 ```
 
-## Sample size recommendations
+## II. Sample size recommendations
 
 ### plot {#plot .toc-only} 
 
@@ -427,10 +629,11 @@ df_all %>%
   filter(f_simulated %in% pick_f_simulated) %>%
   {. ->> cases} %>% 
   ggplot(aes(x = f_simulated, y = n)) +
-  geom_violin(trim = FALSE, fill = light_blue,
+  geom_violin(trim = FALSE, fill = light_green,
               scale = "count",
               #draw_quantiles = c(0.25, 0.50, 0.75),
-              linewidth = 0.3) +
+              linewidth = 0.3,
+              alpha = 0.25) +
   # scale_fill_manual(values = light_blue) +
   geom_point(aes(x = f_simulated, y = fix_n),
              position = position_dodge(0.9),
@@ -597,7 +800,7 @@ table_cases %>%
 ```
 
 
-## Extended Results: Various true effects
+## III. Extended Results: Various true effects
 
 ```{r}
 pick_f_simulated = c(0,
@@ -653,12 +856,13 @@ p_violin <- df_all %>%
     scale = "count",
     # draw_quantiles = c(0.25, 0.50, 0.75),
     # linewidth = 0.1,
-    color = "lightgrey"
+    color = "lightgrey",
+    alpha = 0.25
   ) +
   scale_fill_manual(
     name = "Power",
-    values = c("enough power" = light_blue,
-               "not enough power" = hell_rosa)
+    values = c("enough power" = light_green,
+               "not enough power" = light_red)
   ) +
   
   # red diamond = fixed sample size
@@ -843,7 +1047,8 @@ table_cases %>%
     columns = all_of(num_cols),
     rows    = as.numeric(as.character(f_simulated)) < pick_f_expected &
               as.numeric(as.character(f_simulated)) != 0,
-    colors  = hell_rosa, alpha = 0.20) %>% 
+    colors  = light_red, alpha = 0.25,
+    autocolor_text = FALSE) %>% 
   data_color(
     columns = q90_n,
     palette = grey_blue
