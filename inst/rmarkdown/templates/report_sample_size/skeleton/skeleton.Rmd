@@ -817,9 +817,9 @@ Each violin summarizes how often a given $n$ occurred: wider sections indicate t
 
 The violin colors indicate whether the test achieves the target power at each true effect.
 
-  - **Blue** marks settings where $f_{\text{true}} \geq f_{\text{exp}}$ (or $f_{\text{true}} = 0$); at these settings the test reaches the target power $1-\beta$ = `r pick_power`.
+  - **Green** marks settings where $f_{\text{true}} \geq f_{\text{exp}}$ (or $f_{\text{true}} = 0$); at these settings the test reaches the target power $1-\beta$ = `r pick_power`.
   
-  - **Red** marks settings where power falls short, so such effects would often not be detected with the specified power `r pick_power` at significance level $\alpha$ = 0.05. If `f_expected = 0.1` is selected, no red violin is shown as it is outside of the simulated scope.
+  - **Red** marks settings where power falls short, so such effects would often not be detected with the specified power `r pick_power`. If `f_expected = 0.1` is selected, no red violin is shown as it is outside of the simulated scope.
 
 
 The red diamond marks the fixed sample size from an a priori power analysis, and the blue square shows the mean sample size observed across simulations.
