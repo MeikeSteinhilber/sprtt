@@ -22,8 +22,16 @@ params:
 
 
 <style>
+
+/* Make the entire page layout wider */
+.container-fluid {
+  max-width: 1500px !important;  /* Increase from default ~1140px */
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}
+
 body {
-  font-size: 17px;
+  font-size: 16px;
 }
 
 /* Make h3 same size as h2 with more spacing */
@@ -103,7 +111,7 @@ h3 {
 
 /* TOC styling */
 .tocify {
-  width: 20% !important;
+  width: 30% !important;
   max-width: 300px !important;
   min-width: 250px !important;
   top: 0 !important;  /* Start from top since header is inside now */
@@ -111,7 +119,7 @@ h3 {
 
 /* Main content area */
 .col-md-9 {
-  width: 75% !important;
+  width: 70% !important;
 }
 
 /* Responsive breakpoint */
@@ -354,11 +362,11 @@ The actual final sample size in any study may differ substantially from the foll
 
 ### Content
 
-**Chapter I** illustrates the consequences of choosing a target effect size $f_{\text{exp}}$ across a range of possible true effects $f_{\text{true}}$. Although not specific to sequential designs, this perspective is essential for selecting a sensible expected effect size.
+**[Chapter I](#chapter-1)** illustrates the consequences of choosing a target effect size $f_{\text{exp}}$ across a range of possible true effects $f_{\text{true}}$. Although not specific to sequential designs, this perspective is essential for selecting a sensible expected effect size.
 
-**Chapter II** presents the core planning results for a sequential study, focusing on two benchmark cases: the true effect equals the specified value ($f_{\text{true}} = f_{\text{exp}}$) and there is no true effect ($f_{\text{true}} = 0$).
+**[Chapter II](#chapter-2)** presents the core planning results for a sequential study, focusing on two benchmark cases: the true effect equals the specified value ($f_{\text{true}} = f_{\text{exp}}$) and there is no true effect ($f_{\text{true}} = 0$).
 
-**Chapter III** offers extended plots and tables to explore additional scenarios with more varied $f_{\text{true}}$ values.
+**[Chapter III](#chapter-3)** offers extended plots and tables to explore additional scenarios with more varied $f_{\text{true}}$ values.
 
 
 ### Technical details
@@ -381,7 +389,7 @@ See XXX for the simulation code.
 
 <br>
 
-## I. Influence of $f_{exp}$
+## I. Influence of $f_{exp}$ {#chapter-1}
 
 In this report, the specified effect size is $f_{\text{exp}} = `r pick_f_expected`$.
 
@@ -611,7 +619,7 @@ df_all %>%
 p_violin
 ```
 
-## II. Sample size recommendations
+## II. Sample size recommendations {#chapter-2}
 
 ### Plot: Sample size requirement {#plot .toc-only}
 
@@ -807,7 +815,7 @@ table_cases %>%
 ```
 
 
-## III. Extended Results: Various true effects
+## III. Extended Results: Various true effects {#chapter-3}
 
 ### Plot: Sample size requirement {#plot .toc-only}
 
