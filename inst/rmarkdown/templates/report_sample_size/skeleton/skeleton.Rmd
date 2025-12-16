@@ -337,10 +337,6 @@ Unlike traditional sample size analyses, this report cannot predict the exact sa
 Instead, it offers evidence-based recommendations derived from simulations, showing what sample sizes are typically required under various scenarios.
 Thus, these benchmarks enable realistic resource planning
 
-::: {.alert .alert-warning}
-The actual final sample size in any study may differ substantially from the following recommendations due to sampling variability and departures from the assumed effect structure.
-:::
-
 <!-- ::: {.alert .alert-info} -->
 <!--  &#128712; The actual sample size in any individual study may be considerably smaller or larger than the simulated averages presented here. -->
 <!-- ::: -->
@@ -351,13 +347,13 @@ The actual final sample size in any study may differ substantially from the foll
 
 ### Abbreviations
 
-| Parameter | Description |
-|:-----------|:-------------|
-| $f_{\text{exp}}$ | Expected effect size (target effect) used for planning the sequential design |
-| $f_{\text{true}}$ | True effect size in the simulated population |
-| $\alpha$ | Type I error rate (probability of false positive) |
-| $\beta$ | Type II error rate (probability of false negative) |
-| $k$ | Number of groups  |
+| Parameter | Description | | 
+|---|:-------------|------------|
+| $f_{\text{exp}}$ | Expected effect size (target effect) used for planning| | the sequential design | |
+| $f_{\text{true}}$ | True effect size in the simulated population | |
+| $\alpha$ | Type I error rate (probability of false positive) | |
+| $\beta$ | Type II error rate (probability of false negative) | |
+| $k$ | Number of groups  | |
 
 
 ### Content
@@ -391,9 +387,13 @@ See XXX for the simulation code.
 
 ## I. Influence of $f_{exp}$ {#chapter-1}
 
-In this report, the specified effect size is $f_{\text{exp}} = `r pick_f_expected`$.
+For this report, the effect size was specified as $f_{\text{exp}} = `r pick_f_expected`$.
 
-Choosing $f_{\text{exp}}$ is critical because it determines (i) which effect sizes can be detected with the target power and (ii) how much data (sample size) are typically required to reach a decision.
+Choosing $f_{\text{exp}}$ is critical because it determines:
+
+  - which effect sizes can be detected with the target power and
+  
+  - how much data are typically required to reach a decision.
 
 ::: {.alert .alert-info}
 It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**: power declines quickly for effects smaller than $f_{\text{exp}}$, whereas choosing a much larger $f_{\text{exp}}$ may shorten data collection but risks missing practically relevant effects just below that value.
@@ -401,7 +401,7 @@ It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**:
 
 
 <!-- ### Power curve -->
-### Plot: Power curve {#power-curve .toc-only}
+<!-- ### Plot: Power curve {#power-curve .toc-only} -->
 
 The plot below shows the power curve across possible true effects in the population, $f_{\text{true}}$.
 
@@ -553,75 +553,15 @@ if (pick_f_expected == 0.10){
 
 <br><br>
 
-<!-- ### Sequential vs fixed design -->
-### Plot: Sample size requirement {#sample-size-diff .toc-only}
 
-The next plot below visualizes the required sample sizes, when the true value is set and one uses different specification of $f_{\text{exp}}$.
-Here you can see how the specification of $f_{\text{exp}}$ influences the sample sizes also in direct comparison to a fixed sample plan.
-Sequential designs maintain efficiency despite underestimating $f_{\text{exp}}$, whereas fixed designs are locked into their initial specification -- a key advantage demonstrated in this plot
-
-```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
-pick_f_simulated = pick_f_expected
-
-# titles
-title_html <- glue("<i>f</i><sub>true</sub> = {pick_f_simulated}")
-subtitle_html <- glue(
-  # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
-  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
-)
-df_all %>% 
-  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
-         fill_group = factor(as.integer(f_simulated))
-         ) %>% 
-  filter(f_simulated == pick_f_simulated,
-         f_expected <= pick_f_simulated,
-         power == pick_power,
-         k_groups == pick_k_groups
-  ) %>%
-  mutate(violin_color = if_else(f_expected < pick_f_expected & 
-                                f_expected != 0, 
-                                light_red, light_green),
-         f_expected = factor(f_expected)) %>% 
-  group_by(f_expected) %>% 
-  # filter(f_simulated %in% pick_f_simulated) %>%
-  {. ->> cases} %>% 
-  ggplot(aes(x = f_expected, y = n)) +
-  geom_violin(aes(fill = violin_color), trim = FALSE,
-              scale = "count",
-              #draw_quantiles = c(0.25, 0.50, 0.75),
-              linewidth = 0.3,
-              alpha = 0.25) +
-  scale_fill_identity() +
-  geom_point(aes(x = f_expected, y = fix_n),
-             position = position_dodge(0.9),
-             shape = 18,
-             color = fixed_color,
-             size = 9) +
-  geom_point(aes(x = f_expected, y = mean_n),
-             position = position_dodge(0.9),
-             shape = 15,
-             color = flatly_dark,
-             size = 6) + 
-  labs(
-    x = "<i>f</i><sub>exp</sub>",
-    y = "sample size",
-    title = "Required sample sizes to reach a decision",
-    subtitle = as.expression(bquote(paste(italic(f)[true], " = ", .(pick_f_expected)))),
-    caption = subtitle_html) +
-    theme_minimal(base_size = base_size) +
-    theme(plot.title = element_text(face = "bold", size = base_size, hjust = 0, colour = flatly_dark),
-        plot.subtitle = element_text(size = base_size*0.7, colour = "grey40"),
-        plot.caption = element_markdown(),
-        axis.title.x = element_markdown(),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_blank()
-        ) -> p_violin 
-p_violin
-```
 
 ## II. Sample size recommendations {#chapter-2}
 
-### Plot: Sample size requirement {#plot .toc-only}
+::: {.alert .alert-warning}
+The actual final sample size in any study may differ substantially from the following recommendations due to sampling variability and departures from the assumed effect structure.
+:::
+
+<!-- ### Plot: Sample size requirement {#plot .toc-only} -->
 
 ```{r, fig.height=9, fig.width=10, out.width="70%", fig.align="left"}
 pick_f_simulated = c(0, pick_f_expected)
@@ -677,7 +617,7 @@ df_all %>%
 p_violin
 ```
 
-### Summary table {#table .toc-only}
+<!-- ### Summary table {#table .toc-only} -->
 
 ```{r}
 table_cases <- df_all %>% 
@@ -815,9 +755,9 @@ table_cases %>%
 ```
 
 
-## III. Extended Results: Various true effects {#chapter-3}
+## III. Extended insights {#chapter-3}
 
-### Plot: Sample size requirement {#plot .toc-only}
+### Plot: Sample size and varing $f_{\text{true}}$ {#plot .toc-only}
 
 ```{r}
 pick_f_simulated = c(0,
@@ -939,7 +879,7 @@ p_violin
 ```
 
 
-### Summary table {#extended-table .toc-only}
+<!-- ### Summary table {#extended-table .toc-only} -->
 
 ```{r}
 table_cases <- df_all %>% 
@@ -1082,7 +1022,71 @@ table_cases %>%
 
 ```
 
+<!-- ### Sequential vs fixed design -->
+### Plot: Sample size and varing $f_{\text{exp}}$ {#sample-size-diff .toc-only}
 
+The next plot below visualizes the required sample sizes, when the true value is set and one uses different specification of $f_{\text{exp}}$.
+Here you can see how the specification of $f_{\text{exp}}$ influences the sample sizes also in direct comparison to a fixed sample plan.
+Sequential designs maintain efficiency despite underestimating $f_{\text{exp}}$, whereas fixed designs are locked into their initial specification -- a key advantage demonstrated in this plot
+
+```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
+pick_f_simulated = pick_f_expected
+
+# titles
+title_html <- glue("<i>f</i><sub>true</sub> = {pick_f_simulated}")
+subtitle_html <- glue(
+  # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
+  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
+)
+df_all %>% 
+  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+         fill_group = factor(as.integer(f_simulated))
+         ) %>% 
+  filter(f_simulated == pick_f_simulated,
+         f_expected <= pick_f_simulated,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>%
+  mutate(violin_color = if_else(f_expected < pick_f_expected & 
+                                f_expected != 0, 
+                                light_green, light_green),
+         f_expected = factor(f_expected)) %>% 
+  group_by(f_expected) %>% 
+  # filter(f_simulated %in% pick_f_simulated) %>%
+  {. ->> cases} %>% 
+  ggplot(aes(x = f_expected, y = n)) +
+  geom_violin(aes(fill = violin_color), trim = FALSE,
+              scale = "count",
+              #draw_quantiles = c(0.25, 0.50, 0.75),
+              linewidth = 0.3,
+              alpha = 0.25) +
+  scale_fill_identity() +
+  geom_point(aes(x = f_expected, y = fix_n),
+             position = position_dodge(0.9),
+             shape = 18,
+             color = fixed_color,
+             size = 9) +
+  geom_point(aes(x = f_expected, y = mean_n),
+             position = position_dodge(0.9),
+             shape = 15,
+             color = flatly_dark,
+             size = 6) + 
+  labs(
+    x = "<i>f</i><sub>exp</sub>",
+    y = "sample size",
+    title = "Required sample sizes to reach a decision",
+    subtitle = as.expression(bquote(paste(italic(f)[true], " = ", .(pick_f_expected)))),
+    caption = subtitle_html) +
+    theme_minimal(base_size = base_size) +
+    theme(plot.title = element_text(face = "bold", size = base_size, hjust = 0, colour = flatly_dark),
+        plot.subtitle = element_text(size = base_size*0.7, colour = "grey40"),
+        plot.caption = element_markdown(),
+        axis.title.x = element_markdown(),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank()
+        ) -> p_violin 
+p_violin
+```
 
 
 ### Plot: Cumulative decisions {#extended-cumulative .toc-only}
