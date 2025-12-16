@@ -20,17 +20,17 @@ params:
   pick_k_groups: 3
 ---
 
-<style>
 
+<style>
 body {
-  font-size: 18px;
+  font-size: 17px;
 }
 
 /* Make h3 same size as h2 with more spacing */
 h3 {
   font-size: 1.5em !important;
-  margin-top: 1.5em !important;    /* Space above */
-  margin-bottom: 0.8em !important; /* Space below */
+  margin-top: 1.5em !important;
+  margin-bottom: 0.8em !important;
 }
 
 /* Custom alert box styling */
@@ -47,7 +47,7 @@ h3 {
 }
 
 .alert-info::before {
-  content: "&#128712;";
+  content: "🛈";
   position: absolute;
   left: 0;
   top: 0;
@@ -101,38 +101,29 @@ h3 {
 }
 
 
-/* Increase TOC width and move it to the left edge */
+/* TOC styling */
 .tocify {
-  width: 19% !important;
-  max-width: 400px !important;
-  left: 250px !important;  /* Pin to left edge */
-  top: 90px; /* leave extra space for .toc-text-top */
+  width: 20% !important;
+  max-width: 300px !important;
+  min-width: 250px !important;
+  top: 0 !important;  /* Start from top since header is inside now */
 }
 
-/* Adjust main content to not overlap with TOC */
+/* Main content area */
 .col-md-9 {
-  width: 85% !important;
-  margin-left: 25% !important;  /* More margin to create space */
+  width: 75% !important;
 }
 
-/* Ensure the main container uses full width */
-.container-fluid {
-  padding-left: 0 !important;
+/* Responsive breakpoint */
+@media (max-width: 1200px) {
+  .tocify, .toc-text-top {
+    display: none !important;
+  }
+  
+  .col-md-9 {
+    width: 100% !important;
+  }
 }
-
-
-/* Custom header above TOC */
-.toc-text-top {
-  position: fixed;
-  top: 0;
-  left: 250px;
-  width: 19%;
-  max-width: 400px;
-  padding: 20px;
-  z-index: 1000;
-  height: 150px;  /* Adjust based on your content */
-}
-
 
 /* Remove numbering from level 4 headings and deeper */
 .section.level4 h4 .header-section-number,
@@ -141,7 +132,7 @@ h3 {
   display: none;
 }
 
-/* Visually hide headings but keep them in the layout for TOC/scrollspy */
+/* Visually hide headings but keep them in layout */
 .section.toc-only > h1,
 .section.toc-only > h2,
 .section.toc-only > h3,
@@ -154,10 +145,8 @@ h1.toc-only, h2.toc-only, h3.toc-only, h4.toc-only, h5.toc-only, h6.toc-only {
   width: 1px !important;
   height: 1px !important;
   overflow: hidden !important;
-  /* keep a tiny footprint so scrollspy can detect position */
 }
 
-/* Nice: when navigated via TOC, show a subtle marker for a moment */
 .section.toc-only:target::before {
   content: "";
   display: block;
@@ -166,6 +155,7 @@ h1.toc-only, h2.toc-only, h3.toc-only, h4.toc-only, h5.toc-only, h6.toc-only {
   border-top: 2px solid #bbb;
 }
 </style>
+
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -191,6 +181,23 @@ library(scales)
 # library(kableExtra)
 # library(gridExtra)
 # library(kableExtra)
+```
+
+```{r}
+htmltools::tags$script(htmltools::HTML(sprintf("
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    var tocify = document.querySelector('.tocify');
+    if (tocify) {
+      var header = document.createElement('div');
+      header.style.padding = '20px';
+      header.style.backgroundColor = '#2c3e50';
+      header.innerHTML = '<p style=\"font-size: 1.5em; color: white; font-weight: bold; margin: 0;\"><i>f</i><sub>exp</sub> = %s</p>';
+      tocify.insertBefore(header, tocify.firstChild);
+    }
+  }, 100);
+});
+", pick_f_expected)))
 ```
 
 
@@ -303,11 +310,11 @@ cat(sprintf(
 
 
 
-<div class="toc-text-top">
-<p style="font-size: 1.5em; font-weight: bold; margin-top: 1em; margin-bottom: 0.5em; ">
-$f_{exp}$ = `r pick_f_expected`
-</p>
-</div>
+<!-- <div class="toc-text-top"> -->
+<!-- <p style="font-size: 1.5em; font-weight: bold; margin-top: 1em; margin-bottom: 0.5em; "> -->
+<!-- $f_{exp}$ = `r pick_f_expected` -->
+<!-- </p> -->
+<!-- </div> -->
 
 <br><br>
 <br><br>
@@ -386,7 +393,7 @@ It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**:
 
 
 <!-- ### Power curve -->
-### Power curve {#power-curve .toc-only}
+### Plot: Power curve {#power-curve .toc-only}
 
 The plot below shows the power curve across possible true effects in the population, $f_{\text{true}}$.
 
@@ -539,7 +546,7 @@ if (pick_f_expected == 0.10){
 <br><br>
 
 <!-- ### Sequential vs fixed design -->
-### Sequential vs fixed design {#sample-size-diff .toc-only}
+### Plot: Sample size requirement {#sample-size-diff .toc-only}
 
 The next plot below visualizes the required sample sizes, when the true value is set and one uses different specification of $f_{\text{exp}}$.
 Here you can see how the specification of $f_{\text{exp}}$ influences the sample sizes also in direct comparison to a fixed sample plan.
@@ -606,7 +613,7 @@ p_violin
 
 ## II. Sample size recommendations
 
-### plot {#plot .toc-only} 
+### Plot: Sample size requirement {#plot .toc-only}
 
 ```{r, fig.height=9, fig.width=10, out.width="70%", fig.align="left"}
 pick_f_simulated = c(0, pick_f_expected)
@@ -662,7 +669,7 @@ df_all %>%
 p_violin
 ```
 
-### summary table {#table .toc-only}
+### Summary table {#table .toc-only}
 
 ```{r}
 table_cases <- df_all %>% 
@@ -743,7 +750,7 @@ table_cases %>%
   gt() %>%
   sub_missing(columns = simulated_power, missing_text = "-") %>% 
   tab_header(
-    title = gt::html("<i>Summary Table</i>"),
+    title = gt::html("<i>Summary table</i>"),
     subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}"))
   ) %>%
   # center all data columns
@@ -802,6 +809,8 @@ table_cases %>%
 
 ## III. Extended Results: Various true effects
 
+### Plot: Sample size requirement {#plot .toc-only}
+
 ```{r}
 pick_f_simulated = c(0,
                      pick_f_expected - 0.05,
@@ -810,7 +819,7 @@ pick_f_simulated = c(0,
 ```
 
 
-### Required sample sizes {#extended-violin .toc-only}
+<!-- ### Required sample sizes {#extended-violin .toc-only} -->
 
 This violin plot shows the distribution of required sample sizes $n$ across simulations for different assumed true effects $f_{\text{true}}$.
 Each violin summarizes how often a given $n$ occurred: wider sections indicate that sample sizes in that range were more frequent.
@@ -922,7 +931,7 @@ p_violin
 ```
 
 
-### summary table {#extended-table .toc-only}
+### Summary table {#extended-table .toc-only}
 
 ```{r}
 table_cases <- df_all %>% 
@@ -1007,7 +1016,7 @@ table_cases %>%
     # Percent columns (show "-" for NA)
   sub_missing(columns = simulated_power, missing_text = "-") %>% 
   tab_header(
-    title = gt::html("<i>Summary Table</i>"),
+    title = gt::html("<i>Summary table</i>"),
     subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}"))
   ) %>%
   # center all data columns
@@ -1068,7 +1077,7 @@ table_cases %>%
 
 
 
-### cumulative {#extended-cumulative .toc-only}
+### Plot: Cumulative decisions {#extended-cumulative .toc-only}
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 df_cum <- df_all %>%
