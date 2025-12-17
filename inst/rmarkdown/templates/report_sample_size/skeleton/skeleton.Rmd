@@ -16,7 +16,7 @@ params:
   #data_path: !r system.file("sample_tool_data", package = "sprtt")     #"data/sprt_tool_df_all_100.rds"  
   n_rep: 2000
   pick_f_expected: 0.25
-  pick_power: 0.8
+  pick_power: 0.95
   pick_k_groups: 3
 ---
 
@@ -335,15 +335,12 @@ This report provides practical guidance for planning studies using **sequential 
 
 Unlike traditional sample size analyses, this report cannot predict the exact sample size needed to reach a decision in a specific study.
 Instead, it offers evidence-based recommendations derived from simulations, showing what sample sizes are typically required under various scenarios.
-Thus, these benchmarks enable realistic resource planning
+Thus, these benchmarks enable realistic resource planning.
 
-<!-- ::: {.alert .alert-info} -->
-<!--  &#128712; The actual sample size in any individual study may be considerably smaller or larger than the simulated averages presented here. -->
-<!-- ::: -->
+::: {.alert .alert-warning}
+The actual final sample size in any study may differ substantially from the following recommendations due to sampling variability and departures from the assumed effect structure.
+:::
 
-<!-- ::: {.alert .alert-warning} -->
-<!--  &#9888; The actual sample size in any individual study may be considerably smaller or larger than the simulated averages presented here. -->
-<!-- ::: -->
 
 ### Abbreviations
 
@@ -353,7 +350,11 @@ Thus, these benchmarks enable realistic resource planning
 | $f_{\text{true}}$ | True effect size in the simulated population | |
 | $\alpha$ | Type I error rate (probability of false positive) | |
 | $\beta$ | Type II error rate (probability of false negative) | |
+| $1-\beta$ | Target power. The desired probability of detecting a true effect.  | |
 | $k$ | Number of groups  | |
+| $N$ | Sample size  | |
+| $N_{\text{max}}$ | The maximum sample size when the researcher stops collecting data independent of the test decision. This sample size is only reached in the worst-case scenario. | |
+| $N_{\text{mean}}$ | The average sample size at which a decision is reached across simulations. In a single study, the required sample size is expected to be close to this value.| |
 
 
 ### Content
@@ -385,7 +386,7 @@ See XXX for the simulation code.
 
 <br>
 
-## I. Influence of $f_{exp}$ {#chapter-1}
+## I. Influence of $f_{\text{exp}}$ {#chapter-1}
 
 For this report, the effect size was specified as $f_{\text{exp}} = `r pick_f_expected`$.
 
@@ -495,8 +496,7 @@ ggplot() +
     y = "Simulated power",
     subtitle = glue::glue(
       "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
-      "1 - &beta; = {pick_power}, ",
-      "&alpha; = 0.05, groups = {pick_k_groups}"
+      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
     )
   ) +
   theme_minimal(base_size = base_size) +
@@ -557,69 +557,9 @@ if (pick_f_expected == 0.10){
 
 ## II. Sample size recommendations {#chapter-2}
 
-::: {.alert .alert-warning}
-The actual final sample size in any study may differ substantially from the following recommendations due to sampling variability and departures from the assumed effect structure.
-:::
-
-<!-- ### Plot: Sample size requirement {#plot .toc-only} -->
-
-```{r, fig.height=9, fig.width=10, out.width="70%", fig.align="left"}
-pick_f_simulated = c(0, pick_f_expected)
-# pick_f_simulated = pick_f_expected
-
-# titles
-title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
-subtitle_html <- glue(
-  # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
-  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
-)
-
-df_all %>% 
-  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
-         fill_group = factor(as.integer(f_simulated))) %>% 
-  filter(f_expected == pick_f_expected,
-         power == pick_power,
-         k_groups == pick_k_groups
-  ) %>% 
-  filter(f_simulated %in% pick_f_simulated) %>%
-  {. ->> cases} %>% 
-  ggplot(aes(x = f_simulated, y = n)) +
-  geom_violin(trim = FALSE, fill = light_green,
-              scale = "count",
-              #draw_quantiles = c(0.25, 0.50, 0.75),
-              linewidth = 0.3,
-              alpha = 0.25) +
-  # scale_fill_manual(values = light_blue) +
-  geom_point(aes(x = f_simulated, y = fix_n),
-             position = position_dodge(0.9),
-             shape = 18,
-             color = fixed_color,
-             size = 11) +
-  geom_point(aes(x = f_simulated, y = mean_n),
-             position = position_dodge(0.9),
-             shape = 15,
-             color = flatly_dark,
-             size = 8) + 
-  labs(
-    x = "<i>f</i><sub>true</sub>",
-    y = "sample size",
-    title = "Required sample sizes to reach a decision",
-    subtitle = as.expression(bquote(paste(italic(f)[exp], " = ", .(pick_f_expected)))),
-    caption = subtitle_html  ) +
-    theme_minimal(base_size = base_size) +
-  theme(plot.title = element_text(face = "bold", size = base_size, hjust = 0, colour = flatly_dark),
-        plot.subtitle = element_text(size = base_size*0.7, colour = "grey40"),
-        plot.caption = element_markdown(),
-        axis.title.x = element_markdown(),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_blank()
-        ) -> p_violin 
-p_violin
-```
-
-<!-- ### Summary table {#table .toc-only} -->
-
 ```{r}
+pick_f_simulated = c(0, pick_f_expected)
+
 table_cases <- df_all %>% 
   mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
          fill_group = factor(as.integer(f_simulated))) %>% 
@@ -691,7 +631,100 @@ table_cases <- df_all %>%
   ) %>% 
   mutate()
   # mutate(f_simulated = as.double(f_simulated))
+```
 
+```{r}
+recommendation <- table_cases %>%
+  filter(q90_n == max(q90_n))
+
+n_mean <- round(mean(table_cases$mean_n),0)
+n_max <- recommendation$q90_n
+```
+
+
+::: {.alert .alert-info}
+In short, it is <span style="color: #2c3e50; font-weight: bold;">recommended to plan for a maximum sample size of $N_{\text{max}} =$ `r n_max`</span>.<br>
+With this $N_{\text{max}}$, the sequential ANOVA reaches a decision 90% of the time, even in the scenario that requires the most data, which is when $f_{\text{true}} =$ `r recommendation$f_simulated`.
+While $N_{\text{max}}$ plans for the worst case, the <span style="color: #2c3e50; font-weight: bold;">expected sample size on average is $N_{\text{mean}} =$ `r n_mean`</span> in this scenario.
+:::
+
+In the following plot you can see a visualization of the simulated samples, where either the effect in the data is as expected or the effect is zero.
+For a extended version of these results see **[Chapter III](#chapter-3)**.
+The violin plot displays the variance of the sample sizes, to reach a final decision.
+
+<!-- ### Plot: Sample size requirement {#plot .toc-only} -->
+
+The numeric details are shown in the table.
+
+```{r, fig.height=9, fig.width=10, out.width="70%", fig.align="left"}
+
+# titles
+title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
+caption_html <- glue(
+  # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
+  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
+)
+
+df_all %>% 
+  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+         fill_group = factor(as.integer(f_simulated))) %>% 
+  filter(f_expected == pick_f_expected,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>% 
+  filter(f_simulated %in% pick_f_simulated) %>%
+  {. ->> cases} %>% 
+  ggplot(aes(x = f_simulated, y = n)) +
+  geom_violin(trim = FALSE, fill = light_green,
+              scale = "count",
+              linewidth = 0.3,
+              alpha = 0.25) +
+  geom_hline(yintercept = n_mean, linetype = "dashed", color = flatly_dark, linewidth = 0.8) +
+  geom_hline(yintercept = n_max, linetype = "dashed", color = flatly_dark, linewidth = 0.8) +
+  annotate("text", x = 2.5, y = n_mean + 5, 
+           label = "italic(N)[mean]", parse = TRUE, vjust = -0.1,
+           size = base_size * 0.25, color = flatly_dark) +
+  annotate("text", x = 2.5, y = n_max + 5, 
+           label = "italic(N)[max]", parse = TRUE, vjust = -0.1,
+           size = base_size * 0.25, color = flatly_dark) +
+  geom_point(aes(x = f_simulated, y = fix_n),
+             position = position_dodge(0.9),
+             shape = 18,
+             color = fixed_color,
+             size = 11) +
+  geom_point(aes(x = f_simulated, y = mean_n),
+             position = position_dodge(0.9),
+             shape = 15,
+             color = flatly_dark,
+             size = 8) + 
+  labs(
+    x = "<i>f</i><sub>true</sub>",
+    y = "<i>N</i>",
+    title = "Required sample sizes to reach a decision",
+    # subtitle = as.expression(bquote(paste(italic(f)[exp], " = ", .(pick_f_expected)))),
+    subtitle = glue::glue(
+      "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
+      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+    )) +
+  theme_minimal(base_size = base_size) +
+  theme(text = element_text(colour = flatly_dark),
+        plot.title = element_text(face = "bold", size = base_size,
+                                  hjust = 0, colour = flatly_dark),
+        plot.subtitle = ggtext::element_markdown(size = base_size*0.7, colour = "grey40"),
+        plot.caption = element_markdown(),
+        axis.title.x = element_markdown(),
+        axis.title.y = element_markdown(angle = 180, vjust = 0.5),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank()
+        ) -> p_violin
+p_violin
+```
+
+<!-- ### Summary table {#table .toc-only} -->
+
+
+
+```{r}
 table_cases %>%
   ungroup() %>% 
   mutate(decision_error_rate = decision_error_rate) %>% 
@@ -699,7 +732,7 @@ table_cases %>%
   sub_missing(columns = simulated_power, missing_text = "-") %>% 
   tab_header(
     title = gt::html("<i>Summary table</i>"),
-    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}"))
+    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"))
   ) %>%
   # center all data columns
   cols_align(align = "center", columns = everything()) %>%
@@ -749,11 +782,21 @@ table_cases %>%
   fmt_number(
     columns = where(is.double),
     decimals = 2
+  ) %>% 
+   tab_footnote(
+    footnote = html(glue("grand average: <i>N</i><sub>mean</sub> = {n_mean}")),
+    locations = cells_column_labels(columns = mean_n)
+  ) %>% 
+   tab_footnote(
+    footnote = html(glue("recommended <i>N</i><sub>max</sub> = {n_max}")),
+    locations = cells_column_labels(columns = q90_n)
   )
-
-
 ```
 
+::: {.alert .alert-info}
+In most cases, the 90% decision percentile is numerically very close to the fixed sample size.
+Thus, as a rule of thumb, the fixed sample size is generally a good choice for $N_{\text{max}}$.
+:::
 
 ## III. Extended insights {#chapter-3}
 
@@ -848,10 +891,12 @@ scale_color_manual(
 ) +
   labs(
     x = "<i>f</i><sub>true</sub>",
-    y = "sample size",
+    y = "<i>N</i>",
     title = "Required sample sizes to reach a decision",
-    subtitle = as.expression(bquote(paste(italic(f)[exp], " = ", .(pick_f_expected)))),
-    caption = caption_html  
+    subtitle = glue::glue(
+      "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
+      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+    )
   ) +
   
   # clean legend appearance
@@ -861,16 +906,18 @@ scale_color_manual(
   ) +
   theme_minimal(base_size = base_size) +
   theme(
+    text = element_text(colour = flatly_dark),
     legend.key = element_blank(),  # no background box around keys
     # plot.title = element_markdown(),
     # plot.subtitle = element_markdown(),
     plot.caption = element_markdown(),
     axis.title.x = element_markdown(),
+    axis.title.y = element_markdown(angle = 180, vjust = 0.5),
     # panel.grid.minor.y = element_blank(),
     panel.grid.minor.x = element_blank(),
     panel.grid.major.x = element_blank(),
     plot.title = element_text(face = "bold", size = base_size, hjust = 0, colour = flatly_dark),
-    plot.subtitle = element_text(size = base_size*0.7, colour = "grey40")
+    plot.subtitle = ggtext::element_markdown(size = base_size*0.7, colour = "grey40")
   ) 
 
 p_violin
@@ -965,7 +1012,7 @@ table_cases %>%
   sub_missing(columns = simulated_power, missing_text = "-") %>% 
   tab_header(
     title = gt::html("<i>Summary table</i>"),
-    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}"))
+    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"))
   ) %>%
   # center all data columns
   cols_align(align = "center", columns = everything()) %>%
@@ -1023,6 +1070,8 @@ table_cases %>%
 ```
 
 <!-- ### Sequential vs fixed design -->
+
+<br><br>
 ### Plot: Sample size and varing $f_{\text{exp}}$ {#sample-size-diff .toc-only}
 
 The next plot below visualizes the required sample sizes, when the true value is set and one uses different specification of $f_{\text{exp}}$.
@@ -1073,21 +1122,28 @@ df_all %>%
              size = 6) + 
   labs(
     x = "<i>f</i><sub>exp</sub>",
-    y = "sample size",
+    y = "<i>N</i>",
     title = "Required sample sizes to reach a decision",
-    subtitle = as.expression(bquote(paste(italic(f)[true], " = ", .(pick_f_expected)))),
-    caption = subtitle_html) +
+    subtitle = glue::glue(
+      "<i>f</i><sub>true</sub> = {pick_f_simulated}, ",
+      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+    )) +
     theme_minimal(base_size = base_size) +
-    theme(plot.title = element_text(face = "bold", size = base_size, hjust = 0, colour = flatly_dark),
-        plot.subtitle = element_text(size = base_size*0.7, colour = "grey40"),
+    theme(text = element_text(colour = flatly_dark),
+        plot.title = element_text(face = "bold", size = base_size, hjust = 0,
+                                colour = flatly_dark),
+        plot.subtitle = ggtext::element_markdown(size = base_size*0.7, colour = "grey40"),
         plot.caption = element_markdown(),
         axis.title.x = element_markdown(),
+        axis.title.y = element_markdown(angle = 180, vjust = 0.5),
         panel.grid.minor.y = element_blank(),
         panel.grid.major.x = element_blank()
         ) -> p_violin 
 p_violin
 ```
 
+
+<br><br>
 
 ### Plot: Cumulative decisions {#extended-cumulative .toc-only}
 
@@ -1118,7 +1174,7 @@ ggplot(df_cum, aes(x = n_decision, y = cum_prop, colour = factor(f_simulated), g
   geom_vline(xintercept = unique(df_cum$fix_n), color = flatly_dark,  linetype = "dashed") +
   annotate(
   "text",
-  x = unique(df_cum$fix_n) + (unique(df_cum$fix_n) * 0.05),
+  x = unique(df_cum$fix_n) + (unique(df_cum$fix_n) * 0.07),
   y = 0.05,
   label = "fixed sample size",
   angle = 90,         # rotate text
@@ -1134,24 +1190,27 @@ ggplot(df_cum, aes(x = n_decision, y = cum_prop, colour = factor(f_simulated), g
   ) +
   scale_color_brewer(palette = "Set2") +   # modern pastel Flatly-compatible palette
   labs(
-    x = "Sample size n",
+    x = "<i>N</i>",
     y = "",  #"Cumulative proportion\nwith a decision",
     colour = expression(italic(f)[true]),
     title = "Cumulative decision proportions across simulated\neffect sizes",
     # subtitle = "Dashed line: 90% decision threshold"
-    subtitle = as.expression(
-      bquote(paste(italic(f)[exp], " = ", .(pick_f_expected))))
+    subtitle = glue::glue(
+      "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
+      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+    )
   ) +
   theme_minimal(base_size = base_size) +
   theme(
     plot.title = element_text(face = "bold", size = base_size, hjust = 0, colour = flatly_dark),
-    plot.subtitle = element_text(size = base_size * 0.7, colour = "grey40"),
+    plot.subtitle = ggtext::element_markdown(size = base_size*0.7, colour = "grey40"),
     panel.grid.minor = element_blank(),
     panel.grid.major.x = element_blank(),
     #legend.position = "bottom",
     # legend.box = "horizontal",
     legend.title = element_text(face = "bold"),
     axis.title = element_text(face = "bold"),
-    plot.title.position = "plot"
+    plot.title.position = "plot",
+    axis.title.x = ggtext::element_markdown()
   )
 ```
