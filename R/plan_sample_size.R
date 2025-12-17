@@ -2,7 +2,7 @@
 #' Generate an HTML report for sample size planning for sequential ANOVAs.
 #'
 #' @description
-#' Renders a parameterized R Markdown report that helps plan sample size for an SPRT analysis.
+#' Renders a parameterized R Markdown report that helps plan sample size for the sequential ANOVA.
 #' The function takes expected effect size (`f_expected`), number of groups (`k_groups`),
 #' and desired power, then generates a reproducible HTML report summarizing the simulation-based
 #' sample size recommendations. The alpha level is always 0.05.
