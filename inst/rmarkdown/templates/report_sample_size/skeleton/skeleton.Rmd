@@ -344,17 +344,17 @@ The actual final sample size in any study may differ substantially from the foll
 
 ### Abbreviations
 
-| Parameter | Description | | 
-|---|:-------------|------------|
-| $f_{\text{exp}}$ | Expected effect size (target effect) used for planning| | the sequential design | |
-| $f_{\text{true}}$ | True effect size in the simulated population | |
-| $\alpha$ | Type I error rate (probability of false positive) | |
-| $\beta$ | Type II error rate (probability of false negative) | |
-| $1-\beta$ | Target power. The desired probability of detecting a true effect.  | |
-| $k$ | Number of groups  | |
-| $N$ | Sample size  | |
-| $N_{\text{max}}$ | The maximum sample size when the researcher stops collecting data independent of the test decision. This sample size is only reached in the worst-case scenario. | |
-| $N_{\text{mean}}$ | The average sample size at which a decision is reached across simulations. In a single study, the required sample size is expected to be close to this value.| |
+| Parameter | Description |
+|:---|:-------------|
+| $f_{\text{exp}}$ | Expected effect size (target effect) used for planning the sequential design |
+| $f_{\text{true}}$ | True effect size in the simulated population |
+| $\alpha$ | Type I error rate (probability of false positive) |
+| $\beta$ | Type II error rate (probability of false negative) |
+| $1-\beta$ | Target power. The desired probability of detecting a true effect.  |
+| $k$ | Number of groups  |
+| $N$ | Sample size  |
+| $N_{\text{max}}$ | The maximum sample size when the researcher stops collecting data independent of the test decision. This sample size is only reached in the worst-case scenario. |
+| $N_{\text{mean}}$ | The average sample size at which a decision is reached across simulations. In a single study, the required sample size is expected to be close to this value.|
 
 
 ### Content
@@ -656,7 +656,7 @@ The violin plot displays the variance of the sample sizes, to reach a final deci
 
 The numeric details are shown in the table.
 
-```{r, fig.height=9, fig.width=10, out.width="70%", fig.align="left"}
+```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 
 # titles
 title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
@@ -687,25 +687,33 @@ df_all %>%
   annotate("text", x = 2.5, y = n_max + 5, 
            label = "italic(N)[max]", parse = TRUE, vjust = -0.1,
            size = base_size * 0.25, color = flatly_dark) +
-  geom_point(aes(x = f_simulated, y = fix_n),
+  geom_point(aes(x = f_simulated, y = fix_n, color = "Fixed sample size"),
              position = position_dodge(0.9),
              shape = 18,
-             color = fixed_color,
              size = 11) +
-  geom_point(aes(x = f_simulated, y = mean_n),
+  geom_point(aes(x = f_simulated, y = mean_n, color = "Mean sample size"),
              position = position_dodge(0.9),
              shape = 15,
-             color = flatly_dark,
              size = 8) + 
+  
   labs(
     x = "<i>f</i><sub>true</sub>",
     y = "<i>N</i>",
     title = "Required sample sizes to reach a decision",
-    # subtitle = as.expression(bquote(paste(italic(f)[exp], " = ", .(pick_f_expected)))),
     subtitle = glue::glue(
       "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
       "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
     )) +
+  scale_color_manual(
+    name   = "Legend",
+    values = c("Fixed sample size" = fixed_color,
+               "Mean sample size"  = flatly_dark),
+    labels = c("Fixed sample size" = "a priori power analysis",
+               "Mean sample size"  = "mean sample size")
+  ) +
+  guides(
+    color = guide_legend(override.aes = list(size = 5))
+  ) +
   theme_minimal(base_size = base_size) +
   theme(text = element_text(colour = flatly_dark),
         plot.title = element_text(face = "bold", size = base_size,
@@ -715,7 +723,9 @@ df_all %>%
         axis.title.x = element_markdown(),
         axis.title.y = element_markdown(angle = 180, vjust = 0.5),
         panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_blank()
+        panel.grid.major.x = element_blank(),
+        legend.position = "right",
+        legend.text = element_text(size = base_size * 0.7)
         ) -> p_violin
 p_violin
 ```
@@ -908,6 +918,7 @@ scale_color_manual(
   theme(
     text = element_text(colour = flatly_dark),
     legend.key = element_blank(),  # no background box around keys
+    legend.text = element_text(size = base_size * 0.7),
     # plot.title = element_markdown(),
     # plot.subtitle = element_markdown(),
     plot.caption = element_markdown(),
@@ -1072,6 +1083,7 @@ table_cases %>%
 <!-- ### Sequential vs fixed design -->
 
 <br><br>
+
 ### Plot: Sample size and varing $f_{\text{exp}}$ {#sample-size-diff .toc-only}
 
 The next plot below visualizes the required sample sizes, when the true value is set and one uses different specification of $f_{\text{exp}}$.
@@ -1087,6 +1099,7 @@ subtitle_html <- glue(
   # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
   "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
 )
+
 df_all %>% 
   mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
          fill_group = factor(as.integer(f_simulated))
@@ -1101,24 +1114,20 @@ df_all %>%
                                 light_green, light_green),
          f_expected = factor(f_expected)) %>% 
   group_by(f_expected) %>% 
-  # filter(f_simulated %in% pick_f_simulated) %>%
   {. ->> cases} %>% 
   ggplot(aes(x = f_expected, y = n)) +
   geom_violin(aes(fill = violin_color), trim = FALSE,
               scale = "count",
-              #draw_quantiles = c(0.25, 0.50, 0.75),
               linewidth = 0.3,
               alpha = 0.25) +
   scale_fill_identity() +
-  geom_point(aes(x = f_expected, y = fix_n),
+  geom_point(aes(x = f_expected, y = fix_n, color = "Fixed sample size"),
              position = position_dodge(0.9),
              shape = 18,
-             color = fixed_color,
              size = 9) +
-  geom_point(aes(x = f_expected, y = mean_n),
+  geom_point(aes(x = f_expected, y = mean_n, color = "Mean sample size"),
              position = position_dodge(0.9),
              shape = 15,
-             color = flatly_dark,
              size = 6) + 
   labs(
     x = "<i>f</i><sub>exp</sub>",
@@ -1128,8 +1137,18 @@ df_all %>%
       "<i>f</i><sub>true</sub> = {pick_f_simulated}, ",
       "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
     )) +
-    theme_minimal(base_size = base_size) +
-    theme(text = element_text(colour = flatly_dark),
+  scale_color_manual(
+    name   = "Legend",
+    values = c("Fixed sample size" = fixed_color,
+               "Mean sample size"  = flatly_dark),
+    labels = c("Fixed sample size" = "a priori power analysis",
+               "Mean sample size"  = "mean sample size")
+  ) +
+  guides(
+    color = guide_legend(override.aes = list(size = 5))
+  ) +
+  theme_minimal(base_size = base_size) +
+  theme(text = element_text(colour = flatly_dark),
         plot.title = element_text(face = "bold", size = base_size, hjust = 0,
                                 colour = flatly_dark),
         plot.subtitle = ggtext::element_markdown(size = base_size*0.7, colour = "grey40"),
@@ -1137,7 +1156,9 @@ df_all %>%
         axis.title.x = element_markdown(),
         axis.title.y = element_markdown(angle = 180, vjust = 0.5),
         panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_blank()
+        panel.grid.major.x = element_blank(),
+        legend.position = "right",
+        legend.text = element_text(size = base_size * 0.7)
         ) -> p_violin 
 p_violin
 ```
