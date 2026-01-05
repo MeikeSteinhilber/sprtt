@@ -75,8 +75,9 @@ plan_sample_size <- function(f_expected,
 
 
   # check input parameters
-  # if (is.null(df)) df <- get("df", envir = asNamespace("sprtt"))
-  # if (is.null(df_all)) df_all <- get("df_all", envir = asNamespace("sprtt"))
+  df_all <- load_sample_size_data()
+  df <- df_all %>%
+    distinct(f_expected, power, k_groups)
 
   if (!f_expected %in% df$f_expected) {
     stop(
@@ -129,7 +130,8 @@ plan_sample_size <- function(f_expected,
     params = list(
       pick_f_expected = f_expected,
       pick_power = power,
-      pick_k_groups = k_groups
+      pick_k_groups = k_groups,
+      df_all = df_all
     ),
     output_file = output_file,
     output_dir  = output_dir,

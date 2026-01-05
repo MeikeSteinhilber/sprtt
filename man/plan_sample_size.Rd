@@ -41,7 +41,7 @@ Invisibly returns the path to the rendered HTML file (character string).
 The report is optionally opened in the default browser.
 }
 \description{
-Renders a parameterized R Markdown report that helps plan sample size for an SPRT analysis.
+Renders a parameterized R Markdown report that helps plan sample size for the sequential ANOVA.
 The function takes expected effect size (\code{f_expected}), number of groups (\code{k_groups}),
 and desired power, then generates a reproducible HTML report summarizing the simulation-based
 sample size recommendations. The alpha level is always 0.05.

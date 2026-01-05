@@ -13,7 +13,7 @@ output:
     toc_collapsed: false
     # code_folding: hide
 params:
-  #data_path: !r system.file("sample_tool_data", package = "sprtt")     #"data/sprt_tool_df_all_100.rds"  
+  df_all: NULL  
   n_rep: 2000
   pick_f_expected: 0.25
   pick_power: 0.95
@@ -171,6 +171,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r, include=FALSE}
 n_rep = params$n_rep
+df_all = params$df_all
 pick_f_expected = params$pick_f_expected
 pick_power = params$pick_power
 pick_k_groups = params$pick_k_groups
@@ -214,8 +215,8 @@ document.addEventListener('DOMContentLoaded', function() {
 #load(glue("{params$data_path}/sprt_tool_samples_{n_rep}.RData"))
 # load(glue("meta_data/sprt_tool_samples_{n_rep}.RData"))
 
-df <- sprtt:::df
-df_all <- sprtt:::df_all
+# df <- sprtt:::df
+# df_all <- load_sample_size_data()
 
 # df_all <- getFromNamespace("df_all", "sprtt")
 # df     <- getFromNamespace("df",     "sprtt")
@@ -568,7 +569,8 @@ table_cases <- df_all %>%
          k_groups == pick_k_groups
   ) %>% 
   filter(f_simulated %in% pick_f_simulated) %>% 
-    group_by(
+  mutate(grand_median_n = as.integer(median(n))) %>% 
+  group_by(
     f_simulated,
     f_expected,
     k_groups,
@@ -590,6 +592,7 @@ table_cases <- df_all %>%
     fix_n = as.integer(mean(fix_n)),
     mean_n = as.integer(round(mean(n))),
     median_n = as.integer(median(n)),
+    grand_median_n = grand_median_n[1],
     min_n = as.integer(min(n)),
     max_n = max(n),
     decision_rate_100 = sum(decision_status_100)/n(),
@@ -610,14 +613,15 @@ table_cases <- df_all %>%
     .after = power
   ) %>% 
   select(-power) %>% 
-    ungroup() %>%
-    select(
+  ungroup() %>%
+  select(
     f_simulated,
     # f_expected,
     simulated_power,
     decision_error_rate,
     mean_n,
     median_n,
+    grand_median_n,
     min_n,
     max_n,
     # decision_rate_90,
@@ -638,15 +642,11 @@ recommendation <- table_cases %>%
   filter(q90_n == max(q90_n))
 
 n_mean <- round(mean(table_cases$mean_n),0)
+n_median_grand <- table_cases$grand_median_n[1]
 n_max <- recommendation$q90_n
 ```
 
 
-::: {.alert .alert-info}
-In short, it is <span style="color: #2c3e50; font-weight: bold;">recommended to plan for a maximum sample size of $N_{\text{max}} =$ `r n_max`</span>.<br>
-With this $N_{\text{max}}$, the sequential ANOVA reaches a decision 90% of the time, even in the scenario that requires the most data, which is when $f_{\text{true}} =$ `r recommendation$f_simulated`.
-While $N_{\text{max}}$ plans for the worst case, the <span style="color: #2c3e50; font-weight: bold;">expected sample size on average is $N_{\text{mean}} =$ `r n_mean`</span> in this scenario.
-:::
 
 In the following plot you can see a visualization of the simulated samples, where either the effect in the data is as expected or the effect is zero.
 For a extended version of these results see **[Chapter III](#chapter-3)**.
@@ -654,7 +654,6 @@ The violin plot displays the variance of the sample sizes, to reach a final deci
 
 <!-- ### Plot: Sample size requirement {#plot .toc-only} -->
 
-The numeric details are shown in the table.
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 
@@ -679,19 +678,19 @@ df_all %>%
               scale = "count",
               linewidth = 0.3,
               alpha = 0.25) +
-  geom_hline(yintercept = n_mean, linetype = "dashed", color = flatly_dark, linewidth = 0.8) +
+  geom_hline(yintercept = n_median_grand, linetype = "dashed", color = flatly_dark, linewidth = 0.8) +
   geom_hline(yintercept = n_max, linetype = "dashed", color = flatly_dark, linewidth = 0.8) +
-  annotate("text", x = 2.5, y = n_mean + 5, 
-           label = "italic(N)[mean]", parse = TRUE, vjust = -0.1,
+  annotate("text", x = 2.45, y = n_median_grand + 5, 
+           label = "bar(italic(N))[median]", parse = TRUE, vjust = -0.1,
            size = base_size * 0.25, color = flatly_dark) +
-  annotate("text", x = 2.5, y = n_max + 5, 
+  annotate("text", x = 2.45, y = n_max + 5, 
            label = "italic(N)[max]", parse = TRUE, vjust = -0.1,
            size = base_size * 0.25, color = flatly_dark) +
   geom_point(aes(x = f_simulated, y = fix_n, color = "Fixed sample size"),
              position = position_dodge(0.9),
              shape = 18,
              size = 11) +
-  geom_point(aes(x = f_simulated, y = mean_n, color = "Mean sample size"),
+  geom_point(aes(x = f_simulated, y = median_n, color = "Median sample size"),
              position = position_dodge(0.9),
              shape = 15,
              size = 8) + 
@@ -707,9 +706,9 @@ df_all %>%
   scale_color_manual(
     name   = "Legend",
     values = c("Fixed sample size" = fixed_color,
-               "Mean sample size"  = flatly_dark),
+               "Median sample size"  = flatly_dark),
     labels = c("Fixed sample size" = "a priori power analysis",
-               "Mean sample size"  = "mean sample size")
+               "Median sample size"  = "median sample size")
   ) +
   guides(
     color = guide_legend(override.aes = list(size = 5))
@@ -732,10 +731,17 @@ p_violin
 
 <!-- ### Summary table {#table .toc-only} -->
 
+::: {.alert .alert-info}
+In short, it is <span style="color: #2c3e50; font-weight: bold;">recommended to plan for a maximum sample size of $N_{\text{max}} =$ `r n_max`</span>.<br>
+With this $N_{\text{max}}$, the sequential ANOVA reaches a decision 90% of the time, even in the scenario that requires the most data, which is when $f_{\text{true}} =$ `r recommendation$f_simulated`.
+While $N_{\text{max}}$ plans for the worst case, the <span style="color: #2c3e50; font-weight: bold;">median sample size is $N_{\text{mean}} =$ `r n_median_grand`</span> in this scenario.
+:::
 
+Extended numeric details are shown in the table below.
 
 ```{r}
 table_cases %>%
+  select(-grand_median_n) %>% 
   ungroup() %>% 
   mutate(decision_error_rate = decision_error_rate) %>% 
   gt() %>%
@@ -794,7 +800,7 @@ table_cases %>%
     decimals = 2
   ) %>% 
    tab_footnote(
-    footnote = html(glue("grand average: <i>N</i><sub>mean</sub> = {n_mean}")),
+    footnote = html(glue("grand median: <i>N&#x0305;</i><sub>median</sub> = {n_median_grand}")),
     locations = cells_column_labels(columns = mean_n)
   ) %>% 
    tab_footnote(
@@ -802,11 +808,6 @@ table_cases %>%
     locations = cells_column_labels(columns = q90_n)
   )
 ```
-
-::: {.alert .alert-info}
-In most cases, the 90% decision percentile is numerically very close to the fixed sample size.
-Thus, as a rule of thumb, the fixed sample size is generally a good choice for $N_{\text{max}}$.
-:::
 
 ## III. Extended insights {#chapter-3}
 
@@ -886,7 +887,7 @@ p_violin <- df_all %>%
   
   # blue square = mean sample size
   geom_point(
-    aes(y = mean_n, color = "Mean sample size"),
+    aes(y = median_n, color = "Median sample size"),
     position = position_dodge(0.9),
     shape = 15,     # square, no border
     size  = 6,
@@ -895,9 +896,9 @@ p_violin <- df_all %>%
 scale_color_manual(
   name   = "Legend",
   values = c("Fixed sample size" = fixed_color,
-             "Mean sample size"  = flatly_dark),
+             "Median sample size"  = flatly_dark),
   labels = c("Fixed sample size" = "a priori power analysis",
-             "Mean sample size"  = "mean sample size")
+             "Median sample size"  = "median sample size")
 ) +
   labs(
     x = "<i>f</i><sub>true</sub>",
@@ -1125,7 +1126,7 @@ df_all %>%
              position = position_dodge(0.9),
              shape = 18,
              size = 9) +
-  geom_point(aes(x = f_expected, y = mean_n, color = "Mean sample size"),
+  geom_point(aes(x = f_expected, y = median_n, color = "Median sample size"),
              position = position_dodge(0.9),
              shape = 15,
              size = 6) + 
@@ -1140,9 +1141,9 @@ df_all %>%
   scale_color_manual(
     name   = "Legend",
     values = c("Fixed sample size" = fixed_color,
-               "Mean sample size"  = flatly_dark),
+               "Median sample size"  = flatly_dark),
     labels = c("Fixed sample size" = "a priori power analysis",
-               "Mean sample size"  = "mean sample size")
+               "Median sample size"  = "median sample size")
   ) +
   guides(
     color = guide_legend(override.aes = list(size = 5))

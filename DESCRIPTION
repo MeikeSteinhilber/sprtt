@@ -31,6 +31,7 @@ BugReports: https://github.com/MeikeSteinhilber/sprtt/issues
 Depends:
     R (>= 3.5.0)
 Imports:
+    rappdirs,
     methods,
     stats,
     dplyr,
@@ -60,5 +61,5 @@ Language: en-US
 LazyData: yes
 LazyDataCompression: xz
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Config/testthat/edition: 3

@@ -84,6 +84,40 @@ Short examples can be found in the following paragraph.
 >
 > `#> results of function()`: is console output
 
+
+## Sample Size Planning
+
+The sample size planning functions require simulation data (~15 MB). On first use, this data will be downloaded automatically:
+```r
+library(sprtt)
+
+# First use - downloads data automatically
+result <- plan_sample_size(f_expected = 0.25, power = 0.8, k_groups = 2)
+# Downloading simulation data for sample size planning...
+# This is a one-time download (~10 MB) and may take 1-2 minutes.
+```
+
+Data is cached locally and won't need to be downloaded again.
+
+### Managing cached data
+```r
+# Check cache status
+cache_info()
+
+# Force re-download (if data was updated)
+download_sample_size_data(force = TRUE)
+
+# Clear cache
+cache_clear()
+```
+
+### Offline use
+
+If you need to use the package offline, download the data while connected:
+```r
+download_sample_size_data()
+```
+```
 <!--
 
 ATTENTION!
