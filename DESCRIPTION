@@ -44,7 +44,8 @@ Imports:
     rmarkdown,
     gt,
     ggtext,
-    scales
+    scales,
+    piggyback
 Suggests:
     testthat (>= 3.0.0),
     testthis,
