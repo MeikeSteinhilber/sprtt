@@ -9,13 +9,21 @@ reference:
   - seq_ttest
   - seq_anova
   - plot_anova
+
+- title: Plan Sequential Sample Size
+  contents:
   - plan_sample_size
+  - download_sample_size_data
+  - load_sample_size_data
+  - cache_clear
+  - cache_info
+
+- title: Simulate Data
+  contents:
   - draw_sample_normal
   - draw_sample_mixture
-  - sprtt
 
-
-- title: Test Data
+- title: Example Data
   contents:
   - df_stress
   - df_income

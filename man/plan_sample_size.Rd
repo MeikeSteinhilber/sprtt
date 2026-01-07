@@ -2,8 +2,7 @@
 % Please edit documentation in R/plan_sample_size.R
 \name{plan_sample_size}
 \alias{plan_sample_size}
-\title{#---- MAIN FUNCTION DOCUMENTATION ----------------------------------------------
-Generate an HTML report for sample size planning for sequential ANOVAs.}
+\title{Generate an HTML report for sample size planning for sequential ANOVAs.}
 \usage{
 plan_sample_size(
   f_expected,
@@ -41,6 +40,7 @@ Invisibly returns the path to the rendered HTML file (character string).
 The report is optionally opened in the default browser.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 Renders a parameterized R Markdown report that helps plan sample size for the sequential ANOVA.
 The function takes expected effect size (\code{f_expected}), number of groups (\code{k_groups}),
 and desired power, then generates a reproducible HTML report summarizing the simulation-based

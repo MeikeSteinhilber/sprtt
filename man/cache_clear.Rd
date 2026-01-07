@@ -7,6 +7,7 @@
 cache_clear()
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 Removes locally cached simulation data. Data will be re-downloaded on next use.
 }
 \examples{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_data_external.R
 \name{cache_info}
 \alias{cache_info}
-\title{Get information about cached simulation data}
+\title{Cache information}
 \usage{
 cache_info()
 }
@@ -10,5 +10,6 @@ cache_info()
 List with cache directory path, file existence, and file size
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 Get information about cached simulation data
 }

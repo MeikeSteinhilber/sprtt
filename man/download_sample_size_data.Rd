@@ -13,6 +13,7 @@ download_sample_size_data(force = FALSE)
 Invisibly returns the path to the cached data file.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 Downloads pre-computed simulation results from GitHub releases.
 Data is cached locally and only needs to be downloaded once.
 }

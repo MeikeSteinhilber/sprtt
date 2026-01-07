@@ -12,6 +12,8 @@ get_sprtt_cache_dir <- function() {
 
 #' Download simulation data for sample size planning
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #' Downloads pre-computed simulation results from GitHub releases.
 #' Data is cached locally and only needs to be downloaded once.
 #'
@@ -64,6 +66,8 @@ download_sample_size_data <- function(force = FALSE) {
 
 #' Load simulation data for sample size planning
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #' Loads pre-computed simulation results. Downloads data if not already cached.
 #'
 #' @return A data frame with simulation results
@@ -90,6 +94,8 @@ load_sample_size_data <- function() {
 
 #' Clear cached simulation data
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #' Removes locally cached simulation data. Data will be re-downloaded on next use.
 #'
 #' @export
@@ -111,6 +117,9 @@ cache_clear <- function() {
   }
 }
 
+#' Cache information
+#' @description
+#' `r lifecycle::badge("experimental")`
 #' Get information about cached simulation data
 #'
 #' @return List with cache directory path, file existence, and file size
