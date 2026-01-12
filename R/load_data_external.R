@@ -38,7 +38,7 @@ download_sample_size_data <- function(force = FALSE) {
   }
 
   message("Downloading simulation data for sample size planning...")
-  message("This is a one-time download (~15 MB).")
+  message("This is a one-time download (~70 MB).")
 
   tryCatch({
     piggyback::pb_download(

@@ -13,11 +13,11 @@ output:
     toc_collapsed: false
     # code_folding: hide
 params:
-  df_all: NULL  
-  n_rep: 2000
-  pick_f_expected: 0.25
-  pick_power: 0.95
-  pick_k_groups: 3
+  df_all: NULL
+  f_expected: 0.25
+  power: 0.95
+  k_groups: 3
+  decision_rate: 0.90
 ---
 
 
@@ -167,14 +167,6 @@ h1.toc-only, h2.toc-only, h3.toc-only, h4.toc-only, h5.toc-only, h6.toc-only {
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-```
-
-```{r, include=FALSE}
-n_rep = params$n_rep
-df_all = params$df_all
-pick_f_expected = params$pick_f_expected
-pick_power = params$pick_power
-pick_k_groups = params$pick_k_groups
 
 library(dplyr)
 library(glue)
@@ -183,13 +175,31 @@ library(knitr)
 library(gt)
 library(ggtext)
 library(scales)
+```
 
-# library(latex2exp)
-# library(here)
-# library(tidyr)
-# library(kableExtra)
-# library(gridExtra)
-# library(kableExtra)
+```{r, include=FALSE}
+df_all = params$df_all
+
+if (is.null(df_all)) {df_all <- readRDS("C:/Users/msteinhi/GitHub/sprtt_plan_sample_size/meta_data/sprt_tool_df_all_10000.rds")}
+
+pick_f_expected =     params$f_expected
+pick_power =          params$power
+pick_k_groups =       params$k_groups
+pick_decision_rate =  params$decision_rate
+
+pick_decision_rate_var = case_when(
+  pick_decision_rate == 0.75 ~ "q75_n",
+  pick_decision_rate == 0.80 ~ "q80_n",
+  pick_decision_rate == 0.85 ~ "q85_n",
+  pick_decision_rate == 0.90 ~ "q90_n",
+  pick_decision_rate == 0.95 ~ "q95_n"
+)
+
+n_rep = df_all %>% filter(f_simulated == 0,
+                          f_expected == pick_f_expected,
+                          k_groups == pick_k_groups,
+                          power == pick_power) %>% nrow(.)
+
 ```
 
 ```{r}
@@ -639,11 +649,11 @@ table_cases <- df_all %>%
 
 ```{r}
 recommendation <- table_cases %>%
-  filter(q90_n == max(q90_n))
+  filter(.data[[pick_decision_rate_var]] == max(.data[[pick_decision_rate_var]]))
 
-n_mean <- round(mean(table_cases$mean_n),0)
+n_mean <- round(mean(table_cases$mean_n), 0)
 n_median_grand <- table_cases$grand_median_n[1]
-n_max <- recommendation$q90_n
+n_max <- recommendation[[pick_decision_rate_var]]
 ```
 
 
@@ -788,7 +798,11 @@ table_cases %>%
   #   columns = c(fix_n)
   # ) %>%
   data_color(
-    columns = q90_n,
+    columns = median_n,
+    palette = grey_blue
+  ) %>%
+  data_color(
+    columns = !!pick_decision_rate_var,
     palette = grey_blue
   ) %>%
   data_color(
@@ -1066,7 +1080,11 @@ table_cases %>%
     colors  = light_red, alpha = 0.25,
     autocolor_text = FALSE) %>% 
   data_color(
-    columns = q90_n,
+    columns = median_n,
+    palette = grey_blue
+  ) %>%
+  data_color(
+    columns = !!pick_decision_rate_var,
     palette = grey_blue
   ) %>%
   data_color(

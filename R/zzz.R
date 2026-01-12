@@ -4,7 +4,7 @@
 
   if (!file.exists(data_file)) {
     packageStartupMessage(
-      "Note: Sample size planning functions require simulation data (~15 MB).\n",
+      "Note: Sample size planning functions require simulation data (~70 MB).\n",
       "Data will download automatically on first use.\n",
       "See ?download_sample_size_data for more information."
     )

@@ -14,6 +14,7 @@
 #'   Must be greater than 0.
 #' @param k_groups Integer scalar. The number of groups to compare. Must be at least 2.
 #' @param power Numeric scalar (default = 0.95). Desired statistical power for the design.
+#' @param decision_rate Numeric scalar (default = 0.90). Desired chance to reach a decision (0.75,0.80,0.85,0.90,0.95).
 #' @param output_dir Character string. Directory in which to save the rendered HTML report.
 #'   Defaults to a temporary directory (`tempdir()`).
 #' @param output_file Character string. File name of the generated HTML report.
@@ -64,6 +65,7 @@
 plan_sample_size <- function(f_expected,
                              k_groups,
                              power = 0.95,
+                             decision_rate = 0.90,
                              output_dir = tempdir(),
                              output_file = "sprtt-report-sample-size-planning.html",
                              open = interactive(),
@@ -75,6 +77,12 @@ plan_sample_size <- function(f_expected,
 
 
   # check input parameters
+  if (!decision_rate %in% c(0.75,0.80,0.85,0.90,0.95)) {
+    stop(
+      glue("`decision_rate` = {decision_rate} is not available. Please choose one of {glue_collapse(shQuote(c(0.75,0.80,0.85,0.90,0.95)), ', ', last = ' or ')}")
+    )
+  }
+
   df_all <- load_sample_size_data()
   df <- df_all %>%
     distinct(f_expected, power, k_groups)
@@ -128,10 +136,11 @@ plan_sample_size <- function(f_expected,
   output <- rmarkdown::render(
     rmd_path,
     params = list(
-      pick_f_expected = f_expected,
-      pick_power = power,
-      pick_k_groups = k_groups,
-      df_all = df_all
+      f_expected = f_expected,
+      power = power,
+      k_groups = k_groups,
+      df_all = df_all,
+      decision_rate = decision_rate
     ),
     output_file = output_file,
     output_dir  = output_dir,

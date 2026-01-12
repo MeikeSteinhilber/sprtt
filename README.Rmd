@@ -87,7 +87,7 @@ Short examples can be found in the following paragraph.
 
 ## Sample Size Planning
 
-The sample size planning functions require simulation data (~15 MB). On first use, this data will be downloaded automatically:
+The sample size planning functions require simulation data (~70 MB). On first use, this data will be downloaded automatically:
 ```r
 library(sprtt)
 

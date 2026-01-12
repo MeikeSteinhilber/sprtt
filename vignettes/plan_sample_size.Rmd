@@ -118,7 +118,7 @@ plan_sample_size(
 
 When you run this code for the first time, several things happen:
 
-1. **Data download:** The simulation database (~15 MB) is downloaded from GitHub and saved to your local cache directory. This is a one-time operation.
+1. **Data download:** The simulation database (~70 MB) is downloaded from GitHub and saved to your local cache directory. This is a one-time operation.
 2. **Report generation:** An HTML report is created in your temporary directory.
 3. **Browser launch:** The report automatically opens in your default web browser (if running interactively).
 
@@ -433,7 +433,7 @@ Then use the closest available value to your desired parameter. For instance, if
 
 **Symptom:** Error about insufficient memory when loading simulation data
 
-**Cause:** The simulation database (~15 MB as a file, larger in memory) exceeds available RAM
+**Cause:** The simulation database (~70 MB as a file, larger in memory) exceeds available RAM
 
 **Solution:** This is rare but can occur on severely memory-constrained systems. Close other applications and try again. If the problem persists, consider:
 - Accessing the simulation data on a more powerful computer
@@ -462,7 +462,7 @@ To balance package size with data accessibility, the simulation results are stor
 - **Repository:** `MeikeSteinhilber/sprtt_plan_sample_size`
 - **Filename:** `sprtt_external_data_plan_sample_size.rds`
 - **Format:** Compressed R data file (.rds)
-- **Size:** ~15 MB
+- **Size:** ~70 MB
 - **Access method:** `piggyback` package for downloading GitHub release assets
 
 This architecture keeps the installed package lightweight (~1 MB) while providing access to comprehensive simulation data on demand.
@@ -474,7 +474,7 @@ All sample size recommendations assume a Type I error rate (α) of 0.05. This va
 ### Computational Considerations
 
 Generating each HTML report requires:
-- Loading the simulation database into memory (~30-50 MB in RAM)
+- Loading the simulation database into memory
 - Filtering to relevant parameter combinations
 - Rendering the R Markdown template with embedded plots
 
