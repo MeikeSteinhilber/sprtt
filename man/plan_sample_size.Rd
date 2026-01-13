@@ -8,6 +8,7 @@ plan_sample_size(
   f_expected,
   k_groups,
   power = 0.95,
+  decision_rate = 0.9,
   output_dir = tempdir(),
   output_file = "sprtt-report-sample-size-planning.html",
   open = interactive(),
@@ -21,6 +22,8 @@ Must be greater than 0.}
 \item{k_groups}{Integer scalar. The number of groups to compare. Must be at least 2.}
 
 \item{power}{Numeric scalar (default = 0.95). Desired statistical power for the design.}
+
+\item{decision_rate}{Numeric scalar (default = 0.90). Desired chance to reach a decision (0.75,0.80,0.85,0.90,0.95).}
 
 \item{output_dir}{Character string. Directory in which to save the rendered HTML report.
 Defaults to a temporary directory (\code{tempdir()}).}
