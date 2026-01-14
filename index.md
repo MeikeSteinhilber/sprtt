@@ -127,4 +127,5 @@ results
 sprtt::plot_anova(results)
 ```
 
-![](reference/figures/figure-gfm/unnamed-chunk-3-1.png)
+![exemplary likelihood
+progression](reference/figures/figure-gfm/unnamed-chunk-3-1.png)

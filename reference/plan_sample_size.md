@@ -1,10 +1,11 @@
-# \#—- MAIN FUNCTION DOCUMENTATION ———————————————- Generate an HTML report for sample size planning for sequential ANOVAs.
+# Generate an HTML report for sample size planning for sequential ANOVAs.
 
-Renders a parameterized R Markdown report that helps plan sample size
-for an SPRT analysis. The function takes expected effect size
-(`f_expected`), number of groups (`k_groups`), and desired power, then
-generates a reproducible HTML report summarizing the simulation-based
-sample size recommendations. The alpha level is always 0.05.
+**\[experimental\]** Renders a parameterized R Markdown report that
+helps plan sample size for the sequential ANOVA. The function takes
+expected effect size (`f_expected`), number of groups (`k_groups`), and
+desired power, then generates a reproducible HTML report summarizing the
+simulation-based sample size recommendations. The alpha level is always
+0.05.
 
 The report template is part of the **sprtt** package and is located
 under
@@ -17,6 +18,7 @@ plan_sample_size(
   f_expected,
   k_groups,
   power = 0.95,
+  decision_rate = 0.9,
   output_dir = tempdir(),
   output_file = "sprtt-report-sample-size-planning.html",
   open = interactive(),
@@ -39,6 +41,11 @@ plan_sample_size(
 
   Numeric scalar (default = 0.95). Desired statistical power for the
   design.
+
+- decision_rate:
+
+  Numeric scalar (default = 0.90). Desired chance to reach a decision
+  (0.75,0.80,0.85,0.90,0.95).
 
 - output_dir:
 
