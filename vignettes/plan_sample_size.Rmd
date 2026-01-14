@@ -1,6 +1,6 @@
 ---
 title: "Sample Size Planning for Sequential ANOVAs"
-author: "Meike Steinhilber"
+author: "Meike Snijder-Steinhilber"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:

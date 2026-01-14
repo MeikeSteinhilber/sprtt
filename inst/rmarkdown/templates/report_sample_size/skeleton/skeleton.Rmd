@@ -180,7 +180,7 @@ library(scales)
 ```{r, include=FALSE}
 df_all = params$df_all
 
-if (is.null(df_all)) {df_all <- readRDS("C:/Users/msteinhi/GitHub/sprtt_plan_sample_size/meta_data/sprt_tool_df_all_10000.rds")}
+if (is.null(df_all)) {df_all <- readRDS("../sprtt_plan_sample_size/meta_data/sprt_tool_df_all_10000.rds")}
 
 pick_f_expected =     params$f_expected
 pick_power =          params$power
@@ -649,11 +649,11 @@ table_cases <- df_all %>%
 
 ```{r}
 recommendation <- table_cases %>%
-  filter(.data[[pick_decision_rate_var]] == max(.data[[pick_decision_rate_var]]))
+  slice_max(order_by = .data[[pick_decision_rate_var]], n = 1, with_ties = FALSE)
 
 n_mean <- round(mean(table_cases$mean_n), 0)
 n_median_grand <- table_cases$grand_median_n[1]
-n_max <- recommendation[[pick_decision_rate_var]]
+n_max <- recommendation %>% pull(.data[[pick_decision_rate_var]])
 ```
 
 
@@ -688,6 +688,7 @@ df_all %>%
               scale = "count",
               linewidth = 0.3,
               alpha = 0.25) +
+  coord_cartesian(ylim = c(0, cases$fix_n[1] * 2.5)) +
   geom_hline(yintercept = n_median_grand, linetype = "dashed", color = flatly_dark, linewidth = 0.8) +
   geom_hline(yintercept = n_max, linetype = "dashed", color = flatly_dark, linewidth = 0.8) +
   annotate("text", x = 2.45, y = n_median_grand + 5, 
@@ -742,8 +743,11 @@ p_violin
 <!-- ### Summary table {#table .toc-only} -->
 
 ::: {.alert .alert-info}
-In short, it is <span style="color: #2c3e50; font-weight: bold;">recommended to plan for a maximum sample size of $N_{\text{max}} =$ `r n_max`</span>.<br>
-With this $N_{\text{max}}$, the sequential ANOVA reaches a decision 90% of the time, even in the scenario that requires the most data, which is when $f_{\text{true}} =$ `r recommendation$f_simulated`.
+In short, to achieve a decision rate of `r pick_decision_rate*100`%, it is 
+<span style="color: #2c3e50; font-weight: bold;">
+recommended to plan for a maximum sample size of $N_{\text{max}} = `r n_max`$.
+</span><br>
+With this $N_{\text{max}}$, the sequential ANOVA reaches a decision `r pick_decision_rate*100`% of the time, even in the scenario that requires the most data, which is when $f_{\text{true}} =$ `r recommendation$f_simulated`.
 While $N_{\text{max}}$ plans for the worst case, the <span style="color: #2c3e50; font-weight: bold;">median sample size is $N_{\text{mean}} =$ `r n_median_grand`</span> in this scenario.
 :::
 
@@ -819,7 +823,7 @@ table_cases %>%
   ) %>% 
    tab_footnote(
     footnote = html(glue("recommended <i>N</i><sub>max</sub> = {n_max}")),
-    locations = cells_column_labels(columns = q90_n)
+    locations = cells_column_labels(columns = !!pick_decision_rate_var)
   )
 ```
 

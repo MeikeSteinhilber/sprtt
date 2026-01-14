@@ -144,4 +144,4 @@ results
 sprtt::plot_anova(results)
 ```
 
-<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" alt="exemplary likelihood progression" />
