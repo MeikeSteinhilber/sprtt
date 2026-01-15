@@ -7,7 +7,7 @@ library(sprtt)
 # t-TEST ----------------------------------------------------------------------
 # one sample: numeric input ---------------------------------------------------
 treatment_group <- rnorm(20, mean = 0, sd = 1)
-results <- seq_ttest(treatment_group, mu = 1, d = 0.8)
+results <- seq_ttest(treatment_group, mu = 1, d = 0.6)
 
 # get access to the slots -----------------------------------------------------
 # @ Operator
@@ -22,7 +22,7 @@ set.seed(333)
 data <- sprtt::draw_sample_normal(k_groups = 3,
                                   f = 0.25,
                                   sd = c(1, 1, 1),
-                                  max_n = 25)
+                                  max_n = 22)
 
 # calculate sequential ANOVA --------------------------------------------------
 results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data, plot = TRUE)
@@ -32,4 +32,4 @@ results@decision
 results
 
 # plot results -----------------------------------------------------------------
-sprtt::plot_anova(results)
+sprtt::plot_anova(results, position_lr_x = 60)

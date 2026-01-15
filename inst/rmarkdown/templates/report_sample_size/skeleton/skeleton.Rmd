@@ -317,15 +317,22 @@ sprtt_cit <- gsub("\\s+\\.", ".", sprtt_cit)
 sprtt_cit <- gsub("\\s{2,}", " ", sprtt_cit)
 sprtt_cit <- trimws(sprtt_cit)
 
+# cat(sprintf(
+#   '<p class="author-line"><i>created by the</i> <a href="https://meikesteinhilber.github.io/sprtt/" target="_blank" rel="noopener">sprtt</a> <i>package</i><br>
+#    <cite style="font-size:0.85em;color:#555;line-height:1.4;">%s</cite></p>',
+#   sprtt_cit
+# ))
+
 cat(sprintf(
   '<p class="author-line"><i>created by the</i> <a href="https://meikesteinhilber.github.io/sprtt/" target="_blank" rel="noopener">sprtt</a> <i>package</i><br>
-   <cite style="font-size:0.85em;color:#555;line-height:1.4;">%s</cite></p>',
+   <cite style="font-size:0.85em;color:#555;line-height:1.4;">%s</cite><br>
+   <span style="font-size:0.85em;color:#555;margin-top:8px;display:inline-block;">Source code of the simulation: <a href="https://github.com/MeikeSteinhilber/sprtt_plan_sample_size" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/GitHub-MeikeSteinhilber/sprtt__plan__sample__size-blue?logo=github" alt="GitHub" style="vertical-align:middle;"></a></span></p>',
   sprtt_cit
 ))
 
 
 ```
-
+<!-- Source code of the simulation on GitHub: ![MeikeSteinhilber/sprtt_plan_sample_size](https://github.com/MeikeSteinhilber/sprtt_plan_sample_size) -->
 
 
 
@@ -819,7 +826,7 @@ table_cases %>%
   ) %>% 
    tab_footnote(
     footnote = html(glue("grand median: <i>N&#x0305;</i><sub>median</sub> = {n_median_grand}")),
-    locations = cells_column_labels(columns = mean_n)
+    locations = cells_column_labels(columns = median_n)
   ) %>% 
    tab_footnote(
     footnote = html(glue("recommended <i>N</i><sub>max</sub> = {n_max}")),
