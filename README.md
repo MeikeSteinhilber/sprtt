@@ -24,13 +24,16 @@ The package contains:
 - `seq_ttest()`, `seq_anova()` calculates sequential t-test and
   sequential one-way ANOVAs
 
-- three data sets (`df_income`, `df_stress`, `df_cancer`) to run the
-  examples in the t-test documentation
-
 - `plot_anova()` plots results of sequential ANOVAs
+
+- `plan_sample_size()` creates comprehensive HTML reports with sample
+  size recommendations based on pre-computed SPRT simulations
 
 - `draw_sample_normal()`, `draw_sample_mixture()` simulation of data
   sets
+
+- three data sets (`df_income`, `df_stress`, `df_cancer`) to run the
+  examples in the t-test documentation
 
 ## Installation
 
@@ -46,12 +49,16 @@ install.packages("sprtt")
 ### Development version from GitHub
 
 To get a bug fix or to use a feature from the development version, you
-can install the development version from GitHub.
+can install the latest version from GitHub.
 
 ``` r
 # the installation requires the "devtools" package
 # install.packages("devtools")
+# stable GitHub version
 devtools::install_github("MeikeSteinhilber/sprtt")
+
+# development version, may not be stable
+devtools::install_github("MeikeSteinhilber/sprtt", ref="develop")
 ```
 
 ## Documentation
@@ -79,23 +86,89 @@ Short examples can be found in the following paragraph.
 >
 > `#> results of function()`: is console output
 
-## Sample Size Planning
-
-The sample size planning functions require simulation data (~70 MB). On
-first use, this data will be downloaded automatically:
+<!--
+&#10;ATTENTION!
+&#10;in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
+<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+-->
 
 ``` r
-library(sprtt)
+# set seed --------------------------------------------------------------------
+set.seed(333)
 
-# First use - downloads data automatically
-result <- plan_sample_size(f_expected = 0.25, power = 0.8, k_groups = 2)
-# Downloading simulation data for sample size planning...
-# This is a one-time download (~10 MB) and may take 1-2 minutes.
+# load library ----------------------------------------------------------------
+library(sprtt)
+#> Note: Sample size planning functions require simulation data (~70 MB).
+#> Data will download automatically on first use.
+#> See ?download_sample_size_data for more information.
+
+# t-TEST ----------------------------------------------------------------------
+# one sample: numeric input ---------------------------------------------------
+treatment_group <- rnorm(20, mean = 0, sd = 1)
+results <- seq_ttest(treatment_group, mu = 1, d = 0.6)
+
+# get access to the slots -----------------------------------------------------
+# @ Operator
+results@likelihood_ratio
+#> [1] 323.9051
+
+# [] Operator
+results["likelihood_ratio"]
+#> [1] 323.9051
+
+# ANOVA -----------------------------------------------------------------------
+# simulate data ---------------------------------------------------------------
+set.seed(333)
+data <- sprtt::draw_sample_normal(k_groups = 3,
+                                  f = 0.25,
+                                  sd = c(1, 1, 1),
+                                  max_n = 22)
+
+# calculate sequential ANOVA --------------------------------------------------
+results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data, plot = TRUE)
+# test decision
+results@decision
+#> [1] "accept H1"
+# test results
+results
+#> 
+#> *****  Sequential ANOVA *****
+#> 
+#> formula: y ~ x
+#> test statistic:
+#>  log-likelihood ratio = 3.153, decision = accept H1
+#> SPRT thresholds:
+#>  lower log(B) = -2.944, upper log(A) = 2.944
+#> Log-Likelihood of the:
+#>  alternative hypothesis = -3.293
+#>  null hypothesis = -6.447
+#> alternative hypothesis: true difference in means is not equal to 0.
+#> specified effect size: Cohen's f = 0.25
+#> empirical Cohen's f = 0.4684039, 95% CI[0.1741801, 0.6969498]
+#> Cohen's f adjusted = 0.415
+#> degrees of freedom: df1 = 2, df2 = 63
+#> SS effect = 12.63455, SS residual = 57.58624, SS total = 70.22079
+#> *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+
+# plot results -----------------------------------------------------------------
+sprtt::plot_anova(results, position_lr_x = 60)
 ```
 
-Data is cached locally and won’t need to be downloaded again.
+<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
 
-### Managing cached data
+### Sample Size Planning
+
+The sample size planning function requires simulation data (~70 MB). On
+first use, this data will be downloaded and chached automatically:
+
+``` r
+sprtt::plan_sample_size(f_expected = 0.25, k_groups = 3, power = 0.9, decision_rate = 0.9)
+```
+
+The package contains functions to help managing the cached data, if
+necessary.
+
+**Managing cached data**
 
 ``` r
 # Check cache status
@@ -108,82 +181,5 @@ download_sample_size_data(force = TRUE)
 cache_clear()
 ```
 
-### Offline use
-
 If you need to use the package offline, download the data while
-connected:
-
-``` r
-download_sample_size_data()
-```
-
-    <!--
-
-    ATTENTION!
-
-    in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
-    <img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
-    -->
-
-    ``` r
-    # set seed --------------------------------------------------------------------
-    set.seed(333)
-
-    # load library ----------------------------------------------------------------
-    library(sprtt)
-    #> Note: Sample size planning functions require simulation data (~70 MB).
-    #> Data will download automatically on first use.
-    #> See ?download_sample_size_data for more information.
-
-    # t-TEST ----------------------------------------------------------------------
-    # one sample: numeric input ---------------------------------------------------
-    treatment_group <- rnorm(20, mean = 0, sd = 1)
-    results <- seq_ttest(treatment_group, mu = 1, d = 0.6)
-
-    # get access to the slots -----------------------------------------------------
-    # @ Operator
-    results@likelihood_ratio
-    #> [1] 323.9051
-
-    # [] Operator
-    results["likelihood_ratio"]
-    #> [1] 323.9051
-
-    # ANOVA -----------------------------------------------------------------------
-    # simulate data ---------------------------------------------------------------
-    set.seed(333)
-    data <- sprtt::draw_sample_normal(k_groups = 3,
-                                      f = 0.25,
-                                      sd = c(1, 1, 1),
-                                      max_n = 22)
-
-    # calculate sequential ANOVA --------------------------------------------------
-    results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data, plot = TRUE)
-    # test decision
-    results@decision
-    #> [1] "accept H1"
-    # test results
-    results
-    #> 
-    #> *****  Sequential ANOVA *****
-    #> 
-    #> formula: y ~ x
-    #> test statistic:
-    #>  log-likelihood ratio = 3.153, decision = accept H1
-    #> SPRT thresholds:
-    #>  lower log(B) = -2.944, upper log(A) = 2.944
-    #> Log-Likelihood of the:
-    #>  alternative hypothesis = -3.293
-    #>  null hypothesis = -6.447
-    #> alternative hypothesis: true difference in means is not equal to 0.
-    #> specified effect size: Cohen's f = 0.25
-    #> empirical Cohen's f = 0.4684039, 95% CI[0.1741801, 0.6969498]
-    #> Cohen's f adjusted = 0.415
-    #> degrees of freedom: df1 = 2, df2 = 63
-    #> SS effect = 12.63455, SS residual = 57.58624, SS total = 70.22079
-    #> *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
-
-    # plot results -----------------------------------------------------------------
-    sprtt::plot_anova(results, position_lr_x = 60)
-
-<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+connected beforehand.
