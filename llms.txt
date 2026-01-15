@@ -68,26 +68,76 @@ Short examples can be found in the following paragraph.
 >
 > `#> results of function()`: is console output
 
+## Sample Size Planning
+
+The sample size planning functions require simulation data (~70 MB). On
+first use, this data will be downloaded automatically:
+
+``` r
+library(sprtt)
+
+# First use - downloads data automatically
+result <- plan_sample_size(f_expected = 0.25, power = 0.8, k_groups = 2)
+# Downloading simulation data for sample size planning...
+# This is a one-time download (~10 MB) and may take 1-2 minutes.
+```
+
+Data is cached locally and won’t need to be downloaded again.
+
+### Managing cached data
+
+``` r
+# Check cache status
+cache_info()
+
+# Force re-download (if data was updated)
+download_sample_size_data(force = TRUE)
+
+# Clear cache
+cache_clear()
+```
+
+### Offline use
+
+If you need to use the package offline, download the data while
+connected:
+
+``` r
+download_sample_size_data()
+```
+
+``` R
+<!--
+
+ATTENTION!
+
+in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
+<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+-->
+
 ``` r
 # set seed --------------------------------------------------------------------
 set.seed(333)
 
 # load library ----------------------------------------------------------------
 library(sprtt)
+#> Note: Sample size planning functions require simulation data (~70 MB).
+#> Data will download automatically on first use.
+#> See ?download_sample_size_data for more information.
 
 # t-TEST ----------------------------------------------------------------------
 # one sample: numeric input ---------------------------------------------------
 treatment_group <- rnorm(20, mean = 0, sd = 1)
-results <- seq_ttest(treatment_group, mu = 1, d = 0.8)
+results <- seq_ttest(treatment_group, mu = 1, d = 0.6)
 
 # get access to the slots -----------------------------------------------------
 # @ Operator
 results@likelihood_ratio
-#> [1] 965.0728
+#> [1] 323.9051
 
 # [] Operator
 results["likelihood_ratio"]
-#> [1] 965.0728
+#> [1] 323.9051
 
 # ANOVA -----------------------------------------------------------------------
 # simulate data ---------------------------------------------------------------
@@ -95,13 +145,13 @@ set.seed(333)
 data <- sprtt::draw_sample_normal(k_groups = 3,
                                   f = 0.25,
                                   sd = c(1, 1, 1),
-                                  max_n = 25)
+                                  max_n = 22)
 
 # calculate sequential ANOVA --------------------------------------------------
 results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data, plot = TRUE)
 # test decision
 results@decision
-#> [1] "continue sampling"
+#> [1] "accept H1"
 # test results
 results
 #> 
@@ -109,26 +159,25 @@ results
 #> 
 #> formula: y ~ x
 #> test statistic:
-#>  log-likelihood ratio = 2.892, decision = continue sampling
+#>  log-likelihood ratio = 3.153, decision = accept H1
 #> SPRT thresholds:
 #>  lower log(B) = -2.944, upper log(A) = 2.944
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -2.715
-#>  null hypothesis = -5.607
+#>  alternative hypothesis = -3.293
+#>  null hypothesis = -6.447
 #> alternative hypothesis: true difference in means is not equal to 0.
 #> specified effect size: Cohen's f = 0.25
-#> empirical Cohen's f = 0.4045074, 95% CI[0.129478, 0.6171581]
-#> Cohen's f adjusted = 0.355
-#> degrees of freedom: df1 = 2, df2 = 72
-#> SS effect = 10.74731, SS residual = 65.68208, SS total = 76.42939
+#> empirical Cohen's f = 0.4684039, 95% CI[0.1741801, 0.6969498]
+#> Cohen's f adjusted = 0.415
+#> degrees of freedom: df1 = 2, df2 = 63
+#> SS effect = 12.63455, SS residual = 57.58624, SS total = 70.22079
 #> *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 # plot results -----------------------------------------------------------------
-sprtt::plot_anova(results)
+sprtt::plot_anova(results, position_lr_x = 60)
 ```
 
-![exemplary likelihood
-progression](reference/figures/figure-gfm/unnamed-chunk-3-1.png)
+![](reference/figures/figure-gfm/unnamed-chunk-3-1.png)
 
 # Package index
 
