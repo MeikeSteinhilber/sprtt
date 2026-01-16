@@ -14,8 +14,12 @@ Invisibly returns the path to the cached data file.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Downloads pre-computed simulation results from GitHub releases.
 Data is cached locally and only needs to be downloaded once.
+
+Data is hosted at:
+\href{https://github.com/MeikeSteinhilber/sprtt_plan_sample_size}{MeikeSteinhilber/sprtt_plan_sample_size}
 }
 \examples{
 \dontrun{
@@ -25,4 +29,5 @@ download_sample_size_data()
 # Force re-download (e.g., after data update)
 download_sample_size_data(force = TRUE)
 }
+
 }

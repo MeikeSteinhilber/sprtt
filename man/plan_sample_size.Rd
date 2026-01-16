@@ -2,7 +2,7 @@
 % Please edit documentation in R/plan_sample_size.R
 \name{plan_sample_size}
 \alias{plan_sample_size}
-\title{Generate an HTML report for sample size planning for sequential ANOVAs.}
+\title{Generates HTML reports for sample size planning for sequential ANOVAs.}
 \usage{
 plan_sample_size(
   f_expected,
@@ -17,13 +17,15 @@ plan_sample_size(
 }
 \arguments{
 \item{f_expected}{Numeric scalar. The expected standardized effect size (e.g., Cohen's f).
-Must be greater than 0.}
+Must be between 0.1 and 0.4 (increments of 0.05).}
 
-\item{k_groups}{Integer scalar. The number of groups to compare. Must be at least 2.}
+\item{k_groups}{Integer scalar. The number of groups to compare. Must be between 2 and 4.}
 
-\item{power}{Numeric scalar (default = 0.95). Desired statistical power for the design.}
+\item{power}{Numeric scalar (default = 0.95). Desired statistical power for the design.
+Possible values are 0.80, 0.90, and 0.95.}
 
-\item{decision_rate}{Numeric scalar (default = 0.90). Desired chance to reach a decision (0.75,0.80,0.85,0.90,0.95).}
+\item{decision_rate}{Numeric scalar (default = 0.90). Desired chance to reach a decision.
+Must be between 0.75 and 0.95 (increments of 0.05).}
 
 \item{output_dir}{Character string. Directory in which to save the rendered HTML report.
 Defaults to a temporary directory (\code{tempdir()}).}
@@ -44,12 +46,13 @@ The report is optionally opened in the default browser.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Renders a parameterized R Markdown report that helps plan sample size for the sequential ANOVA.
 The function takes expected effect size (\code{f_expected}), number of groups (\code{k_groups}),
-and desired power, then generates a reproducible HTML report summarizing the simulation-based
+the power, and decision rate, then generates a reproducible HTML report summarizing the simulation-based
 sample size recommendations. The alpha level is always 0.05.
 
-The report template is part of the \strong{sprtt} package and is located under
+The template is located under:
 \code{inst/rmarkdown/templates/report_sample_size/skeleton/skeleton.Rmd}.
 }
 \details{
@@ -75,15 +78,12 @@ plan_sample_size(
   f_expected = 0.25,
   k_groups = 3,
   power = 0.9,
-  output_file = "sprtt-sample-size.html",
-  open = TRUE
+  decision_rate = 0.9
 )
 
 # Prevent overwriting an existing file:
 plan_sample_size(0.25, 3, overwrite = FALSE)
 }
 
-}
-\seealso{
-\code{\link[rmarkdown:render]{rmarkdown::render()}}, \code{\link[utils:browseURL]{utils::browseURL()}}, and the \strong{sprtt} package report templates.
+
 }

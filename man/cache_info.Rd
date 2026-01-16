@@ -11,5 +11,6 @@ List with cache directory path, file existence, and file size
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Get information about cached simulation data
 }

@@ -1,20 +1,23 @@
-#' Generate an HTML report for sample size planning for sequential ANOVAs.
+#' @title Generates HTML reports for sample size planning for sequential ANOVAs.
 #'
 #' @description
 #' `r lifecycle::badge("experimental")`
+#'
 #' Renders a parameterized R Markdown report that helps plan sample size for the sequential ANOVA.
 #' The function takes expected effect size (`f_expected`), number of groups (`k_groups`),
-#' and desired power, then generates a reproducible HTML report summarizing the simulation-based
+#' the power, and decision rate, then generates a reproducible HTML report summarizing the simulation-based
 #' sample size recommendations. The alpha level is always 0.05.
 #'
-#' The report template is part of the **sprtt** package and is located under
+#' The template is located under:
 #' `inst/rmarkdown/templates/report_sample_size/skeleton/skeleton.Rmd`.
 #'
 #' @param f_expected Numeric scalar. The expected standardized effect size (e.g., Cohen's f).
-#'   Must be greater than 0.
-#' @param k_groups Integer scalar. The number of groups to compare. Must be at least 2.
+#'   Must be between 0.1 and 0.4 (increments of 0.05).
+#' @param k_groups Integer scalar. The number of groups to compare. Must be between 2 and 4.
 #' @param power Numeric scalar (default = 0.95). Desired statistical power for the design.
-#' @param decision_rate Numeric scalar (default = 0.90). Desired chance to reach a decision (0.75,0.80,0.85,0.90,0.95).
+#'   Possible values are 0.80, 0.90, and 0.95.
+#' @param decision_rate Numeric scalar (default = 0.90). Desired chance to reach a decision.
+#'   Must be between 0.75 and 0.95 (increments of 0.05).
 #' @param output_dir Character string. Directory in which to save the rendered HTML report.
 #'   Defaults to a temporary directory (`tempdir()`).
 #' @param output_file Character string. File name of the generated HTML report.
@@ -48,16 +51,13 @@
 #'   f_expected = 0.25,
 #'   k_groups = 3,
 #'   power = 0.9,
-#'   output_file = "sprtt-sample-size.html",
-#'   open = TRUE
+#'   decision_rate = 0.9
 #' )
 #'
 #' # Prevent overwriting an existing file:
 #' plan_sample_size(0.25, 3, overwrite = FALSE)
 #' }
 #'
-#' @seealso
-#' [rmarkdown::render()], [utils::browseURL()], and the **sprtt** package report templates.
 #'
 #' @export
 

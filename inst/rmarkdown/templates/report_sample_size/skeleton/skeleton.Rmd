@@ -4,6 +4,7 @@ title: "Report: Sample size planning for sequential ANOVAs"
 output:
   html_document:
     theme: flatly
+    self_contained: true
     toc: true
     toc_float: 
       collapsed: false
@@ -12,6 +13,8 @@ output:
     toc_depth: 3
     toc_collapsed: false
     # code_folding: hide
+    includes:
+      in_header: favicon.html
 params:
   df_all: NULL
   f_expected: 0.25
@@ -163,6 +166,26 @@ h1.toc-only, h2.toc-only, h3.toc-only, h4.toc-only, h5.toc-only, h6.toc-only {
   border-top: 2px solid #bbb;
 }
 </style>
+
+```{r, include=FALSE, eval=FALSE}
+# DO NOT RUN
+# This code generates the html.file so the icon in the browser is the sprtt logo
+
+# Read and encode favicon
+favicon_base64 <- base64enc::base64encode("pkgdown/favicon/favicon.ico")
+
+# Create the HTML content
+html_content <- sprintf(
+  '<link rel="shortcut icon" href="data:image/x-icon;base64,%s" type="image/x-icon" />',
+  favicon_base64
+)
+
+# Write to file in the skeleton folder
+writeLines(
+  html_content,
+  "inst/rmarkdown/templates/report_sample_size/skeleton/favicon.html"
+)
+```
 
 
 ```{r, include=FALSE}
@@ -343,7 +366,7 @@ cat(sprintf(
 <!-- </div> -->
 
 <br><br>
-<br><br>
+<br>
 
 ## Overview
 

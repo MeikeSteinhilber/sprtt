@@ -6,8 +6,12 @@
 \usage{
 cache_clear()
 }
+\value{
+Invisibly returns \code{TRUE} if cache was cleared, \code{FALSE} if no cache existed.
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Removes locally cached simulation data. Data will be re-downloaded on next use.
 }
 \examples{
