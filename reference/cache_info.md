@@ -1,6 +1,8 @@
 # Cache information
 
-**\[experimental\]** Get information about cached simulation data
+**\[experimental\]**
+
+Get information about cached simulation data
 
 ## Usage
 

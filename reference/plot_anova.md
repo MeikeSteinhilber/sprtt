@@ -2,7 +2,9 @@
 
 **\[experimental\]**
 
-Creates plots for the results of the seq_anova() function.
+Creates a visualization of the sequential probability ratio test (SPRT)
+for ANOVA results, showing the log-likelihood ratio trajectory across
+sample sizes and decision boundaries.
 
 ## Usage
 
@@ -24,64 +26,71 @@ plot_anova(
 
 - anova_results:
 
-  result object of the seq_anova() function (argument must be of class
-  `seq_anova_results`).
+  A `seq_anova_results` object from
+  [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md).
+  **Important:** The
+  [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md)
+  function must be called with `plot = TRUE` to generate the necessary
+  data for plotting.
 
 - labels:
 
-  show labels in the plot.
+  Logical. If `TRUE` (default), display decision labels ("Accept H0" /
+  "Accept H1") and the likelihood ratio at the decision point.
 
 - position_labels_x:
 
-  Numeric value controlling the horizontal position of the decision
-  labels ("Accept H0" / "Accept H1"). The value is interpreted as a
-  proportion of the maximum sample size `N`, i.e., the labels are placed
-  at `x = N * position_labels_x`. Defaults to `0.15`, which places the
-  labels near the left side of the plot. `0.5` places the labels in the
-  center.
+  Numeric value between 0 and 1 controlling the horizontal position of
+  decision labels as a proportion of maximum sample size. Default is
+  `0.15` (left side); `0.5` centers the labels.
 
 - position_labels_y:
 
-  Numeric value controlling the vertical offset of the decision labels
-  from the decision boundaries. The value is multiplied by the maximum
-  absolute log–likelihood ratio (`max(|lr_log|)`) to obtain the vertical
-  distance between the boundary lines and the corresponding text. Larger
-  values move the labels further away from the boundary lines. Defaults
-  to `0.075`.
+  Numeric value controlling the vertical spacing between decision
+  boundaries and their labels. The value is multiplied by
+  `max(|log-likelihood ratio|)` to determine spacing. Larger values move
+  labels further from boundaries. Default is `0.075`.
 
 - position_lr_x:
 
-  Optional numeric value specifying the x-coordinate of the LR label in
-  data units (i.e., on the sample size axis). If `NULL` (default), the
-  LR label is placed at the sample size where the highlighted point
-  occurs: at the stopping sample size if a decision was reached, or at
-  the final sample size otherwise.
+  Optional numeric value for the x-coordinate (sample size) of the
+  likelihood ratio label. If `NULL` (default), positioned at the
+  decision point or final sample size.
 
 - position_lr_y:
 
-  Optional numeric value specifying the y-coordinate of the LR label in
-  data units (i.e., on the log–likelihood ratio axis). If `NULL`
-  (default), the LR label is placed on the horizontal axis (`y = 0`)
-  when a decision was reached early. If no decision boundary was
-  crossed, the LR label is placed slightly above or below zero,
-  depending on the sign of the final log–likelihood ratio, so that the
-  label does not overlap the highlighted point.
+  Optional numeric value for the y-coordinate (log-likelihood ratio) of
+  the likelihood ratio label. If `NULL` (default), positioned at `y = 0`
+  for early decisions, or slightly offset for continuing sampling
+  scenarios.
 
 - font_size:
 
-  font size of the plot.
+  Numeric. Base font size for plot text. Default is `25`.
 
 - line_size:
 
-  line size of the plot.
+  Numeric. Line width for the trajectory and boundaries. Default is
+  `1.5`.
 
 - highlight_color:
 
-  highlighting color, default is "#CD2626" (red).
+  Character string. Color for highlighting the decision point or final
+  sample. Default is `"#CD2626"` (red).
 
 ## Value
 
-returns a plot
+A
+[`ggplot2::ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html)
+object showing:
+
+- Log-likelihood ratio trajectory across sample sizes
+
+- Dashed horizontal lines indicating decision boundaries
+
+- Highlighted point showing where decision was reached (or final sample)
+
+- Optional labels for decision regions and likelihood ratio value
 
 ## Examples
 
