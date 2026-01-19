@@ -156,7 +156,13 @@ load_sample_size_data <- function() {
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Removes locally cached simulation data. Data will be re-downloaded on next use.
+#' Removes locally cached simulation data (~70 MB) used by [`plan_sample_size()`].
+#' Data will be automatically re-downloaded on next use of sample size planning functions.
+#'
+#' This function is useful when:
+#' * You want to free up disk space
+#' * The cached data may be outdated and you want to force a fresh download
+#' * Troubleshooting cache-related issues
 #'
 #' @return Invisibly returns `TRUE` if cache was cleared, `FALSE` if no cache existed.
 #' @export
@@ -184,9 +190,22 @@ cache_clear <- function() {
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Get information about cached simulation data
+#' Displays information about cached simulation data (~70 MB) used by [`plan_sample_size()`].
+#' Shows the cache directory location, whether data is cached, and file size if present.
 #'
-#' @return List with cache directory path, file existence, and file size
+#' The simulation data is automatically downloaded on first use of sample size planning
+#' functions and stored locally for faster subsequent access.
+#'
+#' @return Invisibly returns a list with:
+#'   * `cache_dir`: Character string with the cache directory path
+#'   * `data_cached`: Logical indicating if simulation data is cached
+#'   * `file_size_mb`: Numeric file size in MB (or `NA` if not cached)
+#'
+#' @seealso
+#' * [`cache_clear()`] to remove cached data
+#' * [`download_sample_size_data()`] to manually download simulation data
+#' * [`plan_sample_size()`] which uses the cached data
+#'
 #' @export
 cache_info <- function() {
   cache_dir <- get_sprtt_cache_dir()

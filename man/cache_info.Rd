@@ -7,10 +7,26 @@
 cache_info()
 }
 \value{
-List with cache directory path, file existence, and file size
+Invisibly returns a list with:
+\itemize{
+\item \code{cache_dir}: Character string with the cache directory path
+\item \code{data_cached}: Logical indicating if simulation data is cached
+\item \code{file_size_mb}: Numeric file size in MB (or \code{NA} if not cached)
+}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Get information about cached simulation data
+Displays information about cached simulation data (~70 MB) used by \code{\link[=plan_sample_size]{plan_sample_size()}}.
+Shows the cache directory location, whether data is cached, and file size if present.
+
+The simulation data is automatically downloaded on first use of sample size planning
+functions and stored locally for faster subsequent access.
+}
+\seealso{
+\itemize{
+\item \code{\link[=cache_clear]{cache_clear()}} to remove cached data
+\item \code{\link[=download_sample_size_data]{download_sample_size_data()}} to manually download simulation data
+\item \code{\link[=plan_sample_size]{plan_sample_size()}} which uses the cached data
+}
 }

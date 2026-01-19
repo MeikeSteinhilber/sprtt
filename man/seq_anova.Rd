@@ -16,31 +16,41 @@ seq_anova(
 )
 }
 \arguments{
-\item{formula}{A formula specifying the model.}
+\item{formula}{A formula specifying the model (e.g., \code{outcome ~ group}).
+The response variable should be on the left side and the grouping factor
+on the right side. Currently only supports one-way designs.}
 
-\item{f}{Cohen's f (expected minimal effect size or effect size of interest).}
+\item{f}{Cohen's f (expected minimal effect size or effect size of interest), that defines the H1.}
 
-\item{alpha}{the type I error. A number between 0 and 1.}
+\item{alpha}{Type I error rate (alpha level). The probability of rejecting H0
+when it is true. Default is 0.05. Must be between 0 and 1.}
 
-\item{power}{1 - beta (beta is the type II error probability). A number
-between 0 and 1.}
+\item{power}{Statistical power (1 - beta), where beta is the Type II error rate.
+The probability of correctly rejecting H0 when H1 is true with effect size f.
+Default is 0.95. Must be between 0 and 1. Higher values lead to wider
+stopping boundaries and potentially larger sample sizes.}
 
-\item{data}{A data frame in which the variables specified in the formula will be found.}
+\item{data}{A data frame containing the variables specified in the formula.
+Missing values (NA) will be removed with a warning}
 
 \item{verbose}{a logical value whether you want a verbose output or not.}
 
-\item{plot}{calculates the ANOVA sequentially on the data and saves the results in the slot called plot.
-This calculation is necessary for the plot_anova() function.}
+\item{plot}{Logical. If \code{TRUE}, stores sequential test statistics at each sequential step
+for visualization with \code{plot_anova()}. This enables retrospective examination
+of the decision process but increases computation time for large datasets.
+Default is \code{FALSE}.}
 
-\item{seq_steps}{Defines the sequential steps for the sequential calculation if \code{plot = TRUE}.
-Argument takes either a vector of numbers or the argument \code{single} or \code{balanced}.
-A vector of numbers specifies the sample sizes at which the anova is calculated.
-\code{single} specifies that after each single point the test statistic is calculated (step size = 1).
-Attention: the calculation starts at the number of groups times two.
-If the data do not fit to this, you have to specify the sequential steps yourself in this argument.
-\code{balanced} specifies that the step size is equal to the number of groups.
-Attention: the calculation starts at the number of groups times two.
-If the data do not fit to this, you have to specify the sequential steps yourself in this argument.}
+\item{seq_steps}{Specifies when to calculate test statistics during sequential
+testing (only relevant when \code{plot = TRUE}). Options:
+\itemize{
+\item Vector of integers: Calculate at specific sample sizes (e.g., \code{c(10, 20, 30)})
+\item \code{"single"}: Calculate after each observation (step size = 1).
+Note: Starts at \code{k_groups * 2} to ensure sufficient data
+\item \code{"balanced"}: Calculate when each group gains one observation
+(step size = number of groups). Note: Starts at \code{k_groups * 2}
+}
+
+For unbalanced designs or non-standard sequences, specify custom steps as a vector.}
 }
 \value{
 An object of the S4 class \code{\linkS4class{seq_anova_results}}. Click on the
@@ -52,9 +62,27 @@ See the examples below.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Performs a sequential one-way fixed effects ANOVA, see Steinhilber et al. (2023) \url{doi:10.31234/osf.io/m64ne}
-for more information. The repeated measurement ANOVA is not implemented yet in this function. For more information check out the vignette \code{vignette("one_way_anova", package = "sprtt")}
+Performs a sequential one-way fixed effects ANOVA, which is a variant of a Sequential
+Probability Ratio Test (SPRT). The test allows for continuous
+monitoring of data collection and provides stopping boundaries based on
+likelihood ratios, offering efficiency gains over traditional fixed-N designs.
+
+The sequential ANOVA continuously evaluates the likelihood ratio after each
+observation (or group of observations), stopping when sufficient evidence
+accumulates for either H0 or H1.
+
+For methodological details, see Steinhilber et al. (2023)
+\url{doi:10.1037/met0000677}. For practical guidance, see
+\code{vignette("one_way_anova", package = "sprtt")}.
 }
+\section{Limitations}{
+
+\itemize{
+\item Only one-way fixed effects ANOVA is currently supported
+\item Repeated measures ANOVA is not yet implemented
+}
+}
+
 \examples{
 # simulate data ----------------------------------------------------------------
 set.seed(333)
@@ -88,4 +116,14 @@ results <- sprtt::seq_anova(y ~ x,
                             power = .80,
                             verbose = FALSE)
 results
+}
+\seealso{
+\itemize{
+\item \code{\link[=plot_anova]{plot_anova()}} for visualizing sequential ANOVA results
+\item \code{\link[=plan_sample_size]{plan_sample_size()}} for sample size planning
+\item \code{\link[=seq_ttest]{seq_ttest()}} for sequential t-tests
+\item \code{vignette("one_way_anova", package = "sprtt")} for detailed tutorial
+\item \code{vignette("plan_sample_size", package = "sprtt")} for planning guidance
+\item Steinhilber et al. (2023) for theoretical background
+}
 }
