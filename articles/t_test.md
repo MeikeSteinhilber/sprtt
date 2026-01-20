@@ -48,11 +48,11 @@ The sequential *t*-test is based on the Sequential Probability Ratio
 Test (SPRT) by Abraham Abraham Wald (1947), which is a highly efficient
 sequential hypothesis test. However, the usage of Wald´s SPRT is limited
 in the case of normally distributed data, because the variance has to be
-known or specified in the hypothesis. Rushton (1950; 1952) and Hajnal
-(1961) have further developed the SPRT using the *t*-statistic. The
-basic idea is to transform the sequence of observations (which is
-dependent on the variance) into a sequence of the associated
-*t*-statistic (which is *in*dependent of the variance).
+known or specified in the hypothesis. Rushton (1950; **rushton1952?**)
+and Hajnal (1961) have further developed the SPRT using the
+*t*-statistic. The basic idea is to transform the sequence of
+observations (which is dependent on the variance) into a sequence of the
+associated *t*-statistic (which is *in*dependent of the variance).
 
 In the SPRT the null and alternative hypotheses are defined as follows,
 with 𝜃 representing the model parameter :
@@ -84,19 +84,18 @@ the group(s) is needed. The non-centrality parameter also requires a
 specification of the expected effect size in form of Cohen\`s d (*d*).
 
 To eventually calculate the LR of the sequential *t*-test, only the
-current t_(*m*)-statistic is necessary. S. Rushton (1950) demonstrated
-that an SPRT can be performed by simply considering the ratio of
-probability densities for the most recent t_(*m*) statistic under the
-alternative and null hypothesis at any *m-*th stage. Thus, the test
-statistic for a one and two-sided sequential t-test can be calculated as
-follows:
+current t_(*m*)-statistic is necessary. Rushton (1950) demonstrated that
+an SPRT can be performed by simply considering the ratio of probability
+densities for the most recent t_(*m*) statistic under the alternative
+and null hypothesis at any *m-*th stage. Thus, the test statistic for a
+one and two-sided sequential t-test can be calculated as follows:
 
 \$\$ LR\_{m,\\ one-sided\\ sequential\\ t-test} = \frac {𝑓(t_m \| 𝜃_1)}
 {𝑓(t_m \| 𝜃_0)} \\ LR\_{m,\\ two-sided\\ sequential\\ t-test} = \frac
 {𝑓(t_m^2 \| 𝜃_1)} {𝑓(t_m^2 \| 𝜃_0)}. \$\$
 
 To account for the fact that the algebraic sign is unknown in a
-two-sided test, the *t*-value is squared (S. Rushton, 1952).
+two-sided test, the *t*-value is squared (**rushton1952?**).
 
 After the calculation of the test statistic, the decision will be either
 to continue sampling or to terminate the sampling and accept one of the
@@ -131,9 +130,6 @@ Hajnal, J. (1961). A two-sample sequential t-test. *Biometrika*,
 
 Rushton, S. (1950). On a sequential t-test. *Biometrika*, *37*, 326–333.
 <https://doi.org/10.2307/2332385>
-
-Rushton, S. (1952). On a Two-Sided Sequential t-Test. *Biometrika*,
-*39*(3/4), 302. <https://doi.org/10.2307/2334026>
 
 Schnuerch, M., Erdfelder, E., & Heck, D. W. (2020). Sequential
 hypothesis tests for multinomial processing tree models. *Journal of

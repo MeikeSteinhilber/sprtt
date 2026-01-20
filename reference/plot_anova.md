@@ -2,7 +2,9 @@
 
 **\[experimental\]**
 
-Creates plots for the results of the seq_anova() function.
+Creates a visualization of the sequential probability ratio test (SPRT)
+for ANOVA results, showing the log-likelihood ratio trajectory across
+sample sizes and decision boundaries.
 
 ## Usage
 
@@ -12,7 +14,7 @@ plot_anova(
   labels = TRUE,
   position_labels_x = 0.15,
   position_labels_y = 0.075,
-  position_lr_x = 0.05,
+  position_lr_x = NULL,
   position_lr_y = NULL,
   font_size = 25,
   line_size = 1.5,
@@ -24,86 +26,118 @@ plot_anova(
 
 - anova_results:
 
-  result object of the seq_anova() function (argument must be of class
-  `seq_anova_results`).
+  A `seq_anova_results` object from
+  [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md).
+  **Important:** The
+  [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md)
+  function must be called with `plot = TRUE` to generate the necessary
+  data for plotting.
 
 - labels:
 
-  show labels in the plot.
+  Logical. If `TRUE` (default), display decision labels ("Accept H0" /
+  "Accept H1") and the likelihood ratio at the decision point.
 
 - position_labels_x:
 
-  position of the boundary labels on the x-axis. 0 positions the center
-  on the 0 of the x-axis.
+  Numeric value between 0 and 1 controlling the horizontal position of
+  decision labels as a proportion of maximum sample size. Default is
+  `0.15` (left side); `0.5` centers the labels.
 
 - position_labels_y:
 
-  position of the boundary labels on the y-axis. 0 positions the labels
-  on the dotted lines.
+  Numeric value controlling the vertical spacing between decision
+  boundaries and their labels. The value is multiplied by
+  `max(|log-likelihood ratio|)` to determine spacing. Larger values move
+  labels further from boundaries. Default is `0.075`.
 
 - position_lr_x:
 
-  scales the position of the LR label on the x-axis. 0 positions the
-  label directly under the last calculated LR.
+  Optional numeric value for the x-coordinate (sample size) of the
+  likelihood ratio label. If `NULL` (default), positioned at the
+  decision point or final sample size.
 
 - position_lr_y:
 
-  scales the position of the LR label on the x-axis. 0 positions the
-  label on the 0 of the y-axis
+  Optional numeric value for the y-coordinate (log-likelihood ratio) of
+  the likelihood ratio label. If `NULL` (default), positioned at `y = 0`
+  for early decisions, or slightly offset for continuing sampling
+  scenarios.
 
 - font_size:
 
-  font size of the plot.
+  Numeric. Base font size for plot text. Default is `25`.
 
 - line_size:
 
-  line size of the plot.
+  Numeric. Line width for the trajectory and boundaries. Default is
+  `1.5`.
 
 - highlight_color:
 
-  highlighting color, default is "#CD2626" (red).
+  Character string. Color for highlighting the decision point or final
+  sample. Default is `"#CD2626"` (red).
 
 ## Value
 
-returns a plot
+A
+[`ggplot2::ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html)
+object showing:
+
+- Log-likelihood ratio trajectory across sample sizes
+
+- Dashed horizontal lines indicating decision boundaries
+
+- Highlighted point showing where decision was reached (or final sample)
+
+- Optional labels for decision regions and likelihood ratio value
 
 ## Examples
 
 ``` r
 # simulate data for the example ------------------------------------------------
 set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 30)
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
 
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE)
 
 # plot the results -------------------------------------------------------------
+# default settings
 sprtt::plot_anova(anova_results)
-#> Warning: All aesthetics have length 1, but the data has 85 rows.
-#> ℹ Please consider using `annotate()` or provide this layer with data containing
-#>   a single row.
 
-
+# variant 1
 sprtt::plot_anova(anova_results,
                  labels = TRUE,
-                 position_labels_x = 0.5,
+                 position_labels_x = 1.1,
                  position_labels_y = 0.1,
-                 position_lr_x = -0.5,
+                 position_lr_x = 70,
+                 position_lr_y = 2,
                  font_size = 25,
                  line_size = 2,
                  highlight_color = "green"
                  )
-#> Warning: All aesthetics have length 1, but the data has 85 rows.
-#> ℹ Please consider using `annotate()` or provide this layer with data containing
-#>   a single row.
 
+# variant 2
+sprtt::plot_anova(anova_results,
+                  labels = TRUE,
+                  position_labels_x = 0.05,
+                  position_labels_y = 0.3,
+                  position_lr_x = 70,
+                  position_lr_y = 3.5,
+                  font_size = 25,
+                  line_size = 2,
+                  highlight_color = "darkred"
+)
 
+# no labels
 sprtt::plot_anova(anova_results,
                  labels = FALSE
                  )
-#> Warning: All aesthetics have length 1, but the data has 85 rows.
-#> ℹ Please consider using `annotate()` or provide this layer with data containing
-#>   a single row.
+
+# custom additions
+sprtt::plot_anova(anova_results) +
+  ggplot2::geom_vline(xintercept = 66, linewidth = 1, linetype = "dashed")
 
 
 # further information ----------------------------------------------------------

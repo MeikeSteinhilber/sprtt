@@ -1,8 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://meikesteinhilber.github.io/sprtt/404.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/LICENSE.html</loc></url>
+<url><loc>https://meikesteinhilber.github.io/sprtt/articles/developer_guide.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/articles/index.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/articles/one_way_anova.html</loc></url>
+<url><loc>https://meikesteinhilber.github.io/sprtt/articles/plan_sample_size.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/articles/sprts.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/articles/t_test.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/articles/usage_sprtt.html</loc></url>
@@ -10,12 +12,18 @@
 <url><loc>https://meikesteinhilber.github.io/sprtt/authors.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/index.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/news/index.html</loc></url>
+<url><loc>https://meikesteinhilber.github.io/sprtt/reference/cache_clear.html</loc></url>
+<url><loc>https://meikesteinhilber.github.io/sprtt/reference/cache_info.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/df_cancer.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/df_income.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/df_stress.html</loc></url>
+<url><loc>https://meikesteinhilber.github.io/sprtt/reference/download_sample_size_data.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/draw_sample_mixture.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/draw_sample_normal.html</loc></url>
+<url><loc>https://meikesteinhilber.github.io/sprtt/reference/get_sprtt_cache_dir.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/index.html</loc></url>
+<url><loc>https://meikesteinhilber.github.io/sprtt/reference/load_sample_size_data.html</loc></url>
+<url><loc>https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/plot_anova.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/seq_anova.html</loc></url>
 <url><loc>https://meikesteinhilber.github.io/sprtt/reference/seq_anova_results-class.html</loc></url>
