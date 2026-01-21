@@ -27,7 +27,7 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Meike Steinhilber <Meike.Steinhilber@aol.com>
+**Maintainer**: Meike Snijder-Steinhilber <Meike.Steinhilber@aol.com>
 ([ORCID](https://orcid.org/0000-0002-7144-2100))
 
 Authors:

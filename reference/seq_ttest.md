@@ -1,8 +1,18 @@
 # Sequential Probability Ratio Test using t-statistic
 
-Performs one and two sample sequential t-tests on vectors of data. For
-more information on the sequential t-test, see Schnuerch & Erdfelder
-(2019) <doi:10.1037/met0000234>.
+Performs one-sample, two-sample, and paired sequential t-tests, which
+are variants of Sequential Probability Ratio Tests (SPRT). The test
+allows for continuous monitoring of data collection and provides
+stopping boundaries based on likelihood ratios, offering efficiency
+gains over traditional fixed-N designs.
+
+The sequential t-test continuously evaluates the likelihood ratio after
+each observation (or pair of observations), stopping when sufficient
+evidence accumulates for either H0 or H1.
+
+For methodological details, see Schnuerch & Erdfelder (2019)
+<doi:10.1037/met0000234>. For practical guidance, see
+[`vignette("t_test", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/t_test.md).
 
 ## Usage
 
@@ -38,12 +48,13 @@ seq_ttest(
 
 - y:
 
-  an optional (non-empty) numeric vector of data values.
+  An optional (non-empty) numeric vector of data values. Only used for
+  two-sample tests when `x` is numeric.
 
 - data:
 
-  an optional `data.frame`, which you can use only in combination with a
-  `"formula input"` in argument `x`.
+  An optional data frame containing the variables specified in the
+  formula. Only used when `x` is a formula.
 
 - mu:
 
@@ -52,16 +63,19 @@ seq_ttest(
 
 - d:
 
-  a number indicating the specified effect size (Cohen's d)
+  a number indicating the specified (expected) effect size (Cohen's d)
 
 - alpha:
 
-  the type I error. A number between 0 and 1.
+  Type I error rate (alpha level). The probability of rejecting H0 when
+  it is true. Default is 0.05. Must be between 0 and 1.
 
 - power:
 
-  1 - beta (beta is the type II error probability). A number between 0
-  and 1.
+  Statistical power (1 - beta), where beta is the Type II error rate.
+  The probability of correctly rejecting H0 when H1 is true with effect
+  size d. Default is 0.95. Must be between 0 and 1. Higher values lead
+  to wider stopping boundaries and potentially larger sample sizes.
 
 - alternative:
 
@@ -71,11 +85,12 @@ seq_ttest(
 
 - paired:
 
-  a logical indicating whether you want a paired t-test.
+  Logical indicating whether to perform a paired t-test. Default is
+  `FALSE`.
 
 - na.rm:
 
-  a logical value indicating whether `NA` values should be stripped
+  a logical value indicating whether `NA` values should be removed
   before the computation proceeds.
 
 - verbose:
@@ -89,6 +104,23 @@ An object of the S4 class
 Click on the class link to see the full description of the slots. To get
 access to the object use the `@`-operator or `[]`-brackets instead of
 `$`. See the examples below.
+
+## See also
+
+- [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md)
+  for sequential one-way ANOVA
+
+- [`draw_sample_normal()`](https://meikesteinhilber.github.io/sprtt/reference/draw_sample_normal.md)
+  for simulating test data
+
+- [`vignette("t_test", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/t_test.md)
+  for detailed tutorial
+
+- [`vignette("usage_sprtt", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/usage_sprtt.md)
+  for package overview
+
+- Schnuerch & Erdfelder (2019) <doi:10.1037/met0000234> for theoretical
+  background
 
 ## Examples
 

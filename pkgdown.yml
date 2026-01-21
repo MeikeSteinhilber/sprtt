@@ -2,12 +2,14 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
+  developer_guide: developer_guide.html
   one_way_anova: one_way_anova.html
+  plan_sample_size: plan_sample_size.html
   sprts: sprts.html
   t_test: t_test.html
   usage_sprtt: usage_sprtt.html
   use_case: use_case.html
-last_built: 2026-01-21T15:15Z
+last_built: 2026-01-21T16:38Z
 urls:
   reference: https://meikesteinhilber.github.io/sprtt/reference
   article: https://meikesteinhilber.github.io/sprtt/articles
