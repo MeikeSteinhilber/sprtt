@@ -28,12 +28,3 @@
 - [SPRTs](https://meikesteinhilber.github.io/sprtt/articles/sprts.md):
 
   This vignette describes SPRTs in general.
-
-- [Sample Size Planning for Sequential
-  ANOVAs](https://meikesteinhilber.github.io/sprtt/articles/plan_sample_size.md):
-
-  This vignette describes how to plan sample sizes for sequential ANOVAs
-  using simulation-based approaches.
-
-- [Developer Guide: sprtt
-  Package](https://meikesteinhilber.github.io/sprtt/articles/developer_guide.md):

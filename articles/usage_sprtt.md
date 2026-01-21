@@ -53,9 +53,6 @@ the installation can be found
 ``` r
 # load the package
 library(sprtt)
-#> Note: Sample size planning functions require simulation data (~70 MB).
-#> Data will download automatically on first use.
-#> See ?download_sample_size_data for more information.
 ```
 
 ## What does the package contain?

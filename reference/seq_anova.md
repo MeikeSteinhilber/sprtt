@@ -2,19 +2,11 @@
 
 **\[experimental\]**
 
-Performs a sequential one-way fixed effects ANOVA, which is a variant of
-a Sequential Probability Ratio Test (SPRT). The test allows for
-continuous monitoring of data collection and provides stopping
-boundaries based on likelihood ratios, offering efficiency gains over
-traditional fixed-N designs.
-
-The sequential ANOVA continuously evaluates the likelihood ratio after
-each observation (or group of observations), stopping when sufficient
-evidence accumulates for either H0 or H1.
-
-For methodological details, see Steinhilber et al. (2023)
-<doi:10.1037/met0000677>. For practical guidance, see
-[`vignette("one_way_anova", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/one_way_anova.md).
+Performs a sequential one-way fixed effects ANOVA, see Steinhilber et
+al. (2023) <doi:10.31234/osf.io/m64ne> for more information. The
+repeated measurement ANOVA is not implemented yet in this function. For
+more information check out the vignette
+[`vignette("one_way_anova", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/one_way_anova.md)
 
 ## Usage
 
@@ -35,31 +27,25 @@ seq_anova(
 
 - formula:
 
-  A formula specifying the model (e.g., `outcome ~ group`). The response
-  variable should be on the left side and the grouping factor on the
-  right side. Currently only supports one-way designs.
+  A formula specifying the model.
 
 - f:
 
-  Cohen's f (expected minimal effect size or effect size of interest),
-  that defines the H1.
+  Cohen's f (expected minimal effect size or effect size of interest).
 
 - alpha:
 
-  Type I error rate (alpha level). The probability of rejecting H0 when
-  it is true. Default is 0.05. Must be between 0 and 1.
+  the type I error. A number between 0 and 1.
 
 - power:
 
-  Statistical power (1 - beta), where beta is the Type II error rate.
-  The probability of correctly rejecting H0 when H1 is true with effect
-  size f. Default is 0.95. Must be between 0 and 1. Higher values lead
-  to wider stopping boundaries and potentially larger sample sizes.
+  1 - beta (beta is the type II error probability). A number between 0
+  and 1.
 
 - data:
 
-  A data frame containing the variables specified in the formula.
-  Missing values (NA) will be removed with a warning
+  A data frame in which the variables specified in the formula will be
+  found.
 
 - verbose:
 
@@ -67,28 +53,24 @@ seq_anova(
 
 - plot:
 
-  Logical. If `TRUE`, stores sequential test statistics at each
-  sequential step for visualization with
-  [`plot_anova()`](https://meikesteinhilber.github.io/sprtt/reference/plot_anova.md).
-  This enables retrospective examination of the decision process but
-  increases computation time for large datasets. Default is `FALSE`.
+  calculates the ANOVA sequentially on the data and saves the results in
+  the slot called plot. This calculation is necessary for the
+  plot_anova() function.
 
 - seq_steps:
 
-  Specifies when to calculate test statistics during sequential testing
-  (only relevant when `plot = TRUE`). Options:
-
-  - Vector of integers: Calculate at specific sample sizes (e.g.,
-    `c(10, 20, 30)`)
-
-  - `"single"`: Calculate after each observation (step size = 1). Note:
-    Starts at `k_groups * 2` to ensure sufficient data
-
-  - `"balanced"`: Calculate when each group gains one observation (step
-    size = number of groups). Note: Starts at `k_groups * 2`
-
-  For unbalanced designs or non-standard sequences, specify custom steps
-  as a vector.
+  Defines the sequential steps for the sequential calculation if
+  `plot = TRUE`. Argument takes either a vector of numbers or the
+  argument `single` or `balanced`. A vector of numbers specifies the
+  sample sizes at which the anova is calculated. `single` specifies that
+  after each single point the test statistic is calculated (step size =
+  1). Attention: the calculation starts at the number of groups times
+  two. If the data do not fit to this, you have to specify the
+  sequential steps yourself in this argument. `balanced` specifies that
+  the step size is equal to the number of groups. Attention: the
+  calculation starts at the number of groups times two. If the data do
+  not fit to this, you have to specify the sequential steps yourself in
+  this argument.
 
 ## Value
 
@@ -97,31 +79,6 @@ An object of the S4 class
 Click on the class link to see the full description of the slots. To get
 access to the object use the `@`-operator or `[]`-brackets instead of
 `$`. See the examples below.
-
-## Limitations
-
-- Only one-way fixed effects ANOVA is currently supported
-
-- Repeated measures ANOVA is not yet implemented
-
-## See also
-
-- [`plot_anova()`](https://meikesteinhilber.github.io/sprtt/reference/plot_anova.md)
-  for visualizing sequential ANOVA results
-
-- [`plan_sample_size()`](https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.md)
-  for sample size planning
-
-- [`seq_ttest()`](https://meikesteinhilber.github.io/sprtt/reference/seq_ttest.md)
-  for sequential t-tests
-
-- [`vignette("one_way_anova", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/one_way_anova.md)
-  for detailed tutorial
-
-- [`vignette("plan_sample_size", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/plan_sample_size.md)
-  for planning guidance
-
-- Steinhilber et al. (2023) for theoretical background
 
 ## Examples
 

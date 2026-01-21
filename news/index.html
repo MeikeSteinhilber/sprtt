@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sprtt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,8 +29,6 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Further Topics</h6></li>
     <li><a class="dropdown-item" href="../articles/sprts.html">SPRTs</a></li>
-    <li><a class="dropdown-item" href="../articles/plan_sample_size.html">Sample Size Planning for Sequential ANOVAs</a></li>
-    <li><a class="dropdown-item" href="../articles/developer_guide.html">Developer Guide: sprtt Package</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -44,47 +42,37 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.0" id="sprtt-030">sprtt 0.3.0<a class="anchor" aria-label="anchor" href="#sprtt-030"></a></h2>
-<ul><li><p>Add: <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code> creates HTML reports for sample size planning of sequential ANOVAs</p></li>
-<li><p>Add: <code><a href="../reference/download_sample_size_data.html">download_sample_size_data()</a></code> downloads the data required for <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code></p></li>
-<li><p>Add: <code><a href="../reference/load_sample_size_data.html">load_sample_size_data()</a></code> provides manual access to the simulation dataset used by <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code></p></li>
-<li><p>Add: <code><a href="../reference/cache_clear.html">cache_clear()</a></code> removes the cached simulation dataset used by <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code></p></li>
-<li><p>Add: <code><a href="../reference/cache_info.html">cache_info()</a></code> displays information about cached simulation data used by <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code></p></li>
-<li><p><strong>Breaking change:</strong> <code><a href="../reference/plot_anova.html">plot_anova()</a></code> argument <code>position_lr_x</code> now uses absolute x-axis coordinates (e.g., <code>position_lr_x = 30</code> places the label at x = 30) instead of relative positioning, providing more intuitive and precise control of label placement.</p></li>
-<li><p>Add: <code><a href="../reference/plot_anova.html">plot_anova()</a></code> gains new argument <code>position_lr_y</code> to control the y-axis position of the likelihood ratio label using absolute coordinates.</p></li>
-<li><p>Change: Internal function documentation improved throughout the package</p></li>
-</ul></div>
-    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="sprtt-020">sprtt 0.2.0<a class="anchor" aria-label="anchor" href="#sprtt-020"></a></h2><p class="text-muted">CRAN release: 2023-07-06</p>
-<ul><li><p>Add: the <code><a href="../reference/seq_anova.html">seq_anova()</a></code> function, which performs a sequential one-way fixed effects ANOVA</p></li>
-<li><p>Add: <code><a href="../reference/draw_sample_normal.html">draw_sample_normal()</a></code> function, which simulates data for a sequential ANOVA using normal distributions.</p></li>
-<li><p>Add: <code><a href="../reference/draw_sample_mixture.html">draw_sample_mixture()</a></code> function, which simulates data for a sequential ANOVA using Gaussian Mixture distributions</p></li>
-<li><p>Add: <code><a href="../reference/plot_anova.html">plot_anova()</a></code> plot function for the results of the <code><a href="../reference/seq_anova.html">seq_anova()</a></code> function.</p></li>
-<li><p>Bug fix: update text in show(), if <code>mu</code> is not equal to 0</p></li>
-<li><p>Change: sprtt logo</p></li>
+<ul><li>Add: the <code><a href="../reference/seq_anova.html">seq_anova()</a></code> function, which performs a sequential one-way fixed effects ANOVA</li>
+<li>Add: <code><a href="../reference/draw_sample_normal.html">draw_sample_normal()</a></code> function, which simulates data for a sequential ANOVA using normal distributions.</li>
+<li>Add: <code><a href="../reference/draw_sample_mixture.html">draw_sample_mixture()</a></code> function, which simulates data for a sequential ANOVA using Gaussian Mixture distributions</li>
+<li>Add: <code><a href="../reference/plot_anova.html">plot_anova()</a></code> plot function for the results of the <code><a href="../reference/seq_anova.html">seq_anova()</a></code> function.</li>
+<li>Bug fix: update text in show(), if <code>mu</code> is not equal to 0</li>
+<li>Change: sprtt logo</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="sprtt-010">sprtt 0.1.0<a class="anchor" aria-label="anchor" href="#sprtt-010"></a></h2><p class="text-muted">CRAN release: 2021-08-06</p>
-<ul><li><p>Added the <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function, which performs sequential <em>t</em>-tests</p></li>
-<li><p>Added the test datasets <code>df_income</code>, <code>df_cancer</code> and <code>df_stress</code></p></li>
-<li><p>Added the vignette “How to use the <code>sprtt</code> package”</p></li>
-<li><p>Added the vignette “Sequential <em>t</em>-test”</p></li>
-<li><p>Added the vignette “Use Case”</p></li>
-<li><p>Added tests to simulate the error rates of the test</p></li>
-<li><p>Added unit tests</p></li>
-<li><p>Added pkgdown site</p></li>
-<li><p>Added logo</p></li>
+<ul><li>Added the <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function, which performs sequential <em>t</em>-tests</li>
+<li>Added the test datasets <code>df_income</code>, <code>df_cancer</code> and <code>df_stress</code>
+</li>
+<li>Added the vignette “How to use the <code>sprtt</code> package”</li>
+<li>Added the vignette “Sequential <em>t</em>-test”</li>
+<li>Added the vignette “Use Case”</li>
+<li>Added tests to simulate the error rates of the test</li>
+<li>Added unit tests</li>
+<li>Added pkgdown site</li>
+<li>Added logo</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Meike Snijder-Steinhilber, Martin Schnuerch, Anna-Lena Schubert.</p>
+  <p>Developed by Meike Steinhilber, Martin Schnuerch, Anna-Lena Schubert.</p>
 </div>
 
 <div class="pkgdown-footer-right">

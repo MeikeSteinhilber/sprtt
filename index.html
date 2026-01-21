@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">sprtt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,8 +52,6 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Further Topics</h6></li>
     <li><a class="dropdown-item" href="articles/sprts.html">SPRTs</a></li>
-    <li><a class="dropdown-item" href="articles/plan_sample_size.html">Sample Size Planning for Sequential ANOVAs</a></li>
-    <li><a class="dropdown-item" href="articles/developer_guide.html">Developer Guide: sprtt Package</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -85,10 +83,9 @@
 <p>The package contains:</p>
 <ul>
 <li><p><code><a href="reference/seq_ttest.html">seq_ttest()</a></code>, <code><a href="reference/seq_anova.html">seq_anova()</a></code> calculates sequential t-test and sequential one-way ANOVAs</p></li>
-<li><p><code><a href="reference/plot_anova.html">plot_anova()</a></code> plots results of sequential ANOVAs</p></li>
-<li><p><code><a href="reference/plan_sample_size.html">plan_sample_size()</a></code> creates comprehensive HTML reports with sample size recommendations based on pre-computed SPRT simulations</p></li>
-<li><p><code><a href="reference/draw_sample_normal.html">draw_sample_normal()</a></code>, <code><a href="reference/draw_sample_mixture.html">draw_sample_mixture()</a></code> simulation of data sets</p></li>
 <li><p>three data sets (<code>df_income</code>, <code>df_stress</code>, <code>df_cancer</code>) to run the examples in the t-test documentation</p></li>
+<li><p><code><a href="reference/plot_anova.html">plot_anova()</a></code> plots results of sequential ANOVAs</p></li>
+<li><p><code><a href="reference/draw_sample_normal.html">draw_sample_normal()</a></code>, <code><a href="reference/draw_sample_mixture.html">draw_sample_mixture()</a></code> simulation of data sets</p></li>
 </ul>
 </div>
 <div class="section level2">
@@ -105,15 +102,11 @@
 <div class="section level3">
 <h3 id="development-version-from-github">Development version from GitHub<a class="anchor" aria-label="anchor" href="#development-version-from-github"></a>
 </h3>
-<p>To get a bug fix or to use a feature from the development version, you can install the latest version from GitHub.</p>
+<p>To get a bug fix or to use a feature from the development version, you can install the development version from GitHub.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the installation requires the "devtools" package</span></span>
 <span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="co"># stable GitHub version</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"MeikeSteinhilber/sprtt"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># development version, may not be stable</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"MeikeSteinhilber/sprtt"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"MeikeSteinhilber/sprtt"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -142,23 +135,20 @@
 <span></span>
 <span><span class="co"># load library ----------------------------------------------------------------</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://meikesteinhilber.github.io/sprtt/">sprtt</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Note: Sample size planning functions require simulation data (~70 MB).</span></span>
-<span><span class="co">#&gt; Data will download automatically on first use.</span></span>
-<span><span class="co">#&gt; See ?download_sample_size_data for more information.</span></span>
 <span></span>
 <span><span class="co"># t-TEST ----------------------------------------------------------------------</span></span>
 <span><span class="co"># one sample: numeric input ---------------------------------------------------</span></span>
 <span><span class="va">treatment_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment_group</span>, mu <span class="op">=</span> <span class="fl">1</span>, d <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment_group</span>, mu <span class="op">=</span> <span class="fl">1</span>, d <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get access to the slots -----------------------------------------------------</span></span>
 <span><span class="co"># @ Operator</span></span>
 <span><span class="va">results</span><span class="op">@</span><span class="va">likelihood_ratio</span></span>
-<span><span class="co">#&gt; [1] 323.9051</span></span>
+<span><span class="co">#&gt; [1] 965.0728</span></span>
 <span></span>
 <span><span class="co"># [] Operator</span></span>
 <span><span class="va">results</span><span class="op">[</span><span class="st">"likelihood_ratio"</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 323.9051</span></span>
+<span><span class="co">#&gt; [1] 965.0728</span></span>
 <span></span>
 <span><span class="co"># ANOVA -----------------------------------------------------------------------</span></span>
 <span><span class="co"># simulate data ---------------------------------------------------------------</span></span>
@@ -166,13 +156,13 @@
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span>k_groups <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                                  f <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                                  sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>                                  max_n <span class="op">=</span> <span class="fl">22</span><span class="op">)</span></span>
+<span>                                  max_n <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># calculate sequential ANOVA --------------------------------------------------</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co"># test decision</span></span>
 <span><span class="va">results</span><span class="op">@</span><span class="va">decision</span></span>
-<span><span class="co">#&gt; [1] "accept H1"</span></span>
+<span><span class="co">#&gt; [1] "continue sampling"</span></span>
 <span><span class="co"># test results</span></span>
 <span><span class="va">results</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -180,42 +170,23 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; formula: y ~ x</span></span>
 <span><span class="co">#&gt; test statistic:</span></span>
-<span><span class="co">#&gt;  log-likelihood ratio = 3.153, decision = accept H1</span></span>
+<span><span class="co">#&gt;  log-likelihood ratio = 2.892, decision = continue sampling</span></span>
 <span><span class="co">#&gt; SPRT thresholds:</span></span>
 <span><span class="co">#&gt;  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
 <span><span class="co">#&gt; Log-Likelihood of the:</span></span>
-<span><span class="co">#&gt;  alternative hypothesis = -3.293</span></span>
-<span><span class="co">#&gt;  null hypothesis = -6.447</span></span>
+<span><span class="co">#&gt;  alternative hypothesis = -2.715</span></span>
+<span><span class="co">#&gt;  null hypothesis = -5.607</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0.</span></span>
 <span><span class="co">#&gt; specified effect size: Cohen's f = 0.25</span></span>
-<span><span class="co">#&gt; empirical Cohen's f = 0.4684039, 95% CI[0.1741801, 0.6969498]</span></span>
-<span><span class="co">#&gt; Cohen's f adjusted = 0.415</span></span>
-<span><span class="co">#&gt; degrees of freedom: df1 = 2, df2 = 63</span></span>
-<span><span class="co">#&gt; SS effect = 12.63455, SS residual = 57.58624, SS total = 70.22079</span></span>
+<span><span class="co">#&gt; empirical Cohen's f = 0.4045074, 95% CI[0.129478, 0.6171581]</span></span>
+<span><span class="co">#&gt; Cohen's f adjusted = 0.355</span></span>
+<span><span class="co">#&gt; degrees of freedom: df1 = 2, df2 = 72</span></span>
+<span><span class="co">#&gt; SS effect = 10.74731, SS residual = 65.68208, SS total = 76.42939</span></span>
 <span><span class="co">#&gt; *Note: to get access to the object of the results use the @ or [] instead of the $ operator.</span></span>
 <span></span>
 <span><span class="co"># plot results -----------------------------------------------------------------</span></span>
-<span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="reference/plot_anova.html">plot_anova</a></span><span class="op">(</span><span class="va">results</span>, position_lr_x <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="reference/plot_anova.html">plot_anova</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%"></p>
-</div>
-<div class="section level3">
-<h3 id="sample-size-planning">Sample Size Planning<a class="anchor" aria-label="anchor" href="#sample-size-planning"></a>
-</h3>
-<p>The sample size planning function requires simulation data (~70 MB). On first use, this data will be downloaded and chached automatically:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.25</span>, k_groups <span class="op">=</span> <span class="fl">3</span>, power <span class="op">=</span> <span class="fl">0.9</span>, decision_rate <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span></code></pre></div>
-<p>The package contains functions to help managing the cached data, if necessary.</p>
-<p><strong>Managing cached data</strong></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Check cache status</span></span>
-<span><span class="fu"><a href="reference/cache_info.html">cache_info</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Force re-download (if data was updated)</span></span>
-<span><span class="fu"><a href="reference/download_sample_size_data.html">download_sample_size_data</a></span><span class="op">(</span>force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Clear cache</span></span>
-<span><span class="fu"><a href="reference/cache_clear.html">cache_clear</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>If you need to use the package offline, download the data while connected beforehand.</p>
 </div>
 </div>
 </div>
@@ -247,7 +218,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Meike Snijder-Steinhilber <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-7144-2100" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Meike Steinhilber <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-7144-2100" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Martin Schnuerch <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0001-6531-2265" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Anna-Lena Schubert <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0001-7248-0662" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
@@ -270,7 +241,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Meike Snijder-Steinhilber, Martin Schnuerch, Anna-Lena Schubert.</p>
+  <p>Developed by Meike Steinhilber, Martin Schnuerch, Anna-Lena Schubert.</p>
 </div>
 
 <div class="pkgdown-footer-right">

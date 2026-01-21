@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sprtt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,8 +54,6 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Further Topics</h6></li>
     <li><a class="dropdown-item" href="../articles/sprts.html">SPRTs</a></li>
-    <li><a class="dropdown-item" href="../articles/plan_sample_size.html">Sample Size Planning for Sequential ANOVAs</a></li>
-    <li><a class="dropdown-item" href="../articles/developer_guide.html">Developer Guide: sprtt Package</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -81,9 +79,9 @@
                         <h4 data-toc-skip class="author">Meike
 Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-01-20</h4>
+            <h4 data-toc-skip class="date">2026-01-21</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/t_test.Rmd" class="external-link"><code>vignettes/t_test.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/vignettes/t_test.Rmd" class="external-link"><code>vignettes/t_test.Rmd</code></a></small>
       <div class="d-none name"><code>t_test.Rmd</code></div>
     </div>
 
@@ -140,13 +138,12 @@ Ratio Test (SPRT) by Abraham <span class="citation">Abraham Wald
 (1947)</span>, which is a highly efficient sequential hypothesis test.
 However, the usage of Wald´s SPRT is limited in the case of normally
 distributed data, because the variance has to be known or specified in
-the hypothesis. Rushton <span class="citation">(1950;
-<strong>rushton1952?</strong>)</span> and <span class="citation">Hajnal
-(1961)</span> have further developed the SPRT using the
-<em>t</em>-statistic. The basic idea is to transform the sequence of
-observations (which is dependent on the variance) into a sequence of the
-associated <em>t</em>-statistic (which is <em>in</em>dependent of the
-variance).</p>
+the hypothesis. Rushton <span class="citation">(1950; 1952)</span> and
+<span class="citation">Hajnal (1961)</span> have further developed the
+SPRT using the <em>t</em>-statistic. The basic idea is to transform the
+sequence of observations (which is dependent on the variance) into a
+sequence of the associated <em>t</em>-statistic (which is
+<em>in</em>dependent of the variance).</p>
 <p>In the SPRT the null and alternative hypotheses are defined as
 follows, with 𝜃 representing the model parameter :</p>
 <p><span class="math display">$$
@@ -180,12 +177,12 @@ of the group(s) is needed. The non-centrality parameter also requires a
 specification of the expected effect size in form of Cohen`s d
 (<em>d</em>).</p>
 <p>To eventually calculate the LR of the sequential <em>t</em>-test,
-only the current t<sub><em>m</em></sub>-statistic is necessary. <span class="citation">Rushton (1950)</span> demonstrated that an SPRT can be
-performed by simply considering the ratio of probability densities for
-the most recent t<sub><em>m</em></sub> statistic under the alternative
-and null hypothesis at any <em>m-</em>th stage. Thus, the test statistic
-for a one and two-sided sequential t-test can be calculated as
-follows:</p>
+only the current t<sub><em>m</em></sub>-statistic is necessary. <span class="citation">S. Rushton (1950)</span> demonstrated that an SPRT can
+be performed by simply considering the ratio of probability densities
+for the most recent t<sub><em>m</em></sub> statistic under the
+alternative and null hypothesis at any <em>m-</em>th stage. Thus, the
+test statistic for a one and two-sided sequential t-test can be
+calculated as follows:</p>
 <p><span class="math display">$$
 LR_{m,\ one-sided\ sequential\ t-test}
 = \frac {𝑓(t_m | 𝜃_1)} {𝑓(t_m | 𝜃_0)}
@@ -194,7 +191,7 @@ LR_{m,\ two-sided\ sequential\ t-test}
 = \frac {𝑓(t_m^2 | 𝜃_1)} {𝑓(t_m^2 | 𝜃_0)}.
 $$</span></p>
 <p>To account for the fact that the algebraic sign is unknown in a
-two-sided test, the <em>t</em>-value is squared <span class="citation">(<strong>rushton1952?</strong>)</span>.</p>
+two-sided test, the <em>t</em>-value is squared <span class="citation">(S. Rushton, 1952)</span>.</p>
 <p>After the calculation of the test statistic, the decision will be
 either to continue sampling or to terminate the sampling and accept one
 of the hypotheses. <span class="citation">A. Wald (1945)</span> defined
@@ -248,6 +245,10 @@ Hajnal, J. (1961). A two-sample sequential t-test. <em>Biometrika</em>,
 Rushton, S. (1950). On a sequential t-test. <em>Biometrika</em>,
 <em>37</em>, 326–333. <a href="https://doi.org/10.2307/2332385" class="external-link">https://doi.org/10.2307/2332385</a>
 </div>
+<div id="ref-rushton1952" class="csl-entry">
+Rushton, S. (1952). On a <span>Two-Sided Sequential</span>
+t-<span>Test</span>. <em>Biometrika</em>, <em>39</em>(3/4), 302. <a href="https://doi.org/10.2307/2334026" class="external-link">https://doi.org/10.2307/2334026</a>
+</div>
 <div id="ref-schnuerch2020a" class="csl-entry">
 Schnuerch, M., Erdfelder, E., &amp; Heck, D. W. (2020). Sequential
 hypothesis tests for multinomial processing tree models. <em>Journal of
@@ -269,7 +270,7 @@ Wald, Abraham. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Meike Snijder-Steinhilber, Martin Schnuerch, Anna-Lena Schubert.</p>
+  <p>Developed by Meike Steinhilber, Martin Schnuerch, Anna-Lena Schubert.</p>
 </div>
 
 <div class="pkgdown-footer-right">
