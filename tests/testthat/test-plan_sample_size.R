@@ -32,6 +32,10 @@ test_that("plan_sample_size: paremters out of scope", {
                      power = 0.60, overwrite = FALSE),
     "is not available"
   )
+  expect_error(
+    plan_sample_size(f_expected = 0.25, k_groups = 3, decision_rate = 0.20),
+    "is not available"
+  )
 })
 
 
