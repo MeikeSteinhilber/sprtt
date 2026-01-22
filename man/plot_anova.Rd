@@ -8,11 +8,11 @@ plot_anova(
   anova_results,
   labels = TRUE,
   position_labels_x = 0.15,
-  position_labels_y = 0.075,
+  position_labels_y = 0.1,
   position_lr_x = NULL,
   position_lr_y = NULL,
-  font_size = 25,
-  line_size = 1.5,
+  font_size = 15,
+  line_size = 1,
   highlight_color = "#CD2626"
 )
 }
@@ -42,7 +42,7 @@ decision point or final sample size.}
 positioned at \code{y = 0} for early decisions, or slightly offset for
 continuing sampling scenarios.}
 
-\item{font_size}{Numeric. Base font size for plot text. Default is \code{25}.}
+\item{font_size}{Numeric. Base font size for plot text. Default is \code{20}.}
 
 \item{line_size}{Numeric. Line width for the trajectory and boundaries.
 Default is \code{1.5}.}
@@ -68,8 +68,8 @@ and decision boundaries.
 }
 \examples{
 # simulate data for the example ------------------------------------------------
-set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
+set.seed(3)
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 50)
 
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE)
@@ -80,21 +80,18 @@ sprtt::plot_anova(anova_results)
 # variant 1
 sprtt::plot_anova(anova_results,
                  labels = TRUE,
-                 position_labels_x = 1.1,
-                 position_labels_y = 0.1,
-                 position_lr_x = 70,
-                 position_lr_y = 2,
-                 font_size = 25,
-                 line_size = 2,
+                 position_labels_x = 0.05,
+                 position_lr_x = 150,
+                 position_lr_y = 0,
                  highlight_color = "green"
                  )
 # variant 2
 sprtt::plot_anova(anova_results,
                   labels = TRUE,
-                  position_labels_x = 0.05,
-                  position_labels_y = 0.3,
-                  position_lr_x = 70,
-                  position_lr_y = 3.5,
+                  position_labels_x = 0.15,
+                  position_labels_y = 0.2,
+                  position_lr_x = 60,
+                  position_lr_y = 1,
                   font_size = 25,
                   line_size = 2,
                   highlight_color = "darkred"

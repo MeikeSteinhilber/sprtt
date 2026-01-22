@@ -26,7 +26,7 @@
 #'   (log-likelihood ratio) of the likelihood ratio label. If `NULL` (default),
 #'   positioned at `y = 0` for early decisions, or slightly offset for
 #'   continuing sampling scenarios.
-#' @param font_size Numeric. Base font size for plot text. Default is `25`.
+#' @param font_size Numeric. Base font size for plot text. Default is `20`.
 #' @param line_size Numeric. Line width for the trajectory and boundaries.
 #'   Default is `1.5`.
 #' @param highlight_color Character string. Color for highlighting the decision
@@ -49,11 +49,11 @@
 plot_anova <- function(anova_results,
                       labels = TRUE,
                       position_labels_x = 0.15,
-                      position_labels_y = 0.075,
+                      position_labels_y = 0.1,
                       position_lr_x = NULL,
                       position_lr_y = NULL,
-                      font_size = 25,
-                      line_size = 1.5,
+                      font_size = 15,
+                      line_size = 1,
                       highlight_color = "#CD2626"
                       ) {
 
@@ -89,7 +89,7 @@ plot_anova <- function(anova_results,
   }
 
   max_lr <- max(abs(results$lr_log))
-  lr_factor <- 0.1
+  lr_factor <- 0.05
 
 
   # set defaults ---------------------------------------------------------------

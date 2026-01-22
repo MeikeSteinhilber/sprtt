@@ -71,7 +71,7 @@ The sequential ANOVA continuously evaluates the likelihood ratio after each
 observation (or group of observations), stopping when sufficient evidence
 accumulates for either H0 or H1.
 
-For methodological details, see Steinhilber et al. (2023)
+For methodological details, see Steinhilber et al. (2024)
 \url{doi:10.1037/met0000677}. For practical guidance, see
 \code{vignette("one_way_anova", package = "sprtt")}.
 }
