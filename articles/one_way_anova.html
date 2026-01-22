@@ -11,7 +11,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -79,7 +85,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Sequential One-Way ANOVA</h1>
                         <h4 data-toc-skip class="author">Meike
-Steinhilber</h4>
+Snijder-Steinhilber</h4>
             
             <h4 data-toc-skip class="date">2026-01-22</h4>
       
@@ -158,9 +164,14 @@ argument ‘single’ or we can choose ‘balanced’.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># calculate the SPRT -----------------------------------------------------------</span></span>
-<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, seq_steps <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span></span>
-<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, seq_steps <span class="op">=</span> <span class="st">"balanced"</span><span class="op">)</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>                                  data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>                                  data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                  seq_steps <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>                                  data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                  seq_steps <span class="op">=</span> <span class="st">"balanced"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot the results -------------------------------------------------------------</span></span>
 <span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_anova.html">plot_anova</a></span><span class="op">(</span><span class="va">anova_results</span><span class="op">)</span></span></code></pre></div>
@@ -195,11 +206,11 @@ after every single data point.</p>
 <span>                 labels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                 position_labels_x <span class="op">=</span> <span class="fl">0.2</span>,</span>
 <span>                 position_labels_y <span class="op">=</span> <span class="fl">0.2</span>,</span>
-<span>                 position_lr_x <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>                 position_lr_y <span class="op">=</span> <span class="op">-</span><span class="fl">1.8</span>,</span>
+<span>                 position_lr_x <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>                 position_lr_y <span class="op">=</span> <span class="fl">1.8</span>,</span>
 <span>                 font_size <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>                 line_size <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                 highlight_color <span class="op">=</span> <span class="st">"darkblue"</span></span>
+<span>                 highlight_color <span class="op">=</span> <span class="st">"steelblue"</span></span>
 <span>                 <span class="op">)</span></span></code></pre></div>
 <p><img src="one_way_anova_files/figure-html/example-2-1.png" class="r-plt" alt="" width="700"></p>
 </div>

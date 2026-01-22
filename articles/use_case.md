@@ -59,9 +59,9 @@ The parameters of the sequential *t*-test are specified as follows:
   d <- 0.2
   ```
 
-- They choose the common $\alpha$ level of .05 and the same level for
-  the $\beta$ error probability, which leads to a power of .95
-  ($1 - \beta$).
+- They choose the common \\\alpha\\ level of .05 and the same level for
+  the \\\beta\\ error probability, which leads to a power of .95 (\\1 -
+  \beta\\).
 
   ``` r
   alpha <- 0.05

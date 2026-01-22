@@ -11,7 +11,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -79,7 +85,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Sequential t-Test</h1>
                         <h4 data-toc-skip class="author">Meike
-Steinhilber</h4>
+Snijder-Steinhilber</h4>
             
             <h4 data-toc-skip class="date">2026-01-22</h4>
       
@@ -89,49 +95,8 @@ Steinhilber</h4>
 
     
     
-<div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h2>
-<p>The <code>sprtt</code> package is a <strong>s</strong>equential
-<strong>p</strong>robability <strong>r</strong>atio
-<strong>t</strong>ests <strong>t</strong>oolbox
-(<strong>sprtt</strong>). This vignette describes the theoretical
-background of these tests.</p>
-<p>Other recommended vignettes cover:</p>
-<ul>
-<li><p>a <a href="https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html">general
-guide</a>, how to use the package and</p></li>
-<li><p>an extended <a href="https://meikesteinhilber.github.io/sprtt/articles/use-case.html">use
-case</a>.</p></li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="what-is-a-sequential-test-procedure">What is a sequential test procedure?<a class="anchor" aria-label="anchor" href="#what-is-a-sequential-test-procedure"></a>
-</h2>
-<p>With a sequential approach, data is continuously collected and an
-analysis is performed after each data point, which can lead to three
-different results <span class="citation">(A. Wald, 1945)</span>:</p>
-<ul>
-<li><p>The data collection is <em>terminated</em> because enough
-evidence has been collected for the null hypothesis
-(H<sub>0</sub>).</p></li>
-<li><p>The data collection is <em>terminated</em> because enough
-evidence has been collected for the alternative hypothesis
-(H<sub>1</sub>).</p></li>
-<li><p>The data collection <em>will continue</em> as there is not yet
-enough evidence for either of the two hypotheses.</p></li>
-</ul>
-<p>Basically it is not necessary to perform an analysis after each data
-point — several data points can also be added at once. However, this
-affects the sample size (N) and the error rates <span class="citation">(Schnuerch et al., 2020)</span>.</p>
-<p>The efficiency of sequential designs has already been examined.
-Reductions in the sample by 50% and more were found in comparison to
-analyses with fixed sample sizes <span class="citation">(Schnuerch et
-al., 2020; A. Wald, 1945)</span>. Sequential hypothesis testing is
-therefore particularly suitable when resources are limited because the
-required sample size is reduced without compromising predefined error
-probabilities.</p>
-</div>
+<!-- ```{r, child="sprts.Rmd"} -->
+<!-- ``` -->
 <div class="section level2">
 <h2 id="what-is-the-sequential-t-test">What is the sequential <em>t</em>-test?<a class="anchor" aria-label="anchor" href="#what-is-the-sequential-t-test"></a>
 </h2>
@@ -140,61 +105,64 @@ Ratio Test (SPRT) by Abraham <span class="citation">Abraham Wald
 (1947)</span>, which is a highly efficient sequential hypothesis test.
 However, the usage of Wald´s SPRT is limited in the case of normally
 distributed data, because the variance has to be known or specified in
-the hypothesis. Rushton <span class="citation">(1950;
-<strong>rushton1952?</strong>)</span> and <span class="citation">Hajnal
-(1961)</span> have further developed the SPRT using the
-<em>t</em>-statistic. The basic idea is to transform the sequence of
-observations (which is dependent on the variance) into a sequence of the
-associated <em>t</em>-statistic (which is <em>in</em>dependent of the
-variance).</p>
+the hypothesis. Rushton <span class="citation">(1950; 1952)</span> and
+<span class="citation">Hajnal (1961)</span> have further developed the
+SPRT using the <em>t</em>-statistic. The basic idea is to transform the
+sequence of observations (which is dependent on the variance) into a
+sequence of the associated <em>t</em>-statistic (which is
+<em>in</em>dependent of the variance).</p>
 <p>In the SPRT the null and alternative hypotheses are defined as
-follows, with 𝜃 representing the model parameter :</p>
-<p><span class="math display">$$
-H_0:\ 𝜃\ =\ 𝜃_0 \\
-H_1:\ 𝜃\ =\ 𝜃_1
-$$</span></p>
+follows, with <span class="math inline">\(\theta\)</span> representing
+the model parameter :</p>
+<p><span class="math display">\[
+H_0:\ \theta\ =\ \theta_0,
+\]</span></p>
+<p><span class="math display">\[
+H_1:\ \theta\ =\ \theta_1.
+\]</span></p>
 <p>The test statistic of the SPRT is based on a likelihood ratio, which
 is a measure of the relative evidence in the data for the given
 hypotheses. More specifically, it is the ratio of the likelihood of the
 alternative hypothesis to the likelihood of the null hypothesis at the
 <em>m</em>-th step of the sampling process (LR<sub>m</sub>).</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><msub><mi>R</mi><mi>m</mi></msub><mo>=</mo><mfrac><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>d</mi><mi>a</mi><mi>t</mi><msub><mi>a</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>d</mi><mi>a</mi><mi>t</mi><msub><mi>a</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>𝑓</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mi>x</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>𝜃</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>𝑓</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mi>x</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>𝜃</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">
-LR_{m} 
-= \frac {f(data_m | H_1)} {f(data_m | H_0)}
-= \frac {𝑓(x_1,...,x_m | 𝜃_1)} {𝑓(x_1,...,x_m  | 𝜃_0)} 
-</annotation></semantics></math></p>
+<p><span class="math display">\[
+LR_{m}
+= \frac{f(\text{data}_m  | H_1)}{f(\text{data}_m | H_0)}
+= \frac{f(x_1,...,x_m | \theta_1)}{f(x_1,...,x_m  | \theta_0)}
+\]</span></p>
 <p>Before the transformation into the <em>t</em>-statistic, the model
-parameter 𝜃 contains the parameters of a normal distribution: the mean
-(<em>µ</em>) and the standard deviation (𝜎). Therefore, the Wald SPRT
-requires prior knowledge about the variance (𝜎<sup>2</sup>) or a
-specification in the hypotheses.</p>
+parameter <span class="math inline">\(\theta\)</span> contains the
+parameters of a normal distribution: the mean (<span class="math inline">\(\mu\)</span>) and the standard deviation (<span class="math inline">\(\sigma\)</span>). Therefore, the Wald SPRT
+requires prior knowledge about the variance (<span class="math inline">\(\sigma^2\)</span>) or a specification in the
+hypotheses.</p>
 <p>After the transformation of the observed values into the associated
-t-statistic, the model parameter 𝜃 contains the parameters of the
-non-central t-distribution: the degrees of freedom (<em>df</em>) and the
-non-centrality parameter (𝛥).</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>𝑓</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mi>x</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>µ</mi><mo>,</mo><mi>𝜎</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mo>=</mo><mo>&gt;</mo><mrow><mi>𝑓</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mi>t</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>d</mi><mi>f</mi><mo>,</mo><mi>𝛥</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">
-{𝑓(x_1,...,x_m | µ,𝜎)} =&gt; {𝑓(t_2,...,t_m  | df,𝛥)} 
-</annotation></semantics></math></p>
+<em>t</em>-statistic, the model parameter <span class="math inline">\(\theta\)</span> contains the parameters of the
+non-central <em>t</em>-distribution: the degrees of freedom
+(<em>df</em>) and the non-centrality parameter (<span class="math inline">\(\Delta\)</span>).</p>
+<p><span class="math display">\[
+{f(x_1,...,x_m | \mu,\sigma)} =&gt; {f(t_2,...,t_m  | df,\Delta)}
+\]</span></p>
 <p>For the calculation of the degrees of freedom, only the sample size
 of the group(s) is needed. The non-centrality parameter also requires a
-specification of the expected effect size in form of Cohen`s d
-(<em>d</em>).</p>
+specification of the expected effect size in form of Cohen’s
+<em>d</em>.</p>
 <p>To eventually calculate the LR of the sequential <em>t</em>-test,
-only the current t<sub><em>m</em></sub>-statistic is necessary. <span class="citation">Rushton (1950)</span> demonstrated that an SPRT can be
-performed by simply considering the ratio of probability densities for
-the most recent t<sub><em>m</em></sub> statistic under the alternative
-and null hypothesis at any <em>m-</em>th stage. Thus, the test statistic
-for a one and two-sided sequential t-test can be calculated as
-follows:</p>
-<p><span class="math display">$$
+only the current t<sub><em>m</em></sub>-statistic is necessary. <span class="citation">S. Rushton (1950)</span> demonstrated that an SPRT can
+be performed by simply considering the ratio of probability densities
+for the most recent t<sub><em>m</em></sub> statistic under the
+alternative and null hypothesis at any <em>m-</em>th stage. Thus, the
+test statistic for a one and two-sided sequential t-test can be
+calculated as follows:</p>
+<p><span class="math display">\[
 LR_{m,\ one-sided\ sequential\ t-test}
-= \frac {𝑓(t_m | 𝜃_1)} {𝑓(t_m | 𝜃_0)}
-\\
+= \frac{f(t_m | \theta_1)} {f(t_m | \theta_0)},
+\]</span></p>
+<p><span class="math display">\[
 LR_{m,\ two-sided\ sequential\ t-test}
-= \frac {𝑓(t_m^2 | 𝜃_1)} {𝑓(t_m^2 | 𝜃_0)}.
-$$</span></p>
+= \frac{f(t_m^2 | \theta_1)} {f(t_m^2 | \theta_0)}.
+\]</span></p>
 <p>To account for the fact that the algebraic sign is unknown in a
-two-sided test, the <em>t</em>-value is squared <span class="citation">(<strong>rushton1952?</strong>)</span>.</p>
+two-sided test, the <em>t</em>-value is squared <span class="citation">(S. Rushton, 1952)</span>.</p>
 <p>After the calculation of the test statistic, the decision will be
 either to continue sampling or to terminate the sampling and accept one
 of the hypotheses. <span class="citation">A. Wald (1945)</span> defined
@@ -222,19 +190,526 @@ the following rules for the SPRT:</p>
 </tbody>
 </table>
 <p>The A and B boundaries are calculated with the previously defined
-error rates 𝛼 (Type I error) and 𝛽 (Type II error) as follows:</p>
-<p><span class="math display">$$
-A = \left( \frac{1 - 𝛽}{𝛼} \right) \\
-B = \left( \frac{𝛽}{1 - 𝛼} \right).
-$$</span></p>
+error rates <span class="math inline">\(\alpha\)</span> (Type I error)
+and <span class="math inline">\(\beta\)</span> (Type II error) as
+follows:</p>
+<p><span class="math display">\[
+A = \left( \frac{1 - \beta}{\alpha} \right),
+\]</span></p>
+<p><span class="math display">\[
+B = \left( \frac{\beta}{1 - \alpha} \right).
+\]</span></p>
 <p>In summary, three specifications are required to calculate a
 sequential <em>t</em>-test:</p>
 <ul>
-<li><p>the 𝛼 error probability (usually 0.05 or less),</p></li>
-<li><p>the 𝛽 error probability (usually .20 or less), and</p></li>
+<li><p>the <span class="math inline">\(\alpha\)</span> error probability
+(usually 0.05 or less),</p></li>
+<li><p>the <span class="math inline">\(\beta\)</span> error probability
+(usually .20 or less), and</p></li>
 <li><p>Cohen´s d (either as the expected effect size or as the lower
 limit for a substantial effect).</p></li>
 </ul>
+</div>
+<div class="section level2">
+<h2 id="how-do-i-use-the-seq_ttest-function">How do I use the <code>seq_ttest()</code> function?<a class="anchor" aria-label="anchor" href="#how-do-i-use-the-seq_ttest-function"></a>
+</h2>
+<p>The <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function has arguments to specify the
+requested sequential <em>t</em>-test. The table below shows all possible
+combinations which can be performed with the package.</p>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th>Two-sample test</th>
+<th>One-sample test</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Two-sided</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr class="even">
+<td>One-sided</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr class="odd">
+<td>Paired (repeated measures)</td>
+<td>x</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Other recommended vignettes cover:</p>
+<ul>
+<li><p>the <a href="https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html">theoretical
+background</a> and</p></li>
+<li><p>an extended <a href="https://meikesteinhilber.github.io/sprtt/articles/use-case.html">use
+case</a>.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="argument">Argument<a class="anchor" aria-label="anchor" href="#argument"></a>
+</h2>
+<p>The <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function works similarly to the
+<code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test()</a></code> function from the <code>stats</code> package if
+one is familiar with that already.</p>
+<p>Sequential <em>t</em>-tests require some specification from the
+user:</p>
+<ul>
+<li><p>the variables, which contain the data,</p></li>
+<li><p>the error probability <code>alpha</code>,</p></li>
+<li><p>the <code>power</code> (1 - <span class="math inline">\(\beta\)</span>),</p></li>
+<li><p>the effect size Cohen’s <em>d</em>, which represents the expected
+effect size or the lowest effect size of interest, and</p></li>
+<li><p>optional arguments to further specify the test.</p></li>
+</ul>
+<p>However, in some cases, it is not necessary to specify all arguments
+because some of them have default values. If these values are the ones
+required, they can be skipped.</p>
+<table class="table">
+<thead><tr class="header">
+<th>Argument</th>
+<th align="left">Default value</th>
+<th align="left">Input option</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>x</td>
+<td align="left">-</td>
+<td align="left">formula or numeric input</td>
+</tr>
+<tr class="even">
+<td>y</td>
+<td align="left">NULL</td>
+<td align="left">numeric vector</td>
+</tr>
+<tr class="odd">
+<td>data</td>
+<td align="left">NULL</td>
+<td align="left">data frame</td>
+</tr>
+<tr class="even">
+<td>mu</td>
+<td align="left">0</td>
+<td align="left">numeric value</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td align="left">-</td>
+<td align="left">numeric value</td>
+</tr>
+<tr class="even">
+<td>alpha</td>
+<td align="left">0.05</td>
+<td align="left">numeric value between 0 and 1</td>
+</tr>
+<tr class="odd">
+<td>power</td>
+<td align="left">0.95</td>
+<td align="left">numeric value between 0 and 1</td>
+</tr>
+<tr class="even">
+<td>alternative</td>
+<td align="left">“two.sided”</td>
+<td align="left">“two.sided”, “greater”, “less”</td>
+</tr>
+<tr class="odd">
+<td>paired</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE or FALSE</td>
+</tr>
+<tr class="even">
+<td>na.rm</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE or FALSE</td>
+</tr>
+<tr class="odd">
+<td>verbose</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE or FALSE</td>
+</tr>
+</tbody>
+</table>
+<p>There are two different ways how the data can be transferred into the
+function. The <code>x</code> argument takes either <code>formula</code>
+or <code>numeric</code> input. Which input option is recommended depends
+on the structure of the data.</p>
+<div class="section level3">
+<h3 id="x-argument-formula-input">x argument: formula input<a class="anchor" aria-label="anchor" href="#x-argument-formula-input"></a>
+</h3>
+<p>The <code>formula</code> input is used when both groups are merged in
+one variable and there is a second variable that indicates group
+membership. This input option uses the <code>x</code> argument and the
+<code>data</code> argument if the variables are stored in a data
+frame.</p>
+<div class="section level4">
+<h4 id="two-sample-test">
+<em>Two-sample test</em><a class="anchor" aria-label="anchor" href="#two-sample-test"></a>
+</h4>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://meikesteinhilber.github.io/sprtt/">sprtt</a></span><span class="op">)</span></span>
+<span><span class="co">## Note: Sample size planning functions require simulation data (~70 MB).</span></span>
+<span><span class="co">## Data will download automatically on first use.</span></span>
+<span><span class="co">## See ?download_sample_size_data for more information.</span></span>
+<span><span class="co"># show data frame --------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df_income</span><span class="op">)</span></span>
+<span><span class="co">##   monthly_income    sex</span></span>
+<span><span class="co">## 1       4091.001 female</span></span>
+<span><span class="co">## 2       3274.591   male</span></span>
+<span><span class="co">## 3       2696.436 female</span></span>
+<span><span class="co">## 4       3826.413   male</span></span>
+<span><span class="co">## 5       3522.478 female</span></span>
+<span><span class="co">## 6       2563.597   male</span></span>
+<span></span>
+<span><span class="co"># sequential t-test: data argument ---------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="va">sex</span>,     <span class="co"># x argument </span></span>
+<span>          data <span class="op">=</span> <span class="va">df_income</span>,</span>
+<span>          d <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential  Two Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: monthly_income ~ sex</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = -0.594, decision = continue sampling</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span><span class="co">## Log-Likelihood of the:</span></span>
+<span><span class="co">##  alternative hypothesis = 0.827</span></span>
+<span><span class="co">##  null hypothesis = 1.421</span></span>
+<span><span class="co">## alternative hypothesis: true difference in means is not equal to 0.</span></span>
+<span><span class="co">## specified effect size: Cohen's d = 0.2</span></span>
+<span><span class="co">## degrees of freedom: df = 118</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## mean of x mean of y </span></span>
+<span><span class="co">##  3072.086  3080.715 </span></span>
+<span><span class="co">## *Note: to get access to the object of the results use the @ or [] instead of the $ operator.</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="one-sample-test">
+<em>One-sample test</em><a class="anchor" aria-label="anchor" href="#one-sample-test"></a>
+</h4>
+<p>To perform a one-sample test, the right side of the formula has to be
+1. The <code>mu</code> argument is also required, which specifies the
+mean value that one wants to test against.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># show data frame --------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df_income</span><span class="op">)</span></span>
+<span><span class="co">##   monthly_income    sex</span></span>
+<span><span class="co">## 1       4091.001 female</span></span>
+<span><span class="co">## 2       3274.591   male</span></span>
+<span><span class="co">## 3       2696.436 female</span></span>
+<span><span class="co">## 4       3826.413   male</span></span>
+<span><span class="co">## 5       3522.478 female</span></span>
+<span><span class="co">## 6       2563.597   male</span></span>
+<span></span>
+<span><span class="co"># sequential t-test: data argument ---------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="fl">1</span>,     <span class="co"># x argument </span></span>
+<span>          mu <span class="op">=</span> <span class="fl">3000</span>,</span>
+<span>          d <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>          data <span class="op">=</span> <span class="va">df_income</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential One Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: monthly_income ~ 1</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = -6.288, decision = accept H0</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span><span class="co">## Log-Likelihood of the:</span></span>
+<span><span class="co">##  alternative hypothesis = -9.182</span></span>
+<span><span class="co">##  null hypothesis = -2.894</span></span>
+<span><span class="co">## alternative hypothesis: true mean is not equal to 3000.</span></span>
+<span><span class="co">## specified effect size: Cohen's d = 0.5</span></span>
+<span><span class="co">## degrees of freedom: df = 119</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## mean of x </span></span>
+<span><span class="co">##    3076.4 </span></span>
+<span><span class="co">## *Note: to get access to the object of the results use the @ or [] instead of the $ operator.</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="x-argument-numeric-input">x argument: numeric input<a class="anchor" aria-label="anchor" href="#x-argument-numeric-input"></a>
+</h3>
+<p>The <code>numeric</code> input is used when each group has its own
+variable. The variables can either be put in the global environment
+directly or be stored in a data frame.</p>
+<div class="section level4">
+<h4 id="two-sample-test-1">
+<em>Two-sample test</em><a class="anchor" aria-label="anchor" href="#two-sample-test-1"></a>
+</h4>
+<p>If one wants to perform a two-sample test, the <code>y</code>
+argument is required in addition to <code>x</code>. If the data are
+stored in a data frame, the <code>$</code> operator is essential to get
+access to the variables.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># show data frame --------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">)</span></span>
+<span><span class="co">##   treatment_group control_group</span></span>
+<span><span class="co">## 1        6.097665      4.493064</span></span>
+<span><span class="co">## 2        6.609234      5.520956</span></span>
+<span><span class="co">## 3        5.665810      3.954091</span></span>
+<span><span class="co">## 4        4.830564      3.733212</span></span>
+<span><span class="co">## 5        4.917361      4.109373</span></span>
+<span><span class="co">## 6        3.457433      3.563800</span></span>
+<span></span>
+<span><span class="co"># sequential t-test: $ operator ------------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span></span>
+<span>          <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span></span>
+<span>          d <span class="op">=</span> <span class="fl">0.3</span>,                   </span>
+<span>          verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>           </span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential  Two Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: df_cancer$treatment_group and  df_cancer$control_group</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 10.777, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># sequential t-test: global variables ------------------------------------------</span></span>
+<span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span></span>
+<span><span class="va">control</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment</span>,</span>
+<span>          <span class="va">control</span>,</span>
+<span>          d <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>          verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential  Two Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: treatment and  control</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 10.777, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="one-sample-test-1">
+<em>One-sample test</em><a class="anchor" aria-label="anchor" href="#one-sample-test-1"></a>
+</h4>
+<p>If one wants to perform a one-sample test there is only one group and
+therefore only one variable. If the data are in a data frame, the
+<code>$</code> operator is essential to get access to the variables. The
+<code>mu</code> argument is additionally required, which specifies the
+mean which one wants to test against.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># show data frame --------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">)</span></span>
+<span><span class="co">##   treatment_group control_group</span></span>
+<span><span class="co">## 1        6.097665      4.493064</span></span>
+<span><span class="co">## 2        6.609234      5.520956</span></span>
+<span><span class="co">## 3        5.665810      3.954091</span></span>
+<span><span class="co">## 4        4.830564      3.733212</span></span>
+<span><span class="co">## 5        4.917361      4.109373</span></span>
+<span><span class="co">## 6        3.457433      3.563800</span></span>
+<span></span>
+<span><span class="co"># sequential t-test: $ operator ------------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>,     <span class="co"># x argument</span></span>
+<span>          mu <span class="op">=</span> <span class="fl">3.5</span>,            </span>
+<span>          d <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>          verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential One Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: df_cancer$treatment_group</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 16.677, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># sequential t-test: global variables ------------------------------------------</span></span>
+<span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">treatment</span>,     <span class="co"># x argument</span></span>
+<span>          mu <span class="op">=</span> <span class="fl">3.5</span>, </span>
+<span>          data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>          d <span class="op">=</span> <span class="fl">0.2</span>,                  </span>
+<span>          verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential One Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: treatment</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 16.677, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="further-arguments">Further arguments<a class="anchor" aria-label="anchor" href="#further-arguments"></a>
+</h3>
+<div class="section level4">
+<h4 id="paired">Paired<a class="anchor" aria-label="anchor" href="#paired"></a>
+</h4>
+<p>The <code>paired</code> argument states if the data are paired. To
+perform a paired sequential <em>t</em>-test, <code>paired</code> has to
+be set to <code>TRUE</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># show data frame --------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">)</span></span>
+<span><span class="co">##   baseline_stress one_year_stress</span></span>
+<span><span class="co">## 1        7.175250        7.844337</span></span>
+<span><span class="co">## 2        4.918343        5.527191</span></span>
+<span><span class="co">## 3        4.634266        5.783046</span></span>
+<span><span class="co">## 4        5.671340        7.793956</span></span>
+<span><span class="co">## 5        4.141257        3.133889</span></span>
+<span><span class="co">## 6        4.771696        8.548586</span></span>
+<span></span>
+<span><span class="co"># sequential t-test: $ operator ------------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_stress</span><span class="op">$</span><span class="va">baseline_stress</span>, <span class="co"># x argument</span></span>
+<span>          <span class="va">df_stress</span><span class="op">$</span><span class="va">one_year_stress</span>, <span class="co"># y argument</span></span>
+<span>          d <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>          paired <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>          data <span class="op">=</span> <span class="va">df_stress</span><span class="op">)</span>  </span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential Paired t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: df_stress$baseline_stress and  df_stress$one_year_stress</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 7.174, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span><span class="co">## Log-Likelihood of the:</span></span>
+<span><span class="co">##  alternative hypothesis = -3.483</span></span>
+<span><span class="co">##  null hypothesis = -10.657</span></span>
+<span><span class="co">## alternative hypothesis: true difference in means is not equal to 0.</span></span>
+<span><span class="co">## specified effect size: Cohen's d = 0.3</span></span>
+<span><span class="co">## degrees of freedom: df = 119</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## mean difference </span></span>
+<span><span class="co">##        -0.39622 </span></span>
+<span><span class="co">## *Note: to get access to the object of the results use the @ or [] instead of the $ operator.</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="alternative">Alternative<a class="anchor" aria-label="anchor" href="#alternative"></a>
+</h4>
+<p>The <code>alternative</code> argument states in which way the test is
+to be performed:</p>
+<ul>
+<li><p>two-sided: <code>"two.sided"</code> or</p></li>
+<li><p>one-sided: <code>"less"</code> or
+<code>"greater"</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># show data frame --------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df_income</span><span class="op">)</span></span>
+<span><span class="co">##   monthly_income    sex</span></span>
+<span><span class="co">## 1       4091.001 female</span></span>
+<span><span class="co">## 2       3274.591   male</span></span>
+<span><span class="co">## 3       2696.436 female</span></span>
+<span><span class="co">## 4       3826.413   male</span></span>
+<span><span class="co">## 5       3522.478 female</span></span>
+<span><span class="co">## 6       2563.597   male</span></span>
+<span></span>
+<span><span class="co"># sequential t-test: data argument ---------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">monthly_income</span> <span class="op">~</span> <span class="fl">1</span>,     <span class="co"># x argument </span></span>
+<span>          mu <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>          d <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>          alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
+<span>          data <span class="op">=</span> <span class="va">df_income</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential One Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: monthly_income ~ 1</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 31.548, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span><span class="co">## Log-Likelihood of the:</span></span>
+<span><span class="co">##  alternative hypothesis = -149.747</span></span>
+<span><span class="co">##  null hypothesis = -181.295</span></span>
+<span><span class="co">## alternative hypothesis: true mean is not equal to 1000.</span></span>
+<span><span class="co">## specified effect size: Cohen's d = 0.3</span></span>
+<span><span class="co">## degrees of freedom: df = 119</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## mean of x </span></span>
+<span><span class="co">##    3076.4 </span></span>
+<span><span class="co">## *Note: to get access to the object of the results use the @ or [] instead of the $ operator.</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="na-rm">Na.rm<a class="anchor" aria-label="anchor" href="#na-rm"></a>
+</h4>
+<p>The <code>na.rm</code> argument defines the handling of missing
+values. If set to <code>TRUE</code> (default value), it will remove all
+missing values automatically. If this behavior is not wanted, the
+<code>na.rm</code> argument has to be set to <code>FALSE</code>. If
+missing values are discovered, an error is triggered.</p>
+</div>
+<div class="section level4">
+<h4 id="verbose">Verbose<a class="anchor" aria-label="anchor" href="#verbose"></a>
+</h4>
+<p>The <code>verbose</code> argument defines the extent of the output
+shown in the console. If set to <code>TRUE</code> (default value), the
+output will be elaborate, if set to <code>FALSE</code> the output will
+be short.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># sequential t-test: verbose FALSE ---------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span></span>
+<span>          <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span></span>
+<span>          d <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>          verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential  Two Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: df_cancer$treatment_group and  df_cancer$control_group</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 10.777, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span></span>
+<span><span class="co"># sequential t-test: verbose TRUE ----------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>, <span class="co"># x argument</span></span>
+<span>          <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,   <span class="co"># y argument</span></span>
+<span>          d <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>          verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential  Two Sample t-test *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: df_cancer$treatment_group and  df_cancer$control_group</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 10.777, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span><span class="co">## Log-Likelihood of the:</span></span>
+<span><span class="co">##  alternative hypothesis = -11.635</span></span>
+<span><span class="co">##  null hypothesis = -22.411</span></span>
+<span><span class="co">## alternative hypothesis: true difference in means is not equal to 0.</span></span>
+<span><span class="co">## specified effect size: Cohen's d = 0.3</span></span>
+<span><span class="co">## degrees of freedom: df = 238</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## mean of x mean of y </span></span>
+<span><span class="co">##   4.92417   4.02215 </span></span>
+<span><span class="co">## *Note: to get access to the object of the results use the @ or [] instead of the $ operator.</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="how-do-i-get-access-to-the-results">How do I get access to the results?<a class="anchor" aria-label="anchor" href="#how-do-i-get-access-to-the-results"></a>
+</h2>
+<p>The simplest way to get access to the results is to run the
+<code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function. It will print the results
+automatically in the console. The verbose argument specifies how much
+information is wished to be shown.</p>
+<p>However, the recommended way is to save the results in an object (e.g
+“results”). Doing so allows running further calculations with it
+afterward. It is important to keep in mind that the output object will
+be an S4 class. Therefore the access operator is the <code>@</code> sign
+or the <code>[]</code> brackets.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># save the resuts in a object </span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seq_ttest.html">seq_ttest</a></span><span class="op">(</span><span class="va">df_cancer</span><span class="op">$</span><span class="va">treatment_group</span>,</span>
+<span>                     <span class="va">df_cancer</span><span class="op">$</span><span class="va">control_group</span>,  </span>
+<span>                     d <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="co"># access the object with the @ operator </span></span>
+<span><span class="va">results</span><span class="op">@</span><span class="va">decision</span></span>
+<span><span class="co">## [1] "accept H1"</span></span>
+<span></span>
+<span><span class="co"># access the object with the [] brackets</span></span>
+<span><span class="va">results</span><span class="op">[</span><span class="st">"decision"</span><span class="op">]</span></span>
+<span><span class="co">## [1] "accept H1"</span></span></code></pre></div>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -248,10 +723,9 @@ Hajnal, J. (1961). A two-sample sequential t-test. <em>Biometrika</em>,
 Rushton, S. (1950). On a sequential t-test. <em>Biometrika</em>,
 <em>37</em>, 326–333. <a href="https://doi.org/10.2307/2332385" class="external-link">https://doi.org/10.2307/2332385</a>
 </div>
-<div id="ref-schnuerch2020a" class="csl-entry">
-Schnuerch, M., Erdfelder, E., &amp; Heck, D. W. (2020). Sequential
-hypothesis tests for multinomial processing tree models. <em>Journal of
-Mathematical Psychology</em>, <em>95</em>, 102326. <a href="https://doi.org/10.1016/j.jmp.2020.102326" class="external-link">https://doi.org/10.1016/j.jmp.2020.102326</a>
+<div id="ref-rushton1952" class="csl-entry">
+Rushton, S. (1952). On a <span>Two-Sided Sequential</span>
+t-<span>Test</span>. <em>Biometrika</em>, <em>39</em>(3/4), 302. <a href="https://doi.org/10.2307/2334026" class="external-link">https://doi.org/10.2307/2334026</a>
 </div>
 <div id="ref-wald1945" class="csl-entry">
 Wald, A. (1945). Sequential tests of statistical hypotheses. <em>The

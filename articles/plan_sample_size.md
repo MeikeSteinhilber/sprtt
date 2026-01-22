@@ -25,8 +25,8 @@ simulation-based recommendations can guide researchers on:
 ### The Challenge of Limited Resources
 
 While the decision boundaries of the sequential ANOVA control Type I
-($\alpha$) and Type II ($\beta$) errors in the long run – and
-consequently maintain the desired power ($1 - \beta$) – a new
+(\\\alpha\\) and Type II (\\\beta\\) errors in the long run – and
+consequently maintain the desired power (\\1-\beta\\) – a new
 consideration emerges when researchers face resource constraints. When
 the maximum affordable sample size is reached before a decision boundary
 is crossed, this results in a **non-decision**.
@@ -78,7 +78,7 @@ The simulation database covers a range of common experimental designs:
   0.35, 0.40
 - **Number of groups:** 2, 3, 4
 - **Desired power:** 0.80, 0.90, 0.95
-- **Alpha level:** 0.05 (fixed)
+- **Alpha level:** 0.05
 
 ------------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ trust decisions to accept the null hypothesis and minimize Type II
 errors. However, given your limited resources, you’re willing to accept
 a 20% non-decision rate. This means that when you *do* reach a decision,
 which will happen 80% of the time, you can trust it, whether you’re
-accepting or rejecting the null hypothesis $\alpha = \beta = .05$.
+accepting or rejecting the null hypothesis \\\alpha = \beta = .05\\.
 
 Now let’s see how to generate a sample size planning report for this
 scenario:

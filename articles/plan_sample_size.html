@@ -11,7 +11,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -174,15 +180,11 @@ decision rate</li>
 <h3 id="the-challenge-of-limited-resources">The Challenge of Limited Resources<a class="anchor" aria-label="anchor" href="#the-challenge-of-limited-resources"></a>
 </h3>
 <p>While the decision boundaries of the sequential ANOVA control Type I
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>)
-and Type II
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>)
-errors in the long run – and consequently maintain the desired power
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">1-\beta</annotation></semantics></math>)
-– a new consideration emerges when researchers face resource
-constraints. When the maximum affordable sample size is reached before a
-decision boundary is crossed, this results in a
-<strong>non-decision</strong>.</p>
+(<span class="math inline">\(\alpha\)</span>) and Type II (<span class="math inline">\(\beta\)</span>) errors in the long run – and
+consequently maintain the desired power (<span class="math inline">\(1-\beta\)</span>) – a new consideration emerges
+when researchers face resource constraints. When the maximum affordable
+sample size is reached before a decision boundary is crossed, this
+results in a <strong>non-decision</strong>.</p>
 <p>Importantly, the non-decision rate depends directly on the maximum
 sample size a researcher can collect. This introduces a new metric: the
 <strong>decision rate</strong> (the chance to reach a decision) given
@@ -242,7 +244,7 @@ designs:</p>
 <li>
 <strong>Desired power:</strong> 0.80, 0.90, 0.95</li>
 <li>
-<strong>Alpha level:</strong> 0.05 (fixed)</li>
+<strong>Alpha level:</strong> 0.05</li>
 </ul>
 <hr>
 </div>
@@ -276,8 +278,7 @@ trust decisions to accept the null hypothesis and minimize Type II
 errors. However, given your limited resources, you’re willing to accept
 a 20% non-decision rate. This means that when you <em>do</em> reach a
 decision, which will happen 80% of the time, you can trust it, whether
-you’re accepting or rejecting the null hypothesis
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mi>β</mi><mo>=</mo><mn>.05</mn></mrow><annotation encoding="application/x-tex">\alpha = \beta = .05</annotation></semantics></math>.</p>
+you’re accepting or rejecting the null hypothesis <span class="math inline">\(\alpha = \beta = .05\)</span>.</p>
 <p>Now let’s see how to generate a sample size planning report for this
 scenario:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
