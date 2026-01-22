@@ -11,10 +11,10 @@ and paired t-tests for testing one- and two-sided hypotheses (Schnuerch
 & Erdfelder (2019)
 [doi:10.1037/met0000234](https://doi.org/10.1037/met0000234) ). The
 seq_anova() function allows to perform a sequential one-way fixed
-effects ANOVA (Steinhilber et al. (2023)
-[doi:10.31234/osf.io/m64ne](https://doi.org/10.31234/osf.io/m64ne) ).
-Learn more about the package by using vignettes "browseVignettes(package
-= "sprtt")" or go to the website
+effects ANOVA (Steinhilber et al. (2024)
+[doi:10.1037/met0000677](https://doi.org/10.1037/met0000677) ). Learn
+more about the package by using vignettes "browseVignettes(package =
+"sprtt")" or go to the website
 <https://meikesteinhilber.github.io/sprtt/>.
 
 ## See also
