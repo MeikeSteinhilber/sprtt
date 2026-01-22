@@ -104,7 +104,7 @@ plot_anova <- function(anova_results,
   plot <- results %>%
     # slice(1:decision_sample_position) %>%
     ggplot(aes(x = .data$sample_size, y = .data$lr_log)) +
-    xlim(0 , results$sample_size[N_steps] + results$sample_size[N_steps]*(lr_factor+0.05)) +
+    xlim(0 , results$sample_size[N_steps] + results$sample_size[N_steps]*(lr_factor+0.1)) +
     geom_line(linewidth = line_size) +
     geom_hline(yintercept = A_boundary_log, linetype = "dashed", linewidth = line_size) +
     geom_hline(yintercept = B_boundary_log, linetype = "dashed", linewidth = line_size) +

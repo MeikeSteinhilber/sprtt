@@ -154,7 +154,7 @@ The simulation database covers a range of common experimental designs:
 - **Expected effect sizes (Cohen's *f*):** 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40
 - **Number of groups:** 2, 3, 4
 - **Desired power:** 0.80, 0.90, 0.95
-- **Alpha level:** 0.05 (fixed)
+- **Alpha level:** 0.05
 
 
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Use Case"
-author: "Meike Steinhilber"
+author: "Meike Snijder-Steinhilber"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
