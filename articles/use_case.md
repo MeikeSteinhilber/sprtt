@@ -1,7 +1,5 @@
 # Use Case
 
-## Note
-
 - The data set `df_stress` is included in the `sprtt` package. Thus, the
   data set is available when the package is loaded.
 

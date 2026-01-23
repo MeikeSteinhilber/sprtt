@@ -52,6 +52,7 @@
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Getting Started</h6></li>
     <li><a class="dropdown-item" href="../articles/usage_sprtt.html">How to use the sprtt package</a></li>
+    <li><a class="dropdown-item" href="../articles/sprts.html">SPRTs</a></li>
     <li><a class="dropdown-item" href="../articles/use_case.html">Use Case</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Sequential Tests</h6></li>
@@ -59,7 +60,6 @@
     <li><a class="dropdown-item" href="../articles/one_way_anova.html">Sequential One-Way ANOVA</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Further Topics</h6></li>
-    <li><a class="dropdown-item" href="../articles/sprts.html">SPRTs</a></li>
     <li><a class="dropdown-item" href="../articles/plan_sample_size.html">Sample Size Planning for Sequential ANOVAs</a></li>
     <li><a class="dropdown-item" href="../articles/developer_guide.html">Developer Guide: sprtt Package</a></li>
   </ul>
@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-01-22</h4>
+            <h4 data-toc-skip class="date">2026-01-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/usage_sprtt.Rmd" class="external-link"><code>vignettes/usage_sprtt.Rmd</code></a></small>
       <div class="d-none name"><code>usage_sprtt.Rmd</code></div>
@@ -95,6 +95,13 @@ Snijder-Steinhilber</h4>
 
     
     
+<p>The <code>sprtt</code> package is a toolbox for
+<strong>s</strong>equential <strong>p</strong>robability
+<strong>r</strong>atio <strong>t</strong>ests (SPRTs). This vignette
+demonstrates core functionality through practical examples and provides
+an overview of the main functions. For more comprehensive guides on
+specific topics, see the other package vignettes. If you are unfamiliar
+with SPRTs, please see the <em>XXX</em> section first.</p>
 <div class="section level2">
 <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
 </h2>
@@ -116,15 +123,129 @@ loaded.</p></li>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+<h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
-<p>The <code>sprtt</code> package is a <strong>s</strong>equential
-<strong>p</strong>robability <strong>r</strong>atio
-<strong>t</strong>ests <strong>t</strong>oolbox
-(<strong>sprtt</strong>). This vignette demonstrates the usage of the
-package using the <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function and all arguments
-with short examples. The theoretical background of the sequential
-<em>t</em>-test will not be covered by this vignette.</p>
+<div class="section level3">
+<h3 id="understand-the-theoretical-background-of-sprts">1. Understand the theoretical background of SPRTs<a class="anchor" aria-label="anchor" href="#understand-the-theoretical-background-of-sprts"></a>
+</h3>
+<p>Reading the original foundational literature is not necessary, but
+reading recent simulation studies is highly recommended to understand
+how SPRTs work, their robustness to assumption violations, and proper
+application.</p>
+<p><strong>Key references:</strong></p>
+<ul>
+<li>sequential <em>t</em>-tests: <span class="citation">(<strong>schnuerch2019?</strong>)</span> <a href="doi:10.1037/met0000234" class="uri">doi:10.1037/met0000234</a>
+</li>
+<li>sequential one-way ANOVA: <span class="citation">(<strong>steinhilber2024?</strong>)</span> <a href="doi:10.1037/met0000677" class="uri">doi:10.1037/met0000677</a>
+</li>
+<li>understanding questionable research practices in the context of
+SPRTs: <span class="citation">(<strong>steinhilber2025?</strong>)</span>
+<a href="doi:10.31234/osf.io/vkbu3_v1" class="uri">doi:10.31234/osf.io/vkbu3_v1</a>
+</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="check-if-sprts-are-the-fitting-choice">2. Check if SPRTs are the fitting choice<a class="anchor" aria-label="anchor" href="#check-if-sprts-are-the-fitting-choice"></a>
+</h3>
+<p>Whether a statistical tool is appropriate depends strongly on the
+research context and intended use. SPRTs are recommended when:</p>
+<ul>
+<li>Data can be collected sequentially</li>
+<li>Data can be analyzed sequentially (ideally after each new
+observation)</li>
+<li>The research question translates to a clear hypothesis test: <span class="math inline">\(H_0\)</span> vs <span class="math inline">\(H_1\)</span> (is there an effect or not?)</li>
+<li>Resources are limited and efficiency is a priority</li>
+<li>Long-term error rates need to be controlled (both <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> error rates)</li>
+<li>Accepting <span class="math inline">\(H_0\)</span> (no effect) is of
+interest</li>
+</ul>
+<p>SPRTs are <strong>not</strong> recommended when:</p>
+<ul>
+<li>Sufficient literature already establishes the existence of the
+effect and the main goal is precise effect size estimation</li>
+<li>Multiple hypotheses must be tested on the same dataset
+(theoretically possible but not yet implemented)</li>
+<li>Data are collected all at once or only in very large batches</li>
+<li>Groups cannot be sampled somewhat equally over time (e.g.,
+collecting all participants from one group before starting the
+other)</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="plan-your-resources">3. Plan your resources<a class="anchor" aria-label="anchor" href="#plan-your-resources"></a>
+</h3>
+<!-- The `plan_sample_size()` helps you to get realistic expectations of how much data is usually required and how much data you want to collect in the worst case. -->
+<!-- For SPRTs a classical a priori power analysis is not necessary as the power ($1-\beta$) is controlled via the stopping boundaries, thus one can just specify the test and immediately start collecting the data and stop if the test reached a decision to accept one of the two hypothesis. -->
+<!-- However, it is relevant to plan the necessary resources even if the final sample size is unknown. -->
+<!-- Two sample sizes are here of interest: -->
+<!-- - the expected sample size ($N_{\text{median}}$): this is the median sample size that is required to reach a decision and usually your final sample size will be close to that number. -->
+<!-- - the maximum sample size ($N_{\text{max}}$): this is the maximal sample size that one can afford and it is recommended to choose a setting where $N_{\text{max}}$ leads to a decsion rate of 20% and higher on average. -->
+<!-- For more details see the vignette *XXX*. -->
+<p>The <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code> function helps establish
+realistic expectations for data requirements and resource planning.</p>
+<p>Unlike traditional designs, SPRTs do not require classical a priori
+power analysis because power (<span class="math inline">\(1-\beta\)</span>) is controlled through the
+stopping boundaries. This allows starting data collection immediately
+and stopping once the test reaches a decision. However, planning
+necessary resources remains important for practical concerns.</p>
+<p>Two sample sizes are relevant:</p>
+<ul>
+<li>
+<strong>Expected sample size</strong> (<span class="math inline">\(N_{\text{median}}\)</span>): The median sample
+size required to reach a decision. Most studies will finish near this
+value.</li>
+<li>
+<strong>Maximum sample size</strong> (<span class="math inline">\(N_{\text{max}}\)</span>): The maximum affordable
+sample size. Choose settings where <span class="math inline">\(N_{\text{max}}\)</span> yields a decision rate of
+at least 80% (i.e., the test reaches a decision in at least 80% of cases
+where the maximum sample is reached).</li>
+</ul>
+<p>For more details see the vignette <em>XXX</em>.</p>
+</div>
+<div class="section level3">
+<h3 id="plan-the-data-collection-and-register-your-test-specifications">4. Plan the data collection and register your test
+specifications<a class="anchor" aria-label="anchor" href="#plan-the-data-collection-and-register-your-test-specifications"></a>
+</h3>
+<p>A thoughtful data collection plan is highly recommended to keep
+groups somewhat balanced and to track and balance (or randomize)
+potential confounders.</p>
+<p>As SPRTs are best suited for confirmatory research, preregistering
+the data collection plan, hypothesis, and test specifications (e.g.,
+effect size of interest, <span class="math inline">\(\alpha\)</span> and
+<span class="math inline">\(\beta\)</span> levels) is strongly
+recommended.</p>
+<p>Preparing an analysis script in advance enables a smooth process for
+continuously analyzing incoming data. This ensures data collection stops
+immediately once the stopping criterion is reached, avoiding unnecessary
+additional data collection.</p>
+<p>To test the analysis pipeline, use either:</p>
+<ul>
+<li>The example datasets included in the <code>sprtt</code> package</li>
+<li>The data generating functions, which allow specifying the true
+effect size for simulation testing</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="collect-the-data-and-apply-the-sprts">5. Collect the data and apply the SPRTs<a class="anchor" aria-label="anchor" href="#collect-the-data-and-apply-the-sprts"></a>
+</h3>
+<p>The following test are currently implemented:</p>
+<ul>
+<li>sequential <em>t</em>-tests</li>
+<li>sequential one-way ANOVA with independent groups</li>
+</ul>
+<p>See the vignettes for each test. <em>XXX</em></p>
+</div>
+<div class="section level3">
+<h3 id="reporting-of-the-results">5. Reporting of the results<a class="anchor" aria-label="anchor" href="#reporting-of-the-results"></a>
+</h3>
+<p>Guidelines for the reporting of SPRTs can be found in the following
+paper that also explicitly covers sequential testing and specifically
+SPRTs <span class="citation">(<strong>schubert2025?</strong>)</span> <a href="doi:10.1038/s44271-025-00356-w" class="uri">doi:10.1038/s44271-025-00356-w</a>.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

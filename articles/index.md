@@ -8,6 +8,10 @@
   This vignette describes the sequential t-test and the usage of the
   `sprtt` package.
 
+- [SPRTs](https://meikesteinhilber.github.io/sprtt/articles/sprts.md):
+
+  This vignette describes SPRTs in general.
+
 - [Use
   Case](https://meikesteinhilber.github.io/sprtt/articles/use_case.md):
 
@@ -24,10 +28,6 @@
   This vignette describes the sequential one-way ANOVA.
 
 ### Further Topics
-
-- [SPRTs](https://meikesteinhilber.github.io/sprtt/articles/sprts.md):
-
-  This vignette describes SPRTs in general.
 
 - [Sample Size Planning for Sequential
   ANOVAs](https://meikesteinhilber.github.io/sprtt/articles/plan_sample_size.md):
