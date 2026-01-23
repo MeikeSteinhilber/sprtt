@@ -20,16 +20,23 @@ results["likelihood_ratio"]
 # simulate data ---------------------------------------------------------------
 set.seed(333)
 data <- sprtt::draw_sample_normal(k_groups = 3,
-                                  f = 0.25,
+                                  f = 0.15,
                                   sd = c(1, 1, 1),
-                                  max_n = 22)
+                                  max_n = 46)
 
 # calculate sequential ANOVA --------------------------------------------------
-results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data, plot = TRUE)
+results <- sprtt::seq_anova(y ~ x, f = 0.15, data = data, plot = TRUE)
 # test decision
 results@decision
 # test results
 results
 
 # plot results -----------------------------------------------------------------
-sprtt::plot_anova(results, position_lr_x = 60)
+sprtt::plot_anova(results)
+
+# save the plot ----------------------------------------------------------------
+ggplot2::ggsave(
+  "man/figures/readme_example.png",       # define the path
+   units = "cm", height = 10, width = 16, # define the image size
+   dpi = 300                              # define resolution
+  )

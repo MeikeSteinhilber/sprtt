@@ -89,7 +89,7 @@ Short examples can be found in the following paragraph.
 <!--
 &#10;ATTENTION!
 &#10;in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
-<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/readme_example.png" width="100%" />
 -->
 
 ``` r
@@ -120,12 +120,12 @@ results["likelihood_ratio"]
 # simulate data ---------------------------------------------------------------
 set.seed(333)
 data <- sprtt::draw_sample_normal(k_groups = 3,
-                                  f = 0.25,
+                                  f = 0.15,
                                   sd = c(1, 1, 1),
-                                  max_n = 22)
+                                  max_n = 46)
 
 # calculate sequential ANOVA --------------------------------------------------
-results <- sprtt::seq_anova(y ~ x, f = 0.25, data = data, plot = TRUE)
+results <- sprtt::seq_anova(y ~ x, f = 0.15, data = data, plot = TRUE)
 # test decision
 results@decision
 #> [1] "accept H1"
@@ -136,25 +136,35 @@ results
 #> 
 #> formula: y ~ x
 #> test statistic:
-#>  log-likelihood ratio = 3.153, decision = accept H1
+#>  log-likelihood ratio = 3.061, decision = accept H1
 #> SPRT thresholds:
 #>  lower log(B) = -2.944, upper log(A) = 2.944
 #> Log-Likelihood of the:
-#>  alternative hypothesis = -3.293
-#>  null hypothesis = -6.447
+#>  alternative hypothesis = -3.839
+#>  null hypothesis = -6.9
 #> alternative hypothesis: true difference in means is not equal to 0.
-#> specified effect size: Cohen's f = 0.25
-#> empirical Cohen's f = 0.4684039, 95% CI[0.1741801, 0.6969498]
-#> Cohen's f adjusted = 0.415
-#> degrees of freedom: df1 = 2, df2 = 63
-#> SS effect = 12.63455, SS residual = 57.58624, SS total = 70.22079
+#> specified effect size: Cohen's f = 0.15
+#> empirical Cohen's f = 0.3255325, 95% CI[0.1324216, 0.4835088]
+#> Cohen's f adjusted = 0.296
+#> degrees of freedom: df1 = 2, df2 = 135
+#> SS effect = 12.83987, SS residual = 121.1635, SS total = 134.0034
 #> *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
 # plot results -----------------------------------------------------------------
-sprtt::plot_anova(results, position_lr_x = 60)
+sprtt::plot_anova(results)
 ```
 
-<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/readme_example.png" width="100%" />
+
+``` r
+
+# save the plot ----------------------------------------------------------------
+ggplot2::ggsave(
+  "man/figures/readme_example.png",       # define the path
+   units = "cm", height = 10, width = 16, # define the image size
+   dpi = 300                              # define resolution
+  )
+```
 
 ### Sample Size Planning
 
@@ -162,7 +172,10 @@ The sample size planning function requires simulation data (~70 MB). On
 first use, this data will be downloaded and chached automatically:
 
 ``` r
-sprtt::plan_sample_size(f_expected = 0.25, k_groups = 3, power = 0.9, decision_rate = 0.9)
+sprtt::plan_sample_size(f_expected = 0.25,
+                        k_groups = 3,
+                        power = 0.9,
+                        decision_rate = 0.9)
 ```
 
 The package contains functions to help managing the cached data, if
@@ -172,13 +185,13 @@ necessary.
 
 ``` r
 # Check cache status
-cache_info()
+sprtt::cache_info()
 
 # Force re-download (if data was updated)
-download_sample_size_data(force = TRUE)
+sprtt::download_sample_size_data(force = TRUE)
 
 # Clear cache
-cache_clear()
+sprtt::cache_clear()
 ```
 
 If you need to use the package offline, download the data while

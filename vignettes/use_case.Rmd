@@ -6,6 +6,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 4
+    css: "customize.css"
 vignette: >
   %\VignetteIndexEntry{Use Case}
   %\VignetteEngine{knitr::rmarkdown}
@@ -22,7 +23,7 @@ knitr::opts_chunk$set(
 library(sprtt)
 ```
 
-## Note
+::: {.custom-info-box}
 
 -   The data set `df_stress` is included in the `sprtt` package. Thus, the data set is available when the package is loaded.
 
@@ -31,6 +32,8 @@ library(sprtt)
     -   `# comment`: is a comment
     -   `function()`: is R code
     -   `#> results of function()`: is console output
+
+:::
 
 ## Overview
 

@@ -96,7 +96,7 @@ Short examples can be found in the following paragraph.
 ATTENTION!
 
 in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
-<img src="man/figures/figure-gfm/unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/readme_example.png" width="100%" />
 -->
 
 ```{r, code=xfun::read_utf8('inst/examples/sprtt_examples.R')}
@@ -110,7 +110,10 @@ The sample size planning function requires simulation data (~70 MB).
 On first use, this data will be downloaded and chached automatically:
 
 ```{r, eval=FALSE}
-sprtt::plan_sample_size(f_expected = 0.25, k_groups = 3, power = 0.9, decision_rate = 0.9)
+sprtt::plan_sample_size(f_expected = 0.25,
+                        k_groups = 3,
+                        power = 0.9,
+                        decision_rate = 0.9)
 ```
 
 
@@ -120,13 +123,13 @@ The package contains functions to help managing the cached data, if necessary.
 
 ```{r, eval=FALSE}
 # Check cache status
-cache_info()
+sprtt::cache_info()
 
 # Force re-download (if data was updated)
-download_sample_size_data(force = TRUE)
+sprtt::download_sample_size_data(force = TRUE)
 
 # Clear cache
-cache_clear()
+sprtt::cache_clear()
 ```
 
 If you need to use the package offline, download the data while connected beforehand.
