@@ -1,5 +1,8 @@
 # sprtt
 
+> ⚠️⚠️⚠️ **The documentation and website are currently under
+> construction for the next release.** ⚠️⚠️⚠️
+
 ## Overview
 
 The `sprtt` package is a **s**equential **p**robability **r**atio
