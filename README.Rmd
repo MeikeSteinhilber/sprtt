@@ -30,6 +30,10 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 <!-- badges: end -->
 
+>⚠️⚠️⚠️
+>**The documentation and website are currently under construction for the next release.**
+>⚠️⚠️⚠️
+
 ## Overview
 
 The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests **t**oolbox (**sprtt**).
