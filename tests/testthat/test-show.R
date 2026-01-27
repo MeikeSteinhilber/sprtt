@@ -1,5 +1,3 @@
-context("show: Check output")
-
 # t-TEST -----------------------------------------------------------------------
 test_that("show: print output ttest?", {
   # 3.ed edition necessary for expect_snapshot
@@ -52,6 +50,42 @@ test_that("show: print output ttest?", {
       seq_ttest(
         x ~ y,
         d = 0.8)
+    )
+  )
+
+  data <- sprtt::draw_sample_normal(2, 0.8, 40)
+  expect_snapshot(
+    show(
+      seq_ttest(
+        y ~ x,
+        d = 0.60,
+        data = data,
+        alternative = "less",
+        verbose = TRUE)
+    )
+  )
+
+  data <- sprtt::draw_sample_normal(2, 0.8, 40)
+  expect_snapshot(
+    show(
+      seq_ttest(
+        y ~ x,
+        d = 0.60,
+        data = data,
+        alternative = "greater",
+        verbose = TRUE)
+    )
+  )
+
+  set.seed(333)
+  expect_snapshot(
+    show(
+      seq_ttest(
+        rnorm(50),
+        mu = 1,
+        d = 0.4,
+        verbose = TRUE,
+        alternative = "greater")
     )
   )
 })

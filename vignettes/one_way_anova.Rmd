@@ -1,6 +1,6 @@
 ---
 title: "Sequential One-Way ANOVA"
-author: "Meike Steinhilber"
+author: "Meike Snijder-Steinhilber"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
@@ -44,9 +44,14 @@ set.seed(333)
 data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 30)
 
 # calculate the SPRT -----------------------------------------------------------
-anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE)
-anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE, seq_steps = "single")
-anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE, seq_steps = "balanced")
+anova_results <- sprtt::seq_anova(y~x, f = 0.25,
+                                  data = data, plot = TRUE)
+anova_results <- sprtt::seq_anova(y~x, f = 0.25,
+                                  data = data, plot = TRUE,
+                                  seq_steps = "single")
+anova_results <- sprtt::seq_anova(y~x, f = 0.25,
+                                  data = data, plot = TRUE,
+                                  seq_steps = "balanced")
 
 # plot the results -------------------------------------------------------------
 sprtt::plot_anova(anova_results)
@@ -77,11 +82,11 @@ sprtt::plot_anova(anova_results,
                  labels = TRUE,
                  position_labels_x = 0.2,
                  position_labels_y = 0.2,
-                 position_lr_x = 0.1,
-                 position_lr_y = -1.8,
+                 position_lr_x = 100,
+                 position_lr_y = 1.8,
                  font_size = 20,
                  line_size = 1,
-                 highlight_color = "darkblue"
+                 highlight_color = "steelblue"
                  )
 ```
 

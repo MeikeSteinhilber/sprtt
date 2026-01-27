@@ -1,0 +1,291 @@
+---
+title: "Sample Size Planning for Sequential ANOVAs"
+author: "Meike Snijder-Steinhilber"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+    css: customize.css
+description: >
+  This vignette describes how to plan sample sizes for sequential ANOVAs using simulation-based approaches.
+vignette: >
+  %\VignetteIndexEntry{Sample Size Planning for Sequential ANOVAs}
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: references.bib
+csl: "apa.csl"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = FALSE,
+  message = TRUE,
+  warning = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Why Sample Size Planning Matters
+
+Sample size planning for sequential tests like the sequential ANOVA is, in a strict statistical sense, unnecessary -- the final sample size is determined by the data and remains unknown beforehand.
+Data collection continues until either the upper or lower decision boundary is reached.
+
+However, what holds true in theory often diverges from practical constraints.
+Resource planning is essential, as there is a substantial difference between collecting 100 versus 1,000 observations.
+To address these practical concerns, the **sprtt** package provides the `plan_sample_size()` function, which generates HTML reports summarizing simulation results for sequential ANOVAs.
+
+Although the exact final sample size cannot be known in advance, simulation-based recommendations can guide researchers on:
+
+- The typical amount of data required to reach a decision
+- The upper limit of resources recommended to achieve a specified decision rate
+
+### The Challenge of Limited Resources
+
+While the decision boundaries of the sequential ANOVA control Type I ($\alpha$) and Type II ($\beta$) errors in the long run -- and consequently maintain the desired power ($1-\beta$) -- a new consideration emerges when researchers face resource constraints.
+When the maximum affordable sample size is reached before a decision boundary is crossed, this results in a **non-decision**.
+
+Importantly, the non-decision rate depends directly on the maximum sample size a researcher can collect.
+This introduces a new metric: the **decision rate** (the chance to reach a decision) given resource limitations.
+
+### Non-Decisions vs. Null Hypothesis Acceptance
+
+While a non-decision are undesirable, it represents a crucial conceptual distinction from accepting the null hypothesis.
+SPRTs like the sequential ANOVA differentiate between stopping the data collection to accepting the null hypothesis and the case where more data/ evidence is required to stop.
+
+<!-- ::: {.alert-info} -->
+<!-- Consider a common situation in traditional fixed-design studies: a non-significant *p*-value is achieved in a setting where the sample size was planned for a medium effect size of interest with a Power of 80%. -->
+<!-- In such cases, it remains unclear whether the non-significant result constitutes evidence for the null hypothesis or simply reflects a lack of evidence altogether. -->
+<!-- ::: -->
+
+
+
+## The `plan_sample_size()` Function
+
+The `plan_sample_size()` function generates interactive HTML reports for sample size planning by querying a large simulation database.
+Reports include recommended maximum sample sizes, expected sample sizes, early stopping probabilities, power curves, and comparisons to traditional ANOVA designs.
+
+### Pre-computed Simulation Database
+
+To make sample size planning fast and accessible, **sprtt** includes access to extensive simulation results. These simulations were conducted by:
+
+1. Generating thousands of datasets for each combination of parameters
+2. Running sequential ANOVAs on each dataset
+3. Recording when each test stopped
+4. Aggregating these results to get key summary statistics that guide the sample size planning
+
+This simulation database is stored externally to keep the package installation size small.
+The data are downloaded automatically on first use and cached locally for future sessions.
+
+```{r, echo=FALSE, results='asis'}
+cat(sprintf(
+  'Source code of the simulation database: <a href="https://github.com/MeikeSteinhilber/sprtt_plan_sample_size" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/GitHub-MeikeSteinhilber/sprtt__plan__sample__size-blue?logo=github" alt="GitHub" style="vertical-align:middle;"></a></span></p>',
+  sprtt_cit
+))
+```
+
+
+### Supported Design Parameters
+
+The simulation database covers a range of common experimental designs:
+
+- **Expected effect sizes (Cohen's *f*):** 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40
+- **Number of groups:** 2, 3, 4
+- **Desired power:** 0.80, 0.90, 0.95
+- **Alpha level:** 0.05
+
+
+---
+
+## Getting Started
+
+### Installation and Setup
+
+First, ensure the **sprtt** package is installed and loaded:
+```{r installation}
+# Install from CRAN (if needed)
+install.packages("sprtt")
+
+# Load the package
+library(sprtt)
+```
+
+### Your First Sample Size Report
+
+
+Let's walk through a practical example.
+Imagine you're planning a study to compare three groups. You want to detect medium-sized effects (Cohen's *f* = 0.25) or larger, and you're working with some specific constraints.
+
+First, you'll set your alpha level to 0.05, the standard threshold that ensures you can trust decisions to reject the null hypothesis and minimize Type I errors.
+You also want high statistical power so you can trust decisions to accept the null hypothesis and minimize Type II errors.
+However, given your limited resources, you're willing to accept a 20% non-decision rate.
+This means that when you *do* reach a decision, which will happen 80% of the time, you can trust it, whether you're accepting or rejecting the null hypothesis $\alpha = \beta = .05$.
+
+Now let's see how to generate a sample size planning report for this scenario:
+```{r first-report}
+plan_sample_size(
+  f_expected = 0.25,   # Expected effect size
+  k_groups = 3,        # Number of groups
+  power = 0.95,        # Desired power
+  decision_rate = 0.80 # desired percentage of decisions 
+)
+```
+
+When you run this code for the first time, several things happen:
+
+1. **Data download:** The simulation database (~70 MB) is downloaded from GitHub and saved to your local cache directory. This is a one-time operation.
+2. **Report generation:** An HTML report is created in your temporary directory.
+3. **Browser launch:** The report automatically opens in your default web browser (if running interactively).
+
+The entire process typically takes a couple of seconds for the initial download, then just a few seconds for generating the subsequent report.
+
+
+
+### Function Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `f_expected` | numeric | *required* | Expected standardized effect size (Cohen's *f*). Must be one of: 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, or 0.40. |
+| `k_groups` | integer | *required* | Number of groups to compare. Must be 2, 3, 4, or 5. |
+| `power` | numeric | 0.95 | Desired statistical power. Must be 0.80, 0.90, or 0.95. |
+| `output_dir` | character | `tempdir()` | Directory where the HTML report will be saved. |
+| `output_file` | character | `"sprtt-report-sample-size-planning.html"` | Filename for the generated report. |
+| `open` | logical | `interactive()` | Whether to open the report in your browser after generation. Set to `FALSE` for batch processing. |
+| `overwrite` | logical | FALSE | Whether to overwrite an existing file with the same name without prompting. |
+
+### Return Value
+
+The function invisibly returns the full path to the generated HTML file as a character string.
+This is useful if you want to programmatically access or move the file after generation.
+
+### Input Validation
+
+The function validates all inputs before generating the report.
+If you specify a parameter value that doesn't exist in the simulation database, you'll receive an informative error message listing the available options. For example:
+```{r error-example, eval=FALSE}
+# This will produce an error:
+plan_sample_size(f_expected = 0.22, k_groups = 3)
+#> Error: `f_expected` = 0.22 is not available. 
+#> Please choose one of 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, or 0.4
+```
+
+
+
+## Practical Use cases
+
+### Case 1: Comparing Different Effect Sizes
+
+Effect size has a large impact on required sample size.
+Here's how to generate reports for different scenarios:
+```{r example-effect-sizes}
+# Planning for a small effect (f = 0.15)
+plan_sample_size(f_expected = 0.15, k_groups = 3, power = 0.95)
+
+# Planning for a large effect (f = 0.40)
+plan_sample_size(f_expected = 0.40, k_groups = 3, power = 0.95)
+```
+
+
+
+### Case 2: Saving Reports to a Specific Location
+
+By default, reports are saved to a temporary directory. For reports you want to keep, specify a custom location:
+```{r example-custom-location}
+plan_sample_size(
+  f_expected = 0.25,
+  k_groups = 4,
+  output_dir = "~/Documents/research/sample_size_planning",
+  output_file = "study1_anova_power.html",
+  open = TRUE
+)
+```
+
+This is particularly useful when preparing documentation for grant applications, pre-registrations, or manuscript supplementary materials.
+
+### Case 3: Preparing Multiple Scenarios
+
+When preparing grant applications or pre-registrations, you might want to explore multiple scenarios (e.g., different effect size assumptions):
+
+```{r workflow-scenarios}
+# Define scenarios to compare
+scenarios <- data.frame(
+  effect = c(0.20, 0.25, 0.30),
+  label = c("conservative", "expected", "optimistic")
+)
+
+# Generate reports for each scenario
+for (i in seq_len(nrow(scenarios))) {
+  plan_sample_size(
+    f_expected = scenarios$effect[i],
+    k_groups = 3,
+    power = 0.90,
+    output_dir = "sample_size_reports",
+    output_file = sprintf("power_analysis_%s.html", scenarios$label[i]),
+    open = FALSE,  # Don't open each one
+    overwrite = TRUE
+  )
+}
+
+message("Generated ", nrow(scenarios), " sample size reports")
+```
+
+This approach creates a set of reports that document your planning across different assumptions.
+
+
+## Managing the Simulation Data
+
+**Downloading Data Explicitly**
+
+While `plan_sample_size()` downloads data automatically when needed, you can also download it explicitly:
+```{r download-explicit}
+# Download simulation data manually
+download_sample_size_data()
+```
+
+This is useful if you want to:
+- Pre-download data on a fast internet connection before traveling
+- Verify the download completed successfully
+- Troubleshoot download issues
+
+To force a re-download (for example, after a package update with new simulation data):
+```{r download-force}
+download_sample_size_data(force = TRUE)
+```
+
+**Checking Cache Status**
+
+To see whether data are cached and how much disk space they occupy:
+```{r cache-status}
+cache_info()
+```
+
+This displays:
+- The cache directory location on your system
+- Whether simulation data are currently cached
+- The file size (approximately 15 MB when cached)
+
+**Clearing the Cache**
+
+If you need to free up disk space or suspect corrupted data, you can clear the cache:
+```{r cache-clear}
+cache_clear()
+```
+
+The data will be re-downloaded automatically the next time you run `plan_sample_size()`.
+
+**Working with Simulation Data Directly**
+
+Advanced users may want to access the raw simulation data for custom analyses or visualizations.
+You can load the data directly into your R session:
+
+```{r load-data-advanced}
+# Load the complete simulation database
+df_all <- load_sample_size_data()
+```
+
+This data frame contains all simulation results and can be filtered, summarized, or visualized using standard R tools.
+
+
+

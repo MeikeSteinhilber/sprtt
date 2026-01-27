@@ -1,7 +1,6 @@
 #* @testing check_constant_data_ttest
 
 # t-test -----------------------------------------------------------------------
-context("check_constant_data_ttest: check error messages")
 
 test_that("check_constant_data_ttest: check error messages", {
   message <- "Can't perform sequential t-test on constant data."

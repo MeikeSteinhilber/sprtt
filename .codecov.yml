@@ -1,0 +1,7 @@
+# .codecov.yml
+coverage:
+  status:
+    project:
+      default:
+        target: 0.98
+        threshold: 1%

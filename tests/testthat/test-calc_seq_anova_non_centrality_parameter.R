@@ -1,5 +1,3 @@
-context("calc_non_centrality_parameter")
-
 test_that("calc_non_centrality_parameter", {
   # 3.ed edition necessary for expect_snapshot
   testthat::local_edition(3)

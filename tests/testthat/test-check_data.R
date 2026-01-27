@@ -2,8 +2,6 @@
 
 # t-test -----------------------------------------------------------------------
 
-context("check_data_ttest: check correct behaviour")
-
 test_that("check_data_ttest: numeric: Correct activation of errors", {
 
   x <- list(1:5, 9:5)
@@ -40,7 +38,6 @@ test_that("check_data_ttest: numeric: Correct activation of errors", {
 
 # ANOVA ------------------------------------------------------------------------
 
-context("check_data_ttest: check correct behaviour")
 
 test_that("check_data_ttest: numeric: Correct activation of errors", {
   data <- draw_sample_normal(k_groups = 2, f = 0, max_n = 10)

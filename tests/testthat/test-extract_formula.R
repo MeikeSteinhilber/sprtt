@@ -1,5 +1,4 @@
 #* @testing extract_formula
-context("extract_formula: Correct extraction of the formula.")
 
 # t-test -----------------------------------------------------------------------
 test_that("extract_formula_ttest: effect in data: data are correct", {
@@ -34,14 +33,14 @@ test_that("extract_formula_anova: effect in data: data are correct", {
   colnames(data) <- c("y", "factor_A")
   data_test <- cbind(data, test = rnorm(nrow(data)))
   results <- extract_formula_anova(formula, data_test)
-  expect_equivalent(data, results)
+  expect_equal(data, results, ignore_attr = TRUE)
 
   formula <- "y ~ factor_A"
   data <- draw_sample_normal(k_groups = 4, f = 0, max_n = 30)
   colnames(data) <- c("y", "factor_A")
   data_test <- cbind(data, test = rnorm(nrow(data)))
   results <- extract_formula_anova(formula, data_test)
-  expect_equivalent(data, results)
+  expect_equal(data, results, ignore_attr = TRUE)
 
   # two-way ANOVA
   formula <- y ~ factor_A+factor_B
@@ -51,7 +50,7 @@ test_that("extract_formula_anova: effect in data: data are correct", {
                      factor_B = as.factor(rep(c(1,0), 30)))
 
   results <- extract_formula_anova(formula, data_test)
-  expect_equivalent(data_test, results)
+  expect_equal(data_test, results, ignore_attr = TRUE)
 
 
 })

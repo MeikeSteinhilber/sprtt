@@ -1,5 +1,4 @@
 # * @testing get_seq_decision
-context("get_seq_decision: Check output")
 test_that("get_seq_decision", {
   likelihood_ratio <- 4
   A <- 17

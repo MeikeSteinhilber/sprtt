@@ -1,5 +1,3 @@
-context("calc_group_means")
-
 # ANOVA ------------------------------------------------------------------------
 test_that("calc_group_means", {
   # 3.ed edition necessary for expect_snapshot

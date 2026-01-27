@@ -1,7 +1,5 @@
 #* @testing build_seq_ttest_arguments
 
-context("build_seq_ttest_arguments: Check structure of the class object")
-
 test_that("build_seq_ttest_arguments: errors", {
   input1 <- TRUE
   mu <- 0
@@ -120,7 +118,6 @@ test_that("build_seq_ttest_arguments: formula", {
 
 })
 
-# context("")
 # test_that("", {
 #
 #
