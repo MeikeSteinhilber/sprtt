@@ -1,7 +1,6 @@
 #* @testing calc_likelihoods_ttest
 
 # t-test -----------------------------------------------------------------------
-context("calc_likelihoods_ttest")
 
 test_that("calc_likelihoods_ttest: check log", {
   seq_ttest_arguments <-
@@ -28,7 +27,11 @@ test_that("calc_likelihoods_ttest: Check warnings & messages", {
   d <- 5
   expect_warning(seq_ttest(x, d = d),
                  "At least one likelihood is equal to 0")
+})
 
+
+test_that("calc_likelihoods_ttest: Check warnings & messages", {
+  set.seed(3)
   seq_ttest_arguments <-
     build_prototype_seq_ttest_arguments()
 
@@ -42,7 +45,7 @@ test_that("calc_likelihoods_ttest: Check warnings & messages", {
     calc_non_centrality_parameter_ttest(seq_ttest_arguments)
   df <- 78
 
-  expect_warning(
+  warning_text <- capture_warnings(
     calc_likelihoods_ttest(
       seq_ttest_arguments,
       t_statistic,
@@ -51,25 +54,61 @@ test_that("calc_likelihoods_ttest: Check warnings & messages", {
       wanted = NULL
     )
   )
+
+  # at least one warning occurred
+  expect_true(length(warning_text) > 0)
+
+  # check for your specific warning (substring match)
+  expect_true(any(grepl(
+    "At least one log-likelihood reached infinity",
+    warning_text,
+    fixed = TRUE
+  )))
 })
 
 # ANOVA ------------------------------------------------------------------------
-context("calc_likelihoods_anova")
 
 test_that("calc_likelihoods_anova: Check warnings & messages", {
   set.seed(333)
 
-  data <- draw_sample_normal(f = 100000, k_groups = 3, max_n = 100)
-  expect_warning(seq_anova(y~x, f = 0.1, data = data),
-                 "At least one likelihood is equal to 0")
+  data <- draw_sample_normal(f = 1000, k_groups = 3, max_n = 100)
+  warning_text <- capture_warnings(seq_anova(y~x, f = 0.1, data = data))
+  # at least one warning occurred
+  expect_true(length(warning_text) > 0)
+  # check for your specific warning (substring match)
+  expect_true(any(grepl(
+    "At least one likelihood is equal to 0",
+    warning_text,
+    fixed = TRUE
+  )))
 
   data <- draw_sample_normal(f = 1000000000, k_groups = 3, max_n = 100)
-  expect_warning(seq_anova(y~x, f = 0.000001, data = data),
-                 "At least one log-likelihood reached infinity.")
+  warning_text <- capture_warnings(seq_anova(y~x, f = 0.000001, data = data))
+  # at least one warning occurred
+  expect_true(length(warning_text) > 0)
+  # check for your specific warning (substring match)
+  expect_true(any(grepl(
+    "At least one log-likelihood reached infinity.",
+    warning_text,
+    fixed = TRUE
+  )))
 
   data <- draw_sample_normal(f = 0, k_groups = 3, max_n = 100)
-  expect_warning(seq_anova(y~x, f = 10000, data = data),
-                 "At least one likelihood is equal to 0")
+  warning_text <- capture_warnings(seq_anova(y~x, f = 10000, data = data))
+  # at least one warning occurred
+  expect_true(length(warning_text) > 0)
+  # check for your specific warning (substring match)
+  expect_true(any(grepl(
+    "At least one likelihood is equal to 0",
+    warning_text,
+    fixed = TRUE
+  )))
+
+})
+
+
+test_that("calc_likelihoods_anova: Check warnings & messages", {
+  set.seed(333)
 
   seq_anova_arguments <- build_prototype_seq_anova_arguments()
   non_centrality_parameter <-

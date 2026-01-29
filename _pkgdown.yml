@@ -2,6 +2,8 @@ url: https://meikesteinhilber.github.io/sprtt/
 
 template:
   bootstrap: 5
+  math-rendering: mathjax
+  css: pkgdown/customize.css
 
 reference:
 - title: Main Functions
@@ -9,12 +11,21 @@ reference:
   - seq_ttest
   - seq_anova
   - plot_anova
+
+- title: Plan Sequential Sample Size
+  contents:
+  - plan_sample_size
+  - download_sample_size_data
+  - load_sample_size_data
+  - cache_clear
+  - cache_info
+
+- title: Simulate Data
+  contents:
   - draw_sample_normal
   - draw_sample_mixture
-  - sprtt
 
-
-- title: Test Data
+- title: Example Data
   contents:
   - df_stress
   - df_income
@@ -25,6 +36,7 @@ articles:
   navbar: Getting Started
   contents:
   - usage_sprtt
+  - sprts
   - use_case
 
 - title: Sequential Tests
@@ -36,4 +48,5 @@ articles:
 - title: Further Topics
   navbar: Further Topics
   contents:
-  - sprts
+  - plan_sample_size
+  - developer_guide
