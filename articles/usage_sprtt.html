@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-01-27</h4>
+            <h4 data-toc-skip class="date">2026-01-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/usage_sprtt.Rmd" class="external-link"><code>vignettes/usage_sprtt.Rmd</code></a></small>
       <div class="d-none name"><code>usage_sprtt.Rmd</code></div>
@@ -95,19 +95,76 @@ Snijder-Steinhilber</h4>
 
     
     
+<style>
+/* Use custom class names to avoid Bootstrap conflicts */
+.custom-info-box {
+  background-color: white !important;
+  border: 2px solid #2c3e50 !important;
+  border-left: 5px solid #2c3e50 !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-info-box::before {
+  content: "🛈";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+.custom-warning-box {
+  background-color: white !important;
+  border: 2px solid #18bc9c !important;
+  border-left: 5px solid #18bc9c !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-warning-box::before {
+  content: "⚠";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #18bc9c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+</style>
 <p>The <code>sprtt</code> package is a toolbox for
 <strong>s</strong>equential <strong>p</strong>robability
 <strong>r</strong>atio <strong>t</strong>ests (SPRTs). This vignette
-demonstrates core functionality through practical examples and provides
-an overview of the main functions. For more comprehensive guides on
-specific topics, see the other package vignettes. If you are unfamiliar
-with SPRTs, please see the <em>XXX</em> section first.</p>
-<div class="section level2">
-<h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
-</h2>
+introduces the core functions and demonstrates a typical analysis
+workflow. For more comprehensive guides on specific topics, see the
+other package vignettes. If you are unfamiliar with SPRTs, please see
+the <em>XXX</em> section first.</p>
+<div class="custom-info-box">
 <ul>
 <li><p>The data sets used below are included in the <code>sprtt</code>
-package. Thus, the data sets are available when the package is
+package. The data sets are available when the package is
 loaded.</p></li>
 <li>
 <p>In the R code sections:</p>
@@ -128,10 +185,12 @@ loaded.</p></li>
 <div class="section level3">
 <h3 id="understand-the-theoretical-background-of-sprts">1. Understand the theoretical background of SPRTs<a class="anchor" aria-label="anchor" href="#understand-the-theoretical-background-of-sprts"></a>
 </h3>
-<p>Reading the original foundational literature is not necessary, but
-reading recent simulation studies is highly recommended to understand
-how SPRTs work, their robustness to assumption violations, and proper
-application.</p>
+<p>The foundational literature <span class="citation">(Hajnal, 1961; S.
+Rushton, 1950; S. Rushton, 1952; A. Wald, 1945; Abraham Wald,
+1947)</span> offers valuable depth but is not required reading. However,
+understanding SPRT mechanics, robustness to assumption violations, and
+proper application is essential. The following papers provide a good
+background:</p>
 <p><strong>Key references:</strong></p>
 <ul>
 <li>sequential <em>t</em>-tests: <span class="citation">(<strong>schnuerch2019?</strong>)</span> <a href="doi:10.1037/met0000234" class="uri">doi:10.1037/met0000234</a>
@@ -141,6 +200,15 @@ application.</p>
 <li>understanding questionable research practices in the context of
 SPRTs: <span class="citation">(<strong>steinhilber2025?</strong>)</span>
 <a href="doi:10.31234/osf.io/vkbu3_v1" class="uri">doi:10.31234/osf.io/vkbu3_v1</a>
+</li>
+</ul>
+<p>For comparisons of different sequential designs (including SPRTs),
+see:</p>
+<ul>
+<li>Group sequential designs vs Sequential Bayes Factor Test vs SPRT
+<span class="citation">(<strong>schnuerch2019?</strong>)</span> <a href="doi:10.1037/met0000234" class="uri">doi:10.1037/met0000234</a>
+</li>
+<li>Sequential Bayes Factor Test vs SPRT <span class="citation">(<strong>stefan2022?</strong>)</span> <a href="doi:10.3758/s13428-021-01754-8" class="uri">doi:10.3758/s13428-021-01754-8</a>
 </li>
 </ul>
 </div>
@@ -243,9 +311,30 @@ paper that also explicitly covers sequential testing and specifically
 SPRTs <span class="citation">(<strong>schubert2025?</strong>)</span> <a href="doi:10.1038/s44271-025-00356-w" class="uri">doi:10.1038/s44271-025-00356-w</a>.</p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-hajnal1961" class="csl-entry">
+Hajnal, J. (1961). A two-sample sequential t-test. <em>Biometrika</em>,
+<em>48</em>(1/2), 65–75. <a href="https://doi.org/10.2307/2333131" class="external-link">https://doi.org/10.2307/2333131</a>
+</div>
+<div id="ref-rushton1950" class="csl-entry">
+Rushton, S. (1950). On a sequential t-test. <em>Biometrika</em>,
+<em>37</em>, 326–333. <a href="https://doi.org/10.2307/2332385" class="external-link">https://doi.org/10.2307/2332385</a>
+</div>
+<div id="ref-rushton1952" class="csl-entry">
+Rushton, S. (1952). On a <span>Two-Sided Sequential</span>
+t-<span>Test</span>. <em>Biometrika</em>, <em>39</em>(3/4), 302. <a href="https://doi.org/10.2307/2334026" class="external-link">https://doi.org/10.2307/2334026</a>
+</div>
+<div id="ref-wald1945" class="csl-entry">
+Wald, A. (1945). Sequential tests of statistical hypotheses. <em>The
+Annals of Mathematical Statistics</em>, <em>16</em>(2), 117–186.
+</div>
+<div id="ref-wald1947" class="csl-entry">
+Wald, Abraham. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
+</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

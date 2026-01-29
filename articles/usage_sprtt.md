@@ -1,16 +1,13 @@
 # How to use the sprtt package
 
 The `sprtt` package is a toolbox for **s**equential **p**robability
-**r**atio **t**ests (SPRTs). This vignette demonstrates core
-functionality through practical examples and provides an overview of the
-main functions. For more comprehensive guides on specific topics, see
-the other package vignettes. If you are unfamiliar with SPRTs, please
-see the *XXX* section first.
+**r**atio **t**ests (SPRTs). This vignette introduces the core functions
+and demonstrates a typical analysis workflow. For more comprehensive
+guides on specific topics, see the other package vignettes. If you are
+unfamiliar with SPRTs, please see the *XXX* section first.
 
-## Note
-
-- The data sets used below are included in the `sprtt` package. Thus,
-  the data sets are available when the package is loaded.
+- The data sets used below are included in the `sprtt` package. The data
+  sets are available when the package is loaded.
 
 - In the R code sections:
 
@@ -22,10 +19,11 @@ see the *XXX* section first.
 
 ### 1. Understand the theoretical background of SPRTs
 
-Reading the original foundational literature is not necessary, but
-reading recent simulation studies is highly recommended to understand
-how SPRTs work, their robustness to assumption violations, and proper
-application.
+The foundational literature (Hajnal, 1961; S. Rushton, 1950; S. Rushton,
+1952; A. Wald, 1945; Abraham Wald, 1947) offers valuable depth but is
+not required reading. However, understanding SPRT mechanics, robustness
+to assumption violations, and proper application is essential. The
+following papers provide a good background:
 
 **Key references:**
 
@@ -34,6 +32,13 @@ application.
   <doi:10.1037/met0000677>
 - understanding questionable research practices in the context of SPRTs:
   (**steinhilber2025?**) <doi:10.31234/osf.io/vkbu3_v1>
+
+For comparisons of different sequential designs (including SPRTs), see:
+
+- Group sequential designs vs Sequential Bayes Factor Test vs SPRT
+  (**schnuerch2019?**) <doi:10.1037/met0000234>
+- Sequential Bayes Factor Test vs SPRT (**stefan2022?**)
+  <doi:10.3758/s13428-021-01754-8>
 
 ### 2. Check if SPRTs are the fitting choice
 
@@ -122,3 +127,17 @@ paper that also explicitly covers sequential testing and specifically
 SPRTs (**schubert2025?**) <doi:10.1038/s44271-025-00356-w>.
 
 ## References
+
+Hajnal, J. (1961). A two-sample sequential t-test. *Biometrika*,
+*48*(1/2), 65–75. <https://doi.org/10.2307/2333131>
+
+Rushton, S. (1950). On a sequential t-test. *Biometrika*, *37*, 326–333.
+<https://doi.org/10.2307/2332385>
+
+Rushton, S. (1952). On a Two-Sided Sequential t-Test. *Biometrika*,
+*39*(3/4), 302. <https://doi.org/10.2307/2334026>
+
+Wald, A. (1945). Sequential tests of statistical hypotheses. *The Annals
+of Mathematical Statistics*, *16*(2), 117–186.
+
+Wald, Abraham. (1947). *Sequential analysis*. Wiley.
