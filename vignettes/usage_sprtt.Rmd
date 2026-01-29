@@ -17,6 +17,69 @@ bibliography: references.bib
 csl: "apa.csl"
 ---
 
+
+
+<style>
+/* Use custom class names to avoid Bootstrap conflicts */
+.custom-info-box {
+  background-color: white !important;
+  border: 2px solid #2c3e50 !important;
+  border-left: 5px solid #2c3e50 !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-info-box::before {
+  content: "🛈";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+.custom-warning-box {
+  background-color: white !important;
+  border: 2px solid #18bc9c !important;
+  border-left: 5px solid #18bc9c !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-warning-box::before {
+  content: "⚠";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #18bc9c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+</style>
+
+
 ```{r, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -25,13 +88,15 @@ knitr::opts_chunk$set(
 ```
 
 The `sprtt` package is a toolbox for **s**equential **p**robability **r**atio **t**ests (SPRTs).
-This vignette demonstrates core functionality through practical examples and provides an overview of the main functions.
+This vignette introduces the core functions and demonstrates a typical analysis workflow.
 For more comprehensive guides on specific topics, see the other package vignettes.
 If you are unfamiliar with SPRTs, please see the *XXX* section first.
 
-## Note
 
--   The data sets used below are included in the `sprtt` package. Thus, the data sets are available when the package is loaded.
+::: {.custom-info-box}
+
+-   The data sets used below are included in the `sprtt` package.
+The data sets are available when the package is loaded.
 
 -   In the R code sections:
 
@@ -39,17 +104,26 @@ If you are unfamiliar with SPRTs, please see the *XXX* section first.
     -   `function()`: is R code
     -   `#> results of function()`: is console output
 
+:::
+
 ## Workflow
 
 ### 1. Understand the theoretical background of SPRTs
 
-Reading the original foundational literature is not necessary, but reading recent simulation studies is highly recommended to understand how SPRTs work, their robustness to assumption violations, and proper application.
+The foundational literature [@wald1945; @wald1947; @rushton1950; @rushton1952; @hajnal1961] offers valuable depth but is not required reading.
+However, understanding SPRT mechanics, robustness to assumption violations, and proper application is essential.
+The following papers provide a good background:
 
 **Key references:**
 
 - sequential *t*-tests: [@schnuerch2019] <doi:10.1037/met0000234>
 - sequential one-way ANOVA: [@steinhilber2024] <doi:10.1037/met0000677>
 - understanding questionable research practices in the context of SPRTs: [@steinhilber2025] <doi:10.31234/osf.io/vkbu3_v1>
+
+For comparisons of different sequential designs (including SPRTs), see:
+
+- Group sequential designs vs Sequential Bayes Factor Test vs SPRT [@schnuerch2019] <doi:10.1037/met0000234>
+- Sequential Bayes Factor Test vs SPRT [@stefan2022] <doi:10.3758/s13428-021-01754-8>
 
 ### 2. Check if SPRTs are the fitting choice
 
