@@ -3,44 +3,45 @@
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Creates plots for the results of the seq_anova() function.
+#' Creates a visualization of the sequential probability ratio test (SPRT) for
+#' ANOVA results, showing the log-likelihood ratio trajectory across sample sizes
+#' and decision boundaries.
 #'
-# #' @param sample_size sample size.
-# #' @param lr_log log-likelihood-ratio.
-# #' @param A_boundary_log Log of the A boundary.
-# #' @param B_boundary_log Log of the B boundary.
-#' @param anova_results result object of the seq_anova() function (argument must be of class `seq_anova_results`).
-#' @param labels show labels in the plot.
-#' @param position_labels_x Numeric value controlling the horizontal position of
-#'   the decision labels ("Accept H0" / "Accept H1"). The value is interpreted
-#'   as a proportion of the maximum sample size `N`, i.e., the labels are placed
-#'   at `x = N * position_labels_x`. Defaults to `0.15`, which places the labels
-#'   near the left side of the plot. `0.5` places the labels in the center.
-#' @param position_labels_y Numeric value controlling the vertical offset of the
-#'   decision labels from the decision boundaries. The value is multiplied by
-#'   the maximum absolute log–likelihood ratio (`max(|lr_log|)`) to obtain the
-#'   vertical distance between the boundary lines and the corresponding text.
-#'   Larger values move the labels further away from the boundary lines.
-#'   Defaults to `0.075`.
-#' @param position_lr_x Optional numeric value specifying the x-coordinate of
-#'   the LR label in data units (i.e., on the sample size axis). If `NULL`
-#'   (default), the LR label is placed at the sample size where the highlighted
-#'   point occurs: at the stopping sample size if a decision was reached, or at
-#'   the final sample size otherwise.
-#' @param position_lr_y Optional numeric value specifying the y-coordinate of
-#'   the LR label in data units (i.e., on the log–likelihood ratio axis). If
-#'   `NULL` (default), the LR label is placed on the horizontal axis (`y = 0`)
-#'   when a decision was reached early. If no decision boundary was crossed, the
-#'   LR label is placed slightly above or below zero, depending on the sign of
-#'   the final log–likelihood ratio, so that the label does not overlap the
-#'   highlighted point.
-#' @param font_size font size of the plot.
-#' @param line_size line size of the plot.
-#' @param highlight_color highlighting color, default is "#CD2626" (red).
+#' @param anova_results A `seq_anova_results` object from [seq_anova()].
+#'   **Important:** The `seq_anova()` function must be called with `plot = TRUE`
+#'   to generate the necessary data for plotting.
+#' @param labels Logical. If `TRUE` (default), display decision labels
+#'   ("Accept H0" / "Accept H1") and the likelihood ratio at the decision point.
+#' @param position_labels_x Numeric value between 0 and 1 controlling the
+#'   horizontal position of decision labels as a proportion of maximum sample
+#'   size. Default is `0.15` (left side); `0.5` centers the labels.
+#' @param position_labels_y Numeric value controlling the vertical spacing
+#'   between decision boundaries and their labels. The value is multiplied by
+#'   `max(|log-likelihood ratio|)` to determine spacing. Larger values move
+#'   labels further from boundaries. Default is `0.075`.
+#' @param position_lr_x Optional numeric value for the x-coordinate (sample size)
+#'   of the likelihood ratio label. If `NULL` (default), positioned at the
+#'   decision point or final sample size.
+#' @param position_lr_y Optional numeric value for the y-coordinate
+#'   (log-likelihood ratio) of the likelihood ratio label. If `NULL` (default),
+#'   positioned at `y = 0` for early decisions, or slightly offset for
+#'   continuing sampling scenarios.
+#' @param font_size Numeric. Base font size for plot text. Default is `20`.
+#' @param line_size Numeric. Line width for the trajectory and boundaries.
+#'   Default is `1.5`.
+#' @param highlight_color Character string. Color for highlighting the decision
+#'   point or final sample. Default is `"#CD2626"` (red).
+#'
+#' @return A [ggplot2::ggplot()] object showing:
+#'   \itemize{
+#'     \item Log-likelihood ratio trajectory across sample sizes
+#'     \item Dashed horizontal lines indicating decision boundaries
+#'     \item Highlighted point showing where decision was reached (or final sample)
+#'     \item Optional labels for decision regions and likelihood ratio value
+#'   }
 #'
 #' @import ggplot2 glue purrr
 #'
-#' @return returns a plot
 #' @export
 #'
 #' @example inst/examples/plot_anova.R
@@ -48,11 +49,11 @@
 plot_anova <- function(anova_results,
                       labels = TRUE,
                       position_labels_x = 0.15,
-                      position_labels_y = 0.075,
+                      position_labels_y = 0.1,
                       position_lr_x = NULL,
                       position_lr_y = NULL,
-                      font_size = 25,
-                      line_size = 1.5,
+                      font_size = 15,
+                      line_size = 1,
                       highlight_color = "#CD2626"
                       ) {
 
@@ -88,7 +89,7 @@ plot_anova <- function(anova_results,
   }
 
   max_lr <- max(abs(results$lr_log))
-  lr_factor <- 0.1
+  lr_factor <- 0.05
 
 
   # set defaults ---------------------------------------------------------------
@@ -103,7 +104,7 @@ plot_anova <- function(anova_results,
   plot <- results %>%
     # slice(1:decision_sample_position) %>%
     ggplot(aes(x = .data$sample_size, y = .data$lr_log)) +
-    xlim(0 , results$sample_size[N_steps] + results$sample_size[N_steps]*(lr_factor+0.05)) +
+    xlim(0 , results$sample_size[N_steps] + results$sample_size[N_steps]*(lr_factor+0.1)) +
     geom_line(linewidth = line_size) +
     geom_hline(yintercept = A_boundary_log, linetype = "dashed", linewidth = line_size) +
     geom_hline(yintercept = B_boundary_log, linetype = "dashed", linewidth = line_size) +

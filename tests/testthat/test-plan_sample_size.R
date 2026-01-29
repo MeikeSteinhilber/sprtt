@@ -32,6 +32,10 @@ test_that("plan_sample_size: paremters out of scope", {
                      power = 0.60, overwrite = FALSE),
     "is not available"
   )
+  expect_error(
+    plan_sample_size(f_expected = 0.25, k_groups = 3, decision_rate = 0.20),
+    "is not available"
+  )
 })
 
 
@@ -45,7 +49,7 @@ test_that("plan_sample_size: paremters wrong data type", {
     "is not TRUE"
   )
   expect_error(
-    plan_sample_size(f_expected = 0.25, k_groups = 3,,
+    plan_sample_size(f_expected = 0.25, k_groups = 3,
                      power = "0.95",
                      overwrite = FALSE),
     "is not TRUE"
@@ -70,9 +74,9 @@ test_that("renders HTML to the specified directory", {
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
-    f_expected = sprtt:::df$f_expected[1],
-    k_groups   = sprtt:::df$k_groups[1],
-    power      = sprtt:::df$power[1],
+    f_expected = 0.25,
+    k_groups   = 4,
+    power      = 0.95,
     output_dir = tmp,
     output_file = "report.html",
     open = FALSE,
@@ -97,9 +101,9 @@ test_that("renders HTM too", {
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
-    f_expected = sprtt:::df$f_expected[1],
-    k_groups   = sprtt:::df$k_groups[1],
-    power      = sprtt:::df$power[1],
+    f_expected = 0.25,
+    k_groups   = 4,
+    power      = 0.95,
     output_dir = tmp,
     output_file = "report.htm",
     open = FALSE,
@@ -117,9 +121,9 @@ test_that("overwrite protection works when open = FALSE", {
 
   expect_error(
     plan_sample_size(
-      f_expected = sprtt:::df$f_expected[1],
-      k_groups   = sprtt:::df$k_groups[1],
-      power      = sprtt:::df$power[1],
+      f_expected = 0.25,
+      k_groups   = 4,
+      power      = 0.95,
       output_dir = tmp,
       output_file = basename(path),
       open = FALSE,
@@ -133,9 +137,9 @@ test_that("overwrite protection works when open = FALSE", {
   testthat::skip_if_not_installed("rmarkdown")
   testthat::skip_if_not(rmarkdown::pandoc_available())
   out <- plan_sample_size(
-    f_expected = sprtt:::df$f_expected[1],
-    k_groups   = sprtt:::df$k_groups[1],
-    power      = sprtt:::df$power[1],
+    f_expected = 0.25,
+    k_groups   = 4,
+    power      = 0.95,
     output_dir = tmp,
     output_file = basename(path),
     open = FALSE,

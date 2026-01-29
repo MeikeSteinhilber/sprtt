@@ -8,64 +8,68 @@ plot_anova(
   anova_results,
   labels = TRUE,
   position_labels_x = 0.15,
-  position_labels_y = 0.075,
+  position_labels_y = 0.1,
   position_lr_x = NULL,
   position_lr_y = NULL,
-  font_size = 25,
-  line_size = 1.5,
+  font_size = 15,
+  line_size = 1,
   highlight_color = "#CD2626"
 )
 }
 \arguments{
-\item{anova_results}{result object of the seq_anova() function (argument must be of class \code{seq_anova_results}).}
+\item{anova_results}{A \code{seq_anova_results} object from \code{\link[=seq_anova]{seq_anova()}}.
+\strong{Important:} The \code{seq_anova()} function must be called with \code{plot = TRUE}
+to generate the necessary data for plotting.}
 
-\item{labels}{show labels in the plot.}
+\item{labels}{Logical. If \code{TRUE} (default), display decision labels
+("Accept H0" / "Accept H1") and the likelihood ratio at the decision point.}
 
-\item{position_labels_x}{Numeric value controlling the horizontal position of
-the decision labels ("Accept H0" / "Accept H1"). The value is interpreted
-as a proportion of the maximum sample size \code{N}, i.e., the labels are placed
-at \code{x = N * position_labels_x}. Defaults to \code{0.15}, which places the labels
-near the left side of the plot. \code{0.5} places the labels in the center.}
+\item{position_labels_x}{Numeric value between 0 and 1 controlling the
+horizontal position of decision labels as a proportion of maximum sample
+size. Default is \code{0.15} (left side); \code{0.5} centers the labels.}
 
-\item{position_labels_y}{Numeric value controlling the vertical offset of the
-decision labels from the decision boundaries. The value is multiplied by
-the maximum absolute log–likelihood ratio (\verb{max(|lr_log|)}) to obtain the
-vertical distance between the boundary lines and the corresponding text.
-Larger values move the labels further away from the boundary lines.
-Defaults to \code{0.075}.}
+\item{position_labels_y}{Numeric value controlling the vertical spacing
+between decision boundaries and their labels. The value is multiplied by
+\verb{max(|log-likelihood ratio|)} to determine spacing. Larger values move
+labels further from boundaries. Default is \code{0.075}.}
 
-\item{position_lr_x}{Optional numeric value specifying the x-coordinate of
-the LR label in data units (i.e., on the sample size axis). If \code{NULL}
-(default), the LR label is placed at the sample size where the highlighted
-point occurs: at the stopping sample size if a decision was reached, or at
-the final sample size otherwise.}
+\item{position_lr_x}{Optional numeric value for the x-coordinate (sample size)
+of the likelihood ratio label. If \code{NULL} (default), positioned at the
+decision point or final sample size.}
 
-\item{position_lr_y}{Optional numeric value specifying the y-coordinate of
-the LR label in data units (i.e., on the log–likelihood ratio axis). If
-\code{NULL} (default), the LR label is placed on the horizontal axis (\code{y = 0})
-when a decision was reached early. If no decision boundary was crossed, the
-LR label is placed slightly above or below zero, depending on the sign of
-the final log–likelihood ratio, so that the label does not overlap the
-highlighted point.}
+\item{position_lr_y}{Optional numeric value for the y-coordinate
+(log-likelihood ratio) of the likelihood ratio label. If \code{NULL} (default),
+positioned at \code{y = 0} for early decisions, or slightly offset for
+continuing sampling scenarios.}
 
-\item{font_size}{font size of the plot.}
+\item{font_size}{Numeric. Base font size for plot text. Default is \code{20}.}
 
-\item{line_size}{line size of the plot.}
+\item{line_size}{Numeric. Line width for the trajectory and boundaries.
+Default is \code{1.5}.}
 
-\item{highlight_color}{highlighting color, default is "#CD2626" (red).}
+\item{highlight_color}{Character string. Color for highlighting the decision
+point or final sample. Default is \code{"#CD2626"} (red).}
 }
 \value{
-returns a plot
+A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object showing:
+\itemize{
+\item Log-likelihood ratio trajectory across sample sizes
+\item Dashed horizontal lines indicating decision boundaries
+\item Highlighted point showing where decision was reached (or final sample)
+\item Optional labels for decision regions and likelihood ratio value
+}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Creates plots for the results of the seq_anova() function.
+Creates a visualization of the sequential probability ratio test (SPRT) for
+ANOVA results, showing the log-likelihood ratio trajectory across sample sizes
+and decision boundaries.
 }
 \examples{
 # simulate data for the example ------------------------------------------------
-set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
+set.seed(3)
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 50)
 
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data, plot = TRUE)
@@ -76,21 +80,18 @@ sprtt::plot_anova(anova_results)
 # variant 1
 sprtt::plot_anova(anova_results,
                  labels = TRUE,
-                 position_labels_x = 1.1,
-                 position_labels_y = 0.1,
-                 position_lr_x = 70,
-                 position_lr_y = 2,
-                 font_size = 25,
-                 line_size = 2,
+                 position_labels_x = 0.05,
+                 position_lr_x = 150,
+                 position_lr_y = 0,
                  highlight_color = "green"
                  )
 # variant 2
 sprtt::plot_anova(anova_results,
                   labels = TRUE,
-                  position_labels_x = 0.05,
-                  position_labels_y = 0.3,
-                  position_lr_x = 70,
-                  position_lr_y = 3.5,
+                  position_labels_x = 0.15,
+                  position_labels_y = 0.2,
+                  position_lr_x = 60,
+                  position_lr_y = 1,
                   font_size = 25,
                   line_size = 2,
                   highlight_color = "darkred"
