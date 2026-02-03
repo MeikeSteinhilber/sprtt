@@ -1,4 +1,4 @@
-# Use Case
+# Simple t-Test Use Case
 
 - The data set `df_stress` is included in the `sprtt` package. Thus, the
   data set is available when the package is loaded.
@@ -9,22 +9,8 @@
   - `function()`: is R code
   - `#> results of function()`: is console output
 
-## Overview
-
-The `sprtt` package is a **s**equential **p**robability **r**atio
-**t**ests toolbox (**sprtt**). This vignette describes an exemplary use
-case to improve the understanding of the package and the sequential
-t-test.
-
-Other recommended vignettes cover:
-
-- [the theoretical
-  background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html)
-  and
-
-- a [general
-  guide](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html),
-  how to use the package.
+This vignette describes an exemplary use case to improve the
+understanding of the package and the sequential t-test.
 
 ## Use Case
 
@@ -275,10 +261,14 @@ Starting at *N* = 2, the test stops sampling at a total sample size of
 about 20 times more likely under H₁ than under H₀. Thus, we accept the
 alternative hypothesis: The perceived stress at the second measurement
 (*M* = 5.47, *SD* = 1.53) is higher than one year ago at the baseline
-measurement (*M* = 4.99, *SD* = 1.02), Cohen\`s *d* = 0.34, 95% CI
+measurement (*M* = 4.99, *SD* = 1.02), Cohen’s *d* = 0.34, 95% CI
 \[0.11, 0.57\].[¹](#fn1)^(,)[²](#fn2)
 
 ## References
+
+Schnuerch, M., & Erdfelder, E. (2020). Controlling decision errors with
+minimal costs: The sequential probability ratio t test. *Psychological
+Methods*, *25*(2), 206–226. <https://doi.org/10.1037/met0000234>
 
 Schnuerch, M., Erdfelder, E., & Heck, D. W. (2020). Sequential
 hypothesis tests for multinomial processing tree models. *Journal of
@@ -287,7 +277,7 @@ Mathematical Psychology*, *95*, 102326.
 
 ------------------------------------------------------------------------
 
-1.  The citation style was taken from Schnuerch et al. (2020).
+1.  see Schnuerch & Erdfelder (2020).
 
 2.  Note that this estimate of Cohen’s d as well as the CI are based on
     the assumption of a fixed sample size and, thus, might be biased

@@ -1,56 +1,203 @@
 # Sequential One-Way ANOVA
 
-## Overview
-
-The `sprtt` package is a **s**equential **p**robability **r**atio
-**t**ests **t**oolbox (**sprtt**). This vignette describes the
-theoretical background of these tests.
-
-Other recommended vignettes cover:
-
-- a [general
-  guide](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html),
-  how to use the package and
-
-- an extended [use
-  case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
-
-## What is a sequential test procedure?
-
-With a sequential approach, data is continuously collected and an
-analysis is performed after each data point, which can lead to three
-different results (A. Wald, 1945):
-
-- The data collection is *terminated* because enough evidence has been
-  collected for the null hypothesis (H₀).
-
-- The data collection is *terminated* because enough evidence has been
-  collected for the alternative hypothesis (H₁).
-
-- The data collection *will continue* as there is not yet enough
-  evidence for either of the two hypotheses.
-
-Basically it is not necessary to perform an analysis after each data
-point — several data points can also be added at once. However, this
-affects the sample size (N) and the error rates (Schnuerch et al.,
-2020).
-
-The efficiency of sequential designs has already been examined.
-Reductions in the sample by 50% and more were found in comparison to
-analyses with fixed sample sizes (Schnuerch et al., 2020; A. Wald,
-1945). Sequential hypothesis testing is therefore particularly suitable
-when resources are limited because the required sample size is reduced
-without compromising predefined error probabilities.
-
 ## What is the sequential one-way ANOVA?
 
-The sequential one-way fixed effects ANOVA is based on the Sequential
-Probability Ratio Test (SPRT) by Abraham Abraham Wald (1947), which is a
-highly efficient sequential hypothesis test. It can be used instead of
-*t*-tests if the means of two or more groups are compared. For detailed
-information see the public preprint (Steinhilber et al., 2023). Note:
-keep in mind that the repeated measurement ANOVA is not implemented yet
-in the sprtt package.
+The sequential one-way fixed effects ANOVA is a sequential hypothesis
+test based on the Sequential Probability Ratio Test (SPRT) framework
+(Wald, 1947). It extends SPRTs to the comparison of two or more
+independent groups and can be used as an efficient alternative to the
+classical fixed-sample one-way ANOVA. For detailed information, see
+Steinhilber et al. (2024). For a general introduction to SPRTs, see the
+vignette
+[`vignette("sprts")`](https://meikesteinhilber.github.io/sprtt/articles/sprts.md).
+
+**Note:** The repeated measures ANOVA is not yet implemented in the
+`sprtt` package.
+
+## Sequential One-Way ANOVA
+
+Analysis of variance (ANOVA) is widely used to compare means across
+multiple groups. Traditional fixed-sample ANOVAs require an a priori
+power analysis to determine the necessary sample size, which often
+results in large samples, especially when expected effect sizes are
+small (Steinhilber et al., 2024). Given the prevalence of small to
+medium effects in psychology (Funder & Ozer, 2019; Richard et al.,
+2003), many studies end up underpowered because the required sample
+sizes exceed available resources (Button et al., 2013; Szucs &
+Ioannidis, 2017).
+
+The sequential one-way ANOVA provides an efficient alternative by
+applying the SPRT framework to comparisons of \\k\\ groups (Steinhilber
+et al., 2024). Instead of collecting a fixed number of observations,
+data are collected sequentially and the test evaluates evidence after
+each step until a decision is reached.
+
+### Hypotheses
+
+The sequential one-way ANOVA tests the following hypotheses, specified
+in terms of Cohen’s \\f\\:
+
+\\H_0: f = 0\\ \\H_1: f = f\_{\text{exp}}, \quad (f\_{\text{exp}} \>
+0)\\
+
+Cohen’s \\f\\ is defined as:
+
+\\f = \frac{\sigma_m}{\sigma}\\
+
+where \\\sigma\\ is the common within-population standard deviation and
+\\\hat{\sigma}\_m = \sqrt{\frac{\sum\_{i=1}^{k}(m_i - \bar{m})^2}{k}}\\,
+with \\m_i\\ being the mean of group \\i\\ and \\\bar{m}\\ the overall
+mean across all \\k\\ groups. In other words, \\f\\ captures the spread
+of group means relative to the common within-group variability.
+
+### The \\F\\ Statistic
+
+At the \\n\\-th sequential step, the \\F\\ statistic is calculated from
+\\k\\ groups with \\n\\ observations each (total \\N = k \cdot n\\, with
+\\n, k \geq 2\\):
+
+\\F_n = \frac{SS\_{\text{effect},n} / df_1}{SS\_{\text{residual},n} /
+df\_{2,n}}\\
+
+with
+
+\\SS\_{\text{effect},n} = \sum\_{i=1}^{k} n(\bar{x}\_i - \bar{x})^2\\
+
+\\SS\_{\text{residual},n} = \sum\_{i=1}^{k} \sum\_{j=1}^{n} (x\_{i,j} -
+\bar{x}\_i)^2\\
+
+\\df_1 = k - 1 \qquad \text{and} \qquad df\_{2,n} = N - k\\
+
+where \\\bar{x}\\ is the overall mean, \\\bar{x}\_i\\ is the mean of
+group \\i\\, and \\x\_{i,j}\\ is the \\j\\-th observation in group
+\\i\\.
+
+### The Likelihood Ratio
+
+The likelihood ratio at step \\n\\ is defined as the ratio of the
+likelihood under \\H_1\\ to the likelihood under \\H_0\\. Using Cox’s
+theorem (Cox, 1952), it is sufficient to compute this ratio only for the
+current \\F_n\\ statistic rather than the entire sequence of
+observations:
+
+\\\text{LR}\_n = \frac{f(F_n \mid df_1,\\ df\_{2,n},\\
+\Delta\_{1n})}{f(F_n \mid df_1,\\ df\_{2,n})}\\
+
+The numerator is the density of a **non-central** \\F\\ distribution
+with non-centrality parameter \\\Delta\_{1n}\\, and the denominator is
+the density of a **central** \\F\\ distribution (i.e., \\\Delta = 0\\
+under \\H_0\\). The non-centrality parameter is linked to Cohen’s \\f\\
+via:
+
+\\\Delta_1 = f\_{\text{exp}}^2 \cdot N\\
+
+### Decision Rule
+
+The sequential ANOVA applies the standard SPRT decision boundaries:
+
+- If \\\text{LR}\_n \geq A = \frac{1-\beta}{\alpha}\\: Stop and accept
+  \\H_1\\
+- If \\\text{LR}\_n \leq B = \frac{\beta}{1-\alpha}\\: Stop and accept
+  \\H_0\\
+- If \\B \< \text{LR}\_n \< A\\: Continue collecting data
+
+### Efficiency and Robustness
+
+Simulations with \\k = 4\\ groups demonstrate that the sequential ANOVA
+is substantially more efficient than fixed-sample designs: in 87% of
+cases the sequential sample was smaller than the fixed sample, with an
+average sample size reduction of 58% (Steinhilber et al., 2024).
+Efficiency gains are particularly pronounced for small expected effect
+sizes (\\f\_{\text{exp}} = 0.10\\: 64% reduction; \\f\_{\text{exp}} =
+0.25\\: 40%; \\f\_{\text{exp}} = 0.40\\: 23%).
+
+Robustness analyses showed that the sequential and fixed ANOVA behave
+similarly under assumption violations. Both procedures are robust to
+non-normal data (simulated using Gaussian mixture distributions) and to
+mildly unequal variances or group sizes. The most critical scenario is a
+combination of unbalanced group sizes and unequal variances,
+specifically when smaller groups have larger variances—in this case,
+\\\alpha\\ error rates can be inflated in both the sequential and the
+fixed ANOVA.
+
+As with all sequential procedures, effect size estimates from individual
+sequential ANOVAs are conditionally biased (see Section “The
+Bias-Efficiency Tradeoff”). However, the weighted average across studies
+closely approximates the true population effect size (Steinhilber et
+al., 2024).
+
+The
+[`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md)
+function in the `sprtt` package implements the sequential one-way fixed
+effects ANOVA described here.
+
+## How to use `seq_anova()`
+
+``` r
+set.seed(333)
+# generate data with a medium effect
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
+
+# calculate the SPRT -----------------------------------------------------------
+anova_results <- sprtt::seq_anova(
+                          y~x,
+                          f = 0.25,
+                          data = data[1:20,],
+                          verbose = FALSE)
+anova_results
+## 
+## *****  Sequential ANOVA *****
+## 
+## formula: y ~ x
+## test statistic:
+##  log-likelihood ratio = 0.964, decision = continue sampling
+## SPRT thresholds:
+##  lower log(B) = -2.944, upper log(A) = 2.944
+
+# access the decision
+anova_results@decision
+## [1] "continue sampling"
+
+# acess the LR
+anova_results@likelihood_ratio
+## [1] 2.62204
+```
+
+``` r
+# calculate the SPRT -----------------------------------------------------------
+anova_results <- sprtt::seq_anova(
+                          y~x,
+                          f = 0.25,
+                          data = data,
+                          verbose = TRUE)
+anova_results
+## 
+## *****  Sequential ANOVA *****
+## 
+## formula: y ~ x
+## test statistic:
+##  log-likelihood ratio = 3.153, decision = accept H1
+## SPRT thresholds:
+##  lower log(B) = -2.944, upper log(A) = 2.944
+## Log-Likelihood of the:
+##  alternative hypothesis = -3.293
+##  null hypothesis = -6.447
+## alternative hypothesis: true difference in means is not equal to 0.
+## specified effect size: Cohen's f = 0.25
+## empirical Cohen's f = 0.4684039, 95% CI[0.1741801, 0.6969498]
+## Cohen's f adjusted = 0.415
+## degrees of freedom: df1 = 2, df2 = 63
+## SS effect = 12.63455, SS residual = 57.58624, SS total = 70.22079
+## *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
+
+# access the decision
+anova_results@decision
+## [1] "accept H1"
+
+# acess the LR
+anova_results@likelihood_ratio
+## [1] 23.41619
+```
 
 ## How to plot the ANOVA results
 
@@ -62,7 +209,7 @@ argument ‘single’ or we can choose ‘balanced’.
 
 ``` r
 set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 30)
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
 
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(y~x, f = 0.25,
@@ -96,14 +243,16 @@ after every single data point.
 
 ``` r
 set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 50, sample_ratio = c(1,2,2))
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 37, sample_ratio = c(1,1,2))
 data <- data[sample(nrow(data)),] # destroy the perfect order of the data
 
 # calculate the SPRT -----------------------------------------------------------
-anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data,
-                                  plot = TRUE,
-                                  seq_steps = 12:nrow(data) # we start with the first 12 data points instead of the first 6
-                                  )
+anova_results <- sprtt::seq_anova(
+                          y~x,
+                          f = 0.25,
+                          data = data,
+                          plot = TRUE,
+                          seq_steps = 12:nrow(data)) # we start with the first 12 data points instead of the first 6
 
 # plot the results -------------------------------------------------------------
 sprtt::plot_anova(anova_results,
@@ -122,16 +271,32 @@ sprtt::plot_anova(anova_results,
 
 ## References
 
-Schnuerch, M., Erdfelder, E., & Heck, D. W. (2020). Sequential
-hypothesis tests for multinomial processing tree models. *Journal of
-Mathematical Psychology*, *95*, 102326.
-<https://doi.org/10.1016/j.jmp.2020.102326>
+Button, K. S., Ioannidis, J. P. A., Mokrysz, C., Nosek, B. A., Flint,
+J., Robinson, E. S. J., & Munafò, M. R. (2013). Power failure: Why small
+sample size undermines the reliability of neuroscience. *Nature Reviews
+Neuroscience*, *14*(5), 365–376. <https://doi.org/10.1038/nrn3475>
 
-Steinhilber, M., Schnuerch, M., & Schubert, A.-L. (2023). *Sequential
-analysis of variance: Increasing effciency of hypothesis testing*.
-PsyArXiv. <https://doi.org/10.31234/osf.io/m64ne>
+Cox, D. R. (1952). Sequential tests for composite hypotheses.
+*Mathematical Proceedings of the Cambridge Philosophical Society*,
+*48*(2), 290–299. <https://doi.org/10.1017/S030500410002764X>
 
-Wald, A. (1945). Sequential tests of statistical hypotheses. *The Annals
-of Mathematical Statistics*, *16*(2), 117–186.
+Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in
+psychological research: Sense and nonsense. *Advances in Methods and
+Practices in Psychological Science*, *2*(2), 156–168.
+<https://doi.org/10.1177/2515245919847202>
 
-Wald, Abraham. (1947). *Sequential analysis*. Wiley.
+Richard, F. D., Bond, C. F., & Stokes-Zoota, J. J. (2003). One hundred
+years of social psychology quantitatively described. *Review of General
+Psychology*, *7*(4), 331–363.
+<https://doi.org/10.1037/1089-2680.7.4.331>
+
+Steinhilber, M., Schnuerch, M., & Schubert, A.-L. (2024). Sequential
+analysis of variance: Increasing efficiency of hypothesis testing.
+*Psychological Methods*. <https://doi.org/10.1037/met0000677>
+
+Szucs, D., & Ioannidis, J. P. A. (2017). When null hypothesis
+significance testing is unsuitable for research: A reassessment.
+*Frontiers in Human Neuroscience*, *11*, 390.
+<https://doi.org/10.3389/fnhum.2017.00390>
+
+Wald, A. (1947). *Sequential analysis*. Wiley.

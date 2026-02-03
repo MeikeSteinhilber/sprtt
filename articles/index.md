@@ -3,16 +3,17 @@
 ### Get Started
 
 - [How to use the sprtt
-  package](https://meikesteinhilber.github.io/sprtt/articles/usage_sprtt.md):
+  package?](https://meikesteinhilber.github.io/sprtt/articles/workflow_sprtt.md):
 
   This vignette describes the sequential t-test and the usage of the
   `sprtt` package.
 
-- [SPRTs](https://meikesteinhilber.github.io/sprtt/articles/sprts.md):
+- [Introduction to
+  SPRTs](https://meikesteinhilber.github.io/sprtt/articles/sprts.md):
 
   This vignette describes SPRTs in general.
 
-- [Use
+- [Simple t-Test Use
   Case](https://meikesteinhilber.github.io/sprtt/articles/use_case.md):
 
 ### Sequential Tests

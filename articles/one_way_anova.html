@@ -51,9 +51,9 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Getting Started</h6></li>
-    <li><a class="dropdown-item" href="../articles/usage_sprtt.html">How to use the sprtt package</a></li>
-    <li><a class="dropdown-item" href="../articles/sprts.html">SPRTs</a></li>
-    <li><a class="dropdown-item" href="../articles/use_case.html">Use Case</a></li>
+    <li><a class="dropdown-item" href="../articles/workflow_sprtt.html">How to use the sprtt package?</a></li>
+    <li><a class="dropdown-item" href="../articles/sprts.html">Introduction to SPRTs</a></li>
+    <li><a class="dropdown-item" href="../articles/use_case.html">Simple t-Test Use Case</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Sequential Tests</h6></li>
     <li><a class="dropdown-item" href="../articles/t_test.html">Sequential t-Test</a></li>
@@ -96,59 +96,194 @@ Snijder-Steinhilber</h4>
     
     
 <div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h2>
-<p>The <code>sprtt</code> package is a <strong>s</strong>equential
-<strong>p</strong>robability <strong>r</strong>atio
-<strong>t</strong>ests <strong>t</strong>oolbox
-(<strong>sprtt</strong>). This vignette describes the theoretical
-background of these tests.</p>
-<p>Other recommended vignettes cover:</p>
-<ul>
-<li><p>a <a href="https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html">general
-guide</a>, how to use the package and</p></li>
-<li><p>an extended <a href="https://meikesteinhilber.github.io/sprtt/articles/use-case.html">use
-case</a>.</p></li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="what-is-a-sequential-test-procedure">What is a sequential test procedure?<a class="anchor" aria-label="anchor" href="#what-is-a-sequential-test-procedure"></a>
-</h2>
-<p>With a sequential approach, data is continuously collected and an
-analysis is performed after each data point, which can lead to three
-different results <span class="citation">(A. Wald, 1945)</span>:</p>
-<ul>
-<li><p>The data collection is <em>terminated</em> because enough
-evidence has been collected for the null hypothesis
-(H<sub>0</sub>).</p></li>
-<li><p>The data collection is <em>terminated</em> because enough
-evidence has been collected for the alternative hypothesis
-(H<sub>1</sub>).</p></li>
-<li><p>The data collection <em>will continue</em> as there is not yet
-enough evidence for either of the two hypotheses.</p></li>
-</ul>
-<p>Basically it is not necessary to perform an analysis after each data
-point — several data points can also be added at once. However, this
-affects the sample size (N) and the error rates <span class="citation">(Schnuerch et al., 2020)</span>.</p>
-<p>The efficiency of sequential designs has already been examined.
-Reductions in the sample by 50% and more were found in comparison to
-analyses with fixed sample sizes <span class="citation">(Schnuerch et
-al., 2020; A. Wald, 1945)</span>. Sequential hypothesis testing is
-therefore particularly suitable when resources are limited because the
-required sample size is reduced without compromising predefined error
-probabilities.</p>
-</div>
-<div class="section level2">
 <h2 id="what-is-the-sequential-one-way-anova">What is the sequential one-way ANOVA?<a class="anchor" aria-label="anchor" href="#what-is-the-sequential-one-way-anova"></a>
 </h2>
-<p>The sequential one-way fixed effects ANOVA is based on the Sequential
-Probability Ratio Test (SPRT) by Abraham <span class="citation">Abraham
-Wald (1947)</span>, which is a highly efficient sequential hypothesis
-test. It can be used instead of <em>t</em>-tests if the means of two or
-more groups are compared. For detailed information see the public
-preprint <span class="citation">(Steinhilber et al., 2023)</span>. Note:
-keep in mind that the repeated measurement ANOVA is not implemented yet
-in the sprtt package.</p>
+<p>The sequential one-way fixed effects ANOVA is a sequential hypothesis
+test based on the Sequential Probability Ratio Test (SPRT) framework
+<span class="citation">(Wald, 1947)</span>. It extends SPRTs to the
+comparison of two or more independent groups and can be used as an
+efficient alternative to the classical fixed-sample one-way ANOVA. For
+detailed information, see <span class="citation">Steinhilber et al.
+(2024)</span>. For a general introduction to SPRTs, see the vignette
+<code><a href="../articles/sprts.html">vignette("sprts")</a></code>.</p>
+<p><strong>Note:</strong> The repeated measures ANOVA is not yet
+implemented in the <code>sprtt</code> package.</p>
+</div>
+<div class="section level2">
+<h2 id="sequential-one-way-anova">Sequential One-Way ANOVA<a class="anchor" aria-label="anchor" href="#sequential-one-way-anova"></a>
+</h2>
+<p>Analysis of variance (ANOVA) is widely used to compare means across
+multiple groups. Traditional fixed-sample ANOVAs require an a priori
+power analysis to determine the necessary sample size, which often
+results in large samples, especially when expected effect sizes are
+small <span class="citation">(Steinhilber et al., 2024)</span>. Given
+the prevalence of small to medium effects in psychology <span class="citation">(Funder &amp; Ozer, 2019; Richard et al., 2003)</span>,
+many studies end up underpowered because the required sample sizes
+exceed available resources <span class="citation">(Button et al., 2013;
+Szucs &amp; Ioannidis, 2017)</span>.</p>
+<p>The sequential one-way ANOVA provides an efficient alternative by
+applying the SPRT framework to comparisons of <span class="math inline">\(k\)</span> groups <span class="citation">(Steinhilber et al., 2024)</span>. Instead of
+collecting a fixed number of observations, data are collected
+sequentially and the test evaluates evidence after each step until a
+decision is reached.</p>
+<div class="section level3">
+<h3 id="hypotheses">Hypotheses<a class="anchor" aria-label="anchor" href="#hypotheses"></a>
+</h3>
+<p>The sequential one-way ANOVA tests the following hypotheses,
+specified in terms of Cohen’s <span class="math inline">\(f\)</span>:</p>
+<p><span class="math display">\[H_0: f = 0\]</span> <span class="math display">\[H_1: f = f_{\text{exp}}, \quad (f_{\text{exp}}
+&gt; 0)\]</span></p>
+<p>Cohen’s <span class="math inline">\(f\)</span> is defined as:</p>
+<p><span class="math display">\[f = \frac{\sigma_m}{\sigma}\]</span></p>
+<p>where <span class="math inline">\(\sigma\)</span> is the common
+within-population standard deviation and <span class="math inline">\(\hat{\sigma}_m = \sqrt{\frac{\sum_{i=1}^{k}(m_i -
+\bar{m})^2}{k}}\)</span>, with <span class="math inline">\(m_i\)</span>
+being the mean of group <span class="math inline">\(i\)</span> and <span class="math inline">\(\bar{m}\)</span> the overall mean across all <span class="math inline">\(k\)</span> groups. In other words, <span class="math inline">\(f\)</span> captures the spread of group means
+relative to the common within-group variability.</p>
+</div>
+<div class="section level3">
+<h3 id="the-f-statistic">The <span class="math inline">\(F\)</span> Statistic<a class="anchor" aria-label="anchor" href="#the-f-statistic"></a>
+</h3>
+<p>At the <span class="math inline">\(n\)</span>-th sequential step, the
+<span class="math inline">\(F\)</span> statistic is calculated from
+<span class="math inline">\(k\)</span> groups with <span class="math inline">\(n\)</span> observations each (total <span class="math inline">\(N = k \cdot n\)</span>, with <span class="math inline">\(n, k \geq 2\)</span>):</p>
+<p><span class="math display">\[F_n = \frac{SS_{\text{effect},n} /
+df_1}{SS_{\text{residual},n} / df_{2,n}}\]</span></p>
+<p>with</p>
+<p><span class="math display">\[SS_{\text{effect},n} = \sum_{i=1}^{k}
+n(\bar{x}_i - \bar{x})^2\]</span></p>
+<p><span class="math display">\[SS_{\text{residual},n} = \sum_{i=1}^{k}
+\sum_{j=1}^{n} (x_{i,j} - \bar{x}_i)^2\]</span></p>
+<p><span class="math display">\[df_1 = k - 1 \qquad \text{and} \qquad
+df_{2,n} = N - k\]</span></p>
+<p>where <span class="math inline">\(\bar{x}\)</span> is the overall
+mean, <span class="math inline">\(\bar{x}_i\)</span> is the mean of
+group <span class="math inline">\(i\)</span>, and <span class="math inline">\(x_{i,j}\)</span> is the <span class="math inline">\(j\)</span>-th observation in group <span class="math inline">\(i\)</span>.</p>
+</div>
+<div class="section level3">
+<h3 id="the-likelihood-ratio">The Likelihood Ratio<a class="anchor" aria-label="anchor" href="#the-likelihood-ratio"></a>
+</h3>
+<p>The likelihood ratio at step <span class="math inline">\(n\)</span>
+is defined as the ratio of the likelihood under <span class="math inline">\(H_1\)</span> to the likelihood under <span class="math inline">\(H_0\)</span>. Using Cox’s theorem <span class="citation">(Cox, 1952)</span>, it is sufficient to compute this
+ratio only for the current <span class="math inline">\(F_n\)</span>
+statistic rather than the entire sequence of observations:</p>
+<p><span class="math display">\[\text{LR}_n = \frac{f(F_n \mid df_1,\;
+df_{2,n},\; \Delta_{1n})}{f(F_n \mid df_1,\; df_{2,n})}\]</span></p>
+<p>The numerator is the density of a <strong>non-central</strong> <span class="math inline">\(F\)</span> distribution with non-centrality
+parameter <span class="math inline">\(\Delta_{1n}\)</span>, and the
+denominator is the density of a <strong>central</strong> <span class="math inline">\(F\)</span> distribution (i.e., <span class="math inline">\(\Delta = 0\)</span> under <span class="math inline">\(H_0\)</span>). The non-centrality parameter is
+linked to Cohen’s <span class="math inline">\(f\)</span> via:</p>
+<p><span class="math display">\[\Delta_1 = f_{\text{exp}}^2 \cdot
+N\]</span></p>
+</div>
+<div class="section level3">
+<h3 id="decision-rule">Decision Rule<a class="anchor" aria-label="anchor" href="#decision-rule"></a>
+</h3>
+<p>The sequential ANOVA applies the standard SPRT decision
+boundaries:</p>
+<ul>
+<li>If <span class="math inline">\(\text{LR}_n \geq A =
+\frac{1-\beta}{\alpha}\)</span>: Stop and accept <span class="math inline">\(H_1\)</span>
+</li>
+<li>If <span class="math inline">\(\text{LR}_n \leq B =
+\frac{\beta}{1-\alpha}\)</span>: Stop and accept <span class="math inline">\(H_0\)</span>
+</li>
+<li>If <span class="math inline">\(B &lt; \text{LR}_n &lt; A\)</span>:
+Continue collecting data</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="efficiency-and-robustness">Efficiency and Robustness<a class="anchor" aria-label="anchor" href="#efficiency-and-robustness"></a>
+</h3>
+<p>Simulations with <span class="math inline">\(k = 4\)</span> groups
+demonstrate that the sequential ANOVA is substantially more efficient
+than fixed-sample designs: in 87% of cases the sequential sample was
+smaller than the fixed sample, with an average sample size reduction of
+58% <span class="citation">(Steinhilber et al., 2024)</span>. Efficiency
+gains are particularly pronounced for small expected effect sizes (<span class="math inline">\(f_{\text{exp}} = 0.10\)</span>: 64% reduction;
+<span class="math inline">\(f_{\text{exp}} = 0.25\)</span>: 40%; <span class="math inline">\(f_{\text{exp}} = 0.40\)</span>: 23%).</p>
+<p>Robustness analyses showed that the sequential and fixed ANOVA behave
+similarly under assumption violations. Both procedures are robust to
+non-normal data (simulated using Gaussian mixture distributions) and to
+mildly unequal variances or group sizes. The most critical scenario is a
+combination of unbalanced group sizes and unequal variances,
+specifically when smaller groups have larger variances—in this case,
+<span class="math inline">\(\alpha\)</span> error rates can be inflated
+in both the sequential and the fixed ANOVA.</p>
+<p>As with all sequential procedures, effect size estimates from
+individual sequential ANOVAs are conditionally biased (see Section “The
+Bias-Efficiency Tradeoff”). However, the weighted average across studies
+closely approximates the true population effect size <span class="citation">(Steinhilber et al., 2024)</span>.</p>
+<p>The <code><a href="../reference/seq_anova.html">seq_anova()</a></code> function in the <code>sprtt</code>
+package implements the sequential one-way fixed effects ANOVA described
+here.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="how-to-use-seq_anova">How to use <code>seq_anova()</code><a class="anchor" aria-label="anchor" href="#how-to-use-seq_anova"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">333</span><span class="op">)</span></span>
+<span><span class="co"># generate data with a medium effect</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">22</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># calculate the SPRT -----------------------------------------------------------</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span></span>
+<span>                          <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
+<span>                          f <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>                          data <span class="op">=</span> <span class="va">data</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,<span class="op">]</span>,</span>
+<span>                          verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">anova_results</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential ANOVA *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: y ~ x</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 0.964, decision = continue sampling</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span></span>
+<span><span class="co"># access the decision</span></span>
+<span><span class="va">anova_results</span><span class="op">@</span><span class="va">decision</span></span>
+<span><span class="co">## [1] "continue sampling"</span></span>
+<span></span>
+<span><span class="co"># acess the LR</span></span>
+<span><span class="va">anova_results</span><span class="op">@</span><span class="va">likelihood_ratio</span></span>
+<span><span class="co">## [1] 2.62204</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># calculate the SPRT -----------------------------------------------------------</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span></span>
+<span>                          <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
+<span>                          f <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>                          data <span class="op">=</span> <span class="va">data</span>,</span>
+<span>                          verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">anova_results</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *****  Sequential ANOVA *****</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## formula: y ~ x</span></span>
+<span><span class="co">## test statistic:</span></span>
+<span><span class="co">##  log-likelihood ratio = 3.153, decision = accept H1</span></span>
+<span><span class="co">## SPRT thresholds:</span></span>
+<span><span class="co">##  lower log(B) = -2.944, upper log(A) = 2.944</span></span>
+<span><span class="co">## Log-Likelihood of the:</span></span>
+<span><span class="co">##  alternative hypothesis = -3.293</span></span>
+<span><span class="co">##  null hypothesis = -6.447</span></span>
+<span><span class="co">## alternative hypothesis: true difference in means is not equal to 0.</span></span>
+<span><span class="co">## specified effect size: Cohen's f = 0.25</span></span>
+<span><span class="co">## empirical Cohen's f = 0.4684039, 95% CI[0.1741801, 0.6969498]</span></span>
+<span><span class="co">## Cohen's f adjusted = 0.415</span></span>
+<span><span class="co">## degrees of freedom: df1 = 2, df2 = 63</span></span>
+<span><span class="co">## SS effect = 12.63455, SS residual = 57.58624, SS total = 70.22079</span></span>
+<span><span class="co">## *Note: to get access to the object of the results use the @ or [] instead of the $ operator.</span></span>
+<span></span>
+<span><span class="co"># access the decision</span></span>
+<span><span class="va">anova_results</span><span class="op">@</span><span class="va">decision</span></span>
+<span><span class="co">## [1] "accept H1"</span></span>
+<span></span>
+<span><span class="co"># acess the LR</span></span>
+<span><span class="va">anova_results</span><span class="op">@</span><span class="va">likelihood_ratio</span></span>
+<span><span class="co">## [1] 23.41619</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="how-to-plot-the-anova-results">How to plot the ANOVA results<a class="anchor" aria-label="anchor" href="#how-to-plot-the-anova-results"></a>
@@ -159,9 +294,9 @@ in the sprtt package.</p>
 <p>In this case, we have data that are perfectly balanced and in a
 perfect sampling order. Here, we can use the default value of the ‘plot’
 argument ‘single’ or we can choose ‘balanced’.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">333</span><span class="op">)</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">22</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># calculate the SPRT -----------------------------------------------------------</span></span>
 <span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>,</span>
@@ -190,16 +325,18 @@ points), the option ‘single’ would output an error.</p>
 ourselves.</strong></p>
 <p>Here, we start later (after 12 data points) but then calculate the LR
 after every single data point.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">333</span><span class="op">)</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">50</span>, sample_ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/draw_sample_normal.html">draw_sample_normal</a></span><span class="op">(</span><span class="fl">3</span>, f <span class="op">=</span> <span class="fl">0.25</span>, max_n <span class="op">=</span> <span class="fl">37</span>, sample_ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span> <span class="co"># destroy the perfect order of the data</span></span>
 <span></span>
 <span><span class="co"># calculate the SPRT -----------------------------------------------------------</span></span>
-<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.25</span>, data <span class="op">=</span> <span class="va">data</span>,</span>
-<span>                                  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                  seq_steps <span class="op">=</span> <span class="fl">12</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="co"># we start with the first 12 data points instead of the first 6</span></span>
-<span>                                  <span class="op">)</span></span>
+<span><span class="va">anova_results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/seq_anova.html">seq_anova</a></span><span class="op">(</span></span>
+<span>                          <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
+<span>                          f <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>                          data <span class="op">=</span> <span class="va">data</span>,</span>
+<span>                          plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                          seq_steps <span class="op">=</span> <span class="fl">12</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span> <span class="co"># we start with the first 12 data points instead of the first 6</span></span>
 <span></span>
 <span><span class="co"># plot the results -------------------------------------------------------------</span></span>
 <span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_anova.html">plot_anova</a></span><span class="op">(</span><span class="va">anova_results</span>,</span>
@@ -219,22 +356,42 @@ after every single data point.</p>
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-schnuerch2020a" class="csl-entry">
-Schnuerch, M., Erdfelder, E., &amp; Heck, D. W. (2020). Sequential
-hypothesis tests for multinomial processing tree models. <em>Journal of
-Mathematical Psychology</em>, <em>95</em>, 102326. <a href="https://doi.org/10.1016/j.jmp.2020.102326" class="external-link">https://doi.org/10.1016/j.jmp.2020.102326</a>
+<div id="ref-button2013" class="csl-entry">
+Button, K. S., Ioannidis, J. P. A., Mokrysz, C., Nosek, B. A., Flint,
+J., Robinson, E. S. J., &amp; Munafò, M. R. (2013). Power failure:
+<span>Why</span> small sample size undermines the reliability of
+neuroscience. <em>Nature Reviews Neuroscience</em>, <em>14</em>(5),
+365–376. <a href="https://doi.org/10.1038/nrn3475" class="external-link">https://doi.org/10.1038/nrn3475</a>
 </div>
-<div id="ref-steinhilber2023a" class="csl-entry">
-Steinhilber, M., Schnuerch, M., &amp; Schubert, A.-L. (2023).
-<em>Sequential analysis of variance: <span>Increasing</span> effciency
-of hypothesis testing</em>. <span>PsyArXiv</span>. <a href="https://doi.org/10.31234/osf.io/m64ne" class="external-link">https://doi.org/10.31234/osf.io/m64ne</a>
+<div id="ref-cox1952" class="csl-entry">
+Cox, D. R. (1952). Sequential tests for composite hypotheses.
+<em>Mathematical Proceedings of the Cambridge Philosophical
+Society</em>, <em>48</em>(2), 290–299. <a href="https://doi.org/10.1017/S030500410002764X" class="external-link">https://doi.org/10.1017/S030500410002764X</a>
 </div>
-<div id="ref-wald1945" class="csl-entry">
-Wald, A. (1945). Sequential tests of statistical hypotheses. <em>The
-Annals of Mathematical Statistics</em>, <em>16</em>(2), 117–186.
+<div id="ref-funder2019" class="csl-entry">
+Funder, D. C., &amp; Ozer, D. J. (2019). Evaluating effect size in
+psychological research: <span>Sense</span> and nonsense. <em>Advances in
+Methods and Practices in Psychological Science</em>, <em>2</em>(2),
+156–168. <a href="https://doi.org/10.1177/2515245919847202" class="external-link">https://doi.org/10.1177/2515245919847202</a>
+</div>
+<div id="ref-richard2003" class="csl-entry">
+Richard, F. D., Bond, C. F., &amp; Stokes-Zoota, J. J. (2003). One
+hundred years of social psychology quantitatively described. <em>Review
+of General Psychology</em>, <em>7</em>(4), 331–363. <a href="https://doi.org/10.1037/1089-2680.7.4.331" class="external-link">https://doi.org/10.1037/1089-2680.7.4.331</a>
+</div>
+<div id="ref-steinhilber2024" class="csl-entry">
+Steinhilber, M., Schnuerch, M., &amp; Schubert, A.-L. (2024). Sequential
+analysis of variance: <span>Increasing</span> efficiency of hypothesis
+testing. <em>Psychological Methods</em>. <a href="https://doi.org/10.1037/met0000677" class="external-link">https://doi.org/10.1037/met0000677</a>
+</div>
+<div id="ref-szucs2017" class="csl-entry">
+Szucs, D., &amp; Ioannidis, J. P. A. (2017). When null hypothesis
+significance testing is unsuitable for research: <span>A</span>
+reassessment. <em>Frontiers in Human Neuroscience</em>, <em>11</em>,
+390. <a href="https://doi.org/10.3389/fnhum.2017.00390" class="external-link">https://doi.org/10.3389/fnhum.2017.00390</a>
 </div>
 <div id="ref-wald1947" class="csl-entry">
-Wald, Abraham. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
+Wald, A. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
 </div>
 </div>
 </div>

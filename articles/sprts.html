@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>SPRTs • sprtt</title>
+<title>Introduction to SPRTs • sprtt</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -21,7 +21,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="SPRTs">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to SPRTs">
 <meta name="description" content="This vignette describes SPRTs in general.
 ">
 <meta property="og:description" content="This vignette describes SPRTs in general.
@@ -51,9 +51,9 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Getting Started</h6></li>
-    <li><a class="dropdown-item" href="../articles/usage_sprtt.html">How to use the sprtt package</a></li>
-    <li><a class="dropdown-item" href="../articles/sprts.html">SPRTs</a></li>
-    <li><a class="dropdown-item" href="../articles/use_case.html">Use Case</a></li>
+    <li><a class="dropdown-item" href="../articles/workflow_sprtt.html">How to use the sprtt package?</a></li>
+    <li><a class="dropdown-item" href="../articles/sprts.html">Introduction to SPRTs</a></li>
+    <li><a class="dropdown-item" href="../articles/use_case.html">Simple t-Test Use Case</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Sequential Tests</h6></li>
     <li><a class="dropdown-item" href="../articles/t_test.html">Sequential t-Test</a></li>
@@ -83,7 +83,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>SPRTs</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Introduction to SPRTs</h1>
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
@@ -95,57 +95,196 @@ Snijder-Steinhilber</h4>
 
     
     
-<div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h2>
 <p>The <code>sprtt</code> package is a <strong>s</strong>equential
 <strong>p</strong>robability <strong>r</strong>atio
 <strong>t</strong>ests <strong>t</strong>oolbox
 (<strong>sprtt</strong>). This vignette describes the theoretical
 background of these tests.</p>
-<p>Other recommended vignettes cover:</p>
+<p>If you are interested in a workflow to use the <code>sprtt</code>
+package, see the vignette <code><a href="../articles/workflow_sprtt.html">vignette("workflow_sprtt")</a></code>. For a
+simple use case of a sequential <em>t</em>-test see the vignette
+<code><a href="../articles/use_case.html">vignette("use_case")</a></code>.</p>
+<div class="section level3">
+<h3 id="the-sequential-testing-principle">The Sequential Testing Principle<a class="anchor" aria-label="anchor" href="#the-sequential-testing-principle"></a>
+</h3>
+<p>Sequential Probability Ratio Tests (SPRTs) fundamentally differ from
+fixed-sample designs by continuously evaluating evidence as data
+accumulates <span class="citation">(A. Wald, 1945)</span>. After
+collecting each data point (or batch of data points), the test leads to
+one of three outcomes:</p>
 <ul>
-<li><p>a <a href="https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html">general
-guide</a>, how to use the package and</p></li>
-<li><p>an extended <a href="https://meikesteinhilber.github.io/sprtt/articles/use-case.html">use
-case</a>.</p></li>
+<li>
+<strong>Stop and accept <span class="math inline">\(H_0\)</span></strong> (no effect): Sufficient
+evidence accumulated against an effect</li>
+<li>
+<strong>Stop and accept <span class="math inline">\(H_1\)</span></strong> (effect): Sufficient
+evidence accumulated for an effect<br>
+</li>
+<li>
+<strong>Continue sampling</strong>: Evidence remains
+inconclusive</li>
+</ul>
+<p>This approach allows researchers to stop data collection as soon as
+sufficient evidence has been obtained, leading to substantial efficiency
+gains compared to fixed-sample designs.</p>
+</div>
+<div class="section level3">
+<h3 id="the-likelihood-ratio-and-decision-boundaries">The Likelihood Ratio and Decision Boundaries<a class="anchor" aria-label="anchor" href="#the-likelihood-ratio-and-decision-boundaries"></a>
+</h3>
+<p>At the core of SPRTs is the <em>likelihood ratio</em> <span class="math inline">\(\text{LR}_n\)</span>, which quantifies the
+relative evidence for <span class="math inline">\(H_1\)</span> versus
+<span class="math inline">\(H_0\)</span> after <span class="math inline">\(n\)</span> observations:</p>
+<p><span class="math display">\[\text{LR}_n = \frac{P(\text{data} \mid
+H_1)}{P(\text{data} \mid H_0)}\]</span></p>
+<p>The SPRT compares this likelihood ratio to two boundaries:</p>
+<ul>
+<li>
+<strong>Upper boundary</strong> <span class="math inline">\(A\)</span>: If <span class="math inline">\(\text{LR}_n \geq A\)</span>, stop and accept <span class="math inline">\(H_1\)</span>
+</li>
+<li>
+<strong>Lower boundary</strong> <span class="math inline">\(B\)</span>: If <span class="math inline">\(\text{LR}_n \leq B\)</span>, stop and accept <span class="math inline">\(H_0\)</span>
+</li>
+<li>
+<strong>Continue</strong>: If <span class="math inline">\(B &lt;
+\text{LR}_n &lt; A\)</span>, collect more data</li>
+</ul>
+<p>These boundaries are determined by the desired Type I (<span class="math inline">\(\alpha\)</span>) and Type II (<span class="math inline">\(\beta\)</span>) error rates:</p>
+<p><span class="math display">\[A = \frac{1-\beta}{\alpha} \quad
+\text{and} \quad B = \frac{\beta}{1-\alpha}\]</span></p>
+<p>In practice, it is often more convenient to work with the
+log-likelihood ratio <span class="math inline">\(\text{LLR}_n =
+\log(\text{LR}_n)\)</span>. The logarithm transforms products of
+likelihoods into sums, which improves numerical stability (avoiding very
+small or very large numbers) and simplifies computation.</p>
+<p>The corresponding log-boundaries are:</p>
+<p><span class="math display">\[\text{LLR}_n \geq \log(A) \rightarrow
+\text{accept } H_1\]</span></p>
+<p><span class="math display">\[\text{LLR}_n \leq \log(B) \rightarrow
+\text{accept } H_0\]</span></p>
+<p>The <code>sprtt</code> package uses the <span class="math inline">\(\text{LLR}_n\)</span> for the internal
+calculations.</p>
+</div>
+<div class="section level3">
+<h3 id="random-sample-size">Random Sample Size<a class="anchor" aria-label="anchor" href="#random-sample-size"></a>
+</h3>
+<p>Unlike fixed-sample designs where <span class="math inline">\(N\)</span> is predetermined, the sample size in
+SPRTs is a random variable. You don’t know beforehand when the test will
+stop—it depends on:</p>
+<ul>
+<li>The true effect size in the population</li>
+<li>Random variation in the observed data</li>
+<li>The specified error rates (<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>)</li>
+<li>The effect size specified under <span class="math inline">\(H_1\)</span>
+</li>
+</ul>
+<p>When the true effect matches <span class="math inline">\(H_1\)</span>
+(or <span class="math inline">\(H_0\)</span>), the test tends to stop
+quickly. When the truth lies between the hypotheses, stopping may take
+longer. This randomness is a feature, not a bug—it’s what enables the
+efficiency gains.</p>
+</div>
+<div class="section level3">
+<h3 id="why-sprts-always-stop">Why SPRTs Always Stop<a class="anchor" aria-label="anchor" href="#why-sprts-always-stop"></a>
+</h3>
+<p>A crucial theoretical property of SPRTs is that they are
+<em>guaranteed to terminate</em> with probability 1 under both <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> <span class="citation">(Abraham Wald,
+1947)</span>. This means that if you continue collecting data, the
+likelihood ratio will eventually cross one of the boundaries – you won’t
+collect data indefinitely.</p>
+<p>The mathematical proof relies on the law of large numbers and
+properties of random walks. However, while termination is guaranteed
+asymptotically, practical constraints (budget, time) may require setting
+a maximum sample size <span class="math inline">\(N_{\text{max}}\)</span> based on available
+resources. The <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code> function helps determine
+the required <span class="math inline">\(N_{\text{max}}\)</span> for a
+given design, ensuring a desired decision rate (e.g., 80%) is achieved,
+that is, the test reaches a decision before exhausting resources in at
+least 80% of cases.</p>
+</div>
+<div class="section level3">
+<h3 id="efficiency">Efficiency<a class="anchor" aria-label="anchor" href="#efficiency"></a>
+</h3>
+<p>SPRTs achieve remarkable efficiency compared to fixed-sample designs
+<span class="citation">(A. Wald, 1945)</span>. On average, SPRTs require
+approximately <em>58% fewer observations</em> to reach the same decision
+with the same error rates <span class="citation">(Steinhilber et al.,
+2024)</span>.</p>
+<p>Additionally, SPRTs are especially efficient compare to fixed-sample
+designs, when the expected effect (or effect size of interest) is small
+and when the expected effect is smaller than the true effect in the data
+<span class="citation">(Steinhilber et al., 2024)</span>.</p>
+</div>
+<div class="section level3">
+<h3 id="the-bias-efficiency-tradeoff">The Bias-Efficiency Tradeoff<a class="anchor" aria-label="anchor" href="#the-bias-efficiency-tradeoff"></a>
+</h3>
+<p>While SPRTs are highly efficient, they come with an important caveat:
+effect size estimates are conditionally biased <span class="citation">(Schnuerch &amp; Erdfelder, 2020; Steinhilber et al.,
+2024)</span>.</p>
+<p><strong>Small samples</strong> (early stops): lead to
+<em>overestimation</em> of effect sizes in single studies.</p>
+<p><strong>Large samples</strong> (late stops): lead to
+<em>underestimation</em> of effect sizes in single studies.</p>
+<p>However, across multiple studies, the weighted average of effect size
+estimates is close to the true population parameter.</p>
+<p>This means that effect size estimates from individual SPRT studies
+should be interpreted with caution. It is important to note that
+conditional bias of sequential samples is not specific to SPRTs but a
+general phenomenon of sequential testing procedures <span class="citation">(Fan et al., 2004; Nardini &amp; Sprenger, 2013;
+Whitehead, 1986)</span>.</p>
+<p><strong>Practical implications:</strong></p>
+<ul>
+<li>Use SPRTs for hypothesis testing (accept/reject decisions)</li>
+<li>Be cautious when interpreting point estimates from individual
+sequential studies</li>
+<li>For precise effect size estimation, consider fixed-sample designs
+with large enough samples or bias-corrected estimators, where
+available</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="what-is-a-sequential-test-procedure">What is a sequential test procedure?<a class="anchor" aria-label="anchor" href="#what-is-a-sequential-test-procedure"></a>
-</h2>
-<p>With a sequential approach, data is continuously collected and an
-analysis is performed after each data point, which can lead to three
-different results <span class="citation">(Wald, 1945)</span>:</p>
-<ul>
-<li><p>The data collection is <em>terminated</em> because enough
-evidence has been collected for the null hypothesis
-(H<sub>0</sub>).</p></li>
-<li><p>The data collection is <em>terminated</em> because enough
-evidence has been collected for the alternative hypothesis
-(H<sub>1</sub>).</p></li>
-<li><p>The data collection <em>will continue</em> as there is not yet
-enough evidence for either of the two hypotheses.</p></li>
-</ul>
-<p>Basically it is not necessary to perform an analysis after each data
-point — several data points can also be added at once. However, this
-affects the sample size (N) and the error rates <span class="citation">(Schnuerch et al., 2020)</span>.</p>
-<p>The efficiency of sequential designs has already been examined.
-Reductions in the sample by 50% and more were found in comparison to
-analyses with fixed sample sizes <span class="citation">(Schnuerch et
-al., 2020; Wald, 1945)</span>. Sequential hypothesis testing is
-therefore particularly suitable when resources are limited because the
-required sample size is reduced without compromising predefined error
-probabilities.</p>
+<div class="section level3">
+<h3 id="practical-considerations">Practical Considerations<a class="anchor" aria-label="anchor" href="#practical-considerations"></a>
+</h3>
+<p>While SPRTs theoretically continue until a boundary is crossed,
+practical constraints require planning. The <code>sprtt</code> package
+provides tools to explore these tradeoffs through the
+<code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code> function, helping you find designs that
+balance efficiency with feasibility.</p>
+</div>
+<div class="section level3 unnumbered">
+<h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-schnuerch2020a" class="csl-entry">
-Schnuerch, M., Erdfelder, E., &amp; Heck, D. W. (2020). Sequential
-hypothesis tests for multinomial processing tree models. <em>Journal of
-Mathematical Psychology</em>, <em>95</em>, 102326. <a href="https://doi.org/10.1016/j.jmp.2020.102326" class="external-link">https://doi.org/10.1016/j.jmp.2020.102326</a>
+<div id="ref-fan2004" class="csl-entry">
+Fan, X. (Frank)., DeMets, D. L., &amp; Lan, K. K. G. (2004). Conditional
+bias of point estimates following a group sequential test. <em>Journal
+of Biopharmaceutical Statistics</em>, <em>14</em>(2), 505–530. <a href="https://doi.org/10.1081/BIP-120037195" class="external-link">https://doi.org/10.1081/BIP-120037195</a>
+</div>
+<div id="ref-nardini2013" class="csl-entry">
+Nardini, C., &amp; Sprenger, J. (2013). Bias and
+<span>Conditioning</span> in <span>Sequential Medical Trials</span>.
+<em>Philosophy of Science</em>, <em>80</em>(5), 1053–1064. <a href="https://doi.org/10.1086/673732" class="external-link">https://doi.org/10.1086/673732</a>
+</div>
+<div id="ref-schnuerch2020" class="csl-entry">
+Schnuerch, M., &amp; Erdfelder, E. (2020). Controlling decision errors
+with minimal costs: <span>The</span> sequential probability ratio t
+test. <em>Psychological Methods</em>, <em>25</em>(2), 206–226. <a href="https://doi.org/10.1037/met0000234" class="external-link">https://doi.org/10.1037/met0000234</a>
+</div>
+<div id="ref-steinhilber2024" class="csl-entry">
+Steinhilber, M., Schnuerch, M., &amp; Schubert, A.-L. (2024). Sequential
+analysis of variance: <span>Increasing</span> efficiency of hypothesis
+testing. <em>Psychological Methods</em>. <a href="https://doi.org/10.1037/met0000677" class="external-link">https://doi.org/10.1037/met0000677</a>
 </div>
 <div id="ref-wald1945" class="csl-entry">
 Wald, A. (1945). Sequential tests of statistical hypotheses. <em>The
 Annals of Mathematical Statistics</em>, <em>16</em>(2), 117–186.
+</div>
+<div id="ref-wald1947" class="csl-entry">
+Wald, Abraham. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
+</div>
+<div id="ref-whitehead1986" class="csl-entry">
+Whitehead, J. (1986). On the bias of maximum likelihood estimation
+following a sequential test. <em>Biometrika</em>, <em>73</em>(3),
+573–581.
 </div>
 </div>
 </div>

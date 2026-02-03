@@ -51,9 +51,9 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Getting Started</h6></li>
-    <li><a class="dropdown-item" href="../articles/usage_sprtt.html">How to use the sprtt package</a></li>
-    <li><a class="dropdown-item" href="../articles/sprts.html">SPRTs</a></li>
-    <li><a class="dropdown-item" href="../articles/use_case.html">Use Case</a></li>
+    <li><a class="dropdown-item" href="../articles/workflow_sprtt.html">How to use the sprtt package?</a></li>
+    <li><a class="dropdown-item" href="../articles/sprts.html">Introduction to SPRTs</a></li>
+    <li><a class="dropdown-item" href="../articles/use_case.html">Simple t-Test Use Case</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Sequential Tests</h6></li>
     <li><a class="dropdown-item" href="../articles/t_test.html">Sequential t-Test</a></li>
@@ -95,9 +95,66 @@ Snijder-Steinhilber</h4>
 
     
     
-<!-- ```{r, child="sprts.Rmd"} -->
-<!-- ``` -->
-<div class="section level2">
+<style>
+/* Use custom class names to avoid Bootstrap conflicts */
+.custom-info-box {
+  background-color: white !important;
+  border: 2px solid #2c3e50 !important;
+  border-left: 5px solid #2c3e50 !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-info-box::before {
+  content: "🛈";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+.custom-warning-box {
+  background-color: white !important;
+  border: 2px solid #18bc9c !important;
+  border-left: 5px solid #18bc9c !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-warning-box::before {
+  content: "⚠";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #18bc9c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+</style>
+<!-- ```{r, child="sprts.Rmd"} --><!-- ``` --><div class="section level2">
 <h2 id="what-is-the-sequential-t-test">What is the sequential <em>t</em>-test?<a class="anchor" aria-label="anchor" href="#what-is-the-sequential-t-test"></a>
 </h2>
 <p>The sequential <em>t</em>-test is based on the Sequential Probability

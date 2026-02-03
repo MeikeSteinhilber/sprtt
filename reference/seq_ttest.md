@@ -116,7 +116,7 @@ access to the object use the `@`-operator or `[]`-brackets instead of
 - [`vignette("t_test", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/t_test.md)
   for detailed tutorial
 
-- [`vignette("usage_sprtt", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/usage_sprtt.md)
+- [`vignette("usage_sprtt", package = "sprtt")`](https://meikesteinhilber.github.io/sprtt/articles/usage_sprtt.html)
   for package overview
 
 - Schnuerch & Erdfelder (2019) <doi:10.1037/met0000234> for theoretical
