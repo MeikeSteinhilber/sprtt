@@ -35,7 +35,7 @@ articles:
 - title: Get Started
   navbar: Getting Started
   contents:
-  - usage_sprtt
+  - workflow_sprtt
   - sprts
   - use_case
 

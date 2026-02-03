@@ -22,26 +22,136 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r load-intro, child="sprts.Rmd"}
-
-```
-
 ## What is the sequential one-way ANOVA?
 
-The sequential one-way fixed effects ANOVA is based on the Sequential Probability Ratio Test (SPRT) by Abraham @wald1947, which is a highly efficient sequential hypothesis test.
-It can be used instead of *t*-tests if the means of two or more groups are compared.
-For detailed information see the public preprint [@steinhilber2023a].
-Note: keep in mind that the repeated measurement ANOVA is not implemented yet in the sprtt package.
+The sequential one-way fixed effects ANOVA is a sequential hypothesis test based on the Sequential Probability Ratio Test (SPRT) framework [@wald1947].
+It extends SPRTs to the comparison of two or more independent groups and can be used as an efficient alternative to the classical fixed-sample one-way ANOVA.
+For detailed information, see @steinhilber2024.
+For a general introduction to SPRTs, see the vignette `vignette("sprts")`.
+
+**Note:** The repeated measures ANOVA is not yet implemented in the `sprtt` package.
+
+
+
+## Sequential One-Way ANOVA
+
+Analysis of variance (ANOVA) is widely used to compare means across multiple groups.
+Traditional fixed-sample ANOVAs require an a priori power analysis to determine the necessary sample size, which often results in large samples, especially when expected effect sizes are small [@steinhilber2024].
+Given the prevalence of small to medium effects in psychology [@funder2019; @richard2003], many studies end up underpowered because the required sample sizes exceed available resources [@button2013; @szucs2017].
+
+The sequential one-way ANOVA provides an efficient alternative by applying the SPRT framework to comparisons of $k$ groups [@steinhilber2024].
+Instead of collecting a fixed number of observations, data are collected sequentially and the test evaluates evidence after each step until a decision is reached.
+
+### Hypotheses
+
+The sequential one-way ANOVA tests the following hypotheses, specified in terms of Cohen's $f$:
+
+$$H_0: f = 0$$
+$$H_1: f = f_{\text{exp}}, \quad (f_{\text{exp}} > 0)$$
+
+Cohen's $f$ is defined as:
+
+$$f = \frac{\sigma_m}{\sigma}$$
+
+where $\sigma$ is the common within-population standard deviation and $\hat{\sigma}_m = \sqrt{\frac{\sum_{i=1}^{k}(m_i - \bar{m})^2}{k}}$, with $m_i$ being the mean of group $i$ and $\bar{m}$ the overall mean across all $k$ groups. In other words, $f$ captures the spread of group means relative to the common within-group variability.
+
+### The $F$ Statistic
+
+At the $n$-th sequential step, the $F$ statistic is calculated from $k$ groups with $n$ observations each (total $N = k \cdot n$, with $n, k \geq 2$):
+
+$$F_n = \frac{SS_{\text{effect},n} / df_1}{SS_{\text{residual},n} / df_{2,n}}$$
+
+with
+
+$$SS_{\text{effect},n} = \sum_{i=1}^{k} n(\bar{x}_i - \bar{x})^2$$
+
+$$SS_{\text{residual},n} = \sum_{i=1}^{k} \sum_{j=1}^{n} (x_{i,j} - \bar{x}_i)^2$$
+
+$$df_1 = k - 1 \qquad \text{and} \qquad df_{2,n} = N - k$$
+
+where $\bar{x}$ is the overall mean, $\bar{x}_i$ is the mean of group $i$, and $x_{i,j}$ is the $j$-th observation in group $i$.
+
+### The Likelihood Ratio
+
+The likelihood ratio at step $n$ is defined as the ratio of the likelihood under $H_1$ to the likelihood under $H_0$. Using Cox's theorem [@cox1952], it is sufficient to compute this ratio only for the current $F_n$ statistic rather than the entire sequence of observations:
+
+$$\text{LR}_n = \frac{f(F_n \mid df_1,\; df_{2,n},\; \Delta_{1n})}{f(F_n \mid df_1,\; df_{2,n})}$$
+
+The numerator is the density of a **non-central** $F$ distribution with non-centrality parameter $\Delta_{1n}$, and the denominator is the density of a **central** $F$ distribution (i.e., $\Delta = 0$ under $H_0$). The non-centrality parameter is linked to Cohen's $f$ via:
+
+$$\Delta_1 = f_{\text{exp}}^2 \cdot N$$
+
+### Decision Rule
+
+The sequential ANOVA applies the standard SPRT decision boundaries:
+
+- If $\text{LR}_n \geq A = \frac{1-\beta}{\alpha}$: Stop and accept $H_1$
+- If $\text{LR}_n \leq B = \frac{\beta}{1-\alpha}$: Stop and accept $H_0$
+- If $B < \text{LR}_n < A$: Continue collecting data
+
+### Efficiency and Robustness
+
+Simulations with $k = 4$ groups demonstrate that the sequential ANOVA is substantially more efficient than fixed-sample designs: in 87% of cases the sequential sample was smaller than the fixed sample, with an average sample size reduction of 58% [@steinhilber2024]. Efficiency gains are particularly pronounced for small expected effect sizes ($f_{\text{exp}} = 0.10$: 64% reduction; $f_{\text{exp}} = 0.25$: 40%; $f_{\text{exp}} = 0.40$: 23%).
+
+Robustness analyses showed that the sequential and fixed ANOVA behave similarly under assumption violations.
+Both procedures are robust to non-normal data (simulated using Gaussian mixture distributions) and to mildly unequal variances or group sizes.
+The most critical scenario is a combination of unbalanced group sizes and unequal variances, specifically when smaller groups have larger variances—in this case, $\alpha$ error rates can be inflated in both the sequential and the fixed ANOVA.
+
+As with all sequential procedures, effect size estimates from individual sequential ANOVAs are conditionally biased (see Section "The Bias-Efficiency Tradeoff").
+However, the weighted average across studies closely approximates the true population effect size [@steinhilber2024].
+
+The `seq_anova()` function in the `sprtt` package implements the sequential one-way fixed effects ANOVA described here.
+
+## How to use `seq_anova()`
+
+```{r example-0.1}
+set.seed(333)
+# generate data with a medium effect
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
+
+# calculate the SPRT -----------------------------------------------------------
+anova_results <- sprtt::seq_anova(
+                          y~x,
+                          f = 0.25,
+                          data = data[1:20,],
+                          verbose = FALSE)
+anova_results
+
+# access the decision
+anova_results@decision
+
+# acess the LR
+anova_results@likelihood_ratio
+```
+
+```{r}
+# calculate the SPRT -----------------------------------------------------------
+anova_results <- sprtt::seq_anova(
+                          y~x,
+                          f = 0.25,
+                          data = data,
+                          verbose = TRUE)
+anova_results
+
+# access the decision
+anova_results@decision
+
+# acess the LR
+anova_results@likelihood_ratio
+```
+
+
 
 ## How to plot the ANOVA results
 
 ### Scenario 1: Perfect data
+
 In this case, we have data that are perfectly balanced and in a perfect sampling order.
 Here, we can use the default value of the 'plot' argument 'single' or we can choose 'balanced'.
 
 ```{r example-1}
 set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 30)
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
 
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(y~x, f = 0.25,
@@ -59,6 +169,7 @@ sprtt::plot_anova(anova_results)
 
 
 ### Scenario 2: Unbalanced data in an imperfect order
+
 In this case, we have a data set with unbalanced sample sizes between the groups and the data points are not in a perfect order.
 Because the order is not perfect, it does not make sense to use the 'balanced' option.
 Because the first data points (2*k_groups) are not equally distributed between the groups (some groups have less than 2 data points), the option 'single' would output an error.
@@ -66,16 +177,19 @@ Because the first data points (2*k_groups) are not equally distributed between t
 **Thus, we need to define the sequential steps ourselves.**
 
 Here, we start later (after 12 data points) but then calculate the LR after every single data point.
+
 ```{r example-2}
 set.seed(333)
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 50, sample_ratio = c(1,2,2))
+data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 37, sample_ratio = c(1,1,2))
 data <- data[sample(nrow(data)),] # destroy the perfect order of the data
 
 # calculate the SPRT -----------------------------------------------------------
-anova_results <- sprtt::seq_anova(y~x, f = 0.25, data = data,
-                                  plot = TRUE,
-                                  seq_steps = 12:nrow(data) # we start with the first 12 data points instead of the first 6
-                                  )
+anova_results <- sprtt::seq_anova(
+                          y~x,
+                          f = 0.25,
+                          data = data,
+                          plot = TRUE,
+                          seq_steps = 12:nrow(data)) # we start with the first 12 data points instead of the first 6
 
 # plot the results -------------------------------------------------------------
 sprtt::plot_anova(anova_results,

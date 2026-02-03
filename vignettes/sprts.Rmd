@@ -1,5 +1,5 @@
 ---
-title: "SPRTs"
+title: "Introduction to SPRTs"
 author: "Meike Snijder-Steinhilber"
 date: "`r Sys.Date()`"
 output:
@@ -17,27 +17,103 @@ csl: "apa.csl"
 ---
 
 
-## Overview
+The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests **t**oolbox (**sprtt**).
+This vignette describes the theoretical background of these tests.
 
-The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests **t**oolbox (**sprtt**). This vignette describes the theoretical background of these tests.
+If you are interested in a workflow to use the `sprtt` package, see the vignette `vignette("workflow_sprtt")`.
+For a simple use case of a sequential *t*-test see the vignette `vignette("use_case")`.
 
-Other recommended vignettes cover:
+### The Sequential Testing Principle
 
--   a [general guide](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html), how to use the package and
+Sequential Probability Ratio Tests (SPRTs) fundamentally differ from fixed-sample designs by continuously evaluating evidence as data accumulates [@wald1945].
+After collecting each data point (or batch of data points), the test leads to one of three outcomes:
 
--   an extended [use case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
+- **Stop and accept $H_0$** (no effect): Sufficient evidence accumulated against an effect
+- **Stop and accept $H_1$** (effect): Sufficient evidence accumulated for an effect  
+- **Continue sampling**: Evidence remains inconclusive
+
+This approach allows researchers to stop data collection as soon as sufficient evidence has been obtained, leading to substantial efficiency gains compared to fixed-sample designs.
+
+### The Likelihood Ratio and Decision Boundaries
+
+At the core of SPRTs is the *likelihood ratio* $\text{LR}_n$, which quantifies the relative evidence for $H_1$ versus $H_0$ after $n$ observations:
+
+$$\text{LR}_n = \frac{P(\text{data} \mid H_1)}{P(\text{data} \mid H_0)}$$
+
+The SPRT compares this likelihood ratio to two boundaries:
+
+- **Upper boundary** $A$: If $\text{LR}_n \geq A$, stop and accept $H_1$
+- **Lower boundary** $B$: If $\text{LR}_n \leq B$, stop and accept $H_0$
+- **Continue**: If $B < \text{LR}_n < A$, collect more data
+
+These boundaries are determined by the desired Type I ($\alpha$) and Type II ($\beta$) error rates:
+
+$$A = \frac{1-\beta}{\alpha} \quad \text{and} \quad B = \frac{\beta}{1-\alpha}$$
+
+In practice, it is often more convenient to work with the log-likelihood ratio $\text{LLR}_n = \log(\text{LR}_n)$.
+The logarithm transforms products of likelihoods into sums, which improves numerical stability (avoiding very small or very large numbers) and simplifies computation.
+
+The corresponding log-boundaries are:
+
+$$\text{LLR}_n \geq \log(A) \rightarrow \text{accept } H_1$$
+
+$$\text{LLR}_n \leq \log(B) \rightarrow \text{accept } H_0$$
+
+The `sprtt` package uses the $\text{LLR}_n$ for the internal calculations.
+
+### Random Sample Size
+
+Unlike fixed-sample designs where $N$ is predetermined, the sample size in SPRTs is a random variable.
+You don't know beforehand when the test will stop—it depends on:
+
+- The true effect size in the population
+- Random variation in the observed data
+- The specified error rates ($\alpha$, $\beta$)
+- The effect size specified under $H_1$
+
+When the true effect matches $H_1$ (or $H_0$), the test tends to stop quickly.
+When the truth lies between the hypotheses, stopping may take longer.
+This randomness is a feature, not a bug—it's what enables the efficiency gains.
+
+### Why SPRTs Always Stop
+
+A crucial theoretical property of SPRTs is that they are *guaranteed to terminate* with probability 1 under both $H_0$ and $H_1$ [@wald1947].
+This means that if you continue collecting data, the likelihood ratio will eventually cross one of the boundaries -- you won't collect data indefinitely.
+
+The mathematical proof relies on the law of large numbers and properties of random walks.
+However, while termination is guaranteed asymptotically, practical constraints (budget, time) may require setting a maximum sample size $N_{\text{max}}$ based on available resources.
+The `plan_sample_size()` function helps determine the required $N_{\text{max}}$ for a given design, ensuring a desired decision rate (e.g., 80%) is achieved, that is, the test reaches a decision before exhausting resources in at least 80% of cases.
+
+### Efficiency
+
+SPRTs achieve remarkable efficiency compared to fixed-sample designs [@wald1945].
+On average, SPRTs require approximately *58% fewer observations* to reach the same decision with the same error rates [@steinhilber2024].
+
+Additionally, SPRTs are especially efficient compare to fixed-sample designs, when the expected effect (or effect size of interest) is small and when the expected effect is smaller than the true effect in the data [@steinhilber2024].
 
 
-## What is a sequential test procedure?
+### The Bias-Efficiency Tradeoff
 
-With a sequential approach, data is continuously collected and an analysis is performed after each data point, which can lead to three different results [@wald1945]:
+While SPRTs are highly efficient, they come with an important caveat: effect size estimates are conditionally biased [@schnuerch2020; @steinhilber2024].
 
--   The data collection is *terminated* because enough evidence has been collected for the null hypothesis (H~0~).
+**Small samples** (early stops): lead to *overestimation* of effect sizes in single studies.
 
--   The data collection is *terminated* because enough evidence has been collected for the alternative hypothesis (H~1~).
+**Large samples** (late stops): lead to *underestimation* of effect sizes in single studies.
 
--   The data collection *will continue* as there is not yet enough evidence for either of the two hypotheses.
+However, across multiple studies, the weighted average of effect size estimates is close to the true population parameter.
 
-Basically it is not necessary to perform an analysis after each data point --- several data points can also be added at once. However, this affects the sample size (N) and the error rates [@schnuerch2020a].
+This means that effect size estimates from individual SPRT studies should be interpreted with caution.
+It is important to note that conditional bias of sequential samples is not specific to SPRTs but a general phenomenon of sequential testing procedures [@nardini2013; @fan2004; @whitehead1986].
 
-The efficiency of sequential designs has already been examined. Reductions in the sample by 50% and more were found in comparison to analyses with fixed sample sizes [@wald1945; @schnuerch2020a]. Sequential hypothesis testing is therefore particularly suitable when resources are limited because the required sample size is reduced without compromising predefined error probabilities.
+**Practical implications:**
+
+- Use SPRTs for hypothesis testing (accept/reject decisions)
+- Be cautious when interpreting point estimates from individual sequential studies
+- For precise effect size estimation, consider fixed-sample designs with large enough samples or bias-corrected estimators, where available
+
+### Practical Considerations
+
+While SPRTs theoretically continue until a boundary is crossed, practical constraints require planning.
+The `sprtt` package provides tools to explore these tradeoffs through the `plan_sample_size()` function, helping you find designs that balance efficiency with feasibility.
+
+### References

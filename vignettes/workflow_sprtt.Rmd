@@ -1,5 +1,5 @@
 ---
-title: "How to use the sprtt package"
+title: "How to use the sprtt package?"
 author: "Meike Snijder-Steinhilber"
 date: "`r Sys.Date()`"
 output:
@@ -90,90 +90,97 @@ knitr::opts_chunk$set(
 The `sprtt` package is a toolbox for **s**equential **p**robability **r**atio **t**ests (SPRTs).
 This vignette introduces the core functions and demonstrates a typical analysis workflow.
 For more comprehensive guides on specific topics, see the other package vignettes.
-If you are unfamiliar with SPRTs, please see the *XXX* section first.
+If you are unfamiliar with SPRTs, please read first the vignette `vignette("sprt")`.
 
-
-::: {.custom-info-box}
-
--   The data sets used below are included in the `sprtt` package.
-The data sets are available when the package is loaded.
-
--   In the R code sections:
-
-    -   `# comment`: is a comment
-    -   `function()`: is R code
-    -   `#> results of function()`: is console output
-
-:::
 
 ## Workflow
 
 ### 1. Understand the theoretical background of SPRTs
 
-The foundational literature [@wald1945; @wald1947; @rushton1950; @rushton1952; @hajnal1961] offers valuable depth but is not required reading.
-However, understanding SPRT mechanics, robustness to assumption violations, and proper application is essential.
-The following papers provide a good background:
+The foundational literature [@wald1945; @wald1947] established the mathematical framework for SPRTs.
+While these original papers provide theoretical depth, they require strong mathematical statistics background and focus primarily on abstract theory rather than practical application.
 
-**Key references:**
+For practical implementation, we strongly recommend starting with the following simulation studies, which demonstrate robustness to assumption violations, explain common pitfalls, and provide actionable guidance:
 
-- sequential *t*-tests: [@schnuerch2019] <doi:10.1037/met0000234>
-- sequential one-way ANOVA: [@steinhilber2024] <doi:10.1037/met0000677>
-- understanding questionable research practices in the context of SPRTs: [@steinhilber2025] <doi:10.31234/osf.io/vkbu3_v1>
+**Essential reading:**
+
+- **Sequential *t*-tests**: @schnuerch2020 — Demonstrates performance under various assumption violations and provides practical guidance
+- **Sequential one-way ANOVA**: @steinhilber2024 — Extends SPRTs to the one-way ANOVA design with comprehensive simulation evidence
+- **Understanding questionable research practices in sequential designs**: @steinhilber2025 — Critical for avoiding misuse and ensuring appropriate application
+
 
 For comparisons of different sequential designs (including SPRTs), see:
 
-- Group sequential designs vs Sequential Bayes Factor Test vs SPRT [@schnuerch2019] <doi:10.1037/met0000234>
-- Sequential Bayes Factor Test vs SPRT [@stefan2022] <doi:10.3758/s13428-021-01754-8>
+- @schnuerch2020 -- Group sequential designs vs Sequential Bayes Factor Test vs SPRT
+- @stefan2022 -- Sequential Bayes Factor Test vs SPRT
 
 ### 2. Check if SPRTs are the fitting choice
 
 Whether a statistical tool is appropriate depends strongly on the research context and intended use.
 SPRTs are recommended when:
 
+- Resources are limited and efficiency is a priority
+- The research question translates to a clear hypothesis test: Concluding in favor of either $H_0$ (no effect) or $H_1$ (effect) provides useful information for your research question.
 - Data can be collected sequentially
 - Data can be analyzed sequentially (ideally after each new observation)
-- The research question translates to a clear hypothesis test: $H_0$ vs $H_1$ (is there an effect or not?)
-- Resources are limited and efficiency is a priority
 - Long-term error rates need to be controlled (both $\alpha$ and $\beta$ error rates)
-- Accepting $H_0$ (no effect) is of interest
+
 
 SPRTs are **not** recommended when:
 
-- Sufficient literature already establishes the existence of the effect and the main goal is precise effect size estimation
-- Multiple hypotheses must be tested on the same dataset (theoretically possible but not yet implemented)
 - Data are collected all at once or only in very large batches
+- Multiple hypotheses must be tested on the same dataset (theoretically possible but not yet implemented)
 - Groups cannot be sampled somewhat equally over time (e.g., collecting all participants from one group before starting the other)
+- Sufficient literature already establishes the existence of the effect and the main goal is precise effect size estimation (see @steinhilber2024)
 
 
-### 3. Plan your resources
+<!-- ### 3. Plan your resources -->
 
-<!-- The `plan_sample_size()` helps you to get realistic expectations of how much data is usually required and how much data you want to collect in the worst case. -->
-<!-- For SPRTs a classical a priori power analysis is not necessary as the power ($1-\beta$) is controlled via the stopping boundaries, thus one can just specify the test and immediately start collecting the data and stop if the test reached a decision to accept one of the two hypothesis. -->
-<!-- However, it is relevant to plan the necessary resources even if the final sample size is unknown. -->
-<!-- Two sample sizes are here of interest: -->
+<!-- The `plan_sample_size()` function helps establish realistic expectations for data requirements and resource planning. -->
 
-<!-- - the expected sample size ($N_{\text{median}}$): this is the median sample size that is required to reach a decision and usually your final sample size will be close to that number. -->
-<!-- - the maximum sample size ($N_{\text{max}}$): this is the maximal sample size that one can afford and it is recommended to choose a setting where $N_{\text{max}}$ leads to a decsion rate of 20% and higher on average. -->
+<!-- Unlike traditional designs, SPRTs do not require classical a priori power analysis because power ($1-\beta$) is controlled through the stopping boundaries. -->
+<!-- This allows starting data collection immediately and stopping once the test reaches a decision. -->
+<!-- However, planning necessary resources remains important for practical concerns as it will not always be possible to collect data until a decision is reached. -->
+<!-- While the upper and lower boundaries of a SPRT control for the $\alpha$ and $\beta$ error rate in the long run, they do not guarantee that you will have enough resources to collect enough data to reach a decision in the first place. -->
+
+<!-- Thus, two sample sizes are relevant for planning: -->
+
+<!-- - **Expected sample size** ($N_{\text{median}}$): The median sample size required to reach a decision. Most studies will finish near this value. -->
+<!-- - **Maximum sample size** ($N_{\text{max}}$): The maximum affordable sample size. Choose settings where $N_{\text{max}}$ yields a decision rate of at least 80% (i.e., the test reaches a decision in at least 80% of cases where the maximum sample is reached). -->
+
+<!-- The `plan_sample_size()`function provides tables and plots to guide. -->
 
 <!-- For more details see the vignette *XXX*. -->
 
+### 3. Plan your resources
+
 The `plan_sample_size()` function helps establish realistic expectations for data requirements and resource planning.
 
-Unlike traditional designs, SPRTs do not require classical a priori power analysis because power ($1-\beta$) is controlled through the stopping boundaries.
-This allows starting data collection immediately and stopping once the test reaches a decision.
-However, planning necessary resources remains important for practical concerns.
+Unlike traditional designs, SPRTs do not require classical a priori power analysis.
+Power ($1-\beta$) is controlled through the stopping boundaries, allowing you to start data collection immediately and stop once the test reaches a decision.
 
-Two sample sizes are relevant:
+However, resource planning remains essential.
+While the boundaries control $\alpha$ and $\beta$ error rates in the long run, they cannot guarantee you will collect enough data to reach a decision within your available resources.
+
+Two sample sizes are relevant for planning:
 
 - **Expected sample size** ($N_{\text{median}}$): The median sample size required to reach a decision. Most studies will finish near this value.
 - **Maximum sample size** ($N_{\text{max}}$): The maximum affordable sample size. Choose settings where $N_{\text{max}}$ yields a decision rate of at least 80% (i.e., the test reaches a decision in at least 80% of cases where the maximum sample is reached).
 
-For more details see the vignette *XXX*.
+The `plan_sample_size()` function provides tables and plots to help you find appropriate design parameters that balance efficiency with feasibility.
+
+For detailed examples and guidance, see the vignette `vignette("plan_sample_size")`.
 
 
 ### 4. Plan the data collection and register your test specifications
 
 A thoughtful data collection plan is highly recommended to keep groups somewhat balanced and to track and balance (or randomize) potential confounders.
+
+::: {.custom-info-box}
+**Outliers**
+
+The question of how one should deal with outliers in sequential testing is still an ongoing research topic. Note, that implementing a naive sequential outlier analysis can lead to a inflation of the $\alpha$ error rate, see [@steinhilber2025].
+:::
 
 As SPRTs are best suited for confirmatory research, preregistering the data collection plan, hypothesis, and test specifications (e.g., effect size of interest, $\alpha$ and $\beta$ levels) is strongly recommended.
 
@@ -189,13 +196,12 @@ To test the analysis pipeline, use either:
 
 The following test are currently implemented:
 
-- sequential *t*-tests
-- sequential one-way ANOVA with independent groups
+- sequential *t*-tests, see `vignette("t_test")`
+- sequential one-way ANOVA with independent groups, see `vignette("one_way_anova")`
 
-See the vignettes for each test. *XXX*
 
 ### 5. Reporting of the results
 
-Guidelines for the reporting of SPRTs can be found in the following paper that also explicitly covers sequential testing and specifically SPRTs [@schubert2025] <doi:10.1038/s44271-025-00356-w>.
+Guidelines for the reporting of SPRTs can be found in the paper of [@schubert2025] that also explicitly covers sequential testing and specifically SPRTs .
 
 ## References
