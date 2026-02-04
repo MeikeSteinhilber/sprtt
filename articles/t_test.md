@@ -3,7 +3,7 @@
 ## What is the sequential *t*-test?
 
 The sequential *t*-test is based on the Sequential Probability Ratio
-Test (SPRT) by Abraham Abraham Wald (1947), which is a highly efficient
+Test (SPRT) by Abraham Wald (1947), which is a highly efficient
 sequential hypothesis test. However, the usage of Wald´s SPRT is limited
 in the case of normally distributed data, because the variance has to be
 known or specified in the hypothesis. Rushton (1950; 1952) and Hajnal
@@ -64,7 +64,7 @@ two-sided test, the *t*-value is squared (S. Rushton, 1952).
 
 After the calculation of the test statistic, the decision will be either
 to continue sampling or to terminate the sampling and accept one of the
-hypotheses. A. Wald (1945) defined the following rules for the SPRT:
+hypotheses. Wald (1945) defined the following rules for the SPRT:
 
 |    Condition     |                Decision |
 |:----------------:|------------------------:|
@@ -88,38 +88,23 @@ In summary, three specifications are required to calculate a sequential
 - the \\\beta\\ error probability (usually .20 or less), and
 
 - Cohen´s d (either as the expected effect size or as the lower limit
-  for a substantial effect).
+  for a effect size of interest).
 
 ## How do I use the `seq_ttest()` function?
 
 The
 [`seq_ttest()`](https://meikesteinhilber.github.io/sprtt/reference/seq_ttest.md)
-function has arguments to specify the requested sequential *t*-test. The
-table below shows all possible combinations which can be performed with
-the package.
+function works similarly to the
+[`t.test()`](https://rdrr.io/r/stats/t.test.html) function from the
+`stats` package if one is familiar with that already. The table below
+shows all possible combinations which can be performed with the `sprtt`
+package.
 
 |                            | Two-sample test | One-sample test |
 |----------------------------|-----------------|-----------------|
 | Two-sided                  | x               | x               |
 | One-sided                  | x               | x               |
 | Paired (repeated measures) | x               |                 |
-
-Other recommended vignettes cover:
-
-- the [theoretical
-  background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html)
-  and
-
-- an extended [use
-  case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
-
-## Argument
-
-The
-[`seq_ttest()`](https://meikesteinhilber.github.io/sprtt/reference/seq_ttest.md)
-function works similarly to the
-[`t.test()`](https://rdrr.io/r/stats/t.test.html) function from the
-`stats` package if one is familiar with that already.
 
 Sequential *t*-tests require some specification from the user:
 
@@ -538,4 +523,4 @@ Rushton, S. (1952). On a Two-Sided Sequential t-Test. *Biometrika*,
 Wald, A. (1945). Sequential tests of statistical hypotheses. *The Annals
 of Mathematical Statistics*, *16*(2), 117–186.
 
-Wald, Abraham. (1947). *Sequential analysis*. Wiley.
+Wald, A. (1947). *Sequential analysis*. Wiley.

@@ -14,14 +14,16 @@ For a simple use case of a sequential *t*-test see the vignette
 
 Sequential Probability Ratio Tests (SPRTs) fundamentally differ from
 fixed-sample designs by continuously evaluating evidence as data
-accumulates (A. Wald, 1945). After collecting each data point (or batch
-of data points), the test leads to one of three outcomes:
+accumulates (Wald, 1945). After collecting each data point (or batch of
+data points), the test leads to one of three outcomes:
+
+- **Continue sampling**: Evidence remains inconclusive
 
 - **Stop and accept \\H_0\\** (no effect): Sufficient evidence
   accumulated against an effect
+
 - **Stop and accept \\H_1\\** (effect): Sufficient evidence accumulated
-  for an effect  
-- **Continue sampling**: Evidence remains inconclusive
+  for an effect
 
 This approach allows researchers to stop data collection as soon as
 sufficient evidence has been obtained, leading to substantial efficiency
@@ -33,16 +35,20 @@ At the core of SPRTs is the *likelihood ratio* \\\text{LR}\_n\\, which
 quantifies the relative evidence for \\H_1\\ versus \\H_0\\ after \\n\\
 observations:
 
-\\\text{LR}\_n = \frac{P(\text{data} \mid H_1)}{P(\text{data} \mid
-H_0)}\\
+\\\text{LR}\_n = \frac{\text{L}\_n(H_1)}{\text{L}\_n(H_0)} =
+\frac{f(\text{data}\_n \mid H_1)}{f(\text{data}\_n \mid H_0)}\\
 
-The SPRT compares this likelihood ratio to two boundaries:
+If you are unfamiliar with the concept of likelihood, we recommend the
+paper by Etz (2018).
 
-- **Upper boundary** \\A\\: If \\\text{LR}\_n \geq A\\, stop and accept
-  \\H_1\\
-- **Lower boundary** \\B\\: If \\\text{LR}\_n \leq B\\, stop and accept
-  \\H_0\\
-- **Continue**: If \\B \< \text{LR}\_n \< A\\, collect more data
+The SPRT compares the likelihood ratio to two boundaries (\\A\\ and
+\\B\\), and the following rules apply:
+
+|     Condition      |      Data collection |                        Hypothesis |
+|:------------------:|---------------------:|----------------------------------:|
+|  \\LR_m \leq B\\   | Stop data collection | Accept \\H_0\\ and reject \\H_1\\ |
+| \\B \< LR_m \< A\\ |    Continue sampling |         No decision is made (yet) |
+|  \\LR_m \geq A\\   | Stop data collection | Accept \\H_1\\ and reject \\H_0\\ |
 
 These boundaries are determined by the desired Type I (\\\alpha\\) and
 Type II (\\\beta\\) error rates:
@@ -68,25 +74,25 @@ calculations.
 
 Unlike fixed-sample designs where \\N\\ is predetermined, the sample
 size in SPRTs is a random variable. You don’t know beforehand when the
-test will stop—it depends on:
+test will stop. When the SPRT will stop depends on:
 
-- The true effect size in the population
 - Random variation in the observed data
-- The specified error rates (\\\alpha\\, \\\beta\\)
+- The true effect size in the population
 - The effect size specified under \\H_1\\
+- The specified error rates (\\\alpha\\, \\\beta\\)
 
 When the true effect matches \\H_1\\ (or \\H_0\\), the test tends to
 stop quickly. When the truth lies between the hypotheses, stopping may
-take longer. This randomness is a feature, not a bug—it’s what enables
+take longer. This randomness is a feature, not a bug – it’s what enables
 the efficiency gains.
 
 ### Why SPRTs Always Stop
 
 A crucial theoretical property of SPRTs is that they are *guaranteed to
-terminate* with probability 1 under both \\H_0\\ and \\H_1\\ (Abraham
-Wald, 1947). This means that if you continue collecting data, the
-likelihood ratio will eventually cross one of the boundaries – you won’t
-collect data indefinitely.
+terminate* with probability 1 under both \\H_0\\ and \\H_1\\ (Wald,
+1947). This means that if you continue collecting data, the likelihood
+ratio will eventually cross one of the boundaries – you won’t collect
+data indefinitely.
 
 The mathematical proof relies on the law of large numbers and properties
 of random walks. However, while termination is guaranteed
@@ -101,8 +107,8 @@ is, the test reaches a decision before exhausting resources in at least
 
 ### Efficiency
 
-SPRTs achieve remarkable efficiency compared to fixed-sample designs (A.
-Wald, 1945). On average, SPRTs require approximately *58% fewer
+SPRTs achieve remarkable efficiency compared to fixed-sample designs
+(Wald, 1945). On average, SPRTs require approximately *58% fewer
 observations* to reach the same decision with the same error rates
 (Steinhilber et al., 2024).
 
@@ -151,6 +157,10 @@ feasibility.
 
 ### References
 
+Etz, A. (2018). Introduction to the concept of likelihood and its
+applications. *Advances in Methods and Practices in Psychological
+Science*, *1*(1), 60–69. <https://doi.org/10.1177/2515245917744314>
+
 Fan, X. (Frank)., DeMets, D. L., & Lan, K. K. G. (2004). Conditional
 bias of point estimates following a group sequential test. *Journal of
 Biopharmaceutical Statistics*, *14*(2), 505–530.
@@ -171,7 +181,7 @@ analysis of variance: Increasing efficiency of hypothesis testing.
 Wald, A. (1945). Sequential tests of statistical hypotheses. *The Annals
 of Mathematical Statistics*, *16*(2), 117–186.
 
-Wald, Abraham. (1947). *Sequential analysis*. Wiley.
+Wald, A. (1947). *Sequential analysis*. Wiley.
 
 Whitehead, J. (1986). On the bias of maximum likelihood estimation
 following a sequential test. *Biometrika*, *73*(3), 573–581.

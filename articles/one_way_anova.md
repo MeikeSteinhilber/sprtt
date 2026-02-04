@@ -27,18 +27,18 @@ sizes exceed available resources (Button et al., 2013; Szucs &
 Ioannidis, 2017).
 
 The sequential one-way ANOVA provides an efficient alternative by
-applying the SPRT framework to comparisons of \\k\\ groups (Steinhilber
-et al., 2024). Instead of collecting a fixed number of observations,
-data are collected sequentially and the test evaluates evidence after
-each step until a decision is reached.
+applying the SPRT framework to comparisons of \\k\\ groups. Instead of
+collecting a fixed number of observations, data are collected
+sequentially and the test evaluates evidence after each step until a
+decision is reached (Steinhilber et al., 2024).
 
 ### Hypotheses
 
 The sequential one-way ANOVA tests the following hypotheses, specified
 in terms of Cohen’s \\f\\:
 
-\\H_0: f = 0\\ \\H_1: f = f\_{\text{exp}}, \quad (f\_{\text{exp}} \>
-0)\\
+\\\begin{aligned} H_0 &: f = 0 \\ H_1 &: f = f\_{\text{exp}}, \quad
+(f\_{\text{exp}} \> 0) \end{aligned}\\
 
 Cohen’s \\f\\ is defined as:
 
@@ -69,8 +69,8 @@ with
 \\df_1 = k - 1 \qquad \text{and} \qquad df\_{2,n} = N - k\\
 
 where \\\bar{x}\\ is the overall mean, \\\bar{x}\_i\\ is the mean of
-group \\i\\, and \\x\_{i,j}\\ is the \\j\\-th observation in group
-\\i\\.
+group \\i\\, and \\x\_{i,j}\\ is the \\j\\-th observation in group \\i\\
+(Steinhilber et al., 2024; Wetherill & Glazebrook, 1986).
 
 ### The Likelihood Ratio
 
@@ -106,10 +106,8 @@ The sequential ANOVA applies the standard SPRT decision boundaries:
 Simulations with \\k = 4\\ groups demonstrate that the sequential ANOVA
 is substantially more efficient than fixed-sample designs: in 87% of
 cases the sequential sample was smaller than the fixed sample, with an
-average sample size reduction of 58% (Steinhilber et al., 2024).
-Efficiency gains are particularly pronounced for small expected effect
-sizes (\\f\_{\text{exp}} = 0.10\\: 64% reduction; \\f\_{\text{exp}} =
-0.25\\: 40%; \\f\_{\text{exp}} = 0.40\\: 23%).
+average sample size reduction of 58%. Efficiency gains are particularly
+pronounced for small expected effect sizes (Steinhilber et al., 2024).
 
 Robustness analyses showed that the sequential and fixed ANOVA behave
 similarly under assumption violations. Both procedures are robust to
@@ -133,11 +131,50 @@ effects ANOVA described here.
 
 ## How to use `seq_anova()`
 
+In the first step, we simulate data that we can analyze. In a real world
+example we use the data that are coming in from the data collection.
+
 ``` r
 set.seed(333)
-# generate data with a medium effect
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
+# generate data with a medium effect -------------------------------------------
+data <- sprtt::draw_sample_normal(
+                k = 3,
+                f = 0.25,
+                max_n = 22)
+```
 
+We can calculate the sequential ANOVA for the first time, after we have
+2 data points in each group.
+
+``` r
+# calculate the SPRT -----------------------------------------------------------
+anova_results <- sprtt::seq_anova(
+                          y~x,
+                          f = 0.25,
+                          data = data[1:6,],
+                          verbose = FALSE)
+anova_results
+## 
+## *****  Sequential ANOVA *****
+## 
+## formula: y ~ x
+## test statistic:
+##  log-likelihood ratio = -0.053, decision = continue sampling
+## SPRT thresholds:
+##  lower log(B) = -2.944, upper log(A) = 2.944
+
+# access the decision ----------------------------------------------------------
+anova_results@decision
+## [1] "continue sampling"
+```
+
+The decision is, that we have to continue the data collection. In the
+best case, we calculate the SPRT after each new data point.
+
+Lets assume, we have now reached a later stage in the data collection –
+in this scenario we have collected 20 data points.
+
+``` r
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(
                           y~x,
@@ -154,14 +191,13 @@ anova_results
 ## SPRT thresholds:
 ##  lower log(B) = -2.944, upper log(A) = 2.944
 
-# access the decision
+# access the decision ----------------------------------------------------------
 anova_results@decision
 ## [1] "continue sampling"
-
-# acess the LR
-anova_results@likelihood_ratio
-## [1] 2.62204
 ```
+
+We still got the decision to continue the data collection, so we do
+that.
 
 ``` r
 # calculate the SPRT -----------------------------------------------------------
@@ -190,22 +226,34 @@ anova_results
 ## SS effect = 12.63455, SS residual = 57.58624, SS total = 70.22079
 ## *Note: to get access to the object of the results use the @ or [] instead of the $ operator.
 
-# access the decision
+# access the decision ----------------------------------------------------------
 anova_results@decision
 ## [1] "accept H1"
 
-# acess the LR
+# acess the LR -----------------------------------------------------------------
 anova_results@likelihood_ratio
 ## [1] 23.41619
 ```
 
+With a sample size of \$N = \$ 66, we now have reached the decision to
+`anova_results@decision`. Thus, we stop the data collection.
+
 ## How to plot the ANOVA results
+
+In order to plot the likelihood progression, we have to calculate all
+the sequential steps that have happened before we reached the current
+sample size. As this is only necessary for plotting and increases the
+run time of the function, these calculations are only done, if the
+function argument `plot=TRUE` is set.
 
 ### Scenario 1: Perfect data
 
 In this case, we have data that are perfectly balanced and in a perfect
 sampling order. Here, we can use the default value of the ‘plot’
-argument ‘single’ or we can choose ‘balanced’.
+argument ‘single’ or we can choose ‘balanced’. See the function
+documentation of
+[`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md)
+for a description of each function argument
 
 ``` r
 set.seed(333)
@@ -300,3 +348,6 @@ significance testing is unsuitable for research: A reassessment.
 <https://doi.org/10.3389/fnhum.2017.00390>
 
 Wald, A. (1947). *Sequential analysis*. Wiley.
+
+Wetherill, G. B., & Glazebrook, K. D. (1986). *Sequential methods in
+statistics* (3rd ed). Chapman and Hall.

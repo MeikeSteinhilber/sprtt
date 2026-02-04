@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-03</h4>
+            <h4 data-toc-skip class="date">2026-02-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/sprts.Rmd" class="external-link"><code>vignettes/sprts.Rmd</code></a></small>
       <div class="d-none name"><code>sprts.Rmd</code></div>
@@ -109,20 +109,16 @@ simple use case of a sequential <em>t</em>-test see the vignette
 </h3>
 <p>Sequential Probability Ratio Tests (SPRTs) fundamentally differ from
 fixed-sample designs by continuously evaluating evidence as data
-accumulates <span class="citation">(A. Wald, 1945)</span>. After
-collecting each data point (or batch of data points), the test leads to
-one of three outcomes:</p>
+accumulates <span class="citation">(Wald, 1945)</span>. After collecting
+each data point (or batch of data points), the test leads to one of
+three outcomes:</p>
 <ul>
-<li>
-<strong>Stop and accept <span class="math inline">\(H_0\)</span></strong> (no effect): Sufficient
-evidence accumulated against an effect</li>
-<li>
-<strong>Stop and accept <span class="math inline">\(H_1\)</span></strong> (effect): Sufficient
-evidence accumulated for an effect<br>
-</li>
-<li>
-<strong>Continue sampling</strong>: Evidence remains
-inconclusive</li>
+<li><p><strong>Continue sampling</strong>: Evidence remains
+inconclusive</p></li>
+<li><p><strong>Stop and accept <span class="math inline">\(H_0\)</span></strong> (no effect): Sufficient
+evidence accumulated against an effect</p></li>
+<li><p><strong>Stop and accept <span class="math inline">\(H_1\)</span></strong> (effect): Sufficient
+evidence accumulated for an effect</p></li>
 </ul>
 <p>This approach allows researchers to stop data collection as soon as
 sufficient evidence has been obtained, leading to substantial efficiency
@@ -134,21 +130,47 @@ gains compared to fixed-sample designs.</p>
 <p>At the core of SPRTs is the <em>likelihood ratio</em> <span class="math inline">\(\text{LR}_n\)</span>, which quantifies the
 relative evidence for <span class="math inline">\(H_1\)</span> versus
 <span class="math inline">\(H_0\)</span> after <span class="math inline">\(n\)</span> observations:</p>
-<p><span class="math display">\[\text{LR}_n = \frac{P(\text{data} \mid
-H_1)}{P(\text{data} \mid H_0)}\]</span></p>
-<p>The SPRT compares this likelihood ratio to two boundaries:</p>
-<ul>
-<li>
-<strong>Upper boundary</strong> <span class="math inline">\(A\)</span>: If <span class="math inline">\(\text{LR}_n \geq A\)</span>, stop and accept <span class="math inline">\(H_1\)</span>
-</li>
-<li>
-<strong>Lower boundary</strong> <span class="math inline">\(B\)</span>: If <span class="math inline">\(\text{LR}_n \leq B\)</span>, stop and accept <span class="math inline">\(H_0\)</span>
-</li>
-<li>
-<strong>Continue</strong>: If <span class="math inline">\(B &lt;
-\text{LR}_n &lt; A\)</span>, collect more data</li>
-</ul>
-<p>These boundaries are determined by the desired Type I (<span class="math inline">\(\alpha\)</span>) and Type II (<span class="math inline">\(\beta\)</span>) error rates:</p>
+<p><span class="math display">\[\text{LR}_n =
+\frac{\text{L}_n(H_1)}{\text{L}_n(H_0)} = \frac{f(\text{data}_n \mid
+H_1)}{f(\text{data}_n \mid H_0)}\]</span></p>
+<p>If you are unfamiliar with the concept of likelihood, we recommend
+the paper by <span class="citation">Etz (2018)</span>.</p>
+<p>The SPRT compares the likelihood ratio to two boundaries (<span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>), and the following rules apply:</p>
+<table class="table">
+<colgroup>
+<col width="22%">
+<col width="38%">
+<col width="38%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Condition</th>
+<th align="right">Data collection</th>
+<th align="right">Hypothesis</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(LR_m \leq B\)</span></td>
+<td align="right">Stop data collection</td>
+<td align="right">Accept <span class="math inline">\(H_0\)</span> and
+reject <span class="math inline">\(H_1\)</span>
+</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(B &lt; LR_m &lt;
+A\)</span></td>
+<td align="right">Continue sampling</td>
+<td align="right">No decision is made (yet)</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(LR_m \geq A\)</span></td>
+<td align="right">Stop data collection</td>
+<td align="right">Accept <span class="math inline">\(H_1\)</span> and
+reject <span class="math inline">\(H_0\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- - **Continue sampling**: If $B < \text{LR}_n < A$, collect more data --><!-- - **Upper boundary** $A$: If $\text{LR}_n \geq A$, stop and accept $H_1$ --><!-- - **Lower boundary** $B$: If $\text{LR}_n \leq B$, stop and accept $H_0$ --><p>These boundaries are determined by the desired Type I (<span class="math inline">\(\alpha\)</span>) and Type II (<span class="math inline">\(\beta\)</span>) error rates:</p>
 <p><span class="math display">\[A = \frac{1-\beta}{\alpha} \quad
 \text{and} \quad B = \frac{\beta}{1-\alpha}\]</span></p>
 <p>In practice, it is often more convenient to work with the
@@ -169,25 +191,25 @@ calculations.</p>
 </h3>
 <p>Unlike fixed-sample designs where <span class="math inline">\(N\)</span> is predetermined, the sample size in
 SPRTs is a random variable. You don’t know beforehand when the test will
-stop—it depends on:</p>
+stop. When the SPRT will stop depends on:</p>
 <ul>
-<li>The true effect size in the population</li>
 <li>Random variation in the observed data</li>
-<li>The specified error rates (<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>)</li>
+<li>The true effect size in the population</li>
 <li>The effect size specified under <span class="math inline">\(H_1\)</span>
 </li>
+<li>The specified error rates (<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>)</li>
 </ul>
 <p>When the true effect matches <span class="math inline">\(H_1\)</span>
 (or <span class="math inline">\(H_0\)</span>), the test tends to stop
 quickly. When the truth lies between the hypotheses, stopping may take
-longer. This randomness is a feature, not a bug—it’s what enables the
+longer. This randomness is a feature, not a bug – it’s what enables the
 efficiency gains.</p>
 </div>
 <div class="section level3">
 <h3 id="why-sprts-always-stop">Why SPRTs Always Stop<a class="anchor" aria-label="anchor" href="#why-sprts-always-stop"></a>
 </h3>
 <p>A crucial theoretical property of SPRTs is that they are
-<em>guaranteed to terminate</em> with probability 1 under both <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> <span class="citation">(Abraham Wald,
+<em>guaranteed to terminate</em> with probability 1 under both <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> <span class="citation">(Wald,
 1947)</span>. This means that if you continue collecting data, the
 likelihood ratio will eventually cross one of the boundaries – you won’t
 collect data indefinitely.</p>
@@ -205,7 +227,7 @@ least 80% of cases.</p>
 <h3 id="efficiency">Efficiency<a class="anchor" aria-label="anchor" href="#efficiency"></a>
 </h3>
 <p>SPRTs achieve remarkable efficiency compared to fixed-sample designs
-<span class="citation">(A. Wald, 1945)</span>. On average, SPRTs require
+<span class="citation">(Wald, 1945)</span>. On average, SPRTs require
 approximately <em>58% fewer observations</em> to reach the same decision
 with the same error rates <span class="citation">(Steinhilber et al.,
 2024)</span>.</p>
@@ -254,6 +276,11 @@ balance efficiency with feasibility.</p>
 <h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-etz2018" class="csl-entry">
+Etz, A. (2018). Introduction to the concept of likelihood and its
+applications. <em>Advances in Methods and Practices in Psychological
+Science</em>, <em>1</em>(1), 60–69. <a href="https://doi.org/10.1177/2515245917744314" class="external-link">https://doi.org/10.1177/2515245917744314</a>
+</div>
 <div id="ref-fan2004" class="csl-entry">
 Fan, X. (Frank)., DeMets, D. L., &amp; Lan, K. K. G. (2004). Conditional
 bias of point estimates following a group sequential test. <em>Journal
@@ -279,7 +306,7 @@ Wald, A. (1945). Sequential tests of statistical hypotheses. <em>The
 Annals of Mathematical Statistics</em>, <em>16</em>(2), 117–186.
 </div>
 <div id="ref-wald1947" class="csl-entry">
-Wald, Abraham. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
+Wald, A. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
 </div>
 <div id="ref-whitehead1986" class="csl-entry">
 Whitehead, J. (1986). On the bias of maximum likelihood estimation

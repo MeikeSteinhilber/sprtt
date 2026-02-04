@@ -11,11 +11,11 @@ unfamiliar with SPRTs, please read first the vignette
 
 ### 1. Understand the theoretical background of SPRTs
 
-The foundational literature (A. Wald, 1945; Abraham Wald, 1947)
-established the mathematical framework for SPRTs. While these original
-papers provide theoretical depth, they require strong mathematical
-statistics background and focus primarily on abstract theory rather than
-practical application.
+The foundational literature (Wald, 1945, 1947) established the
+mathematical framework for SPRTs. While these original papers provide
+theoretical depth, they require strong mathematical statistics
+background and focus primarily on abstract theory rather than practical
+application.
 
 For practical implementation, we strongly recommend starting with the
 following simulation studies, which demonstrate robustness to assumption
@@ -110,7 +110,7 @@ confounders.
 The question of how one should deal with outliers in sequential testing
 is still an ongoing research topic. Note, that implementing a naive
 sequential outlier analysis can lead to a inflation of the \\\alpha\\
-error rate, see (Steinhilber et al., 2025).
+error rate, see Steinhilber et al. (2025).
 
 As SPRTs are best suited for confirmatory research, preregistering the
 data collection plan, hypothesis, and test specifications (e.g., effect
@@ -140,7 +140,7 @@ The following test are currently implemented:
 ### 5. Reporting of the results
 
 Guidelines for the reporting of SPRTs can be found in the paper of
-(Schubert et al., 2025) that also explicitly covers sequential testing
+Schubert et al. (2025) that also explicitly covers sequential testing
 and specifically SPRTs .
 
 ## References
@@ -170,4 +170,4 @@ Practices*. PsyArXiv. <https://doi.org/10.31234/osf.io/vkbu3_v1>
 Wald, A. (1945). Sequential tests of statistical hypotheses. *The Annals
 of Mathematical Statistics*, *16*(2), 117–186.
 
-Wald, Abraham. (1947). *Sequential analysis*. Wiley.
+Wald, A. (1947). *Sequential analysis*. Wiley.

@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-03</h4>
+            <h4 data-toc-skip class="date">2026-02-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/t_test.Rmd" class="external-link"><code>vignettes/t_test.Rmd</code></a></small>
       <div class="d-none name"><code>t_test.Rmd</code></div>
@@ -158,13 +158,12 @@ Snijder-Steinhilber</h4>
 <h2 id="what-is-the-sequential-t-test">What is the sequential <em>t</em>-test?<a class="anchor" aria-label="anchor" href="#what-is-the-sequential-t-test"></a>
 </h2>
 <p>The sequential <em>t</em>-test is based on the Sequential Probability
-Ratio Test (SPRT) by Abraham <span class="citation">Abraham Wald
-(1947)</span>, which is a highly efficient sequential hypothesis test.
-However, the usage of Wald´s SPRT is limited in the case of normally
-distributed data, because the variance has to be known or specified in
-the hypothesis. Rushton <span class="citation">(1950; 1952)</span> and
-<span class="citation">Hajnal (1961)</span> have further developed the
-SPRT using the <em>t</em>-statistic. The basic idea is to transform the
+Ratio Test (SPRT) by Abraham <span class="citation">Wald (1947)</span>,
+which is a highly efficient sequential hypothesis test. However, the
+usage of Wald´s SPRT is limited in the case of normally distributed
+data, because the variance has to be known or specified in the
+hypothesis. Rushton <span class="citation">(1950; 1952)</span> and <span class="citation">Hajnal (1961)</span> have further developed the SPRT
+using the <em>t</em>-statistic. The basic idea is to transform the
 sequence of observations (which is dependent on the variance) into a
 sequence of the associated <em>t</em>-statistic (which is
 <em>in</em>dependent of the variance).</p>
@@ -222,8 +221,8 @@ LR_{m,\ two-sided\ sequential\ t-test}
 two-sided test, the <em>t</em>-value is squared <span class="citation">(S. Rushton, 1952)</span>.</p>
 <p>After the calculation of the test statistic, the decision will be
 either to continue sampling or to terminate the sampling and accept one
-of the hypotheses. <span class="citation">A. Wald (1945)</span> defined
-the following rules for the SPRT:</p>
+of the hypotheses. <span class="citation">Wald (1945)</span> defined the
+following rules for the SPRT:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="center">Condition</th>
@@ -264,15 +263,17 @@ sequential <em>t</em>-test:</p>
 <li><p>the <span class="math inline">\(\beta\)</span> error probability
 (usually .20 or less), and</p></li>
 <li><p>Cohen´s d (either as the expected effect size or as the lower
-limit for a substantial effect).</p></li>
+limit for a effect size of interest).</p></li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="how-do-i-use-the-seq_ttest-function">How do I use the <code>seq_ttest()</code> function?<a class="anchor" aria-label="anchor" href="#how-do-i-use-the-seq_ttest-function"></a>
 </h2>
-<p>The <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function has arguments to specify the
-requested sequential <em>t</em>-test. The table below shows all possible
-combinations which can be performed with the package.</p>
+<p>The <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function works similarly to the
+<code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test()</a></code> function from the <code>stats</code> package if
+one is familiar with that already. The table below shows all possible
+combinations which can be performed with the <code>sprtt</code>
+package.</p>
 <table class="table">
 <thead><tr class="header">
 <th></th>
@@ -297,20 +298,6 @@ combinations which can be performed with the package.</p>
 </tr>
 </tbody>
 </table>
-<p>Other recommended vignettes cover:</p>
-<ul>
-<li><p>the <a href="https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html">theoretical
-background</a> and</p></li>
-<li><p>an extended <a href="https://meikesteinhilber.github.io/sprtt/articles/use-case.html">use
-case</a>.</p></li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="argument">Argument<a class="anchor" aria-label="anchor" href="#argument"></a>
-</h2>
-<p>The <code><a href="../reference/seq_ttest.html">seq_ttest()</a></code> function works similarly to the
-<code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test()</a></code> function from the <code>stats</code> package if
-one is familiar with that already.</p>
 <p>Sequential <em>t</em>-tests require some specification from the
 user:</p>
 <ul>
@@ -789,7 +776,7 @@ Wald, A. (1945). Sequential tests of statistical hypotheses. <em>The
 Annals of Mathematical Statistics</em>, <em>16</em>(2), 117–186.
 </div>
 <div id="ref-wald1947" class="csl-entry">
-Wald, Abraham. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
+Wald, A. (1947). <em>Sequential analysis</em>. <span>Wiley</span>.
 </div>
 </div>
 </div>
