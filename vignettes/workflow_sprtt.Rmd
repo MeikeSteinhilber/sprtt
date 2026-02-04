@@ -179,7 +179,7 @@ A thoughtful data collection plan is highly recommended to keep groups somewhat 
 ::: {.custom-info-box}
 **Outliers**
 
-The question of how one should deal with outliers in sequential testing is still an ongoing research topic. Note, that implementing a naive sequential outlier analysis can lead to a inflation of the $\alpha$ error rate, see [@steinhilber2025].
+The question of how one should deal with outliers in sequential testing is still an ongoing research topic. Note, that implementing a naive sequential outlier analysis can lead to a inflation of the $\alpha$ error rate, see @steinhilber2025.
 :::
 
 As SPRTs are best suited for confirmatory research, preregistering the data collection plan, hypothesis, and test specifications (e.g., effect size of interest, $\alpha$ and $\beta$ levels) is strongly recommended.
@@ -202,6 +202,6 @@ The following test are currently implemented:
 
 ### 5. Reporting of the results
 
-Guidelines for the reporting of SPRTs can be found in the paper of [@schubert2025] that also explicitly covers sequential testing and specifically SPRTs .
+Guidelines for the reporting of SPRTs can be found in the paper of @schubert2025 that also explicitly covers sequential testing and specifically SPRTs .
 
 ## References

@@ -39,15 +39,22 @@ Analysis of variance (ANOVA) is widely used to compare means across multiple gro
 Traditional fixed-sample ANOVAs require an a priori power analysis to determine the necessary sample size, which often results in large samples, especially when expected effect sizes are small [@steinhilber2024].
 Given the prevalence of small to medium effects in psychology [@funder2019; @richard2003], many studies end up underpowered because the required sample sizes exceed available resources [@button2013; @szucs2017].
 
-The sequential one-way ANOVA provides an efficient alternative by applying the SPRT framework to comparisons of $k$ groups [@steinhilber2024].
-Instead of collecting a fixed number of observations, data are collected sequentially and the test evaluates evidence after each step until a decision is reached.
+The sequential one-way ANOVA provides an efficient alternative by applying the SPRT framework to comparisons of $k$ groups.
+Instead of collecting a fixed number of observations, data are collected sequentially and the test evaluates evidence after each step until a decision is reached [@steinhilber2024].
 
 ### Hypotheses
 
 The sequential one-way ANOVA tests the following hypotheses, specified in terms of Cohen's $f$:
 
-$$H_0: f = 0$$
-$$H_1: f = f_{\text{exp}}, \quad (f_{\text{exp}} > 0)$$
+
+```{=tex}
+\begin{aligned}
+H_0 &: f = 0 \\
+H_1 &: f = f_{\text{exp}}, \quad (f_{\text{exp}} > 0)
+\end{aligned}
+```
+
+
 
 Cohen's $f$ is defined as:
 
@@ -69,11 +76,12 @@ $$SS_{\text{residual},n} = \sum_{i=1}^{k} \sum_{j=1}^{n} (x_{i,j} - \bar{x}_i)^2
 
 $$df_1 = k - 1 \qquad \text{and} \qquad df_{2,n} = N - k$$
 
-where $\bar{x}$ is the overall mean, $\bar{x}_i$ is the mean of group $i$, and $x_{i,j}$ is the $j$-th observation in group $i$.
+where $\bar{x}$ is the overall mean, $\bar{x}_i$ is the mean of group $i$, and $x_{i,j}$ is the $j$-th observation in group $i$ [@wetherill1986; @steinhilber2024].
 
 ### The Likelihood Ratio
 
-The likelihood ratio at step $n$ is defined as the ratio of the likelihood under $H_1$ to the likelihood under $H_0$. Using Cox's theorem [@cox1952], it is sufficient to compute this ratio only for the current $F_n$ statistic rather than the entire sequence of observations:
+The likelihood ratio at step $n$ is defined as the ratio of the likelihood under $H_1$ to the likelihood under $H_0$.
+Using Cox's theorem [@cox1952], it is sufficient to compute this ratio only for the current $F_n$ statistic rather than the entire sequence of observations:
 
 $$\text{LR}_n = \frac{f(F_n \mid df_1,\; df_{2,n},\; \Delta_{1n})}{f(F_n \mid df_1,\; df_{2,n})}$$
 
@@ -91,7 +99,8 @@ The sequential ANOVA applies the standard SPRT decision boundaries:
 
 ### Efficiency and Robustness
 
-Simulations with $k = 4$ groups demonstrate that the sequential ANOVA is substantially more efficient than fixed-sample designs: in 87% of cases the sequential sample was smaller than the fixed sample, with an average sample size reduction of 58% [@steinhilber2024]. Efficiency gains are particularly pronounced for small expected effect sizes ($f_{\text{exp}} = 0.10$: 64% reduction; $f_{\text{exp}} = 0.25$: 40%; $f_{\text{exp}} = 0.40$: 23%).
+Simulations with $k = 4$ groups demonstrate that the sequential ANOVA is substantially more efficient than fixed-sample designs: in 87% of cases the sequential sample was smaller than the fixed sample, with an average sample size reduction of 58%.
+Efficiency gains are particularly pronounced for small expected effect sizes [@steinhilber2024].
 
 Robustness analyses showed that the sequential and fixed ANOVA behave similarly under assumption violations.
 Both procedures are robust to non-normal data (simulated using Gaussian mixture distributions) and to mildly unequal variances or group sizes.
@@ -104,11 +113,39 @@ The `seq_anova()` function in the `sprtt` package implements the sequential one-
 
 ## How to use `seq_anova()`
 
+In the first step, we simulate data that we can analyze.
+In a real world example we use the data that are coming in from the data collection.
+
 ```{r example-0.1}
 set.seed(333)
-# generate data with a medium effect
-data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
+# generate data with a medium effect -------------------------------------------
+data <- sprtt::draw_sample_normal(
+                k = 3,
+                f = 0.25,
+                max_n = 22)
+```
 
+We can calculate the sequential ANOVA for the first time, after we have 2 data points in each group.
+
+```{r example-0.2}
+# calculate the SPRT -----------------------------------------------------------
+anova_results <- sprtt::seq_anova(
+                          y~x,
+                          f = 0.25,
+                          data = data[1:6,],
+                          verbose = FALSE)
+anova_results
+
+# access the decision ----------------------------------------------------------
+anova_results@decision
+```
+
+The decision is, that we have to continue the data collection.
+In the best case, we calculate the SPRT after each new data point.
+
+Lets assume, we have now reached a later stage in the data collection -- in this scenario we have collected 20 data points.
+
+```{r example-0.3}
 # calculate the SPRT -----------------------------------------------------------
 anova_results <- sprtt::seq_anova(
                           y~x,
@@ -117,12 +154,11 @@ anova_results <- sprtt::seq_anova(
                           verbose = FALSE)
 anova_results
 
-# access the decision
+# access the decision ----------------------------------------------------------
 anova_results@decision
-
-# acess the LR
-anova_results@likelihood_ratio
 ```
+
+We still got the decision to continue the data collection, so we do that.
 
 ```{r}
 # calculate the SPRT -----------------------------------------------------------
@@ -133,21 +169,27 @@ anova_results <- sprtt::seq_anova(
                           verbose = TRUE)
 anova_results
 
-# access the decision
+# access the decision ----------------------------------------------------------
 anova_results@decision
 
-# acess the LR
+# acess the LR -----------------------------------------------------------------
 anova_results@likelihood_ratio
 ```
 
-
+With a sample size of $N = $ `r anova_results@total_sample_size`, we now have reached the decision to `anova_results@decision`.
+Thus, we stop the data collection.
 
 ## How to plot the ANOVA results
+
+In order to plot the likelihood progression, we have to calculate all the sequential steps that have happened before we reached the current sample size.
+As this is only necessary for plotting and increases the run time of the function, these calculations are only done, if the function argument `plot=TRUE` is set.
+
 
 ### Scenario 1: Perfect data
 
 In this case, we have data that are perfectly balanced and in a perfect sampling order.
 Here, we can use the default value of the 'plot' argument 'single' or we can choose 'balanced'.
+See the function documentation of `seq_anova()` for a description of each function argument
 
 ```{r example-1}
 set.seed(333)

@@ -168,12 +168,16 @@ In summary, three specifications are required to calculate a sequential *t*-test
 
 -   the $\beta$ error probability (usually .20 or less), and
 
--   Cohen´s d (either as the expected effect size or as the lower limit for a substantial effect).
+-   Cohen´s d (either as the expected effect size or as the lower limit for a effect size of interest).
+
+
 
 
 ## How do I use the `seq_ttest()` function?
 
-The `seq_ttest()` function has arguments to specify the requested sequential *t*-test. The table below shows all possible combinations which can be performed with the package.
+
+The `seq_ttest()` function works similarly to the `t.test()` function from the `stats` package if one is familiar with that already.
+The table below shows all possible combinations which can be performed with the `sprtt` package.
 
 |                            | Two-sample test | One-sample test |
 |----------------------------|-----------------|-----------------|
@@ -181,17 +185,6 @@ The `seq_ttest()` function has arguments to specify the requested sequential *t*
 | One-sided                  | x               | x               |
 | Paired (repeated measures) | x               |                 |
 
-Other recommended vignettes cover:
-
--   the [theoretical background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html) and
-
--   an extended [use case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
-
-
-
-## Argument
-
-The `seq_ttest()` function works similarly to the `t.test()` function from the `stats` package if one is familiar with that already.
 
 Sequential *t*-tests require some specification from the user:
 
@@ -222,7 +215,8 @@ If these values are the ones required, they can be skipped.
 | na.rm       | TRUE          | TRUE or FALSE                  |
 | verbose     | TRUE          | TRUE or FALSE                  |
 
-There are two different ways how the data can be transferred into the function. The `x` argument takes either `formula` or `numeric` input. Which input option is recommended depends on the structure of the data.
+There are two different ways how the data can be transferred into the function.
+The `x` argument takes either `formula` or `numeric` input. Which input option is recommended depends on the structure of the data.
 
 ### x argument: formula input
 
@@ -259,11 +253,13 @@ seq_ttest(monthly_income ~ 1,     # x argument
 
 ### x argument: numeric input
 
-The `numeric` input is used when each group has its own variable. The variables can either be put in the global environment directly or be stored in a data frame.
+The `numeric` input is used when each group has its own variable.
+The variables can either be put in the global environment directly or be stored in a data frame.
 
 #### *Two-sample test*
 
-If one wants to perform a two-sample test, the `y` argument is required in addition to `x`. If the data are stored in a data frame, the `$` operator is essential to get access to the variables.
+If one wants to perform a two-sample test, the `y` argument is required in addition to `x`.
+If the data are stored in a data frame, the `$` operator is essential to get access to the variables.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -289,7 +285,9 @@ seq_ttest(treatment,
 
 #### *One-sample test*
 
-If one wants to perform a one-sample test there is only one group and therefore only one variable. If the data are in a data frame, the `$` operator is essential to get access to the variables. The `mu` argument is additionally required, which specifies the mean which one wants to test against.
+If one wants to perform a one-sample test there is only one group and therefore only one variable.
+If the data are in a data frame, the `$` operator is essential to get access to the variables.
+The `mu` argument is additionally required, which specifies the mean which one wants to test against.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -317,7 +315,8 @@ seq_ttest(treatment,     # x argument
 
 #### Paired
 
-The `paired` argument states if the data are paired. To perform a paired sequential *t*-test, `paired` has to be set to `TRUE`.
+The `paired` argument states if the data are paired.
+To perform a paired sequential *t*-test, `paired` has to be set to `TRUE`.
 
 ```{r}
 # show data frame --------------------------------------------------------------
@@ -358,7 +357,8 @@ The `na.rm` argument defines the handling of missing values. If set to `TRUE` (d
 
 #### Verbose
 
-The `verbose` argument defines the extent of the output shown in the console. If set to `TRUE` (default value), the output will be elaborate, if set to `FALSE` the output will be short.
+The `verbose` argument defines the extent of the output shown in the console.
+If set to `TRUE` (default value), the output will be elaborate, if set to `FALSE` the output will be short.
 
 ```{r}
 # sequential t-test: verbose FALSE ---------------------------------------------
@@ -376,9 +376,12 @@ seq_ttest(df_cancer$treatment_group, # x argument
 
 ## How do I get access to the results?
 
-The simplest way to get access to the results is to run the `seq_ttest()` function. It will print the results automatically in the console. The verbose argument specifies how much information is wished to be shown.
+The simplest way to get access to the results is to run the `seq_ttest()` function.
+It will print the results automatically in the console. The verbose argument specifies how much information is wished to be shown.
 
-However, the recommended way is to save the results in an object (e.g "results"). Doing so allows running further calculations with it afterward. It is important to keep in mind that the output object will be an S4 class. Therefore the access operator is the `@` sign or the `[]` brackets.
+However, the recommended way is to save the results in an object (e.g "results").
+Doing so allows running further calculations with it afterward. It is important to keep in mind that the output object will be an S4 class.
+Therefore the access operator is the `@` sign or the `[]` brackets.
 
 ```{r}
 # save the resuts in a object 

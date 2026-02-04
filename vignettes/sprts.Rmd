@@ -28,9 +28,11 @@ For a simple use case of a sequential *t*-test see the vignette `vignette("use_c
 Sequential Probability Ratio Tests (SPRTs) fundamentally differ from fixed-sample designs by continuously evaluating evidence as data accumulates [@wald1945].
 After collecting each data point (or batch of data points), the test leads to one of three outcomes:
 
-- **Stop and accept $H_0$** (no effect): Sufficient evidence accumulated against an effect
-- **Stop and accept $H_1$** (effect): Sufficient evidence accumulated for an effect  
 - **Continue sampling**: Evidence remains inconclusive
+
+- **Stop and accept $H_0$** (no effect): Sufficient evidence accumulated against an effect
+
+- **Stop and accept $H_1$** (effect): Sufficient evidence accumulated for an effect  
 
 This approach allows researchers to stop data collection as soon as sufficient evidence has been obtained, leading to substantial efficiency gains compared to fixed-sample designs.
 
@@ -38,13 +40,24 @@ This approach allows researchers to stop data collection as soon as sufficient e
 
 At the core of SPRTs is the *likelihood ratio* $\text{LR}_n$, which quantifies the relative evidence for $H_1$ versus $H_0$ after $n$ observations:
 
-$$\text{LR}_n = \frac{P(\text{data} \mid H_1)}{P(\text{data} \mid H_0)}$$
+$$\text{LR}_n = \frac{\text{L}_n(H_1)}{\text{L}_n(H_0)} = \frac{f(\text{data}_n \mid H_1)}{f(\text{data}_n \mid H_0)}$$
 
-The SPRT compares this likelihood ratio to two boundaries:
+If you are unfamiliar with the concept of likelihood, we recommend the paper by @etz2018.
 
-- **Upper boundary** $A$: If $\text{LR}_n \geq A$, stop and accept $H_1$
-- **Lower boundary** $B$: If $\text{LR}_n \leq B$, stop and accept $H_0$
-- **Continue**: If $B < \text{LR}_n < A$, collect more data
+The SPRT compares the likelihood ratio to two boundaries ($A$ and $B$), and the following rules apply:
+
+| Condition | Data collection | Hypothesis |
+|:---------------:|----------------------------:|----------------------------:|
+| $LR_m \leq B$  | Stop data collection | Accept $H_0$ and reject $H_1$ |
+| $B < LR_m < A$ | Continue sampling    | No decision is made (yet)        |
+| $LR_m \geq A$  | Stop data collection | Accept $H_1$ and reject $H_0$ |
+
+
+<!-- - **Continue sampling**: If $B < \text{LR}_n < A$, collect more data -->
+
+<!-- - **Upper boundary** $A$: If $\text{LR}_n \geq A$, stop and accept $H_1$ -->
+
+<!-- - **Lower boundary** $B$: If $\text{LR}_n \leq B$, stop and accept $H_0$ -->
 
 These boundaries are determined by the desired Type I ($\alpha$) and Type II ($\beta$) error rates:
 
@@ -64,16 +77,17 @@ The `sprtt` package uses the $\text{LLR}_n$ for the internal calculations.
 ### Random Sample Size
 
 Unlike fixed-sample designs where $N$ is predetermined, the sample size in SPRTs is a random variable.
-You don't know beforehand when the test will stop—it depends on:
+You don't know beforehand when the test will stop.
+When the SPRT will stop depends on:
 
-- The true effect size in the population
 - Random variation in the observed data
-- The specified error rates ($\alpha$, $\beta$)
+- The true effect size in the population
 - The effect size specified under $H_1$
+- The specified error rates ($\alpha$, $\beta$)
 
 When the true effect matches $H_1$ (or $H_0$), the test tends to stop quickly.
 When the truth lies between the hypotheses, stopping may take longer.
-This randomness is a feature, not a bug—it's what enables the efficiency gains.
+This randomness is a feature, not a bug -- it's what enables the efficiency gains.
 
 ### Why SPRTs Always Stop
 
