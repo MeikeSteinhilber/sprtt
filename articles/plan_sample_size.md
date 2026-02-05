@@ -2,57 +2,58 @@
 
 ## Why Sample Size Planning Matters
 
-Sample size planning for sequential tests like the sequential ANOVA is,
-in a strict statistical sense, unnecessary – the final sample size is
-determined by the data and remains unknown beforehand. Data collection
-continues until either the upper or lower decision boundary is reached.
+Sample size planning for sequential tests differs fundamentally from
+fixed-design studies. In sequential ANOVA, the final sample size is
+determined by the data itself and remains unknown beforehand – data
+collection continues until either the upper or lower decision boundary
+is reached.
 
-However, what holds true in theory often diverges from practical
-constraints. Resource planning is essential, as there is a substantial
-difference between collecting 100 versus 1,000 observations. To address
-these practical concerns, the **sprtt** package provides the
+**The challenge:** While this data-driven stopping rule is statistically
+elegant and very efficient, it creates practical difficulties. Resource
+planning requires knowing whether you might need 100 observations or
+1,000. Budget constraints, time limitations, and logistical
+considerations all demand some advance estimate of required resources.
+
+**The solution:** Although the exact final sample size cannot be known
+in advance, simulation-based planning bridges the gap between
+statistical theory and practical constraints. The `sprtt` package
+provides the
 [`plan_sample_size()`](https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.md)
 function, which generates HTML reports summarizing simulation results
-for sequential ANOVAs.
-
-Although the exact final sample size cannot be known in advance,
-simulation-based recommendations can guide researchers on:
+for sequential ANOVAs. Researchers can obtain guidance on:
 
 - The typical amount of data required to reach a decision
-- The upper limit of resources recommended to achieve a specified
-  decision rate
+  (\\N\_{\text{median}}\\)
+- The upper limit of resources needed to achieve a specified decision
+  rate (\\N\_{\text{max}}\\)
 
-### The Challenge of Limited Resources
+### Resource Constraints and Decision Rates
 
 While the decision boundaries of the sequential ANOVA control Type I
 (\\\alpha\\) and Type II (\\\beta\\) errors in the long run – and
 consequently maintain the desired power (\\1-\beta\\) – a new
-consideration emerges when researchers face resource constraints. When
-the maximum affordable sample size is reached before a decision boundary
-is crossed, this results in a **non-decision**.
+consideration emerges when researchers face resource constraints.
 
-Importantly, the non-decision rate depends directly on the maximum
-sample size a researcher can collect. This introduces a new metric: the
-**decision rate** (the chance to reach a decision) given resource
-limitations.
+When the maximum affordable sample size is reached before a decision
+boundary is crossed, this results in a **non-decision**. Importantly,
+the non-decision rate depends directly on the maximum sample size a
+researcher can collect. This introduces a new metric: the **decision
+rate** (the chance to reach a decision) given resource limitations.
 
-### Non-Decisions vs. Null Hypothesis Acceptance
-
-While a non-decision are undesirable, it represents a crucial conceptual
+While non-decisions are undesirable, they represent a crucial conceptual
 distinction from accepting the null hypothesis. SPRTs like the
-sequential ANOVA differentiate between stopping the data collection to
-accepting the null hypothesis and the case where more data/ evidence is
+sequential ANOVA differentiate between stopping data collection to
+accept the null hypothesis and the case where more data/evidence is
 required to stop.
 
 ## The `plan_sample_size()` Function
 
 The
 [`plan_sample_size()`](https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.md)
-function generates interactive HTML reports for sample size planning by
-querying a large simulation database. Reports include recommended
-maximum sample sizes, expected sample sizes, early stopping
-probabilities, power curves, and comparisons to traditional ANOVA
-designs.
+function generates interactive HTML reports for sample size planning
+based on a large simulation database. Reports include recommended
+maximum sample sizes, expected sample sizes, power curves, and
+comparisons to traditional ANOVA designs.
 
 ### Pre-computed Simulation Database
 
@@ -68,33 +69,11 @@ by:
 
 This simulation database is stored externally to keep the package
 installation size small. The data are downloaded automatically on first
-use and cached locally for future sessions.
-
-### Supported Design Parameters
-
-The simulation database covers a range of common experimental designs:
-
-- **Expected effect sizes (Cohen’s *f*):** 0.10, 0.15, 0.20, 0.25, 0.30,
-  0.35, 0.40
-- **Number of groups:** 2, 3, 4
-- **Desired power:** 0.80, 0.90, 0.95
-- **Alpha level:** 0.05
-
-------------------------------------------------------------------------
+use of
+[`plan_sample_size()`](https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.md)
+and cached locally for future sessions.
 
 ## Getting Started
-
-### Installation and Setup
-
-First, ensure the **sprtt** package is installed and loaded:
-
-``` r
-# Install from CRAN (if needed)
-install.packages("sprtt")
-
-# Load the package
-library(sprtt)
-```
 
 ### Your First Sample Size Report
 
