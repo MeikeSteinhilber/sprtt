@@ -22,7 +22,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-## What is the sequential one-way ANOVA?
 
 The sequential one-way fixed effects ANOVA is a sequential hypothesis test based on the Sequential Probability Ratio Test (SPRT) framework [@wald1947].
 It extends SPRTs to the comparison of two or more independent groups and can be used as an efficient alternative to the classical fixed-sample one-way ANOVA.
@@ -85,17 +84,27 @@ Using Cox's theorem [@cox1952], it is sufficient to compute this ratio only for 
 
 $$\text{LR}_n = \frac{f(F_n \mid df_1,\; df_{2,n},\; \Delta_{1n})}{f(F_n \mid df_1,\; df_{2,n})}$$
 
-The numerator is the density of a **non-central** $F$ distribution with non-centrality parameter $\Delta_{1n}$, and the denominator is the density of a **central** $F$ distribution (i.e., $\Delta = 0$ under $H_0$). The non-centrality parameter is linked to Cohen's $f$ via:
+The numerator is the density of a *non-central* $F$ distribution with non-centrality parameter $\Delta_{1n}$, and the denominator is the density of a *central* $F$ distribution (i.e., $\Delta = 0$ under $H_0$).
+The non-centrality parameter is linked to Cohen's $f$ via:
 
 $$\Delta_1 = f_{\text{exp}}^2 \cdot N$$
 
+### Decision Boundaries
+
+The sequential ANOVA uses two decision boundaries based on the specified error rates:
+
+- Upper boundary: $A = \frac{1-\beta}{\alpha}$
+- Lower boundary: $B = \frac{\beta}{1-\alpha}$
+
+where $\alpha$ is the Type I error rate and $\beta$ is the Type II error rate.
+
 ### Decision Rule
 
-The sequential ANOVA applies the standard SPRT decision boundaries:
+At each analysis step, compare the likelihood ratio $\text{LR}_n$ to these boundaries:
 
-- If $\text{LR}_n \geq A = \frac{1-\beta}{\alpha}$: Stop and accept $H_1$
-- If $\text{LR}_n \leq B = \frac{\beta}{1-\alpha}$: Stop and accept $H_0$
-- If $B < \text{LR}_n < A$: Continue collecting data
+- If $\text{LR}_n \geq A$: Stop data collection and accept $H_1$
+- If $\text{LR}_n \leq B$: Stop data collection and accept $H_0$
+- If $B < \text{LR}_n < A$: Continue collecting data (no decision yet)
 
 ### Efficiency and Robustness
 
@@ -113,94 +122,143 @@ The `seq_anova()` function in the `sprtt` package implements the sequential one-
 
 ## How to use `seq_anova()`
 
-In the first step, we simulate data that we can analyze.
-In a real world example we use the data that are coming in from the data collection.
+### Step 1: Simulate or Load Data
+
+First, we simulate data for this tutorial.
+In a real-world application, you would use actual data as it arrives from your ongoing data collection.
 
 ```{r example-0.1}
 set.seed(333)
-# generate data with a medium effect -------------------------------------------
+# Generate data with a medium effect
 data <- sprtt::draw_sample_normal(
-                k = 3,
-                f = 0.25,
-                max_n = 22)
+  k = 3,           # number of groups
+  f = 0.25,        # effect size (Cohen's f)
+  max_n = 22       # maximum sample size per group
+)
 ```
 
-We can calculate the sequential ANOVA for the first time, after we have 2 data points in each group.
+Let's examine the structure of the simulated data:
+
+```{r example-0.1b}
+# View the first few rows
+head(data)
+
+# Check the sample sizes per group for the first 6 (2*k) data points
+table(data$x[1:6])
+```
+
+The data frame contains two columns: `y` (the continuous outcome variable) and `x` (the grouping factor with 3 levels).
+Each group has `r nrow(data)/3` observations, resulting in a total sample size of $N =$ `r nrow(data)`.
+
+### Step 2: Initial Sequential Analysis
+
+We can perform the first sequential ANOVA after collecting at least 2 observations per group (minimum $n = 6$ total for 3 groups).
 
 ```{r example-0.2}
-# calculate the SPRT -----------------------------------------------------------
+# Calculate the sequential ANOVA
 anova_results <- sprtt::seq_anova(
-                          y~x,
-                          f = 0.25,
-                          data = data[1:6,],
-                          verbose = FALSE)
+  y ~ x,
+  f = 0.25,
+  data = data[1:6, ],
+  verbose = FALSE
+)
+
+# View results
 anova_results
 
-# access the decision ----------------------------------------------------------
+# Access the decision
 anova_results@decision
 ```
 
-The decision is, that we have to continue the data collection.
-In the best case, we calculate the SPRT after each new data point.
+The decision indicates we should continue data collection.
+In practice, it's optimal to recalculate the sequential test after each new observation (or small batch of observations).
 
-Lets assume, we have now reached a later stage in the data collection -- in this scenario we have collected 20 data points.
+### Step 3: Repeated Sequential Testing
+
+As new data arrives, we *repeatedly recalculate* the sequential ANOVA.
+This is the core principle of sequential testing: check the decision criterion after each batch of new observations.
+
+Let's assume we've now collected 20 observations total.
+We recalculate the sequential ANOVA with the updated dataset:
 
 ```{r example-0.3}
-# calculate the SPRT -----------------------------------------------------------
+# Calculate sequential ANOVA with larger sample
 anova_results <- sprtt::seq_anova(
-                          y~x,
-                          f = 0.25,
-                          data = data[1:20,],
-                          verbose = FALSE)
+  y ~ x,
+  f = 0.25,
+  data = data[1:20, ],
+  verbose = FALSE
+)
+
+# View results
 anova_results
 
-# access the decision ----------------------------------------------------------
+# Check decision
 anova_results@decision
 ```
 
-We still got the decision to continue the data collection, so we do that.
+We still receive the decision to continue data collection.
+This means we repeat the process: collect more data, recalculate the sequential test, and check the decision again.
+This cycle continues until we reach a definitive decision to accept $H_0$ or $H_1$.
 
-```{r}
-# calculate the SPRT -----------------------------------------------------------
+### Step 4: Final Analysis
+
+```{r example-0.4}
+# Calculate sequential ANOVA with complete dataset
 anova_results <- sprtt::seq_anova(
-                          y~x,
-                          f = 0.25,
-                          data = data,
-                          verbose = TRUE)
-anova_results
+  y ~ x,
+  f = 0.25,
+  data = data,
+  verbose = TRUE
+)
 
-# access the decision ----------------------------------------------------------
+# View full results
+anova_results
+```
+
+With a total sample size of $N =$ `r anova_results@total_sample_size`, we have reached a decision to `r anova_results@decision`.
+Therefore, we stop data collection.
+
+You can access specific components of the results object using the `@` operator:
+
+```{r example-0.5}
+# Access the decision
 anova_results@decision
 
-# acess the LR -----------------------------------------------------------------
+# Access the likelihood ratio
 anova_results@likelihood_ratio
+
+# Access the total sample size
+anova_results@total_sample_size
 ```
 
-With a sample size of $N = $ `r anova_results@total_sample_size`, we now have reached the decision to `anova_results@decision`.
-Thus, we stop the data collection.
 
 ## How to plot the ANOVA results
 
-In order to plot the likelihood progression, we have to calculate all the sequential steps that have happened before we reached the current sample size.
-As this is only necessary for plotting and increases the run time of the function, these calculations are only done, if the function argument `plot=TRUE` is set.
 
+To visualize the likelihood ratio progression over time, `seq_anova()` must calculate the sequential test at each intermediate sample size.
+Since these calculations are only needed for plotting and increase computational time, they are performed only when `plot = TRUE`.
 
-### Scenario 1: Perfect data
+### Scenario 1: Balanced Data with Perfect Sampling Order
 
-In this case, we have data that are perfectly balanced and in a perfect sampling order.
-Here, we can use the default value of the 'plot' argument 'single' or we can choose 'balanced'.
-See the function documentation of `seq_anova()` for a description of each function argument
+When your data are perfectly balanced (equal $n$ per group) and sampled in order, you can set `plot = TRUE` and use either the default `seq_steps = "single"` or explicitly specify `seq_steps = "balanced"`.
+Both will produce accurate likelihood ratio trajectories.
+
+See `?seq_anova` for details on the `plot` and `seq_steps` arguments and other options.
 
 ```{r example-1}
 set.seed(333)
 data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
 
 # calculate the SPRT -----------------------------------------------------------
+# Default: plot = TRUE with seq_steps = "single"
 anova_results <- sprtt::seq_anova(y~x, f = 0.25,
                                   data = data, plot = TRUE)
+# Explicitly specify seq_steps = "single"
 anova_results <- sprtt::seq_anova(y~x, f = 0.25,
                                   data = data, plot = TRUE,
                                   seq_steps = "single")
+# Use balanced sequential steps
 anova_results <- sprtt::seq_anova(y~x, f = 0.25,
                                   data = data, plot = TRUE,
                                   seq_steps = "balanced")
@@ -210,30 +268,36 @@ sprtt::plot_anova(anova_results)
 ```
 
 
-### Scenario 2: Unbalanced data in an imperfect order
+### Scenario 2: Unbalanced Data with Imperfect Sampling Order
 
-In this case, we have a data set with unbalanced sample sizes between the groups and the data points are not in a perfect order.
-Because the order is not perfect, it does not make sense to use the 'balanced' option.
-Because the first data points (2*k_groups) are not equally distributed between the groups (some groups have less than 2 data points), the option 'single' would output an error.
+In real-world applications, data often arrive with unequal group sizes and in imperfect group order.
+This scenario demonstrates how to handle such cases.
 
-**Thus, we need to define the sequential steps ourselves.**
+**Why custom sequential steps are needed:**
 
-Here, we start later (after 12 data points) but then calculate the LR after every single data point.
+- The `"balanced"` option assumes equal $n$ across groups at each step, which doesn't match our data structure
+- The `"single"` option would produce an error because some groups have fewer than 2 observations in the initial first data points
+- **Solution:** Define custom sequential steps using a numeric vector
+
+In this example, we start the sequential testing after 12 observations (ensuring each group has sufficient data), then calculate the likelihood ratio after each subsequent observation.
 
 ```{r example-2}
 set.seed(333)
+# Generate unbalanced data with a 1:1:2 sampling ratio -------------------------
 data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 37, sample_ratio = c(1,1,2))
-data <- data[sample(nrow(data)),] # destroy the perfect order of the data
+# Randomize the order to get a more realistic data collection
+data <- data[sample(nrow(data)),] 
 
-# calculate the SPRT -----------------------------------------------------------
+# Calculate the SPRT with custom sequential steps ------------------------------
 anova_results <- sprtt::seq_anova(
                           y~x,
                           f = 0.25,
                           data = data,
                           plot = TRUE,
-                          seq_steps = 12:nrow(data)) # we start with the first 12 data points instead of the first 6
+                          # Start at n=12, then test after each observation
+                          seq_steps = 12:nrow(data)) 
 
-# plot the results -------------------------------------------------------------
+# Plot the results with custom styling -----------------------------------------
 sprtt::plot_anova(anova_results,
                  labels = TRUE,
                  position_labels_x = 0.2,
