@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-05</h4>
+            <h4 data-toc-skip class="date">2026-02-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/plan_sample_size.Rmd" class="external-link"><code>vignettes/plan_sample_size.Rmd</code></a></small>
       <div class="d-none name"><code>plan_sample_size.Rmd</code></div>
@@ -122,11 +122,10 @@ determined by the data itself and remains unknown beforehand – data
 collection continues until either the upper or lower decision boundary
 is reached.</p>
 <p><strong>The challenge:</strong> While this data-driven stopping rule
-is statistically elegant and very efficient, it creates practical
-difficulties. Resource planning requires knowing whether you might need
-100 observations or 1,000. Budget constraints, time limitations, and
-logistical considerations all demand some advance estimate of required
-resources.</p>
+is very efficient, it creates practical difficulties. Resource planning
+requires knowing whether you might need 100 observations or 1,000.
+Budget constraints, time limitations, and logistical considerations all
+demand some advance estimate of required resources.</p>
 <p><strong>The solution:</strong> Although the exact final sample size
 cannot be known in advance, simulation-based planning bridges the gap
 between statistical theory and practical constraints. The
@@ -142,20 +141,20 @@ rate (<span class="math inline">\(N_{\text{max}}\)</span>)</li>
 <h3 id="resource-constraints-and-decision-rates">Resource Constraints and Decision Rates<a class="anchor" aria-label="anchor" href="#resource-constraints-and-decision-rates"></a>
 </h3>
 <p>While the decision boundaries of the sequential ANOVA control Type I
-(<span class="math inline">\(\alpha\)</span>) and Type II (<span class="math inline">\(\beta\)</span>) errors in the long run – and
-consequently maintain the desired power (<span class="math inline">\(1-\beta\)</span>) – a new consideration emerges
+(<span class="math inline">\(\alpha\)</span>) and Type II (<span class="math inline">\(\beta\)</span>) errors in the long run, and
+consequently maintain the desired power (<span class="math inline">\(1-\beta\)</span>), a new consideration emerges
 when researchers face resource constraints.</p>
 <p>When the maximum affordable sample size is reached before a decision
 boundary is crossed, this results in a <strong>non-decision</strong>.
-Importantly, the non-decision rate depends directly on the maximum
-sample size a researcher can collect. This introduces a new metric: the
+Importantly, the non-decision rate depends on the maximum sample size a
+researcher can collect. This introduces a new metric: the
 <strong>decision rate</strong> (the chance to reach a decision) given
 resource limitations.</p>
 <p>While non-decisions are undesirable, they represent a crucial
 conceptual distinction from accepting the null hypothesis. SPRTs like
 the sequential ANOVA differentiate between stopping data collection to
-accept the null hypothesis and the case where more data/evidence is
-required to stop.</p>
+accept the null hypothesis and the case where more evidence is required
+to make a decision.</p>
 </div>
 </div>
 <div class="section level2">
@@ -198,19 +197,22 @@ study to compare three groups. You want to detect medium-sized effects
 specific constraints.</p>
 <p>First, you’ll set your alpha level to 0.05, the standard threshold
 that ensures you can trust decisions to reject the null hypothesis and
-minimize Type I errors. You also want high statistical power so you can
-trust decisions to accept the null hypothesis and minimize Type II
-errors. However, given your limited resources, you’re willing to accept
-a 20% non-decision rate. This means that when you <em>do</em> reach a
-decision, which will happen 80% of the time, you can trust it, whether
-you’re accepting or rejecting the null hypothesis <span class="math inline">\(\alpha = \beta = .05\)</span>.</p>
+minimize Type I errors. You also want high statistical power (<span class="math inline">\(1-\beta = 0.90\)</span>) so you can trust
+decisions to accept the null hypothesis and minimize Type II errors.
+However, given your limited resources, you’re willing to accept a 20%
+non-decision rate.</p>
+<p>This means that 80% of the time you’ll reach a definitive conclusion.
+Critically, whether that conclusion is to reject <span class="math inline">\(H_0\)</span> (favoring <span class="math inline">\(H_1\)</span>) or accept <span class="math inline">\(H_0\)</span>, you can trust the decision: you’ve
+limited false acceptances of <span class="math inline">\(H_1\)</span> to
+5% and false acceptances of <span class="math inline">\(H_0\)</span> to
+10% in the long run.</p>
 <p>Now let’s see how to generate a sample size planning report for this
 scenario:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span></span>
 <span>  f_expected <span class="op">=</span> <span class="fl">0.25</span>,   <span class="co"># Expected effect size</span></span>
 <span>  k_groups <span class="op">=</span> <span class="fl">3</span>,        <span class="co"># Number of groups</span></span>
-<span>  power <span class="op">=</span> <span class="fl">0.95</span>,        <span class="co"># Desired power</span></span>
+<span>  power <span class="op">=</span> <span class="fl">0.90</span>,        <span class="co"># Desired power</span></span>
 <span>  decision_rate <span class="op">=</span> <span class="fl">0.80</span> <span class="co"># desired percentage of decisions </span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>When you run this code for the first time, several things happen:</p>
@@ -258,7 +260,7 @@ of: 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, or 0.40.</td>
 <td><code>k_groups</code></td>
 <td>integer</td>
 <td><em>required</em></td>
-<td>Number of groups to compare. Must be 2, 3, 4, or 5.</td>
+<td>Number of groups to compare. Must be 2, 3, or 4.</td>
 </tr>
 <tr class="odd">
 <td><code>power</code></td>
@@ -296,13 +298,6 @@ prompting.</td>
 </table>
 </div>
 <div class="section level3">
-<h3 id="return-value">Return Value<a class="anchor" aria-label="anchor" href="#return-value"></a>
-</h3>
-<p>The function invisibly returns the full path to the generated HTML
-file as a character string. This is useful if you want to
-programmatically access or move the file after generation.</p>
-</div>
-<div class="section level3">
 <h3 id="input-validation">Input Validation<a class="anchor" aria-label="anchor" href="#input-validation"></a>
 </h3>
 <p>The function validates all inputs before generating the report. If
@@ -322,14 +317,14 @@ available options. For example:</p>
 <div class="section level3">
 <h3 id="case-1-comparing-different-effect-sizes">Case 1: Comparing Different Effect Sizes<a class="anchor" aria-label="anchor" href="#case-1-comparing-different-effect-sizes"></a>
 </h3>
-<p>Effect size has a large impact on required sample size. Here’s how to
-generate reports for different scenarios:</p>
+<p>The expected effect size has a large impact on required sample size.
+Here’s how to generate reports for different scenarios:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Planning for a small effect (f = 0.15)</span></span>
+<code class="sourceCode R"><span><span class="co"># report 1</span></span>
 <span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.15</span>, k_groups <span class="op">=</span> <span class="fl">3</span>, power <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Planning for a large effect (f = 0.40)</span></span>
-<span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.40</span>, k_groups <span class="op">=</span> <span class="fl">3</span>, power <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># report 2</span></span>
+<span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.35</span>, k_groups <span class="op">=</span> <span class="fl">3</span>, power <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="case-2-saving-reports-to-a-specific-location">Case 2: Saving Reports to a Specific Location<a class="anchor" aria-label="anchor" href="#case-2-saving-reports-to-a-specific-location"></a>
@@ -357,7 +352,7 @@ assumptions):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define scenarios to compare</span></span>
 <span><span class="va">scenarios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.20</span>, <span class="fl">0.25</span>, <span class="fl">0.30</span><span class="op">)</span>,</span>
+<span>  effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.20</span>, <span class="fl">0.25</span><span class="op">)</span>,</span>
 <span>  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"conservative"</span>, <span class="st">"expected"</span>, <span class="st">"optimistic"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -388,9 +383,13 @@ when needed, you can also download it explicitly:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Download simulation data manually</span></span>
 <span><span class="fu"><a href="../reference/download_sample_size_data.html">download_sample_size_data</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This is useful if you want to: - Pre-download data on a fast internet
-connection before traveling - Verify the download completed successfully
-- Troubleshoot download issues</p>
+<p>This is useful if you want to:</p>
+<ul>
+<li>Pre-download data on a fast internet connection before
+traveling</li>
+<li>Verify the download completed successfully</li>
+<li>Troubleshoot download issues</li>
+</ul>
 <p>To force a re-download (for example, after a package update with new
 simulation data):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -400,9 +399,12 @@ simulation data):</p>
 occupy:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cache_info.html">cache_info</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This displays: - The cache directory location on your system -
-Whether simulation data are currently cached - The file size
-(approximately 15 MB when cached)</p>
+<p>This displays:</p>
+<ul>
+<li>The cache directory location on your system</li>
+<li>Whether simulation data are currently cached</li>
+<li>The file size (approximately 15 MB when cached)</li>
+</ul>
 <p><strong>Clearing the Cache</strong></p>
 <p>If you need to free up disk space or suspect corrupted data, you can
 clear the cache:</p>

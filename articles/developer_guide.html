@@ -82,7 +82,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-05</h4>
+            <h4 data-toc-skip class="date">2026-02-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/developer_guide.Rmd" class="external-link"><code>vignettes/developer_guide.Rmd</code></a></small>
       <div class="d-none name"><code>developer_guide.Rmd</code></div>
@@ -99,10 +99,13 @@ package. It explains the internal architecture, code organization,
 computational methods, and development workflows.</p>
 <p><strong>Target audience</strong>: R package developers, future
 maintainers, and contributors</p>
-<p><strong>Prerequisite knowledge</strong>: - R package development
-basics - S4 object-oriented programming - Statistical knowledge of
-Sequential Probability Ratio Tests (see
-<code><a href="../articles/sprts.html">vignette("sprts")</a></code>)</p>
+<p><strong>Prerequisite knowledge</strong>:</p>
+<ul>
+<li>R package development basics</li>
+<li>S4 object-oriented programming</li>
+<li>Statistical knowledge of Sequential Probability Ratio Tests (see
+<code><a href="../articles/sprts.html">vignette("sprts")</a></code>)</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="package-architecture">Package Architecture<a class="anchor" aria-label="anchor" href="#package-architecture"></a>
@@ -113,47 +116,52 @@ Sequential Probability Ratio Tests (see
 <p>The <code>sprtt</code> package follows a modular architecture with
 clear separation of concerns:</p>
 <ol style="list-style-type: decimal">
-<li>
-<strong>Main User-facing functions</strong>
+<li><p><strong>Main User-facing functions</strong>
 (<code><a href="../reference/seq_ttest.html">seq_ttest()</a></code>, <code><a href="../reference/seq_anova.html">seq_anova()</a></code>) handle input
-validation and provide clean interfaces</li>
-<li>
-<strong>Utility User-facing functions</strong> provide supporting
-functionality (plotting, data generation, caching)</li>
-<li>
-<strong>Builder functions</strong>
+validation and provide clean interfaces</p></li>
+<li><p><strong>Utility User-facing functions</strong> provide supporting
+functionality (plotting, data generation, caching)</p></li>
+<li><p><strong>Builder functions</strong>
 (<code>build_seq_*_arguments()</code>) Transform and validate user
 inputs into a structured S4 argument object. Builder functions act as a
 processing pipeline between the user-facing interface and the core
 calculation functions. They handle the complex task of parsing different
 input formats, validating all parameters, and packaging everything into
-a type-safe container.</li>
-<li>
-<strong>Calculation functions</strong> (<code>calc_seq_*()</code>)
-perform the core computations</li>
-<li>
-<strong>Internal utility functions</strong> (e.g.,
+a type-safe container.</p></li>
+<li><p><strong>Calculation functions</strong>
+(<code>calc_seq_*()</code>) perform the core computations</p></li>
+<li><p><strong>Internal utility functions</strong> (e.g.,
 <code>delete_na()</code>, <code>extract_formula()</code>,
 <code>get_seq_decision()</code>, …) are small, focused helpers that
 handle specific tasks across the package. They follow the Single
 Responsibility Principle - each function does one thing well. This
 design reduces code duplication, improves testability, and makes the
-codebase easier to maintain.</li>
-<li>
-<strong>Result Classes</strong> - S4 classes that store results in
-type-safe, structured containers. These classes provide controlled
+codebase easier to maintain.</p></li>
+<li><p><strong>Result Classes</strong> - S4 classes that store results
+in type-safe, structured containers. These classes provide controlled
 access to result components through standardized methods
 (<code>@</code>, <code>[]</code>, and <code>show()</code>), ensuring
-consistency and extensibility.</li>
+consistency and extensibility.</p></li>
 </ol>
-<p>This separation allows for: - Easy testing of individual components -
-Clear error handling at appropriate levels - Extensibility for future
-sequential tests - Consistent user experience across functions</p>
-<p><strong>Function Naming Convention:</strong> - <code>seq_*()</code>:
-User-facing main functions - <code>build_*()</code>: Argument
-preparation functions<br>
-- <code>calc_*()</code>: Computational core functions -
-<code>*_class.R</code>: S4 class definitions</p>
+<p>This separation allows for:</p>
+<ul>
+<li>Easy testing of individual components</li>
+<li>Clear error handling at appropriate levels</li>
+<li>Extensibility for future sequential tests</li>
+<li>Consistent user experience across functions</li>
+</ul>
+<p><strong>Function Naming Convention:</strong></p>
+<ul>
+<li>
+<code>seq_*()</code>: User-facing main functions</li>
+<li>
+<code>build_*()</code>: Argument preparation functions<br>
+</li>
+<li>
+<code>calc_*()</code>: Computational core functions</li>
+<li>
+<code>*_class.R</code>: S4 class definitions</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="function-structure">Function Structure<a class="anchor" aria-label="anchor" href="#function-structure"></a>
@@ -173,12 +181,14 @@ function (Level 1)</strong></p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>build_seq_ttest_arguments()</code></td>
+<td align="left">
+<code>build_seq_ttest_arguments()</code> <br><em>Class: seq_ttest_arguments</em>
+</td>
 <td align="left"><code>check_formula()</code></td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><em>Class: seq_ttest_arguments</em></td>
+<td align="left"></td>
 <td align="left"><code>extract_formula()</code></td>
 <td align="left"></td>
 </tr>
@@ -198,12 +208,15 @@ function (Level 1)</strong></p>
 <td align="left"><code>check_constant_data()</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>calc_seq_ttest()</code></td>
+<td align="left">
+<code>calc_seq_ttest()</code> <br><em>Class:
+seq_ttest_results</em>
+</td>
 <td align="left"><code>calc_seq_ttest_t_statistic()</code></td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><em>Class: seq_ttest_results</em></td>
+<td align="left"></td>
 <td align="left"><code>calc_seq_ttest_non_centrality_parameter()</code></td>
 <td align="left"></td>
 </tr>
@@ -233,45 +246,84 @@ function (Level 1)</strong></p>
 function (Level 1)</strong></p>
 <table class="table">
 <colgroup>
-<col width="33%">
-<col width="44%">
-<col width="22%">
+<col width="42%">
+<col width="57%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Level 2</th>
 <th align="left">Level 3</th>
-<th align="left">Level 4</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>build_seq_anova_arguments()</code></td>
+<td align="left">
+<code>build_seq_anova_arguments()</code> <br><em>Class: seq_anova_arguments</em>
+</td>
 <td align="left"><code>check_formula_anova()</code></td>
-<td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><em>Class: seq_anova_arguments</em></td>
-<td align="left"><code>extract_formula_anova()</code></td>
 <td align="left"></td>
+<td align="left"><code>extract_formula_anova()</code></td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><code>check_data_anova()</code></td>
-<td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><code>calc_seq_anova()</code></td>
-<td align="left">ANOVA-specific calculations</td>
-<td align="left"></td>
+<td align="left">
+<code>calc_seq_anova()</code> <br><em>Class:
+seq_anova_results</em>
+</td>
+<td align="left"><code>calc_non_centrality_parameter_anova()</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><em>Class: seq_anova_results</em></td>
-<td align="left"><code>calc_plot_anova()</code></td>
+<td align="left"></td>
+<td align="left"><code>calc_group_means()</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><code>calc_ss_effect()</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><code>calc_ss_residual()</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><code>calc_ss_total()</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><code>calc_F_statistic_()</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><code>calc_likelihoods_anova()</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><code>calc_boundaries()</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><code>get_seq_decision()</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><code>calc_effect_sizes()</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><code>build_seq_anova_results()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">
+<code>calc_plot_anova()</code> <br><em>Class:
+seq_anova_results</em>
+</td>
 <td align="left"></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Table: Structure of the main <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code>
-function (Level 1)</strong></p>
 </div>
 </div>
 <div class="section level2">
@@ -350,12 +402,22 @@ version” section</label></li>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p><strong>How to contribute:</strong> 1. Fork the repository 2. Create
-a feature branch 3. Make changes with tests 4. Submit pull request 5.
-Respond to review comments</p>
-<p><strong>Contribution guidelines:</strong> - Follow existing code
-style - Add tests for new features - Update documentation - Keep commits
-focused and atomic - Write clear commit messages</p>
+<p><strong>How to contribute:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Make changes with tests</li>
+<li>Submit pull request</li>
+<li>Respond to review comments</li>
+</ol>
+<p><strong>Contribution guidelines:</strong></p>
+<ul>
+<li>Follow existing code style</li>
+<li>Add tests for new features</li>
+<li>Update documentation</li>
+<li>Keep commits focused and atomic</li>
+<li>Write clear commit messages</li>
+</ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

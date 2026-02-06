@@ -10,10 +10,12 @@ development workflows.
 **Target audience**: R package developers, future maintainers, and
 contributors
 
-**Prerequisite knowledge**: - R package development basics - S4
-object-oriented programming - Statistical knowledge of Sequential
-Probability Ratio Tests (see
-[`vignette("sprts")`](https://meikesteinhilber.github.io/sprtt/articles/sprts.md))
+**Prerequisite knowledge**:
+
+- R package development basics
+- S4 object-oriented programming
+- Statistical knowledge of Sequential Probability Ratio Tests (see
+  [`vignette("sprts")`](https://meikesteinhilber.github.io/sprtt/articles/sprts.md))
 
 ## Package Architecture
 
@@ -26,35 +28,45 @@ of concerns:
     ([`seq_ttest()`](https://meikesteinhilber.github.io/sprtt/reference/seq_ttest.md),
     [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md))
     handle input validation and provide clean interfaces
+
 2.  **Utility User-facing functions** provide supporting functionality
     (plotting, data generation, caching)
+
 3.  **Builder functions** (`build_seq_*_arguments()`) Transform and
     validate user inputs into a structured S4 argument object. Builder
     functions act as a processing pipeline between the user-facing
     interface and the core calculation functions. They handle the
     complex task of parsing different input formats, validating all
     parameters, and packaging everything into a type-safe container.
+
 4.  **Calculation functions** (`calc_seq_*()`) perform the core
     computations
+
 5.  **Internal utility functions** (e.g., `delete_na()`,
     `extract_formula()`, `get_seq_decision()`, …) are small, focused
     helpers that handle specific tasks across the package. They follow
     the Single Responsibility Principle - each function does one thing
     well. This design reduces code duplication, improves testability,
     and makes the codebase easier to maintain.
+
 6.  **Result Classes** - S4 classes that store results in type-safe,
     structured containers. These classes provide controlled access to
     result components through standardized methods (`@`, `[]`, and
     `show()`), ensuring consistency and extensibility.
 
-This separation allows for: - Easy testing of individual components -
-Clear error handling at appropriate levels - Extensibility for future
-sequential tests - Consistent user experience across functions
+This separation allows for:
 
-**Function Naming Convention:** - `seq_*()`: User-facing main
-functions - `build_*()`: Argument preparation functions  
-- `calc_*()`: Computational core functions - `*_class.R`: S4 class
-definitions
+- Easy testing of individual components
+- Clear error handling at appropriate levels
+- Extensibility for future sequential tests
+- Consistent user experience across functions
+
+**Function Naming Convention:**
+
+- `seq_*()`: User-facing main functions
+- `build_*()`: Argument preparation functions  
+- `calc_*()`: Computational core functions
+- `*_class.R`: S4 class definitions
 
 ### Function Structure
 
@@ -62,35 +74,13 @@ definitions
 [`seq_ttest()`](https://meikesteinhilber.github.io/sprtt/reference/seq_ttest.md)
 function (Level 1)**
 
-| Level 2                       | Level 3                                     | Level 4                 |
-|:------------------------------|:--------------------------------------------|:------------------------|
-| `build_seq_ttest_arguments()` | `check_formula()`                           |                         |
-| *Class: seq_ttest_arguments*  | `extract_formula()`                         |                         |
-|                               | `get_one_sample()`                          |                         |
-|                               | `delete_na()`                               |                         |
-|                               | `check_data()`                              | `check_constant_data()` |
-| `calc_seq_ttest()`            | `calc_seq_ttest_t_statistic()`              |                         |
-| *Class: seq_ttest_results*    | `calc_seq_ttest_non_centrality_parameter()` |                         |
-|                               | `calc_seq_ttest_likelihoods()`              |                         |
-|                               | `calc_seq_ttest_boundaries()`               |                         |
-|                               | `get_seq_ttest_decision()`                  |                         |
-|                               | `build_seq_ttest_results()`                 |                         |
+[TABLE]
 
 **Table: Structure of the main
 [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md)
 function (Level 1)**
 
-| Level 2                       | Level 3                     | Level 4 |
-|:------------------------------|:----------------------------|:--------|
-| `build_seq_anova_arguments()` | `check_formula_anova()`     |         |
-| *Class: seq_anova_arguments*  | `extract_formula_anova()`   |         |
-|                               | `check_data_anova()`        |         |
-| `calc_seq_anova()`            | ANOVA-specific calculations |         |
-| *Class: seq_anova_results*    | `calc_plot_anova()`         |         |
-
-**Table: Structure of the main
-[`plan_sample_size()`](https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.md)
-function (Level 1)**
+[TABLE]
 
 ## Software Testing
 
@@ -154,10 +144,18 @@ Update NEWS.md with “Development version” section
 
 ## Contributing
 
-**How to contribute:** 1. Fork the repository 2. Create a feature branch
-3. Make changes with tests 4. Submit pull request 5. Respond to review
-comments
+**How to contribute:**
 
-**Contribution guidelines:** - Follow existing code style - Add tests
-for new features - Update documentation - Keep commits focused and
-atomic - Write clear commit messages
+1.  Fork the repository
+2.  Create a feature branch
+3.  Make changes with tests
+4.  Submit pull request
+5.  Respond to review comments
+
+**Contribution guidelines:**
+
+- Follow existing code style
+- Add tests for new features
+- Update documentation
+- Keep commits focused and atomic
+- Write clear commit messages

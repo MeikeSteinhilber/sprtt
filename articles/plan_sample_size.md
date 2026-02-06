@@ -8,11 +8,11 @@ determined by the data itself and remains unknown beforehand – data
 collection continues until either the upper or lower decision boundary
 is reached.
 
-**The challenge:** While this data-driven stopping rule is statistically
-elegant and very efficient, it creates practical difficulties. Resource
-planning requires knowing whether you might need 100 observations or
-1,000. Budget constraints, time limitations, and logistical
-considerations all demand some advance estimate of required resources.
+**The challenge:** While this data-driven stopping rule is very
+efficient, it creates practical difficulties. Resource planning requires
+knowing whether you might need 100 observations or 1,000. Budget
+constraints, time limitations, and logistical considerations all demand
+some advance estimate of required resources.
 
 **The solution:** Although the exact final sample size cannot be known
 in advance, simulation-based planning bridges the gap between
@@ -30,21 +30,21 @@ for sequential ANOVAs. Researchers can obtain guidance on:
 ### Resource Constraints and Decision Rates
 
 While the decision boundaries of the sequential ANOVA control Type I
-(\\\alpha\\) and Type II (\\\beta\\) errors in the long run – and
-consequently maintain the desired power (\\1-\beta\\) – a new
+(\\\alpha\\) and Type II (\\\beta\\) errors in the long run, and
+consequently maintain the desired power (\\1-\beta\\), a new
 consideration emerges when researchers face resource constraints.
 
 When the maximum affordable sample size is reached before a decision
 boundary is crossed, this results in a **non-decision**. Importantly,
-the non-decision rate depends directly on the maximum sample size a
-researcher can collect. This introduces a new metric: the **decision
-rate** (the chance to reach a decision) given resource limitations.
+the non-decision rate depends on the maximum sample size a researcher
+can collect. This introduces a new metric: the **decision rate** (the
+chance to reach a decision) given resource limitations.
 
 While non-decisions are undesirable, they represent a crucial conceptual
 distinction from accepting the null hypothesis. SPRTs like the
 sequential ANOVA differentiate between stopping data collection to
-accept the null hypothesis and the case where more data/evidence is
-required to stop.
+accept the null hypothesis and the case where more evidence is required
+to make a decision.
 
 ## The `plan_sample_size()` Function
 
@@ -84,12 +84,16 @@ constraints.
 
 First, you’ll set your alpha level to 0.05, the standard threshold that
 ensures you can trust decisions to reject the null hypothesis and
-minimize Type I errors. You also want high statistical power so you can
-trust decisions to accept the null hypothesis and minimize Type II
-errors. However, given your limited resources, you’re willing to accept
-a 20% non-decision rate. This means that when you *do* reach a decision,
-which will happen 80% of the time, you can trust it, whether you’re
-accepting or rejecting the null hypothesis \\\alpha = \beta = .05\\.
+minimize Type I errors. You also want high statistical power (\\1-\beta
+= 0.90\\) so you can trust decisions to accept the null hypothesis and
+minimize Type II errors. However, given your limited resources, you’re
+willing to accept a 20% non-decision rate.
+
+This means that 80% of the time you’ll reach a definitive conclusion.
+Critically, whether that conclusion is to reject \\H_0\\ (favoring
+\\H_1\\) or accept \\H_0\\, you can trust the decision: you’ve limited
+false acceptances of \\H_1\\ to 5% and false acceptances of \\H_0\\ to
+10% in the long run.
 
 Now let’s see how to generate a sample size planning report for this
 scenario:
@@ -98,7 +102,7 @@ scenario:
 plan_sample_size(
   f_expected = 0.25,   # Expected effect size
   k_groups = 3,        # Number of groups
-  power = 0.95,        # Desired power
+  power = 0.90,        # Desired power
   decision_rate = 0.80 # desired percentage of decisions 
 )
 ```
@@ -121,18 +125,12 @@ download, then just a few seconds for generating the subsequent report.
 | Parameter     | Type      | Default                                                    | Description                                                                                                   |
 |---------------|-----------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | `f_expected`  | numeric   | *required*                                                 | Expected standardized effect size (Cohen’s *f*). Must be one of: 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, or 0.40. |
-| `k_groups`    | integer   | *required*                                                 | Number of groups to compare. Must be 2, 3, 4, or 5.                                                           |
+| `k_groups`    | integer   | *required*                                                 | Number of groups to compare. Must be 2, 3, or 4.                                                              |
 | `power`       | numeric   | 0.95                                                       | Desired statistical power. Must be 0.80, 0.90, or 0.95.                                                       |
 | `output_dir`  | character | [`tempdir()`](https://rdrr.io/r/base/tempfile.html)        | Directory where the HTML report will be saved.                                                                |
 | `output_file` | character | `"sprtt-report-sample-size-planning.html"`                 | Filename for the generated report.                                                                            |
 | `open`        | logical   | [`interactive()`](https://rdrr.io/r/base/interactive.html) | Whether to open the report in your browser after generation. Set to `FALSE` for batch processing.             |
 | `overwrite`   | logical   | FALSE                                                      | Whether to overwrite an existing file with the same name without prompting.                                   |
-
-### Return Value
-
-The function invisibly returns the full path to the generated HTML file
-as a character string. This is useful if you want to programmatically
-access or move the file after generation.
 
 ### Input Validation
 
@@ -152,15 +150,15 @@ plan_sample_size(f_expected = 0.22, k_groups = 3)
 
 ### Case 1: Comparing Different Effect Sizes
 
-Effect size has a large impact on required sample size. Here’s how to
-generate reports for different scenarios:
+The expected effect size has a large impact on required sample size.
+Here’s how to generate reports for different scenarios:
 
 ``` r
-# Planning for a small effect (f = 0.15)
+# report 1
 plan_sample_size(f_expected = 0.15, k_groups = 3, power = 0.95)
 
-# Planning for a large effect (f = 0.40)
-plan_sample_size(f_expected = 0.40, k_groups = 3, power = 0.95)
+# report 2
+plan_sample_size(f_expected = 0.35, k_groups = 3, power = 0.95)
 ```
 
 ### Case 2: Saving Reports to a Specific Location
@@ -189,7 +187,7 @@ to explore multiple scenarios (e.g., different effect size assumptions):
 ``` r
 # Define scenarios to compare
 scenarios <- data.frame(
-  effect = c(0.20, 0.25, 0.30),
+  effect = c(0.15, 0.20, 0.25),
   label = c("conservative", "expected", "optimistic")
 )
 
@@ -226,9 +224,11 @@ explicitly:
 download_sample_size_data()
 ```
 
-This is useful if you want to: - Pre-download data on a fast internet
-connection before traveling - Verify the download completed
-successfully - Troubleshoot download issues
+This is useful if you want to:
+
+- Pre-download data on a fast internet connection before traveling
+- Verify the download completed successfully
+- Troubleshoot download issues
 
 To force a re-download (for example, after a package update with new
 simulation data):
@@ -245,9 +245,11 @@ To see whether data are cached and how much disk space they occupy:
 cache_info()
 ```
 
-This displays: - The cache directory location on your system - Whether
-simulation data are currently cached - The file size (approximately 15
-MB when cached)
+This displays:
+
+- The cache directory location on your system
+- Whether simulation data are currently cached
+- The file size (approximately 15 MB when cached)
 
 **Clearing the Cache**
 

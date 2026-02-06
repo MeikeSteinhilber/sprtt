@@ -176,8 +176,7 @@ table(data$x[1:6])
 ```
 
 The data frame contains two columns: `y` (the continuous outcome
-variable) and `x` (the grouping factor with 3 levels). Each group has 22
-observations, resulting in a total sample size of \\N =\\ 66.
+variable) and `x` (the grouping factor with 3 levels).
 
 ### Step 2: Initial Sequential Analysis
 
