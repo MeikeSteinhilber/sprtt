@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-06</h4>
+            <h4 data-toc-skip class="date">2026-02-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/plan_sample_size.Rmd" class="external-link"><code>vignettes/plan_sample_size.Rmd</code></a></small>
       <div class="d-none name"><code>plan_sample_size.Rmd</code></div>
@@ -201,8 +201,9 @@ minimize Type I errors. You also want high statistical power (<span class="math 
 decisions to accept the null hypothesis and minimize Type II errors.
 However, given your limited resources, you’re willing to accept a 20%
 non-decision rate.</p>
-<p>This means that 80% of the time you’ll reach a definitive conclusion.
-Critically, whether that conclusion is to reject <span class="math inline">\(H_0\)</span> (favoring <span class="math inline">\(H_1\)</span>) or accept <span class="math inline">\(H_0\)</span>, you can trust the decision: you’ve
+<p>This means that 80% of the time you’ll reach a decision to accept one
+of the two hypothesis. Critically, whether that decision is to reject
+<span class="math inline">\(H_0\)</span> (favoring <span class="math inline">\(H_1\)</span>) or accept <span class="math inline">\(H_0\)</span>, you can trust the decision: you’ve
 limited false acceptances of <span class="math inline">\(H_1\)</span> to
 5% and false acceptances of <span class="math inline">\(H_0\)</span> to
 10% in the long run.</p>
@@ -357,7 +358,7 @@ assumptions):</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Generate reports for each scenario</span></span>
-<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">scenarios</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">scenarios</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span></span>
 <span>    f_expected <span class="op">=</span> <span class="va">scenarios</span><span class="op">$</span><span class="va">effect</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
 <span>    k_groups <span class="op">=</span> <span class="fl">3</span>,</span>

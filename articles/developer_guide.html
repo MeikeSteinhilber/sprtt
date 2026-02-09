@@ -82,7 +82,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-06</h4>
+            <h4 data-toc-skip class="date">2026-02-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/developer_guide.Rmd" class="external-link"><code>vignettes/developer_guide.Rmd</code></a></small>
       <div class="d-none name"><code>developer_guide.Rmd</code></div>
@@ -125,31 +125,24 @@ functionality (plotting, data generation, caching)</p></li>
 (<code>build_seq_*_arguments()</code>) Transform and validate user
 inputs into a structured S4 argument object. Builder functions act as a
 processing pipeline between the user-facing interface and the core
-calculation functions. They handle the complex task of parsing different
-input formats, validating all parameters, and packaging everything into
-a type-safe container.</p></li>
+calculation functions. They handle the task of parsing different input
+formats, validating all parameters, and packaging everything into a
+type-safe container.</p></li>
 <li><p><strong>Calculation functions</strong>
 (<code>calc_seq_*()</code>) perform the core computations</p></li>
 <li><p><strong>Internal utility functions</strong> (e.g.,
 <code>delete_na()</code>, <code>extract_formula()</code>,
 <code>get_seq_decision()</code>, …) are small, focused helpers that
 handle specific tasks across the package. They follow the Single
-Responsibility Principle - each function does one thing well. This
-design reduces code duplication, improves testability, and makes the
-codebase easier to maintain.</p></li>
+Responsibility Principle: Each function does one thing well. This design
+reduces code duplication, improves testability, and makes the codebase
+easier to maintain.</p></li>
 <li><p><strong>Result Classes</strong> - S4 classes that store results
 in type-safe, structured containers. These classes provide controlled
 access to result components through standardized methods
 (<code>@</code>, <code>[]</code>, and <code>show()</code>), ensuring
 consistency and extensibility.</p></li>
 </ol>
-<p>This separation allows for:</p>
-<ul>
-<li>Easy testing of individual components</li>
-<li>Clear error handling at appropriate levels</li>
-<li>Extensibility for future sequential tests</li>
-<li>Consistent user experience across functions</li>
-</ul>
 <p><strong>Function Naming Convention:</strong></p>
 <ul>
 <li>
@@ -327,20 +320,110 @@ seq_anova_results</em>
 </div>
 </div>
 <div class="section level2">
-<h2 id="software-testing">Software Testing<a class="anchor" aria-label="anchor" href="#software-testing"></a>
+<h2 id="test-coverage">Test Coverage<a class="anchor" aria-label="anchor" href="#test-coverage"></a>
 </h2>
-<div class="section level3">
-<h3 id="continuous-integration">Continuous Integration<a class="anchor" aria-label="anchor" href="#continuous-integration"></a>
-</h3>
-</div>
+<p>The <code>sprtt</code> package maintains rigorous unit testing
+standards with a target of 95-100% code coverage. Current coverage
+status can be monitored via <a href="https://app.codecov.io/gh/MeikeSteinhilber/sprtt" class="external-link">Codecov</a>.</p>
+<p>All exported functions and internal utilities are tested
+comprehensively. Acceptable exceptions to full coverage are:</p>
+<ul>
+<li>Code paths that require specific local environments and cannot be
+reliably tested on CI infrastructure</li>
+<li>Platform-specific functionality that’s only testable on certain
+operating systems</li>
+<li>Interactive components that depend on user input during runtime</li>
+</ul>
+<p>Each pull request is automatically checked for coverage changes, and
+decreases in coverage require justification before merging. This ensures
+that new features come with corresponding tests and that refactoring
+doesn’t inadvertently remove test coverage.</p>
+<p>Quick guide to testing in <code>sprtt</code>:</p>
+<p>Tests are organized in <code>tests/testthat/</code> and can be run
+using:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Run all tests</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">test</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run tests with coverage report</span></span>
+<span><span class="fu">covr</span><span class="fu">::</span><span class="fu">package_coverage</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run specific test file</span></span>
+<span><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_file.html" class="external-link">test_file</a></span><span class="op">(</span><span class="st">"tests/testthat/test-seq_anova.R"</span><span class="op">)</span></span></code></pre></div>
+<p>When adding new functionality:</p>
+<ul>
+<li>Place tests in <code>tests/testthat/test-&lt;filename&gt;.R</code>
+corresponding to the R file being tested</li>
+<li>Use descriptive test names with
+<code>test_that("function handles edge case X", {...})</code>
+</li>
+<li>Test both expected behavior and error conditions</li>
+<li>For statistical functions, include tests with known results or
+theoretical properties</li>
+<li>For SPRT functions, consider testing against fixed random seeds for
+reproducibility</li>
+</ul>
 </div>
 <div class="section level2">
-<h2 id="github-structure">GitHub Structure<a class="anchor" aria-label="anchor" href="#github-structure"></a>
+<h2 id="continuous-integration">Continuous Integration<a class="anchor" aria-label="anchor" href="#continuous-integration"></a>
 </h2>
+<p>The <code>sprtt</code> package uses multiple GitHub Actions workflows
+to maintain code quality and documentation.</p>
+<p>All workflows use r-lib/actions v2, which are pre-built,
+community-maintained workflow components specifically designed for R
+package development. This means you don’t have to write the CI setup
+from scratch. The workflows authenticate automatically using GitHub’s
+built-in <code>GITHUB_TOKEN</code>, so no manual setup of credentials is
+needed. They also use public RSPM (Posit Package Manager) to download
+pre-compiled package binaries, which installs packages in seconds rather
+than minutes compared to compiling from source code.</p>
+<div class="section level3">
+<h3 id="r-cmd-check-r-cmd-check-windows-macos-yaml">R CMD check (<code>R-CMD-check-windows-macOs.yaml</code>)<a class="anchor" aria-label="anchor" href="#r-cmd-check-r-cmd-check-windows-macos-yaml"></a>
+</h3>
+<p>Runs comprehensive package checks across multiple platforms (Ubuntu,
+macOS, Windows) and R versions (release, devel). Triggered on pushes and
+pull requests to main/master/develop branches. This ensures the package
+builds and passes all checks on CRAN’s target platforms.</p>
+</div>
+<div class="section level3">
+<h3 id="test-coverage-test-coverage-covr-yaml">Test Coverage (<code>test-coverage-covr.yaml</code>)<a class="anchor" aria-label="anchor" href="#test-coverage-test-coverage-covr-yaml"></a>
+</h3>
+<p>Monitors code coverage using the <code>covr</code> package and
+reports to Codecov. Runs on Ubuntu with each push to main/master and on
+pull requests. Coverage reports help identify untested code paths and
+maintain testing standards.</p>
+</div>
+<div class="section level3">
+<h3 id="package-website-pkgdown-pak-yaml">Package Website (<code>pkgdown-pak.yaml</code>)<a class="anchor" aria-label="anchor" href="#package-website-pkgdown-pak-yaml"></a>
+</h3>
+<p>Automatically builds and deploys the pkgdown documentation site to
+GitHub Pages. Triggered by pushes to main/master/develop, releases, and
+pull requests. The workflow uses pak (a faster alternative to
+install.packages) to install dependencies more quickly. When changes are
+pushed directly to the repository (not from pull requests), the built
+website is automatically published to the gh-pages branch, making it
+available at the package’s GitHub Pages URL.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="release-checklist">Release Checklist<a class="anchor" aria-label="anchor" href="#release-checklist"></a>
 </h2>
+<p>For CRAN submissions, consult these essential resources:</p>
+<ul>
+<li>
+<strong>Generate checklist</strong>:
+<code><a href="https://usethis.r-lib.org/reference/use_release_issue.html" class="external-link">usethis::use_release_issue()</a></code> - creates a GitHub issue with
+package-specific checklist</li>
+<li>
+<strong>CRAN submission portal</strong>: <a href="https://cran.r-project.org/submit.html" class="external-link uri">https://cran.r-project.org/submit.html</a>
+</li>
+<li>
+<strong>Official CRAN checklist</strong>: <a href="https://cran.r-project.org/web/packages/submission_checklist.html" class="external-link uri">https://cran.r-project.org/web/packages/submission_checklist.html</a>
+</li>
+<li>
+<strong>Comprehensive guide</strong>: <a href="https://r-pkgs.org/release.html" class="external-link uri">https://r-pkgs.org/release.html</a>
+</li>
+</ul>
 <div class="section level3">
 <h3 id="pre-release">Pre-release<a class="anchor" aria-label="anchor" href="#pre-release"></a>
 </h3>

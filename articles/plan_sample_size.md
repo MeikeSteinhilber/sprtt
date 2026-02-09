@@ -89,11 +89,11 @@ minimize Type I errors. You also want high statistical power (\\1-\beta
 minimize Type II errors. However, given your limited resources, you’re
 willing to accept a 20% non-decision rate.
 
-This means that 80% of the time you’ll reach a definitive conclusion.
-Critically, whether that conclusion is to reject \\H_0\\ (favoring
-\\H_1\\) or accept \\H_0\\, you can trust the decision: you’ve limited
-false acceptances of \\H_1\\ to 5% and false acceptances of \\H_0\\ to
-10% in the long run.
+This means that 80% of the time you’ll reach a decision to accept one of
+the two hypothesis. Critically, whether that decision is to reject
+\\H_0\\ (favoring \\H_1\\) or accept \\H_0\\, you can trust the
+decision: you’ve limited false acceptances of \\H_1\\ to 5% and false
+acceptances of \\H_0\\ to 10% in the long run.
 
 Now let’s see how to generate a sample size planning report for this
 scenario:
@@ -192,7 +192,7 @@ scenarios <- data.frame(
 )
 
 # Generate reports for each scenario
-for (i in seq_len(nrow(scenarios))) {
+for (i in 1:(nrow(scenarios))) {
   plan_sample_size(
     f_expected = scenarios$effect[i],
     k_groups = 3,
