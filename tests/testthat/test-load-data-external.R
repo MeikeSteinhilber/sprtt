@@ -1,5 +1,4 @@
 test_that("data download works", {
-  skip_on_cran()
   skip_if_offline()
 
   # Clear cache to test fresh download
@@ -18,7 +17,6 @@ test_that("data download works", {
 })
 
 test_that("force download works", {
-  skip_on_cran()
   skip_if_offline()
 
   # Clear cache
@@ -32,7 +30,6 @@ test_that("force download works", {
 })
 
 test_that("data loads correctly", {
-  skip_on_cran()
   skip_if_offline()
 
   df_all <- load_sample_size_data()
@@ -60,7 +57,6 @@ test_that("data loads correctly", {
 })
 
 test_that("load triggers download if not cached", {
-  skip_on_cran()
   skip_if_offline()
 
   # Clear cache
@@ -75,7 +71,6 @@ test_that("load triggers download if not cached", {
 })
 
 test_that("cache_clear works correctly", {
-  skip_on_cran()
   skip_if_offline()
 
   # Ensure data exists
@@ -96,7 +91,6 @@ test_that("cache_clear works correctly", {
 })
 
 test_that("cache directory is created if missing", {
-  skip_on_cran()
 
   cache_dir <- get_sprtt_cache_dir()
 
@@ -117,8 +111,6 @@ test_that("cache directory is created if missing", {
 })
 
 test_that("cache_info returns correct information", {
-  skip_on_cran()
-  skip_if_offline()
 
   # Test with cached data
   suppressMessages(download_sample_size_data())
@@ -147,9 +139,6 @@ test_that("cache directory is created if missing", {
 })
 
 test_that("download returns file path invisibly", {
-  skip_on_cran()
-  skip_if_offline()
-
   cache_clear()
 
   result <- suppressMessages(download_sample_size_data())
@@ -159,7 +148,6 @@ test_that("download returns file path invisibly", {
 })
 
 test_that("cache_info produces expected output", {
-  skip_on_cran()
   skip_if_offline()
 
   suppressMessages(download_sample_size_data())
@@ -171,7 +159,6 @@ test_that("cache_info produces expected output", {
 })
 
 test_that("download handles missing internet gracefully", {
-  skip_on_cran()
   skip_if_offline()
 
   # This test is more conceptual - actual implementation would require mocking
@@ -183,7 +170,6 @@ test_that("download handles missing internet gracefully", {
 })
 
 test_that("data structure contains all documented columns", {
-  skip_on_cran()
   skip_if_offline()
 
   df <- suppressMessages(load_sample_size_data())
