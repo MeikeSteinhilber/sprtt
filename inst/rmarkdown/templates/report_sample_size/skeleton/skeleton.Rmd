@@ -18,7 +18,7 @@ output:
 params:
   df_all: NULL
   f_expected: 0.25
-  power: 0.95
+  beta: 0.05
   k_groups: 3
   decision_rate: 0.90
 ---
@@ -206,7 +206,8 @@ df_all = params$df_all
 if (is.null(df_all)) {df_all <- readRDS("../sprtt_plan_sample_size/meta_data/sprt_tool_df_all_10000.rds")}
 
 pick_f_expected =     params$f_expected
-pick_power =          params$power
+pick_power =          1 - params$beta
+pick_beta =           params$beta
 pick_k_groups =       params$k_groups
 pick_decision_rate =  params$decision_rate
 
@@ -417,9 +418,9 @@ The analyses below use the following specifications:
 
  - $f_{exp}$ = `r pick_f_expected`
 
- - Power ($1-\beta$) = `r pick_power`
-
  - *k* groups = `r pick_k_groups`
+ 
+ - $\beta$ = `r pick_beta` (target power = $1-\beta$)
  
  - $\alpha$ = 0.05
  
@@ -449,6 +450,9 @@ The plot below shows the power curve across possible true effects in the populat
 
 The red color indicates that the power to detect a true effect of the corresponding size falls below the target power of `r pick_power`, suggesting the design is underpowered for such effect sizes.
 The green color indicates that the power meets or exceeds the target power.
+
+This plot serves an educational purpose: it illustrates why you should choose an effect size that reflects your actual research interest.
+If detecting that effect requires resources beyond what's feasible, it's worth pausing to consider alternatives.
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 plot_cases <- df_all %>% 
@@ -537,7 +541,7 @@ ggplot() +
     y = "Simulated power",
     subtitle = glue::glue(
       "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
-      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+      "&alpha; = 0.05, &beta; = {pick_beta}, groups = {pick_k_groups}"
     )
   ) +
   theme_minimal(base_size = base_size) +
@@ -598,6 +602,8 @@ if (pick_f_expected == 0.10){
 
 ## II. Sample size recommendations {#chapter-2}
 
+
+
 ```{r}
 pick_f_simulated = c(0, pick_f_expected)
 
@@ -648,16 +654,12 @@ table_cases <- df_all %>%
     decision_rate_75 = sum(decision_status_75)/n(),
     decision_rate_90 = sum(decision_status_90)/n(),
     decision_rate_95 = sum(decision_status_95)/n()
-  ) %>% mutate(
-    simulated_power = if_else(f_simulated != 0, 1 - decision_error_rate, NA),
-    .after = power
   ) %>% 
   select(-power) %>% 
   ungroup() %>%
   select(
     f_simulated,
     # f_expected,
-    simulated_power,
     decision_error_rate,
     mean_n,
     median_n,
@@ -674,7 +676,6 @@ table_cases <- df_all %>%
     # decision_rate_95,
   ) %>% 
   mutate()
-  # mutate(f_simulated = as.double(f_simulated))
 ```
 
 ```{r}
@@ -686,11 +687,97 @@ n_median_grand <- table_cases$grand_median_n[1]
 n_max <- recommendation %>% pull(.data[[pick_decision_rate_var]])
 ```
 
+<!-- It is not a mistake that the code is here two times - there is a dependence in the simulated power as it requires N_max.  -->
+
+```{r}
+pick_f_simulated = c(0, pick_f_expected)
+
+table_cases <- df_all %>% 
+  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+         fill_group = factor(as.integer(f_simulated))) %>% 
+  filter(f_expected == pick_f_expected,
+         power == pick_power,
+         k_groups == pick_k_groups
+  ) %>% 
+  filter(f_simulated %in% pick_f_simulated) %>% 
+  mutate(grand_median_n = as.integer(median(n))) %>% 
+  group_by(
+    f_simulated,
+    f_expected,
+    k_groups,
+    alpha,
+    power,
+    distribution,
+    sd,
+    sample_ratio) %>% 
+  mutate(
+    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
+    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
+    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
+    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
+    decision_status_100 = if_else(decision != "continue sampling", 1, 0)
+  ) %>% 
+  group_by(f_simulated, f_expected, power) %>%
+  mutate(
+    simulated_power = mean(if_else(f_simulated != 0 & decision  == "accept H1" & n_max >= n, 1, 0)),
+    .after = power) %>%
+  summarize(
+    simulated_power = mean(simulated_power), # problem depends on N_max(decision rate)
+    decision_error_rate = mean(decision_error),
+    fix_n = as.integer(mean(fix_n)),
+    mean_n = as.integer(round(mean(n))),
+    median_n = as.integer(median(n)),
+    grand_median_n = grand_median_n[1],
+    min_n = as.integer(min(n)),
+    max_n = max(n),
+    decision_rate_100 = sum(decision_status_100)/n(),
+    q25_n = as.integer(round(quantile(n, 0.25))),
+    q50_n = as.integer(round(quantile(n, 0.50))),
+    q75_n = as.integer(round(quantile(n, 0.75))),
+    q80_n = as.integer(round(quantile(n, 0.80))),
+    q85_n = as.integer(round(quantile(n, 0.85))),
+    q90_n = as.integer(round(quantile(n, 0.90))),
+    q95_n = as.integer(round(quantile(n, 0.95))),
+    sd_error_n  = sd(n)/sqrt(length((n))),
+    decision_rate_50 = sum(decision_status_50)/n(),
+    decision_rate_75 = sum(decision_status_75)/n(),
+    decision_rate_90 = sum(decision_status_90)/n(),
+    decision_rate_95 = sum(decision_status_95)/n()
+  ) %>% 
+  select(-power) %>% 
+  ungroup() %>%
+  select(
+    f_simulated,
+    # f_expected,
+    decision_error_rate,
+    simulated_power,
+    mean_n,
+    median_n,
+    grand_median_n,
+    min_n,
+    max_n,
+    # decision_rate_90,
+    q75_n,
+    q80_n,
+    q85_n,
+    q90_n,
+    q95_n,
+    fix_n
+    # decision_rate_95,
+  ) %>% 
+  mutate()
+```
 
 
 In the following plot you can see a visualization of the simulated samples, where either the effect in the data is as expected or the effect is zero.
 For a extended version of these results see **[Chapter III](#chapter-3)**.
-The violin plot displays the variance of the sample sizes, to reach a final decision.
+
+This plot visualizes the distribution of sample sizes required to reach a decision in sequential and fixed testing, comparing two scenarios: when the true effect matches your expectation ($f_{\text{true}} =$ = `r pick_f_expected`) versus when there's no effect ($f_{\text{true}} =$ 0).
+The violin plots reveal substantial variability, while many sequential studies terminate early (note the low median sample size), some require substantially more data.
+The red diamonds show the fixed sample size from traditional a priori power analysis as a point or reference.
+
+In most cases, the final sample size will be close to $N_{\text{median}}$, however for the worst case one should have the resources for $N_{\text{max}}$ to have a `r pick_decision_rate*100`% chance to reach a decision.
+
 
 <!-- ### Plot: Sample size requirement {#plot .toc-only} -->
 
@@ -701,7 +788,7 @@ The violin plot displays the variance of the sample sizes, to reach a final deci
 title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
 caption_html <- glue(
   # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
-  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
+  "&beta; = {pick_beta}, &alpha; = 0.05, decision rate = {pick_decision_rate}%, groups = {pick_k_groups}"
 )
 
 df_all %>% 
@@ -742,7 +829,7 @@ df_all %>%
     title = "Required sample sizes to reach a decision",
     subtitle = glue::glue(
       "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
-      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+      "&alpha; = 0.05, &beta; = {pick_beta}, groups = {pick_k_groups}"
     )) +
   scale_color_manual(
     name   = "Legend",
@@ -773,26 +860,34 @@ p_violin
 <!-- ### Summary table {#table .toc-only} -->
 
 ::: {.alert .alert-info}
-In short, to achieve a decision rate of `r pick_decision_rate*100`%, it is 
+<!-- In short, to achieve a decision rate of `r pick_decision_rate*100`%, it is  -->
+<!-- <span style="color: #2c3e50; font-weight: bold;"> -->
+<!-- recommended to plan for a maximum sample size of $N_{\text{max}} = `r n_max`$. -->
+<!-- </span><br> -->
+<!-- With this $N_{\text{max}}$, the sequential ANOVA reaches a decision `r pick_decision_rate*100`% of the time, even in the worst case. -->
+<!-- While $N_{\text{max}}$ provides a safe guard for the worst case, the <span style="color: #2c3e50; font-weight: bold;">median sample size is $N_{\text{median}} =$ `r n_median_grand`</span> in this scenario. -->
+
+In short, to achieve a decision rate of `r pick_decision_rate*100`%, 
 <span style="color: #2c3e50; font-weight: bold;">
-recommended to plan for a maximum sample size of $N_{\text{max}} = `r n_max`$.
+plan for a maximum sample size of $N_{\text{max}} = `r n_max`$.
 </span><br>
-With this $N_{\text{max}}$, the sequential ANOVA reaches a decision `r pick_decision_rate*100`% of the time, even in the scenario that requires the most data, which is when $f_{\text{true}} =$ `r recommendation$f_simulated`.
-While $N_{\text{max}}$ plans for the worst case, the <span style="color: #2c3e50; font-weight: bold;">median sample size is $N_{\text{mean}} =$ `r n_median_grand`</span> in this scenario.
+While you must plan for this worst-case maximum, 
+<span style="color: #2c3e50; font-weight: bold;">the median sample size is only $N_{\text{median}} =$ `r n_median_grand`</span>, meaning most of the time studies terminate much earlier.
 :::
 
 Extended numeric details are shown in the table below.
+Here you can also see the influence of the required sample sizes for different decision rates.
 
 ```{r}
 table_cases %>%
   select(-grand_median_n) %>% 
   ungroup() %>% 
-  mutate(decision_error_rate = decision_error_rate) %>% 
+  mutate(decision_error_rate = round(decision_error_rate*100,1)) %>% 
+  mutate(simulated_power = if_else(simulated_power == 0, "-", as.character(round(simulated_power*100,1)))) %>%
   gt() %>%
-  sub_missing(columns = simulated_power, missing_text = "-") %>% 
   tab_header(
     title = gt::html("<i>Summary table</i>"),
-    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"))
+    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, &beta; = {pick_beta}, decision rate = {pick_decision_rate}%, groups = {pick_k_groups}"))
   ) %>%
   # center all data columns
   cols_align(align = "center", columns = everything()) %>%
@@ -803,8 +898,8 @@ table_cases %>%
   cols_label(
     f_simulated         = gt::html("<i>f</i><sub>true</sub>"),
     # f_expected          = gt::html("<i>f</i><sub>exp</sub>"),
-    simulated_power     = "simulated power",
     decision_error_rate = "Error rate %",
+    simulated_power     = gt::html("Power<sub>sim</sub>%"),
     fix_n               = html("Reference <i>N</i>:<br>fixed design"),
     mean_n              = "Mean",
     median_n            = "Median",
@@ -848,6 +943,10 @@ table_cases %>%
     decimals = 2
   ) %>% 
    tab_footnote(
+    footnote = html(glue("simulated power to detect an effect which includes not only the type II error but also non-decisions")),
+    locations = cells_column_labels(columns = simulated_power)
+  ) %>% 
+   tab_footnote(
     footnote = html(glue("grand median: <i>N&#x0305;</i><sub>median</sub> = {n_median_grand}")),
     locations = cells_column_labels(columns = median_n)
   ) %>% 
@@ -889,7 +988,7 @@ The red diamond marks the fixed sample size from an a priori power analysis, and
 
 # title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
 caption_html <- glue(
-  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br>",
+  "&beta; = {pick_beta}, &alpha; = 0.05,<br>",
   "groups = {pick_k_groups}"
 )
 
@@ -954,7 +1053,7 @@ scale_color_manual(
     title = "Required sample sizes to reach a decision",
     subtitle = glue::glue(
       "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
-      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+      "&alpha; = 0.05, &beta; = {pick_beta}, groups = {pick_k_groups}"
     )
   ) +
   
@@ -1014,7 +1113,11 @@ table_cases <- df_all %>%
     decision_status_100 = if_else(decision != "continue sampling", 1, 0)
   ) %>% 
   group_by(f_simulated, f_expected, power) %>%
+  mutate(
+    simulated_power = mean(if_else(f_simulated != 0 & decision  == "accept H1" & n_max >= n, 1, 0)),
+    .after = power) %>%
   summarize(
+    simulated_power = mean(simulated_power),# depends on N_max(decision rate)
     decision_error_rate = mean(decision_error),
     fix_n = as.integer(mean(fix_n)),
     mean_n = as.integer(round(mean(n))),
@@ -1034,17 +1137,14 @@ table_cases <- df_all %>%
     decision_rate_75 = sum(decision_status_75)/n(),
     decision_rate_90 = sum(decision_status_90)/n(),
     decision_rate_95 = sum(decision_status_95)/n()
-  ) %>% mutate(
-    simulated_power = if_else(f_simulated != 0, 1 - decision_error_rate, NA),
-    .after = power
   ) %>% 
   select(-power) %>% 
     ungroup() %>%
     select(
     f_simulated,
     # f_expected,
-    simulated_power,
     decision_error_rate,
+    simulated_power,
     mean_n,
     median_n,
     min_n,
@@ -1066,13 +1166,12 @@ num_cols <- c("f_simulated", "simulated_power", "decision_error_rate")
 
 table_cases %>%
   ungroup() %>% 
-  # mutate(decision_error_rate = decision_error_rate) %>% 
+  mutate(decision_error_rate = round(decision_error_rate*100,1)) %>% 
+  mutate(simulated_power = if_else(simulated_power == 0, "-", as.character(round(simulated_power*100,1)))) %>% 
   gt() %>%
-    # Percent columns (show "-" for NA)
-  sub_missing(columns = simulated_power, missing_text = "-") %>% 
   tab_header(
     title = gt::html("<i>Summary table</i>"),
-    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"))
+    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, &beta; = {pick_beta}, groups = {pick_k_groups}"))
   ) %>%
   # center all data columns
   cols_align(align = "center", columns = everything()) %>%
@@ -1083,8 +1182,8 @@ table_cases %>%
   cols_label(
     f_simulated         = gt::html("<i>f</i><sub>true</sub>"),
     # f_expected          = gt::html("<i>f</i><sub>exp</sub>"),
-    simulated_power     = "simulated power",
     decision_error_rate = "Error rate %",
+    simulated_power     = gt::html("Power<sub>sim</sub>%"),
     fix_n               = html("Reference <i>N</i>:<br>fixed design"),
     mean_n              = "Mean",
     median_n            = "Median",
@@ -1128,7 +1227,10 @@ table_cases %>%
   fmt_number(
     columns = where(is.double),
     decimals = 2
-  )
+  ) %>% 
+  tab_footnote(
+    footnote = html(glue("simulated power to detect an effect which includes not only the type II error but also non-decisions")),
+    locations = cells_column_labels(columns = simulated_power))
 
 
 ```
@@ -1150,7 +1252,7 @@ pick_f_simulated = pick_f_expected
 title_html <- glue("<i>f</i><sub>true</sub> = {pick_f_simulated}")
 subtitle_html <- glue(
   # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
-  "1 - &beta; = {pick_power}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
+  "&beta; = {pick_beta}, &alpha; = 0.05,<br> groups = {pick_k_groups}"
 )
 
 df_all %>% 
@@ -1188,7 +1290,7 @@ df_all %>%
     title = "Required sample sizes to reach a decision",
     subtitle = glue::glue(
       "<i>f</i><sub>true</sub> = {pick_f_simulated}, ",
-      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+      "&alpha; = 0.05, &beta; = {pick_beta}, groups = {pick_k_groups}"
     )) +
   scale_color_manual(
     name   = "Legend",
@@ -1221,57 +1323,78 @@ p_violin
 
 ### Plot: Cumulative decisions {#extended-cumulative .toc-only}
 
+This plot illustrates how decision rate accumulates with increasing sample size for different true effects.
+Larger effects reach the 90% decision threshold much earlier, while smaller effects require substantially more data.
+The vertical line marks the fixed sample size.
+Notice how detection efficiency varies depending on whether the true effect is larger, equal to, or smaller than your expected effect.
+
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 df_cum <- df_all %>%
   filter(f_expected == pick_f_expected,
          power      == pick_power,
          k_groups   == pick_k_groups) %>% 
-  filter(f_simulated == 0 |
-         f_simulated >= pick_f_expected) %>% 
   filter(decision != "continue sampling") %>%
-  transmute(f_simulated,fix_n, n_decision = n) %>% 
+  transmute(f_simulated, fix_n, n_decision = n) %>% 
   group_by(f_simulated) %>%
   arrange(n_decision, .by_group = TRUE) %>%
   mutate(cum_prop = row_number() / n()) %>%
-  ungroup()
+  ungroup() %>%
+  mutate(
+    is_expected = f_simulated == pick_f_expected,
+    f_label = ifelse(is_expected, 
+                     paste0(f_simulated, " (expected)"), 
+                     as.character(f_simulated))
+  )
 
-# 4) Find the minimum n that achieves at least 90% decided
+# Find the minimum n that achieves at least 90% decided
 cut90 <- df_cum %>%
   group_by(f_simulated) %>%
   summarise(n_at_90 = min(n_decision[cum_prop >= 0.90]), .groups = "drop")
 
-# 5) Plot: ECDF of decision n, with a 90% line and vertical markers at n_at_90
-ggplot(df_cum, aes(x = n_decision, y = cum_prop, colour = factor(f_simulated), group = f_simulated)) +
-  geom_step(linewidth = 1.1) +
-  # Horizontal 90% line
+# Get Set2 palette colors
+set2_colors <- RColorBrewer::brewer.pal(n = length(unique(df_cum$f_label)), name = "Set2")
+
+# Create named vector with flatly_dark for expected line
+color_values <- setNames(set2_colors, sort(unique(df_cum$f_label)))
+expected_label <- paste0(pick_f_expected, " (= expected)")
+color_values[expected_label] <- flatly_dark
+
+# Plot with unified legend
+ggplot(df_cum, aes(x = n_decision, y = cum_prop, 
+                   colour = f_label, 
+                   group = f_simulated,
+                   linewidth = is_expected,
+                   alpha = is_expected)) +
+  geom_step() +
+  scale_linewidth_manual(values = c("FALSE" = 0.9, "TRUE" = 1.8), guide = "none") +
+  scale_alpha_manual(values = c("FALSE" = 0.5, "TRUE" = 1.0), guide = "none") +
   geom_hline(yintercept = 0.90, linetype = "dotted", colour = flatly_dark) +
-  geom_vline(xintercept = unique(df_cum$fix_n), color = flatly_dark,  linetype = "dashed") +
+  geom_vline(xintercept = unique(df_cum$fix_n), color = flatly_dark, linetype = "dashed") +
   annotate(
-  "text",
-  x = unique(df_cum$fix_n) + (unique(df_cum$fix_n) * 0.07),
-  y = 0.05,
-  label = "fixed sample size",
-  angle = 90,         # rotate text
-  hjust = 0.1,
-  vjust = 0.1,
-  size = base_size * 0.25,
-  colour = flatly_dark
-) +
+    "text",
+    x = unique(df_cum$fix_n) + (unique(df_cum$fix_n) * 0.07),
+    y = 0.05,
+    label = "fixed sample size",
+    angle = 90,
+    hjust = 0.1,
+    vjust = 0.1,
+    size = base_size * 0.25,
+    colour = flatly_dark
+  ) +
   scale_y_continuous(
     limits = c(0, 1),
     breaks = c(0, 0.25, 0.5, 0.75, 0.9, 1),
     labels = percent_format(accuracy = 1)
   ) +
-  scale_color_brewer(palette = "Set2") +   # modern pastel Flatly-compatible palette
+  scale_color_manual(values = color_values,
+                     name = expression(italic(f)[true])) +
   labs(
     x = "<i>N</i>",
-    y = "",  #"Cumulative proportion\nwith a decision",
-    colour = expression(italic(f)[true]),
+    y = "",
     title = "Cumulative decision proportions across simulated\neffect sizes",
-    # subtitle = "Dashed line: 90% decision threshold"
     subtitle = glue::glue(
       "<i>f</i><sub>exp</sub> = {pick_f_expected}, ",
-      "&alpha; = 0.05, 1 - &beta; = {pick_power}, groups = {pick_k_groups}"
+      "&alpha; = 0.05, &beta; = {pick_beta}, groups = {pick_k_groups}"
     )
   ) +
   theme_minimal(base_size = base_size) +
@@ -1280,8 +1403,6 @@ ggplot(df_cum, aes(x = n_decision, y = cum_prop, colour = factor(f_simulated), g
     plot.subtitle = ggtext::element_markdown(size = base_size*0.7, colour = "grey40"),
     panel.grid.minor = element_blank(),
     panel.grid.major.x = element_blank(),
-    #legend.position = "bottom",
-    # legend.box = "horizontal",
     legend.title = element_text(face = "bold"),
     axis.title = element_text(face = "bold"),
     plot.title.position = "plot",

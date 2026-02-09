@@ -14,8 +14,8 @@
 #' @param f_expected Numeric scalar. The expected standardized effect size (e.g., Cohen's f).
 #'   Must be between 0.1 and 0.4 (increments of 0.05).
 #' @param k_groups Integer scalar. The number of groups to compare. Must be between 2 and 4.
-#' @param power Numeric scalar (default = 0.95). Desired statistical power for the design.
-#'   Possible values are 0.80, 0.90, and 0.95.
+#' @param beta Numeric scalar (default = 0.05). Desired beta error rate (Type II error).
+#'   Possible values are 0.20, 0.10, and 0.05.
 #' @param decision_rate Numeric scalar (default = 0.90). Desired chance to reach a decision.
 #'   Must be between 0.75 and 0.95 (increments of 0.05).
 #' @param output_dir Character string. Directory in which to save the rendered HTML report.
@@ -64,7 +64,7 @@
 
 plan_sample_size <- function(f_expected,
                              k_groups,
-                             power = 0.95,
+                             beta = 0.05,
                              decision_rate = 0.90,
                              output_dir = tempdir(),
                              output_file = "sprtt-report-sample-size-planning.html",
@@ -72,7 +72,7 @@ plan_sample_size <- function(f_expected,
                              overwrite = FALSE) {
   # Basic validation
   stopifnot(length(f_expected) == 1, is.numeric(f_expected))
-  stopifnot(length(power) == 1, is.numeric(power), power > 0, power < 1)
+  stopifnot(length(beta) == 1, is.numeric(beta), beta > 0, beta < 1)
   stopifnot(length(k_groups) == 1, is.numeric(k_groups), k_groups >= 2)
 
 
@@ -92,9 +92,9 @@ plan_sample_size <- function(f_expected,
       glue("`f_expected` = {f_expected} is not available. Please choose one of {glue_collapse(shQuote(sort(unique(df$f_expected))), ', ', last = ' or ')}")
     )
   }
-  if (!power %in% df$power) {
+  if (!beta %in% c(0.20,0.10,0.05)) {
     stop(
-      glue("`power` = {power} is not available. Please choose one of {glue_collapse(shQuote(sort(unique(df$power))), ', ', last = ' or ')}")
+      glue("`beta` = {beta} is not available. Please choose one of {glue_collapse(shQuote(c(0.20,0.10,0.05)), ', ', last = ' or ')}")
     )
   }
   if (!k_groups %in% df$k_groups) {
@@ -137,7 +137,7 @@ plan_sample_size <- function(f_expected,
     rmd_path,
     params = list(
       f_expected = f_expected,
-      power = power,
+      beta = beta,
       k_groups = k_groups,
       df_all = df_all,
       decision_rate = decision_rate
@@ -151,24 +151,3 @@ plan_sample_size <- function(f_expected,
   invisible(output)
 }
 
-
-#  plan_sample_size(0.25, 3)
-#  plan_sample_size(0.25, 3, output_dir = "C:/Users/msteinhi/GitHub/sprtt/inst/test")
-#  plan_sample_size(0.25, 3, output_dir = "C:/Users/msteinhi/GitHub/sprtt/inst/test", overwrite = TRUE)
-
-# plan_sample_size(f_expected = 0.25, k_groups = 3, open = TRUE)
-
-# plan_sample_size(0.25, 3, overwrite = FALSE)
-
-### error messages
-
-# plan_sample_size(0.24, 3, overwrite = FALSE)
-
-
-#   plan_sample_size(0.10, 3)
-#   plan_sample_size(0.15, 3)
-#   plan_sample_size(0.20, 3, power = 0.80)
-#   plan_sample_size(0.25, 3)
-#   plan_sample_size(0.30, 3)
-#   plan_sample_size(0.35, 3)
-#   plan_sample_size(0.40, 3)

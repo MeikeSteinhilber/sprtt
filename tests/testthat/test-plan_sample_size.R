@@ -29,7 +29,7 @@ test_that("plan_sample_size: paremters out of scope", {
   )
   expect_error(
     plan_sample_size(f_expected = 0.25, k_groups = 3,
-                     power = 0.60, overwrite = FALSE),
+                     beta = 0.40, overwrite = FALSE),
     "is not available"
   )
   expect_error(
@@ -50,7 +50,7 @@ test_that("plan_sample_size: paremters wrong data type", {
   )
   expect_error(
     plan_sample_size(f_expected = 0.25, k_groups = 3,
-                     power = "0.95",
+                     beta = "0.05",
                      overwrite = FALSE),
     "is not TRUE"
   )
@@ -76,7 +76,7 @@ test_that("renders HTML to the specified directory", {
   out <- plan_sample_size(
     f_expected = 0.25,
     k_groups   = 4,
-    power      = 0.95,
+    beta      = 0.05,
     output_dir = tmp,
     output_file = "report.html",
     open = FALSE,
@@ -103,7 +103,7 @@ test_that("renders HTM too", {
   out <- plan_sample_size(
     f_expected = 0.25,
     k_groups   = 4,
-    power      = 0.95,
+    beta      = 0.05,
     output_dir = tmp,
     output_file = "report.htm",
     open = FALSE,
@@ -123,7 +123,7 @@ test_that("overwrite protection works when open = FALSE", {
     plan_sample_size(
       f_expected = 0.25,
       k_groups   = 4,
-      power      = 0.95,
+      beta      = 0.05,
       output_dir = tmp,
       output_file = basename(path),
       open = FALSE,
@@ -139,7 +139,7 @@ test_that("overwrite protection works when open = FALSE", {
   out <- plan_sample_size(
     f_expected = 0.25,
     k_groups   = 4,
-    power      = 0.95,
+    beta      = 0.05,
     output_dir = tmp,
     output_file = basename(path),
     open = FALSE,
