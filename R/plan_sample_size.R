@@ -16,7 +16,7 @@
 #' @param k_groups Integer scalar. The number of groups to compare. Must be between 2 and 4.
 #' @param beta Numeric scalar (default = 0.05). Desired beta error rate (Type II error).
 #'   Possible values are 0.20, 0.10, and 0.05.
-#' @param decision_rate Numeric scalar (default = 0.90). Desired chance to reach a decision.
+#' @param decision_rate Numeric scalar (default = 0.85). Desired chance to reach a decision.
 #'   Must be between 0.75 and 0.95 (increments of 0.05).
 #' @param output_dir Character string. Directory in which to save the rendered HTML report.
 #'   Defaults to a temporary directory (`tempdir()`).
@@ -65,7 +65,7 @@
 plan_sample_size <- function(f_expected,
                              k_groups,
                              beta = 0.05,
-                             decision_rate = 0.90,
+                             decision_rate = 0.85,
                              output_dir = tempdir(),
                              output_file = "sprtt-report-sample-size-planning.html",
                              open = interactive(),

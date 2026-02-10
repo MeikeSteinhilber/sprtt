@@ -20,7 +20,7 @@ params:
   f_expected: 0.25
   beta: 0.05
   k_groups: 3
-  decision_rate: 0.90
+  decision_rate: 0.85
 ---
 
 
@@ -392,11 +392,11 @@ The actual final sample size in any study may differ substantially from the foll
 | $f_{\text{true}}$ | True effect size in the simulated population |
 | $\alpha$ | Type I error rate (probability of false positive) |
 | $\beta$ | Type II error rate (probability of false negative) |
-| $1-\beta$ | Target power. The desired probability of detecting a true effect.  |
+| $1-\beta$ | Target power, when no maximum sample size is used. The desired probability of detecting a true effect.  |
 | $k$ | Number of groups  |
 | $N$ | Sample size  |
 | $N_{\text{max}}$ | The maximum sample size when the researcher stops collecting data independent of the test decision. This sample size is only reached in the worst-case scenario. |
-| $N_{\text{mean}}$ | The average sample size at which a decision is reached across simulations. In a single study, the required sample size is expected to be close to this value.|
+| $N_{\text{median}}$ | The median sample size at which a decision is reached across simulations. In a single study, the required sample size is expected to be close to this value.|
 
 
 ### Content
@@ -420,12 +420,10 @@ The analyses below use the following specifications:
 
  - *k* groups = `r pick_k_groups`
  
- - $\beta$ = `r pick_beta` (target power = $1-\beta$)
+ - $\beta$ = `r pick_beta`
  
  - $\alpha$ = 0.05
  
-See XXX for the simulation code.
-
 <br>
 
 ## I. Influence of $f_{\text{exp}}$ {#chapter-1}
@@ -605,16 +603,24 @@ if (pick_f_expected == 0.10){
 
 
 ```{r}
-pick_f_simulated = c(0, pick_f_expected)
+# pick_f_simulated <- c(0, pick_f_expected)
+
+pick_f_simulated = c(0,
+                     pick_f_expected - 0.05,
+                     pick_f_expected,
+                     pick_f_expected + 0.05)
 
 table_cases <- df_all %>% 
-  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
-         fill_group = factor(as.integer(f_simulated))) %>% 
-  filter(f_expected == pick_f_expected,
-         power == pick_power,
-         k_groups == pick_k_groups
+  mutate(
+    f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
+    fill_group = factor(as.integer(f_simulated))
   ) %>% 
-  filter(f_simulated %in% pick_f_simulated) %>% 
+  filter(
+    f_expected == pick_f_expected,
+    power == pick_power,
+    k_groups == pick_k_groups,
+    f_simulated %in% pick_f_simulated
+  ) %>% 
   mutate(grand_median_n = as.integer(median(n))) %>% 
   group_by(
     f_simulated,
@@ -624,12 +630,13 @@ table_cases <- df_all %>%
     power,
     distribution,
     sd,
-    sample_ratio) %>% 
+    sample_ratio
+  ) %>% 
   mutate(
-    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
-    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
-    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
-    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
+    decision_status_50 = if_else(decision != "continue sampling" & n <= quantile(n, 0.50), 1, 0),
+    decision_status_75 = if_else(decision != "continue sampling" & n <= quantile(n, 0.75), 1, 0),
+    decision_status_90 = if_else(decision != "continue sampling" & n <= quantile(n, 0.90), 1, 0),
+    decision_status_95 = if_else(decision != "continue sampling" & n <= quantile(n, 0.95), 1, 0),
     decision_status_100 = if_else(decision != "continue sampling", 1, 0)
   ) %>% 
   group_by(f_simulated, f_expected, power) %>%
@@ -641,7 +648,7 @@ table_cases <- df_all %>%
     grand_median_n = grand_median_n[1],
     min_n = as.integer(min(n)),
     max_n = max(n),
-    decision_rate_100 = sum(decision_status_100)/n(),
+    decision_rate_100 = sum(decision_status_100) / n(),
     q25_n = as.integer(round(quantile(n, 0.25))),
     q50_n = as.integer(round(quantile(n, 0.50))),
     q75_n = as.integer(round(quantile(n, 0.75))),
@@ -649,123 +656,65 @@ table_cases <- df_all %>%
     q85_n = as.integer(round(quantile(n, 0.85))),
     q90_n = as.integer(round(quantile(n, 0.90))),
     q95_n = as.integer(round(quantile(n, 0.95))),
-    sd_error_n  = sd(n)/sqrt(length((n))),
-    decision_rate_50 = sum(decision_status_50)/n(),
-    decision_rate_75 = sum(decision_status_75)/n(),
-    decision_rate_90 = sum(decision_status_90)/n(),
-    decision_rate_95 = sum(decision_status_95)/n()
+    decision_rate_50 = sum(decision_status_50) / n(),
+    decision_rate_75 = sum(decision_status_75) / n(),
+    decision_rate_90 = sum(decision_status_90) / n(),
+    decision_rate_95 = sum(decision_status_95) / n(),
+    .groups = "drop"
   ) %>% 
+  mutate(decision_error_rate = round(decision_error_rate*100,1)) %>% 
   select(-power) %>% 
-  ungroup() %>%
-  select(
-    f_simulated,
-    # f_expected,
-    decision_error_rate,
-    mean_n,
-    median_n,
-    grand_median_n,
-    min_n,
-    max_n,
-    # decision_rate_90,
-    q75_n,
-    q80_n,
-    q85_n,
-    q90_n,
-    q95_n,
-    fix_n
-    # decision_rate_95,
-  ) %>% 
-  mutate()
-```
+  ungroup()
 
-```{r}
 recommendation <- table_cases %>%
+  filter(f_simulated %in% c(0, pick_f_expected)) %>%
   slice_max(order_by = .data[[pick_decision_rate_var]], n = 1, with_ties = FALSE)
 
 n_mean <- round(mean(table_cases$mean_n), 0)
 n_median_grand <- table_cases$grand_median_n[1]
 n_max <- recommendation %>% pull(.data[[pick_decision_rate_var]])
-```
 
-<!-- It is not a mistake that the code is here two times - there is a dependence in the simulated power as it requires N_max.  -->
-
-```{r}
-pick_f_simulated = c(0, pick_f_expected)
-
-table_cases <- df_all %>% 
-  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
-         fill_group = factor(as.integer(f_simulated))) %>% 
-  filter(f_expected == pick_f_expected,
-         power == pick_power,
-         k_groups == pick_k_groups
-  ) %>% 
-  filter(f_simulated %in% pick_f_simulated) %>% 
-  mutate(grand_median_n = as.integer(median(n))) %>% 
-  group_by(
-    f_simulated,
-    f_expected,
-    k_groups,
-    alpha,
-    power,
-    distribution,
-    sd,
-    sample_ratio) %>% 
+simulated_power_data <- df_all %>% 
   mutate(
-    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
-    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
-    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
-    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
-    decision_status_100 = if_else(decision != "continue sampling", 1, 0)
-  ) %>% 
+    f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated)))
+  ) %>%
+  filter(
+    f_expected == pick_f_expected,
+    power == pick_power,
+    k_groups == pick_k_groups,
+    f_simulated %in% pick_f_simulated
+  ) %>%
   group_by(f_simulated, f_expected, power) %>%
-  mutate(
-    simulated_power = mean(if_else(f_simulated != 0 & decision  == "accept H1" & n_max >= n, 1, 0)),
-    .after = power) %>%
   summarize(
-    simulated_power = mean(simulated_power), # problem depends on N_max(decision rate)
-    decision_error_rate = mean(decision_error),
-    fix_n = as.integer(mean(fix_n)),
-    mean_n = as.integer(round(mean(n))),
-    median_n = as.integer(median(n)),
-    grand_median_n = grand_median_n[1],
-    min_n = as.integer(min(n)),
-    max_n = max(n),
-    decision_rate_100 = sum(decision_status_100)/n(),
-    q25_n = as.integer(round(quantile(n, 0.25))),
-    q50_n = as.integer(round(quantile(n, 0.50))),
-    q75_n = as.integer(round(quantile(n, 0.75))),
-    q80_n = as.integer(round(quantile(n, 0.80))),
-    q85_n = as.integer(round(quantile(n, 0.85))),
-    q90_n = as.integer(round(quantile(n, 0.90))),
-    q95_n = as.integer(round(quantile(n, 0.95))),
-    sd_error_n  = sd(n)/sqrt(length((n))),
-    decision_rate_50 = sum(decision_status_50)/n(),
-    decision_rate_75 = sum(decision_status_75)/n(),
-    decision_rate_90 = sum(decision_status_90)/n(),
-    decision_rate_95 = sum(decision_status_95)/n()
-  ) %>% 
-  select(-power) %>% 
-  ungroup() %>%
+    decision_error_rate_nmax = mean(if_else(decision_error == 1 & n <= n_max, 1, 0)),
+    sd_error_n = sd(n) / sqrt(length(n)),
+    simulated_power_nmax = mean(if_else(f_simulated != "0" & decision == "accept H1" & n <= n_max, 1, 0)),
+    .groups = "drop"
+  ) %>%
+  mutate(decision_error_rate_nmax = round(decision_error_rate_nmax*100,1)) %>% 
+  mutate(simulated_power_nmax = if_else(simulated_power_nmax == 0, "-", as.character(round(simulated_power_nmax*100,1)))) %>%
+  select(-power)
+
+table_cases <- table_cases %>%
+  left_join(simulated_power_data, by = c("f_simulated", "f_expected")) %>%
   select(
     f_simulated,
-    # f_expected,
     decision_error_rate,
-    simulated_power,
+    decision_error_rate_nmax,
+    simulated_power_nmax,
     mean_n,
     median_n,
     grand_median_n,
     min_n,
     max_n,
-    # decision_rate_90,
     q75_n,
     q80_n,
     q85_n,
     q90_n,
     q95_n,
     fix_n
-    # decision_rate_95,
-  ) %>% 
-  mutate()
+  )
+power_nmax <- table_cases$simulated_power_nmax[table_cases$f_simulated == pick_f_expected]
 ```
 
 
@@ -783,12 +732,13 @@ In most cases, the final sample size will be close to $N_{\text{median}}$, howev
 
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
+pick_f_simulated <- c(0, pick_f_expected)
 
 # titles
 title_html <- glue("<i>f</i><sub>exp</sub> = {pick_f_expected}")
 caption_html <- glue(
   # "<i>f</i><sub>true</sub> = {pick_f_expected},<br>",
-  "&beta; = {pick_beta}, &alpha; = 0.05, decision rate = {pick_decision_rate}%, groups = {pick_k_groups}"
+  "&beta; = {pick_beta}, &alpha; = 0.05, decision rate = {pick_decision_rate*100}%, groups = {pick_k_groups}"
 )
 
 df_all %>% 
@@ -860,19 +810,13 @@ p_violin
 <!-- ### Summary table {#table .toc-only} -->
 
 ::: {.alert .alert-info}
-<!-- In short, to achieve a decision rate of `r pick_decision_rate*100`%, it is  -->
-<!-- <span style="color: #2c3e50; font-weight: bold;"> -->
-<!-- recommended to plan for a maximum sample size of $N_{\text{max}} = `r n_max`$. -->
-<!-- </span><br> -->
-<!-- With this $N_{\text{max}}$, the sequential ANOVA reaches a decision `r pick_decision_rate*100`% of the time, even in the worst case. -->
-<!-- While $N_{\text{max}}$ provides a safe guard for the worst case, the <span style="color: #2c3e50; font-weight: bold;">median sample size is $N_{\text{median}} =$ `r n_median_grand`</span> in this scenario. -->
-
 In short, to achieve a decision rate of `r pick_decision_rate*100`%, 
 <span style="color: #2c3e50; font-weight: bold;">
 plan for a maximum sample size of $N_{\text{max}} = `r n_max`$.
 </span><br>
 While you must plan for this worst-case maximum, 
-<span style="color: #2c3e50; font-weight: bold;">the median sample size is only $N_{\text{median}} =$ `r n_median_grand`</span>, meaning most of the time studies terminate much earlier.
+<span style="color: #2c3e50; font-weight: bold;">the median sample size is only $\bar{N}_{\text{median}} =$ `r n_median_grand`</span>, meaning half of the time studies will terminate before reaching $N_{\text{median}}$.
+Using $N_{\text{max}} = `r n_max`$ will decrease the power to $\text{Power}_{N_{\text{max}}}=$ `r power_nmax`%, which includes missing the effect due to Type II errors and non-decisions.
 :::
 
 Extended numeric details are shown in the table below.
@@ -880,14 +824,13 @@ Here you can also see the influence of the required sample sizes for different d
 
 ```{r}
 table_cases %>%
-  select(-grand_median_n) %>% 
+  filter(f_simulated %in% pick_f_simulated) %>%
+  select(-grand_median_n, -simulated_power_nmax, -decision_error_rate_nmax) %>% 
   ungroup() %>% 
-  mutate(decision_error_rate = round(decision_error_rate*100,1)) %>% 
-  mutate(simulated_power = if_else(simulated_power == 0, "-", as.character(round(simulated_power*100,1)))) %>%
   gt() %>%
   tab_header(
     title = gt::html("<i>Summary table</i>"),
-    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, &beta; = {pick_beta}, decision rate = {pick_decision_rate}%, groups = {pick_k_groups}"))
+    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, &beta; = {pick_beta}, decision rate = {pick_decision_rate*100}%, groups = {pick_k_groups}"))
   ) %>%
   # center all data columns
   cols_align(align = "center", columns = everything()) %>%
@@ -899,7 +842,8 @@ table_cases %>%
     f_simulated         = gt::html("<i>f</i><sub>true</sub>"),
     # f_expected          = gt::html("<i>f</i><sub>exp</sub>"),
     decision_error_rate = "Error rate %",
-    simulated_power     = gt::html("Power<sub>sim</sub>%"),
+    # decision_error_rate_nmax = gt::html("Error rate<sub>N<sub>max</sub></sub>%"),
+    # simulated_power_nmax     = gt::html("Power<sub>N<sub>max</sub></sub>%"),
     fix_n               = html("Reference <i>N</i>:<br>fixed design"),
     mean_n              = "Mean",
     median_n            = "Median",
@@ -943,9 +887,17 @@ table_cases %>%
     decimals = 2
   ) %>% 
    tab_footnote(
-    footnote = html(glue("simulated power to detect an effect which includes not only the type II error but also non-decisions")),
-    locations = cells_column_labels(columns = simulated_power)
+    footnote = html(glue("simulated error rates when sampling continous until a decision is reached")),
+    locations = cells_column_labels(columns = decision_error_rate)
   ) %>% 
+  #  tab_footnote(
+  #   footnote = html(glue("simulated error rates with <i>N</i><sub>max</sub> = {n_max}")),
+  #   locations = cells_column_labels(columns = decision_error_rate_nmax)
+  # ) %>% 
+  #  tab_footnote(
+  #   footnote = html(glue("simulated power to detect an effect with <i>N</i><sub>max</sub> = {n_max}")),
+  #   locations = cells_column_labels(columns = simulated_power_nmax)
+  # ) %>% 
    tab_footnote(
     footnote = html(glue("grand median: <i>N&#x0305;</i><sub>median</sub> = {n_median_grand}")),
     locations = cells_column_labels(columns = median_n)
@@ -1088,116 +1040,34 @@ p_violin
 <!-- ### Summary table {#extended-table .toc-only} -->
 
 ```{r}
-table_cases <- df_all %>% 
-  mutate(f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
-         fill_group = factor(as.integer(f_simulated))) %>% 
-  filter(f_expected == pick_f_expected,
-         power == pick_power,
-         k_groups == pick_k_groups
-  ) %>% 
-  filter(f_simulated %in% pick_f_simulated) %>% 
-    group_by(
-    f_simulated,
-    f_expected,
-    k_groups,
-    alpha,
-    power,
-    distribution,
-    sd,
-    sample_ratio) %>% 
-  mutate(
-    decision_status_50 = if_else(decision != "continue sampling" & n <= q50_n, 1, 0),
-    decision_status_75 = if_else(decision != "continue sampling" & n <= q75_n, 1, 0),
-    decision_status_90 = if_else(decision != "continue sampling" & n <= q90_n, 1, 0),
-    decision_status_95 = if_else(decision != "continue sampling" & n <= q95_n, 1, 0),
-    decision_status_100 = if_else(decision != "continue sampling", 1, 0)
-  ) %>% 
-  group_by(f_simulated, f_expected, power) %>%
-  mutate(
-    simulated_power = mean(if_else(f_simulated != 0 & decision  == "accept H1" & n_max >= n, 1, 0)),
-    .after = power) %>%
-  summarize(
-    simulated_power = mean(simulated_power),# depends on N_max(decision rate)
-    decision_error_rate = mean(decision_error),
-    fix_n = as.integer(mean(fix_n)),
-    mean_n = as.integer(round(mean(n))),
-    median_n = as.integer(median(n)),
-    min_n = as.integer(min(n)),
-    max_n = max(n),
-    decision_rate_100 = sum(decision_status_100)/n(),
-    q25_n = as.integer(round(quantile(n, 0.25))),
-    q50_n = as.integer(round(quantile(n, 0.50))),
-    q75_n = as.integer(round(quantile(n, 0.75))),
-    q80_n = as.integer(round(quantile(n, 0.80))),
-    q85_n = as.integer(round(quantile(n, 0.85))),
-    q90_n = as.integer(round(quantile(n, 0.90))),
-    q95_n = as.integer(round(quantile(n, 0.95))),
-    sd_error_n  = sd(n)/sqrt(length((n))),
-    decision_rate_50 = sum(decision_status_50)/n(),
-    decision_rate_75 = sum(decision_status_75)/n(),
-    decision_rate_90 = sum(decision_status_90)/n(),
-    decision_rate_95 = sum(decision_status_95)/n()
-  ) %>% 
-  select(-power) %>% 
-    ungroup() %>%
-    select(
-    f_simulated,
-    # f_expected,
-    decision_error_rate,
-    simulated_power,
-    mean_n,
-    median_n,
-    min_n,
-    max_n,
-    # decision_rate_90,
-    q75_n,
-    q80_n,
-    q85_n,
-    q90_n,
-    q95_n,
-    fix_n
-    # decision_rate_95,
-  ) %>% 
-  mutate()
-  # mutate(f_simulated = as.double(f_simulated))
-
-# num_cols <- colnames(table_cases)
-num_cols <- c("f_simulated", "simulated_power", "decision_error_rate")
+num_cols <- c("f_simulated", "decision_error_rate")
 
 table_cases %>%
+  select(-grand_median_n, -simulated_power_nmax, -decision_error_rate_nmax) %>% 
   ungroup() %>% 
-  mutate(decision_error_rate = round(decision_error_rate*100,1)) %>% 
-  mutate(simulated_power = if_else(simulated_power == 0, "-", as.character(round(simulated_power*100,1)))) %>% 
   gt() %>%
   tab_header(
     title = gt::html("<i>Summary table</i>"),
-    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, &beta; = {pick_beta}, groups = {pick_k_groups}"))
+    subtitle = gt::html(glue("<i>f</i><sub>exp</sub> = {pick_f_expected}, &alpha; = 0.05, &beta; = {pick_beta}, decision rate = {pick_decision_rate*100}%, groups = {pick_k_groups}"))
   ) %>%
-  # center all data columns
   cols_align(align = "center", columns = everything()) %>%
-  # center column labels and the heading
   tab_options(
     heading.align = "left"
   ) %>% 
   cols_label(
     f_simulated         = gt::html("<i>f</i><sub>true</sub>"),
-    # f_expected          = gt::html("<i>f</i><sub>exp</sub>"),
     decision_error_rate = "Error rate %",
-    simulated_power     = gt::html("Power<sub>sim</sub>%"),
     fix_n               = html("Reference <i>N</i>:<br>fixed design"),
     mean_n              = "Mean",
     median_n            = "Median",
     min_n               = "Min",
     max_n               = "Max",
-    # decision_rate_90    = "90% decision rate",
     q75_n               = "75%",
     q80_n               = "80%",
     q85_n               = "85%",
     q90_n               = "90%",
     q95_n               = "95%"
-    # decision_rate_95    = "95% decision rate"
   ) %>%
-   # high-level headers (spanners)
   tab_spanner(
     label   = "Sample size (N)",
     columns = c(mean_n, median_n, min_n, max_n)
@@ -1210,8 +1080,10 @@ table_cases %>%
     columns = all_of(num_cols),
     rows    = as.numeric(as.character(f_simulated)) < pick_f_expected &
               as.numeric(as.character(f_simulated)) != 0,
-    colors  = light_red, alpha = 0.25,
-    autocolor_text = FALSE) %>% 
+    colors  = light_red, 
+    alpha = 0.25,
+    autocolor_text = FALSE
+  ) %>% 
   data_color(
     columns = median_n,
     palette = grey_blue
@@ -1229,10 +1101,9 @@ table_cases %>%
     decimals = 2
   ) %>% 
   tab_footnote(
-    footnote = html(glue("simulated power to detect an effect which includes not only the type II error but also non-decisions")),
-    locations = cells_column_labels(columns = simulated_power))
-
-
+    footnote = html(glue("simulated error rates when sampling continuous until a decision is reached")),
+    locations = cells_column_labels(columns = decision_error_rate)
+  )
 ```
 
 <!-- ### Sequential vs fixed design -->
@@ -1342,7 +1213,7 @@ df_cum <- df_all %>%
   mutate(
     is_expected = f_simulated == pick_f_expected,
     f_label = ifelse(is_expected, 
-                     paste0(f_simulated, " (expected)"), 
+                     paste0(f_simulated, " (=expected)"), 
                      as.character(f_simulated))
   )
 
@@ -1376,7 +1247,7 @@ ggplot(df_cum, aes(x = n_decision, y = cum_prop,
     y = 0.05,
     label = "fixed sample size",
     angle = 90,
-    hjust = 0.1,
+    hjust = 0.2,
     vjust = 0.1,
     size = base_size * 0.25,
     colour = flatly_dark
