@@ -12,7 +12,6 @@
 #---- MAIN FUNCTION DOCUMENTATION ----------------------------------------------
 #' @title Sequential Analysis of Variance
 #' @description
-#' `r lifecycle::badge("experimental")`
 #'
 #' Performs a sequential one-way fixed effects ANOVA, which is a variant of a Sequential
 #' Probability Ratio Test (SPRT). The test allows for continuous
@@ -88,6 +87,9 @@ seq_anova <- function(
   plot = FALSE,
   seq_steps = "single"
 ) {
+
+
+
   # get the original names of the variables
   data_name <- deparse(substitute(formula))
 

@@ -81,7 +81,9 @@ seq_ttest <- function(
   alternative = "two.sided",
   paired = FALSE,
   na.rm = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  plot = FALSE,
+  seq_steps = "single"
 ){
   # get the original names of the variables
   input1_name <- deparse(substitute(x))
@@ -113,6 +115,14 @@ seq_ttest <- function(
       seq_ttest_arguments,
       verbose
     )
+
+  if (plot) {
+    seq_anova_results <- calc_plot_ttest(
+      seq_ttest_arguments,
+      seq_steps
+    )
+  }
+
   seq_ttest_results
 }
 

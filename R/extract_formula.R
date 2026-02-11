@@ -1,5 +1,5 @@
 # t-test -----------------------------------------------------------------------
-extract_formula_ttest <- function(formula, data, wanted = "both") {
+extract_formula_ttest <- function(formula, data, wanted) {
 
   data_matrix_formula <- model.frame(formula, data, na.action = NULL)
   x <- data_matrix_formula[, 1]
@@ -22,7 +22,13 @@ extract_formula_ttest <- function(formula, data, wanted = "both") {
     x
   } else if (wanted == "y") {
     y
-  } else {
+  } else if (wanted == "data" & formula[[3]] != 1) {
+    colnames(data_matrix_formula) <- c("y", "x")
+    data_matrix_formula
+  } else if (wanted == "data" & formula[[3]] == 1) {
+    colnames(data_matrix_formula) <- c("y")
+    data_matrix_formula
+  } else{
     list(x, y)
   }
 }

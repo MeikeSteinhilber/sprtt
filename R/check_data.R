@@ -1,20 +1,20 @@
-check_data_ttest <- function(x, y, paired) {
+check_data_ttest <- function(value, group, paired) {
 
-  if (!is.numeric(x))
+  if (!is.numeric(value))
     stop(paste("Invalid argument: x must be numeric."))
 
-  if (!is.null(y)) {
-    if (is.factor(y))
-      stop("Is y a grouping factor? Use formula interface x ~ y.")
-    if (!is.numeric(y))
-      stop(paste("Invalid argument:y must be numeric."))
-    if (!paired && (length(x) + length(y) < 3))
+  if (!is.null(group)) {
+    if (is.factor(group))
+      stop("Is 'y' a grouping factor? Use formula interface x ~ group.")
+    if (!is.numeric(group))
+      stop(paste("Invalid argument:group must be numeric."))
+    if (!paired && (length(x) + length(group) < 3))
       stop("SPRT for two independent samples requires at least 3 observations.")
     if (!is.logical(paired))
       stop("Invalid argument <paired>: Must be logical.")
   }
 
-  check_constant_data_ttest(x, y)
+  check_constant_data_ttest(value, group)
 }
 
 check_data_anova <- function(data) {

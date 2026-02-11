@@ -1,11 +1,10 @@
 setClassUnion("numericORnull", c("numeric","NULL"))
-
+setClassUnion("data.frameORnull", c("data.frame", "NULL"))
 
 setClass(
   Class = "seq_ttest_arguments",
   slots = c(
-    x = "numeric",
-    y = "numericORnull",
+    data = "data.frameORnull",
     mu = "numeric",
     d = "numeric",
     alpha = "numeric",
@@ -13,29 +12,49 @@ setClass(
     alternative = "character",
     paired = "logical",
     one_sample = "logical",
+    total_sample_size = "numeric",
     data_name = "character",
     na.rm = "logical"
   )
 )
-build_prototype_seq_ttest_arguments <- function() {
-  new(
-    Class = "seq_ttest_arguments",
-    x = c(-0.8576829, -1.2119236, -1.2883021,  0.2532647, -1.6749356,
-          1.2018224,  0.4220293, -0.3896717,  1.5371334,  0.6254288
-          ),
-    y = c(1.4016121,  1.2807517,  1.8763097,  0.5280401,  1.7045422,
-          1.2462588, -0.2278561, -0.1054774,  0.9764811,  1.8253478
-          ),
-    mu = 0,
-    d = 0.8,
-    alpha = .05,
-    power = .80,
-    alternative = "two.sided",
-    paired = FALSE,
-    one_sample = FALSE,
-    data_name = "x and y",
-    na.rm = FALSE
-  )
+
+build_prototype_seq_ttest_arguments <- function(seed=3, type = NULL) {
+
+  if (is.null(type)) {
+    new(
+      Class = "seq_ttest_arguments",
+      data = data.frame(y = rnorm(20), x = rep(c(1,2),10)),
+      mu = 0,
+      d = 0.8,
+      alpha = .05,
+      power = .80,
+      alternative = "two.sided",
+      paired = FALSE,
+      one_sample = FALSE,
+      total_sample_size = 20,
+      data_name = "x and y",
+      na.rm = FALSE
+    )
+  }else if (type == "formula") {
+    set.seed(seed)
+    new(
+      Class = "seq_ttest_arguments",
+      data <- draw_sample_normal(2, 0.2, max_n = 20),
+      mu = 0,
+      d = 0.2,
+      alpha = .05,
+      power = .90,
+      alternative = "two.sided",
+      paired = FALSE,
+      one_sample = FALSE,
+      total_sample_size = nrow(data),
+      data_name = "x",
+      na.rm = FALSE
+    )
+  } else {
+    stop("set type to NULL or to 'formula'")
+  }
+
 }
 
 setValidity(
@@ -61,11 +80,11 @@ setValidity(
     stop("Invalid argument <one_sample>: Error in class input_arguments.")
 
   # missing data in x or y
-  if (length(object@x) < 2)
+  if (length(object@data$x) < 2)
     stop("Length of x is less than 2. Length of x must be greater than 2. ")
-  if (!is.null(object@y)) {
+  if (!is.null(object@data$y)) {
     if (object@one_sample == FALSE &&
-        length(object@y) < 2
+        length(object@data$y) < 2
         )
       stop("Length of y is less than 2. Length of y must be greater than 2. ")
   }
@@ -102,8 +121,9 @@ setMethod(
   f = "[",
   signature = "seq_ttest_arguments",
   function(x, i, j, drop){ # must be this names!
-    if (i == "x") {return(x@x)}
-    if (i == "y") {return(x@y)}
+    # if (i == "x") {return(x@x)}
+    # if (i == "y") {return(x@y)}
+    if (i == "data") {return(x@data)}
     if (i == "mu") {return(x@mu)}
     if (i == "d") {return(x@d)}
     if (i == "alpha") {return(x@alpha)}

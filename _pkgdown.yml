@@ -10,6 +10,9 @@ reference:
   contents:
   - seq_ttest
   - seq_anova
+
+- title: Plotting Functions
+  contents:
   - plot_anova
 
 - title: Plan Sequential Sample Size
