@@ -420,9 +420,11 @@ The analyses below use the following specifications:
 
  - *k* groups = `r pick_k_groups`
  
+ - $\alpha$ = 0.05
+ 
  - $\beta$ = `r pick_beta`
  
- - $\alpha$ = 0.05
+ - decision rate = `r pick_decision_rate*100`%
  
 <br>
 
@@ -435,10 +437,6 @@ Choosing $f_{\text{exp}}$ is critical because it determines:
   - which effect sizes can be detected with the target power and
   
   - how much data are typically required to reach a decision.
-
-::: {.alert .alert-info}
-It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**: power declines quickly for effects smaller than $f_{\text{exp}}$, whereas choosing a much larger $f_{\text{exp}}$ may shorten data collection but risks missing practically relevant effects just below that value.
-:::
 
 
 <!-- ### Power curve -->
@@ -594,6 +592,10 @@ if (pick_f_expected == 0.10){
 
 ```
 
+::: {.alert .alert-info}
+It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**: power declines quickly for effects smaller than $f_{\text{exp}}$, whereas choosing a much larger $f_{\text{exp}}$ may shorten data collection but risks missing practically relevant effects just below that value.
+:::
+
 <br><br>
 
 
@@ -718,10 +720,9 @@ power_nmax <- table_cases$simulated_power_nmax[table_cases$f_simulated == pick_f
 ```
 
 
-In the following plot you can see a visualization of the simulated samples, where either the effect in the data is as expected or the effect is zero.
-For a extended version of these results see **[Chapter III](#chapter-3)**.
+In the following plot you can see a visualization of the simulated samples, where the effect in the data is either as expected or zero. For a extended version of these results see **[Chapter III](#chapter-3)**.
 
-This plot visualizes the distribution of sample sizes required to reach a decision in sequential and fixed testing, comparing two scenarios: when the true effect matches your expectation ($f_{\text{true}} =$ = `r pick_f_expected`) versus when there's no effect ($f_{\text{true}} =$ 0).
+This plot visualizes the distribution of sample sizes required to reach a decision in sequential and fixed testing, comparing two scenarios: when the true effect matches your expectation ($f_{\text{true}} =$ `r pick_f_expected`) versus when there's no effect ($f_{\text{true}} =$ 0).
 The violin plots reveal substantial variability, while many sequential studies terminate early (note the low median sample size), some require substantially more data.
 The red diamonds show the fixed sample size from traditional a priori power analysis as a point or reference.
 
@@ -816,7 +817,7 @@ plan for a maximum sample size of $N_{\text{max}} = `r n_max`$.
 </span><br>
 While you must plan for this worst-case maximum, 
 <span style="color: #2c3e50; font-weight: bold;">the median sample size is only $\bar{N}_{\text{median}} =$ `r n_median_grand`</span>, meaning half of the time studies will terminate before reaching $N_{\text{median}}$.
-Using $N_{\text{max}} = `r n_max`$ will decrease the power to $\text{Power}_{N_{\text{max}}}=$ `r power_nmax`%, which includes missing the effect due to Type II errors and non-decisions.
+Using $N_{\text{max}} = `r n_max`$ will yield a power of $\text{Power}_{N_{\text{max}}}=$ `r power_nmax`%, accounting for both Type II errors and non-decisions.
 :::
 
 Extended numeric details are shown in the table below.
@@ -908,6 +909,15 @@ table_cases %>%
   )
 ```
 
+For SPRTs, the power is $1-\beta$ when no maximum sample size is imposed, which is the theoretical setup for an SPRT.
+However, for practical resource planning, we introduce $N_{\text{max}}$, which decreases the achievable power.
+Therefore, we define $\text{Power}_{N_{\text{max}}}$ as the power calculated from simulated data, accounting for both Type II errors and non-decisions.
+
+We generally recommend maintaining a low $\beta$ and accepting a lower decision rate to manage resource constraints, rather than relaxing the Type II error rate.
+Low error rates combined with a lower decision rate ensure that when the procedure reaches a decision, the result is trustworthy due to strict long-run error control.
+Importantly, non-decisions preserve flexibility: as long as no decision has been reached, data collection can continue if additional resources become available.
+
+
 ## III. Extended insights {#chapter-3}
 
 ### Plot: Sample size and varing $f_{\text{true}}$ {#plot .toc-only}
@@ -923,7 +933,7 @@ pick_f_simulated = c(0,
 <!-- ### Required sample sizes {#extended-violin .toc-only} -->
 
 This violin plot shows the distribution of required sample sizes $n$ across simulations for different assumed true effects $f_{\text{true}}$.
-Each violin summarizes how often a given $n$ occurred: wider sections indicate that sample sizes in that range were more frequent.
+Each violin summarizes how often a given $n$ occurred.
 
 The violin colors indicate whether the test achieves the target power at each true effect.
 
@@ -1114,7 +1124,7 @@ table_cases %>%
 
 The next plot below visualizes the required sample sizes, when the true value is set and one uses different specification of $f_{\text{exp}}$.
 Here you can see how the specification of $f_{\text{exp}}$ influences the sample sizes also in direct comparison to a fixed sample plan.
-Sequential designs maintain efficiency despite underestimating $f_{\text{exp}}$, whereas fixed designs are locked into their initial specification -- a key advantage demonstrated in this plot
+Sequential designs maintain efficiency despite underestimating $f_{\text{true}}$, whereas fixed designs are locked into their initial specification -- a key advantage demonstrated in this plot
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 pick_f_simulated = pick_f_expected
@@ -1197,7 +1207,7 @@ p_violin
 This plot illustrates how decision rate accumulates with increasing sample size for different true effects.
 Larger effects reach the 90% decision threshold much earlier, while smaller effects require substantially more data.
 The vertical line marks the fixed sample size.
-Notice how detection efficiency varies depending on whether the true effect is larger, equal to, or smaller than your expected effect.
+Notice how efficiency varies depending on whether the true effect is larger, equal to, or smaller than your expected effect.
 
 ```{r, fig.height=10, fig.width=15, out.width="100%", fig.align="left"}
 df_cum <- df_all %>%
@@ -1239,7 +1249,7 @@ ggplot(df_cum, aes(x = n_decision, y = cum_prop,
   geom_step() +
   scale_linewidth_manual(values = c("FALSE" = 0.9, "TRUE" = 1.8), guide = "none") +
   scale_alpha_manual(values = c("FALSE" = 0.5, "TRUE" = 1.0), guide = "none") +
-  geom_hline(yintercept = 0.90, linetype = "dotted", colour = flatly_dark) +
+  # geom_hline(yintercept = 0.90, linetype = "dotted", colour = flatly_dark) +
   geom_vline(xintercept = unique(df_cum$fix_n), color = flatly_dark, linetype = "dashed") +
   annotate(
     "text",
@@ -1247,8 +1257,8 @@ ggplot(df_cum, aes(x = n_decision, y = cum_prop,
     y = 0.05,
     label = "fixed sample size",
     angle = 90,
-    hjust = 0.2,
-    vjust = 0.1,
+    hjust = 0.25,
+    vjust = 1.3,
     size = base_size * 0.25,
     colour = flatly_dark
   ) +

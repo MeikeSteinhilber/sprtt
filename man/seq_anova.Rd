@@ -60,8 +60,6 @@ To get access to the object use the
 See the examples below.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Performs a sequential one-way fixed effects ANOVA, which is a variant of a Sequential
 Probability Ratio Test (SPRT). The test allows for continuous
 monitoring of data collection and provides stopping boundaries based on

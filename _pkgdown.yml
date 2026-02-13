@@ -10,6 +10,9 @@ reference:
   contents:
   - seq_ttest
   - seq_anova
+
+- title: Visualization
+  contents:
   - plot_anova
 
 - title: Plan Sequential Sample Size
@@ -20,7 +23,7 @@ reference:
   - cache_clear
   - cache_info
 
-- title: Simulate Data
+- title: Simulates Data Sets
   contents:
   - draw_sample_normal
   - draw_sample_mixture
