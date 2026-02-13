@@ -110,6 +110,15 @@ data <- sprtt::draw_sample_normal(k_groups = 3,
                                   f = 0.15,
                                   sd = c(1, 1, 1),
                                   max_n = 46)
+# look at the data
+head(data)
+#>            y x
+#> 1  0.2762330 1
+#> 2 -1.3415005 2
+#> 3 -0.4521177 3
+#> 4  1.2315479 1
+#> 5  0.8180678 2
+#> 6  0.1697634 3
 
 # calculate sequential ANOVA --------------------------------------------------
 results <- sprtt::seq_anova(y ~ x, f = 0.15, data = data, plot = TRUE)
@@ -161,8 +170,8 @@ first use, this data will be downloaded and chached automatically:
 ``` r
 sprtt::plan_sample_size(f_expected = 0.25,
                         k_groups = 3,
-                        power = 0.9,
-                        decision_rate = 0.9)
+                        beta = 0.05,
+                        decision_rate = 0.85)
 ```
 
 The package contains functions to help managing the cached data, if

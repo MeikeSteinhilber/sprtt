@@ -81,8 +81,8 @@ sample size recommendations. The alpha level is always 0.05.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plan_sample_size</span><span class="op">(</span></span>
 <span>  <span class="va">f_expected</span>,</span>
 <span>  <span class="va">k_groups</span>,</span>
-<span>  power <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>  decision_rate <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  beta <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  decision_rate <span class="op">=</span> <span class="fl">0.85</span>,</span>
 <span>  output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  output_file <span class="op">=</span> <span class="st">"sprtt-report-sample-size-planning.html"</span>,</span>
 <span>  open <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -103,13 +103,13 @@ Must be between 0.1 and 0.4 (increments of 0.05).</p></dd>
 <dd><p>Integer scalar. The number of groups to compare. Must be between 2 and 4.</p></dd>
 
 
-<dt id="arg-power">power<a class="anchor" aria-label="anchor" href="#arg-power"></a></dt>
-<dd><p>Numeric scalar (default = 0.95). Desired statistical power for the design.
-Possible values are 0.80, 0.90, and 0.95.</p></dd>
+<dt id="arg-beta">beta<a class="anchor" aria-label="anchor" href="#arg-beta"></a></dt>
+<dd><p>Numeric scalar (default = 0.05). Desired beta error rate (Type II error).
+Possible values are 0.20, 0.10, and 0.05.</p></dd>
 
 
 <dt id="arg-decision-rate">decision_rate<a class="anchor" aria-label="anchor" href="#arg-decision-rate"></a></dt>
-<dd><p>Numeric scalar (default = 0.90). Desired chance to reach a decision.
+<dd><p>Numeric scalar (default = 0.85). Desired chance to reach a decision.
 Must be between 0.75 and 0.95 (increments of 0.05).</p></dd>
 
 

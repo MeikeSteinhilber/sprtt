@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-10</h4>
+            <h4 data-toc-skip class="date">2026-02-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/workflow_sprtt.Rmd" class="external-link"><code>vignettes/workflow_sprtt.Rmd</code></a></small>
       <div class="d-none name"><code>workflow_sprtt.Rmd</code></div>
@@ -220,7 +220,8 @@ observation)</li>
 </ul>
 <p>SPRTs are <strong>not</strong> recommended when:</p>
 <ul>
-<li>Data are collected all at once or only in very large batches</li>
+<li>Data are collected all at once or only in very large batches, see
+here fixed designs or Group Sequential Designs</li>
 <li>Multiple hypotheses must be tested on the same dataset
 (theoretically possible but not yet implemented)</li>
 <li>Groups cannot be sampled somewhat equally over time (e.g.,
@@ -237,9 +238,9 @@ effect and the main goal is precise effect size estimation (see <span class="cit
 <p>The <code><a href="../reference/plan_sample_size.html">plan_sample_size()</a></code> function helps establish
 realistic expectations for data requirements and resource planning.</p>
 <p>Unlike traditional designs, SPRTs do not require classical a priori
-power analysis. Power (<span class="math inline">\(1-\beta\)</span>) is
-controlled through the stopping boundaries, allowing you to start data
-collection immediately and stop once the test reaches a decision.</p>
+power analysis. Power is controlled through the stopping boundaries,
+allowing you to start data collection immediately and stop once the test
+reaches a decision.</p>
 <p>However, resource planning remains essential. While the boundaries
 control <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> error rates in the long run, they
 cannot guarantee you will collect enough data to reach a decision within

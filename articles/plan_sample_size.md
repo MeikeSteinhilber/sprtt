@@ -29,22 +29,25 @@ for sequential ANOVAs. Researchers can obtain guidance on:
 
 ### Resource Constraints and Decision Rates
 
-While the decision boundaries of the sequential ANOVA control Type I
-(\\\alpha\\) and Type II (\\\beta\\) errors in the long run, and
-consequently maintain the desired power (\\1-\beta\\), a new
-consideration emerges when researchers face resource constraints.
+The decision boundaries of the sequential ANOVA control Type I
+(\\\alpha\\) and Type II (\\\beta\\) errors in the long run. However,
+introducing a maximum sample size \\N\_{\text{max}}\\ for practical
+resource planning creates an important complication: it reduces the
+achievable power below the nominal \\1-\beta\\.
 
-When the maximum affordable sample size is reached before a decision
-boundary is crossed, this results in a **non-decision**. Importantly,
-the non-decision rate depends on the maximum sample size a researcher
-can collect. This introduces a new metric: the **decision rate** (the
-chance to reach a decision) given resource limitations.
+When \\N\_{\text{max}}\\ is reached before a decision boundary is
+crossed, this results in a **non-decision**. The non-decision rate
+depends directly on the chosen maximum sample size. This introduces a
+new metric: the **decision rate** (the probability of reaching a
+decision) given resource limitations.
 
 While non-decisions are undesirable, they represent a crucial conceptual
 distinction from accepting the null hypothesis. SPRTs like the
 sequential ANOVA differentiate between stopping data collection to
-accept the null hypothesis and the case where more evidence is required
-to make a decision.
+accept the null hypothesis and stopping because more evidence would be
+required to make a decision but resources are exhausted. Importantly, as
+long as no decision has been reached, data collection can continue if
+additional resources become available.
 
 ## The `plan_sample_size()` Function
 
@@ -79,21 +82,20 @@ and cached locally for future sessions.
 
 Let’s walk through a practical example. Imagine you’re planning a study
 to compare three groups. You want to detect medium-sized effects
-(Cohen’s *f* = 0.25) or larger, and you’re working with some specific
-constraints.
+(Cohen’s \\f = 0.25\\) or larger with specific error control.
 
-First, you’ll set your alpha level to 0.05, the standard threshold that
-ensures you can trust decisions to reject the null hypothesis and
-minimize Type I errors. You also want high statistical power (\\1-\beta
-= 0.90\\) so you can trust decisions to accept the null hypothesis and
-minimize Type II errors. However, given your limited resources, you’re
-willing to accept a 20% non-decision rate.
+You set \\\alpha = 0.05\\ to control Type I errors at the standard 5%
+level, ensuring that rejections of the null hypothesis are trustworthy
+in the long run. To minimize Type II errors, you set \\\beta = 0.00\\,
+limiting false acceptances of \\H_0\\ to 5%. However, given limited
+resources, you’re willing to accept a 15% non-decision rate, meaning
+you’ll reach a decision 85% of the time.
 
-This means that 80% of the time you’ll reach a decision to accept one of
-the two hypothesis. Critically, whether that decision is to reject
-\\H_0\\ (favoring \\H_1\\) or accept \\H_0\\, you can trust the
-decision: you’ve limited false acceptances of \\H_1\\ to 5% and false
-acceptances of \\H_0\\ to 10% in the long run.
+Critically, when a decision is reached—whether rejecting \\H_0\\
+(favoring \\H_1\\) or accepting \\H_0\\—you can trust it: Type I and II
+errors are controlled at 5% in the long run. Non-decisions, by contrast,
+indicate that the available evidence was insufficient given your error
+constraints, and more data are required.
 
 Now let’s see how to generate a sample size planning report for this
 scenario:
@@ -102,8 +104,8 @@ scenario:
 plan_sample_size(
   f_expected = 0.25,   # Expected effect size
   k_groups = 3,        # Number of groups
-  power = 0.90,        # Desired power
-  decision_rate = 0.80 # desired percentage of decisions 
+  beta = 0.05,         # beta error rate
+  decision_rate = 0.85 # desired percentage of decisions 
 )
 ```
 
@@ -126,7 +128,7 @@ download, then just a few seconds for generating the subsequent report.
 |---------------|-----------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | `f_expected`  | numeric   | *required*                                                 | Expected standardized effect size (Cohen’s *f*). Must be one of: 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, or 0.40. |
 | `k_groups`    | integer   | *required*                                                 | Number of groups to compare. Must be 2, 3, or 4.                                                              |
-| `power`       | numeric   | 0.95                                                       | Desired statistical power. Must be 0.80, 0.90, or 0.95.                                                       |
+| `beta`        | numeric   | 0.05                                                       | Beta error rate. Must be 0.20, 0.10, or 0.05.                                                                 |
 | `output_dir`  | character | [`tempdir()`](https://rdrr.io/r/base/tempfile.html)        | Directory where the HTML report will be saved.                                                                |
 | `output_file` | character | `"sprtt-report-sample-size-planning.html"`                 | Filename for the generated report.                                                                            |
 | `open`        | logical   | [`interactive()`](https://rdrr.io/r/base/interactive.html) | Whether to open the report in your browser after generation. Set to `FALSE` for batch processing.             |
@@ -155,10 +157,10 @@ Here’s how to generate reports for different scenarios:
 
 ``` r
 # report 1
-plan_sample_size(f_expected = 0.15, k_groups = 3, power = 0.95)
+plan_sample_size(f_expected = 0.15, k_groups = 3, beta = 0.05)
 
 # report 2
-plan_sample_size(f_expected = 0.35, k_groups = 3, power = 0.95)
+plan_sample_size(f_expected = 0.35, k_groups = 3, beta = 0.05)
 ```
 
 ### Case 2: Saving Reports to a Specific Location
@@ -171,7 +173,7 @@ plan_sample_size(
   f_expected = 0.25,
   k_groups = 4,
   output_dir = "~/Documents/research/sample_size_planning",
-  output_file = "study1_anova_power.html",
+  output_file = "study1_anova.html",
   open = TRUE
 )
 ```
@@ -196,9 +198,9 @@ for (i in 1:(nrow(scenarios))) {
   plan_sample_size(
     f_expected = scenarios$effect[i],
     k_groups = 3,
-    power = 0.90,
+    beta = 0.10,
     output_dir = "sample_size_reports",
-    output_file = sprintf("power_analysis_%s.html", scenarios$label[i]),
+    output_file = sprintf("plan_sample_size_%s.html", scenarios$label[i]),
     open = FALSE,  # Don't open each one
     overwrite = TRUE
   )

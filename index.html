@@ -140,11 +140,6 @@
 <p><code>function()</code>: is R code</p>
 <p><code>#&gt; results of function()</code>: is console output</p>
 </blockquote>
-<!--
-&#10;ATTENTION!
-&#10;in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
-<img src="man/figures/readme_example.png" width="100%" />
--->
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># set seed --------------------------------------------------------------------</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">333</span><span class="op">)</span></span>
@@ -176,6 +171,15 @@
 <span>                                  f <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span>                                  sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                                  max_n <span class="op">=</span> <span class="fl">46</span><span class="op">)</span></span>
+<span><span class="co"># look at the data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            y x</span></span>
+<span><span class="co">#&gt; 1  0.2762330 1</span></span>
+<span><span class="co">#&gt; 2 -1.3415005 2</span></span>
+<span><span class="co">#&gt; 3 -0.4521177 3</span></span>
+<span><span class="co">#&gt; 4  1.2315479 1</span></span>
+<span><span class="co">#&gt; 5  0.8180678 2</span></span>
+<span><span class="co">#&gt; 6  0.1697634 3</span></span>
 <span></span>
 <span><span class="co"># calculate sequential ANOVA --------------------------------------------------</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="reference/seq_anova.html">seq_anova</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fl">0.15</span>, data <span class="op">=</span> <span class="va">data</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -214,6 +218,11 @@
 <span>   units <span class="op">=</span> <span class="st">"cm"</span>, height <span class="op">=</span> <span class="fl">10</span>, width <span class="op">=</span> <span class="fl">16</span>, <span class="co"># define the image size</span></span>
 <span>   dpi <span class="op">=</span> <span class="fl">300</span>                              <span class="co"># define resolution</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<!--
+&#10;ATTENTION!
+in the .md file must be changed by hand. Otherwise the picture is not found on the website and CRAN.
+&#10;<img src="man/figures/readme_example.png" width="100%" />
+-->
 </div>
 <div class="section level3">
 <h3 id="sample-size-planning">Sample Size Planning<a class="anchor" aria-label="anchor" href="#sample-size-planning"></a>
@@ -222,8 +231,8 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sprtt</span><span class="fu">::</span><span class="fu"><a href="reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                        k_groups <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>                        power <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span>                        decision_rate <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span></code></pre></div>
+<span>                        beta <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>                        decision_rate <span class="op">=</span> <span class="fl">0.85</span><span class="op">)</span></span></code></pre></div>
 <p>The package contains functions to help managing the cached data, if necessary.</p>
 <p><strong>Managing cached data</strong></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">

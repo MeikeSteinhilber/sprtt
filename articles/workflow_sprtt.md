@@ -55,7 +55,8 @@ research context and intended use. SPRTs are recommended when:
 
 SPRTs are **not** recommended when:
 
-- Data are collected all at once or only in very large batches
+- Data are collected all at once or only in very large batches, see here
+  fixed designs or Group Sequential Designs
 - Multiple hypotheses must be tested on the same dataset (theoretically
   possible but not yet implemented)
 - Groups cannot be sampled somewhat equally over time (e.g., collecting
@@ -72,9 +73,9 @@ function helps establish realistic expectations for data requirements
 and resource planning.
 
 Unlike traditional designs, SPRTs do not require classical a priori
-power analysis. Power (\\1-\beta\\) is controlled through the stopping
-boundaries, allowing you to start data collection immediately and stop
-once the test reaches a decision.
+power analysis. Power is controlled through the stopping boundaries,
+allowing you to start data collection immediately and stop once the test
+reaches a decision.
 
 However, resource planning remains essential. While the boundaries
 control \\\alpha\\ and \\\beta\\ error rates in the long run, they

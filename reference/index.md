@@ -5,7 +5,10 @@
 - [`seq_ttest()`](https://meikesteinhilber.github.io/sprtt/reference/seq_ttest.md)
   : Sequential Probability Ratio Test using t-statistic
 - [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md)
-  **\[experimental\]** : Sequential Analysis of Variance
+  : Sequential Analysis of Variance
+
+## Visualization
+
 - [`plot_anova()`](https://meikesteinhilber.github.io/sprtt/reference/plot_anova.md)
   **\[experimental\]** : Plot Sequential ANOVA Results
 
@@ -24,7 +27,7 @@
 - [`cache_info()`](https://meikesteinhilber.github.io/sprtt/reference/cache_info.md)
   **\[experimental\]** : Cache information
 
-## Simulate Data
+## Simulates Data Sets
 
 - [`draw_sample_normal()`](https://meikesteinhilber.github.io/sprtt/reference/draw_sample_normal.md)
   **\[experimental\]** : Draw Samples from a Normal Distribution

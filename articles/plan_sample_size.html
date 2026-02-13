@@ -87,7 +87,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-10</h4>
+            <h4 data-toc-skip class="date">2026-02-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/plan_sample_size.Rmd" class="external-link"><code>vignettes/plan_sample_size.Rmd</code></a></small>
       <div class="d-none name"><code>plan_sample_size.Rmd</code></div>
@@ -95,24 +95,6 @@ Snijder-Steinhilber</h4>
 
     
     
-<!-- ## Why Sample Size Planning Matters -->
-<!-- Sample size planning for sequential tests differs fundamentally from fixed-design studies. -->
-<!-- In sequential ANOVA, the final sample size is determined by the data itself and remains unknown beforehand -- data collection continues until either the upper or lower decision boundary is reached. -->
-<!-- **The planning challenge:** While this data-driven stopping rule is statistically elegant and very efficient, it creates practical difficulties. -->
-<!-- Resource planning requires knowing whether you might need 100 observations or 1,000. Budget constraints, time limitations, and logistical considerations all demand some advance estimate of required resources. -->
-<!-- **The solution:** Although the exact final sample size cannot be known in advance, simulation-based planning bridges the gap between statistical theory and practical constraints. -->
-<!-- The `sprtt` package provides the `plan_sample_size()` function, which generates HTML reports summarizing simulation results for sequential ANOVAs. -->
-<!-- Researchers can obtain guidance on: -->
-<!-- - The typical amount of data required to reach a decision ($N_{\text{median}}$) -->
-<!-- - The upper limit of resources needed to achieve a specified decision rate ($N_{\text{max}}$) -->
-<!-- ### The Challenge of Limited Resources -->
-<!-- While the decision boundaries of the sequential ANOVA control Type I ($\alpha$) and Type II ($\beta$) errors in the long run -- and consequently maintain the desired power ($1-\beta$) -- a new consideration emerges when researchers face resource constraints. -->
-<!-- When the maximum affordable sample size is reached before a decision boundary is crossed, this results in a **non-decision**. -->
-<!-- Importantly, the non-decision rate depends directly on the maximum sample size a researcher can collect. -->
-<!-- This introduces a new metric: the **decision rate** (the chance to reach a decision) given resource limitations. -->
-<!-- ### Non-Decisions vs. Null Hypothesis Acceptance -->
-<!-- While a non-decision are undesirable, it represents a crucial conceptual distinction from accepting the null hypothesis. -->
-<!-- SPRTs like the sequential ANOVA differentiate between stopping the data collection to accepting the null hypothesis and the case where more data/ evidence is required to stop. -->
 <div class="section level2">
 <h2 id="why-sample-size-planning-matters">Why Sample Size Planning Matters<a class="anchor" aria-label="anchor" href="#why-sample-size-planning-matters"></a>
 </h2>
@@ -140,21 +122,23 @@ rate (<span class="math inline">\(N_{\text{max}}\)</span>)</li>
 <div class="section level3">
 <h3 id="resource-constraints-and-decision-rates">Resource Constraints and Decision Rates<a class="anchor" aria-label="anchor" href="#resource-constraints-and-decision-rates"></a>
 </h3>
-<p>While the decision boundaries of the sequential ANOVA control Type I
-(<span class="math inline">\(\alpha\)</span>) and Type II (<span class="math inline">\(\beta\)</span>) errors in the long run, and
-consequently maintain the desired power (<span class="math inline">\(1-\beta\)</span>), a new consideration emerges
-when researchers face resource constraints.</p>
-<p>When the maximum affordable sample size is reached before a decision
-boundary is crossed, this results in a <strong>non-decision</strong>.
-Importantly, the non-decision rate depends on the maximum sample size a
-researcher can collect. This introduces a new metric: the
-<strong>decision rate</strong> (the chance to reach a decision) given
-resource limitations.</p>
+<p>The decision boundaries of the sequential ANOVA control Type I (<span class="math inline">\(\alpha\)</span>) and Type II (<span class="math inline">\(\beta\)</span>) errors in the long run. However,
+introducing a maximum sample size <span class="math inline">\(N_{\text{max}}\)</span> for practical resource
+planning creates an important complication: it reduces the achievable
+power below the nominal <span class="math inline">\(1-\beta\)</span>.</p>
+<p>When <span class="math inline">\(N_{\text{max}}\)</span> is reached
+before a decision boundary is crossed, this results in a
+<strong>non-decision</strong>. The non-decision rate depends directly on
+the chosen maximum sample size. This introduces a new metric: the
+<strong>decision rate</strong> (the probability of reaching a decision)
+given resource limitations.</p>
 <p>While non-decisions are undesirable, they represent a crucial
 conceptual distinction from accepting the null hypothesis. SPRTs like
 the sequential ANOVA differentiate between stopping data collection to
-accept the null hypothesis and the case where more evidence is required
-to make a decision.</p>
+accept the null hypothesis and stopping because more evidence would be
+required to make a decision but resources are exhausted. Importantly, as
+long as no decision has been reached, data collection can continue if
+additional resources become available.</p>
 </div>
 </div>
 <div class="section level2">
@@ -193,28 +177,27 @@ sessions.</p>
 </h3>
 <p>Let’s walk through a practical example. Imagine you’re planning a
 study to compare three groups. You want to detect medium-sized effects
-(Cohen’s <em>f</em> = 0.25) or larger, and you’re working with some
-specific constraints.</p>
-<p>First, you’ll set your alpha level to 0.05, the standard threshold
-that ensures you can trust decisions to reject the null hypothesis and
-minimize Type I errors. You also want high statistical power (<span class="math inline">\(1-\beta = 0.90\)</span>) so you can trust
-decisions to accept the null hypothesis and minimize Type II errors.
-However, given your limited resources, you’re willing to accept a 20%
-non-decision rate.</p>
-<p>This means that 80% of the time you’ll reach a decision to accept one
-of the two hypothesis. Critically, whether that decision is to reject
-<span class="math inline">\(H_0\)</span> (favoring <span class="math inline">\(H_1\)</span>) or accept <span class="math inline">\(H_0\)</span>, you can trust the decision: you’ve
-limited false acceptances of <span class="math inline">\(H_1\)</span> to
-5% and false acceptances of <span class="math inline">\(H_0\)</span> to
-10% in the long run.</p>
+(Cohen’s <span class="math inline">\(f = 0.25\)</span>) or larger with
+specific error control.</p>
+<p>You set <span class="math inline">\(\alpha = 0.05\)</span> to control
+Type I errors at the standard 5% level, ensuring that rejections of the
+null hypothesis are trustworthy in the long run. To minimize Type II
+errors, you set <span class="math inline">\(\beta = 0.00\)</span>,
+limiting false acceptances of <span class="math inline">\(H_0\)</span>
+to 5%. However, given limited resources, you’re willing to accept a 15%
+non-decision rate, meaning you’ll reach a decision 85% of the time.</p>
+<p>Critically, when a decision is reached—whether rejecting <span class="math inline">\(H_0\)</span> (favoring <span class="math inline">\(H_1\)</span>) or accepting <span class="math inline">\(H_0\)</span>—you can trust it: Type I and II
+errors are controlled at 5% in the long run. Non-decisions, by contrast,
+indicate that the available evidence was insufficient given your error
+constraints, and more data are required.</p>
 <p>Now let’s see how to generate a sample size planning report for this
 scenario:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span></span>
 <span>  f_expected <span class="op">=</span> <span class="fl">0.25</span>,   <span class="co"># Expected effect size</span></span>
 <span>  k_groups <span class="op">=</span> <span class="fl">3</span>,        <span class="co"># Number of groups</span></span>
-<span>  power <span class="op">=</span> <span class="fl">0.90</span>,        <span class="co"># Desired power</span></span>
-<span>  decision_rate <span class="op">=</span> <span class="fl">0.80</span> <span class="co"># desired percentage of decisions </span></span>
+<span>  beta <span class="op">=</span> <span class="fl">0.05</span>,         <span class="co"># beta error rate</span></span>
+<span>  decision_rate <span class="op">=</span> <span class="fl">0.85</span> <span class="co"># desired percentage of decisions </span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>When you run this code for the first time, several things happen:</p>
 <ol style="list-style-type: decimal">
@@ -264,10 +247,10 @@ of: 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, or 0.40.</td>
 <td>Number of groups to compare. Must be 2, 3, or 4.</td>
 </tr>
 <tr class="odd">
-<td><code>power</code></td>
+<td><code>beta</code></td>
 <td>numeric</td>
-<td>0.95</td>
-<td>Desired statistical power. Must be 0.80, 0.90, or 0.95.</td>
+<td>0.05</td>
+<td>Beta error rate. Must be 0.20, 0.10, or 0.05.</td>
 </tr>
 <tr class="even">
 <td><code>output_dir</code></td>
@@ -322,10 +305,10 @@ available options. For example:</p>
 Here’s how to generate reports for different scenarios:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># report 1</span></span>
-<span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.15</span>, k_groups <span class="op">=</span> <span class="fl">3</span>, power <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.15</span>, k_groups <span class="op">=</span> <span class="fl">3</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># report 2</span></span>
-<span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.35</span>, k_groups <span class="op">=</span> <span class="fl">3</span>, power <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span>f_expected <span class="op">=</span> <span class="fl">0.35</span>, k_groups <span class="op">=</span> <span class="fl">3</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="case-2-saving-reports-to-a-specific-location">Case 2: Saving Reports to a Specific Location<a class="anchor" aria-label="anchor" href="#case-2-saving-reports-to-a-specific-location"></a>
@@ -337,7 +320,7 @@ you want to keep, specify a custom location:</p>
 <span>  f_expected <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>  k_groups <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  output_dir <span class="op">=</span> <span class="st">"~/Documents/research/sample_size_planning"</span>,</span>
-<span>  output_file <span class="op">=</span> <span class="st">"study1_anova_power.html"</span>,</span>
+<span>  output_file <span class="op">=</span> <span class="st">"study1_anova.html"</span>,</span>
 <span>  open <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>This is particularly useful when preparing documentation for grant
@@ -362,9 +345,9 @@ assumptions):</p>
 <span>  <span class="fu"><a href="../reference/plan_sample_size.html">plan_sample_size</a></span><span class="op">(</span></span>
 <span>    f_expected <span class="op">=</span> <span class="va">scenarios</span><span class="op">$</span><span class="va">effect</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
 <span>    k_groups <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>    power <span class="op">=</span> <span class="fl">0.90</span>,</span>
+<span>    beta <span class="op">=</span> <span class="fl">0.10</span>,</span>
 <span>    output_dir <span class="op">=</span> <span class="st">"sample_size_reports"</span>,</span>
-<span>    output_file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"power_analysis_%s.html"</span>, <span class="va">scenarios</span><span class="op">$</span><span class="va">label</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    output_file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"plan_sample_size_%s.html"</span>, <span class="va">scenarios</span><span class="op">$</span><span class="va">label</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>    open <span class="op">=</span> <span class="cn">FALSE</span>,  <span class="co"># Don't open each one</span></span>
 <span>    overwrite <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span></span>
