@@ -252,6 +252,29 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
 
 
 
@@ -360,43 +383,41 @@ Sequential Probability Ratio Tests</h1>
 <h1>Summary</h1>
 <p><em>A description of the high-level functionality and purpose of the
 software for a diverse, non-specialist audience.</em></p>
-</div>
-<div id="summary-1" class="section level1">
-<h1>Summary</h1>
-<p>The sprtt package provides a comprehensive toolbox for Sequential
+<p>The <code>sprtt</code> package provides a toolbox for Sequential
 Probability Ratio Tests (SPRTs), implementing modern variants including
-sequential t-tests and sequential ANOVA for applied research and
-methodological investigations. Statistical hypothesis testing based on
-the Neyman-Pearson framework (1933) controls long-run error rates across
-repeated experiments: the <span class="math inline">\(\alpha\)</span>
-level defines the upper boundary for Type I errors (false positives) and
-<span class="math inline">\(\beta\)</span> defines the upper boundary
-for Type II errors (false negatives). Traditional fixed sample designs
-determine the required sample size <span class="math inline">\(N\)</span> before data collection begins based on
-the expected effect size. This approach has an obvious limitation:
-evidence accumulating during data collection cannot influence the
-decision to stop. If the true effect is larger than expected, the fixed
-sample design collects more data than necessary. Abraham Wald’s
-Sequential Probability Ratio Test (1945) addresses this inefficiency by
+sequential <em>t</em>-tests and sequential ANOVA for applied research
+and methodological investigations. Statistical hypothesis testing based
+on the Neyman-Pearson framework <span class="citation">(<strong>neyman1933?</strong>)</span> controls long-run
+error rates across repeated experiments: the <span class="math inline">\(\alpha\)</span> level defines the upper boundary
+for Type I errors (false positives) and <span class="math inline">\(\beta\)</span> defines the upper boundary for Type
+II errors (false negatives). Traditional fixed sample designs determine
+the required sample size <span class="math inline">\(N\)</span> before
+data collection begins based on the expected effect size. This approach
+has an obvious limitation: evidence accumulating during data collection
+cannot influence the decision to stop. If the true effect is larger than
+expected, the fixed sample design collects more data than necessary.
+Abraham Wald’s Sequential Probability Ratio Test <span class="citation">(1945, 1947)</span> addresses this inefficiency by
 allowing continuous evaluation of evidence during data collection. SPRTs
 maintain the same error rate control as fixed sample designs but permit
 stopping as soon as sufficient evidence accumulates for either accepting
 or rejecting the null hypothesis. This sequential approach reduces
 required sample sizes by 50% or more on average compared to fixed sample
-alternatives. While Wald’s original SPRTs were constructed for simple
-hypotheses (one unspecified parameter), newer variants extend these
-methods to composite hypotheses through sequential t-tests and
-sequential ANOVA. These extensions are essential for fields like
-psychology and medicine where composite hypotheses are standard.
-However, Wald’s mathematical proofs apply only to simple hypothesis
-tests, making simulation studies crucial for investigating the
-efficiency and error rate control of these newer variants.</p>
-<p>The sprtt package is closely linked to current methodological
-research, implementing procedures after they have demonstrated good
-performance in extensive simulations. The main focus of the package is
-on the core sequential tests themselves, but it also provides helper
-functions for sample size planning and visualization to facilitate the
-adoption of SPRTs in applied research.</p>
+alternatives <span class="citation">(Wald 1945; Steinhilber, Schnuerch,
+and Schubert 2024; Schnuerch and Erdfelder 2020)</span>. While Wald’s
+original SPRTs were constructed for simple hypotheses, newer variants
+extend these methods to composite hypotheses through sequential
+<em>t</em>-tests and sequential ANOVA. These extensions are essential
+for fields like psychology and medicine where composite hypotheses are
+often standard. However, Wald’s mathematical proofs apply only to simple
+hypothesis tests, making simulation studies crucial for investigating
+the efficiency and error rate control of these newer variants.</p>
+<p>The <code>sprtt</code> package is closely linked to current
+methodological research, implementing new SPRT procedures after they
+have demonstrated good performance in extensive simulations. The main
+focus of the package is on the core sequential tests themselves, but it
+also provides helper functions for sample size planning and
+visualization to facilitate the adoption of SPRTs in applied
+research.</p>
 </div>
 <div id="statement-of-need-and-research-impact" class="section level1">
 <h1>Statement of need and research impact</h1>
@@ -406,20 +427,34 @@ clearly state what problems the software is designed to solve, who the
 target audience is, and its relation to other work.</em></p>
 <p>While SPRTs are well-known in the statistical literature, they have
 rarely been implemented in research software and remain relatively
-unknown to many applied researchers. Due to the replication crisis in
-empirical fields like psychology and medicine, statistical procedures
-have been scrutinized and new alternatives have gained attention. SPRTs
-have become increasingly popular in recent years, creating a need for
+unknown to many applied researchers <span class="citation">(Steinhilber,
+Schnuerch, and Schubert 2024; Erdfelder and Schnuerch 2021)</span>. Due
+to the replication crisis <span class="citation">(Open Science
+Collaboration 2015; Ioannidis 2005; Bogdan 2025)</span> in empirical
+fields like psychology and medicine, statistical procedures have been
+scrutinized and new alternatives have gained attention. SPRTs have
+become increasingly popular in recent years, creating a need for
 accessible software implementations in the context of simulation studies
-and practical applications. Saving resources for practical or ethical
-reasons (e.g., applying a treatment only until evidence of efficacy or
-adverse effects emerges) is highly relevant in research. The sprtt
-package was first published on CRAN in 2021 and has since been
-downloaded more than 13,000 times. The package has been used in multiple
-methodological and applied papers, see XXX. The target audience includes
-applied researchers using SPRT variants in their empirical work, as well
-as methodologists conducting simulation studies to gain further insights
-into the properties of SPRTs.</p>
+and practical applications <span class="citation">(Schnuerch and
+Erdfelder 2020; Stefan et al. 2022; Steinhilber, Schnuerch, and Schubert
+2024)</span>. Critically, sequential testing directly addresses one of
+the most pressing demands in empirical research: the need to minimize
+resource expenditure and participant burden without sacrificing
+statistical rigor. This is relevant across all empirical research, and
+particularly vital in clinical and applied settings where continued data
+collection can carry real ethical costs. The <code>sprtt</code>package
+was first published on CRAN in 2021 and has since been downloaded more
+than 13,000 times <span class="citation">(Steinhilber, Schnuerch, and
+Schubert 2023)</span>, and has been used in multiple methodological and
+applied papers <span class="citation">(Schubert et al. 2025; Quevedo
+Pütter and Erdfelder 2022; Steinhilber, Schnuerch, and Schubert 2024,
+2025)</span>. The target audience includes applied researchers using
+SPRT variants in their empirical work, as well as methodologists
+conducting simulation studies to gain further insights into the
+properties of SPRTs. Translating promising statistical methods into
+accessible, user-friendly, and open-source software is essential for
+closing the gap between methodological development and adoption in
+practice.</p>
 </div>
 <div id="state-of-the-field" class="section level1">
 <h1>State of the field</h1>
@@ -432,14 +467,24 @@ insufficient.</em></p>
 integrations) or credible near-term significance (benchmarks,
 reproducible materials, community-readiness signals). The evidence
 should be compelling and specific, not aspirational.</em></p>
-<p>An R package named SPRT exists that implements Wald’s original
-sequential test for simple hypotheses. However, to our knowledge, no
-other software packages implement sequential <em>t</em>-tests or
-sequential one-way ANOVA methods beyond the sprtt package. Given that R
-is one of the most widely used statistical programming languages in
-applied fields such as psychology and medicine, it provides an ideal
-environment for making these modern SPRT variants accessible to
-researchers.</p>
+<p>The landscape of sequential testing software is sparse. The R package
+<code>SPRT</code> implements Wald’s original sequential test for simple
+hypotheses, the <code>gsDesign</code> package provides a
+<code>binomialSPRT()</code> function for truncated binomial SPRTs, and
+the <code>MSPRT</code> package covers a variety of truncated SPRT
+variants. The R package <code>Sequential</code> implements other
+truncated SPRT variants for Poisson and binomial data, primarily
+targeting epidemiological safety surveillance. Beyond R, no established
+software packages for SPRTs appear to exist, though several major
+technology companies including Netflix, Uber, and Spotify have either
+published on SPRTs or stated their use, suggesting that proprietary
+implementations exist in industry <span class="citation">(Bibaut,
+Kallus, and Lindon 2024)</span>. To our knowledge, no publicly available
+software implements sequential <em>t</em>-tests or sequential one-way
+ANOVA as described by <span class="citation">Schnuerch and Erdfelder
+(2020)</span> and <span class="citation">Steinhilber, Schnuerch, and
+Schubert (2024)</span>. The <code>sprtt</code> package fills this gap
+directly.</p>
 </div>
 <div id="software-design" class="section level1">
 <h1>Software design</h1>
@@ -449,11 +494,12 @@ application. This should demonstrate meaningful design thinking beyond a
 superficial code structure description.</em></p>
 <p>The sprtt package is built around two main user-facing functions:
 <code>seq_ttest()</code> and <code>seq_anova()</code>. The
-<code>seq_ttest()</code> function implements the sequential t-test and
-deliberately mirrors the interface of the <code>t.test()</code> function
-from the stats package to ensure familiarity for R users. The
-<code>seq_anova()</code> function follows a similar design philosophy,
-maintaining consistency across the package’s interface.</p>
+<code>seq_ttest()</code> function implements the sequential
+<em>t</em>-test and deliberately mirrors the interface of the
+<code>t.test()</code> function from the stats package to ensure
+familiarity for R users. The <code>seq_anova()</code> function follows a
+similar design philosophy, maintaining consistency across the package’s
+interface.</p>
 <p>The core design principle is modularity: each internal function
 should perform one task well. This approach emphasizes simplicity,
 testability, clear structure, and minimal code repetition. The internal
@@ -509,8 +555,86 @@ the German Research Foundation (Deutsche Forschungsgemeinschaft, GRK
 2277) to the Research Training Group “Statistical Modeling in
 Psychology”.</p>
 </div>
-<div id="references" class="section level1">
-<h1>References</h1>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-bibaut2024" class="csl-entry">
+Bibaut, Aurelien, Nathan Kallus, and Michael Lindon. 2024.
+<span>“Near-<span>Optimal Non-Parametric Sequential Tests</span> and
+<span>Confidence Sequences</span> with <span>Possibly Dependent
+Observations</span>.”</span> arXiv. <a href="https://doi.org/10.48550/arXiv.2212.14411">https://doi.org/10.48550/arXiv.2212.14411</a>.
+</div>
+<div id="ref-bogdan2025" class="csl-entry">
+Bogdan, Paul C. 2025. <span>“One <span>Decade Into</span> the
+<span>Replication Crisis</span>, <span>How Have Psychological Results
+Changed</span>?”</span> <em>Advances in Methods and Practices in
+Psychological Science</em> 8 (2): 25152459251323480. <a href="https://doi.org/10.1177/25152459251323480">https://doi.org/10.1177/25152459251323480</a>.
+</div>
+<div id="ref-erdfelder2021" class="csl-entry">
+Erdfelder, Edgar, and Martin Schnuerch. 2021. <span>“On the Efficiency
+of the Independent Segments Procedure: <span>A</span> Direct Comparison
+with Sequential Probability Ratio Tests.”</span> <em>Psychological
+Methods</em> 26 (4): 501–6. <a href="https://doi.org/10.1037/met0000404">https://doi.org/10.1037/met0000404</a>.
+</div>
+<div id="ref-ioannidis2005" class="csl-entry">
+Ioannidis, John P. A. 2005. <span>“Why Most Published Research Findings
+Are False.”</span> <em>PLoS Medicine</em> 2 (8): e124. <a href="https://doi.org/10.1371/journal.pmed.0020124">https://doi.org/10.1371/journal.pmed.0020124</a>.
+</div>
+<div id="ref-opensciencecollaboration2015" class="csl-entry">
+Open Science Collaboration. 2015. <span>“Estimating the Reproducibility
+of Psychological Science.”</span> <em>Science</em> 349 (6251):
+aac4716–16. <a href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a>.
+</div>
+<div id="ref-quevedoputter2022" class="csl-entry">
+Quevedo Pütter, J., and E. Erdfelder. 2022. <span>“Alcohol-Induced
+Retrograde Facilitation? <span>Mixed</span> Evidence in a Preregistered
+Replication and Encoding-Maintenance-Retrieval Analysis.”</span>
+<em>Experimental Psychology</em> 69 (6): 335–50. <a href="https://doi.org/10.1027/1618-3169/a000569">https://doi.org/10.1027/1618-3169/a000569</a>.
+</div>
+<div id="ref-schnuerch2020" class="csl-entry">
+Schnuerch, Martin, and Edgar Erdfelder. 2020. <span>“Controlling
+Decision Errors with Minimal Costs: <span>The</span> Sequential
+Probability Ratio t Test.”</span> <em>Psychological Methods</em> 25 (2):
+206–26. <a href="https://doi.org/10.1037/met0000234">https://doi.org/10.1037/met0000234</a>.
+</div>
+<div id="ref-schubert2025a" class="csl-entry">
+Schubert, Anna-Lena, Meike Steinhilber, Heemin Kang, and Daniel S.
+Quintana. 2025. <span>“Improving Statistical Reporting in
+Psychology.”</span> <em>Communications Psychology</em> 3 (1): 156.
+</div>
+<div id="ref-stefan2022" class="csl-entry">
+Stefan, Angelika M., Felix D. Schönbrodt, Nathan J. Evans, and Eric-Jan
+Wagenmakers. 2022. <span>“Efficiency in Sequential Testing:
+<span>Comparing</span> the Sequential Probability Ratio Test and the
+Sequential <span>Bayes</span> Factor Test.”</span> <em>Behavior Research
+Methods</em> 54 (6): 3100–3117. <a href="https://doi.org/10.3758/s13428-021-01754-8">https://doi.org/10.3758/s13428-021-01754-8</a>.
+</div>
+<div id="ref-steinhilber2023a" class="csl-entry">
+Steinhilber, Meike, Martin Schnuerch, and Anna-Lena Schubert. 2023.
+<span>“Sequential Analysis of Variance: <span>Increasing</span>
+Effciency of Hypothesis Testing.”</span> <span>PsyArXiv</span>. <a href="https://doi.org/10.31234/osf.io/m64ne">https://doi.org/10.31234/osf.io/m64ne</a>.
+</div>
+<div id="ref-steinhilber2024" class="csl-entry">
+———. 2024. <span>“Sequential Analysis of Variance:
+<span>Increasing</span> Efficiency of Hypothesis Testing.”</span>
+<em>Psychological Methods</em>, September. <a href="https://doi.org/10.1037/met0000677">https://doi.org/10.1037/met0000677</a>.
+</div>
+<div id="ref-steinhilber2025" class="csl-entry">
+———. 2025. <span>“The <span>Dark Side</span> of <span>Sequential
+Testing</span>: <span>A Simulation Study</span> on <span>Questionable
+Research Practices</span>.”</span> <span>PsyArXiv</span>:
+<span>PsyArXiv</span>. <a href="https://doi.org/10.31234/osf.io/vkbu3_v1">https://doi.org/10.31234/osf.io/vkbu3_v1</a>.
+</div>
+<div id="ref-wald1945" class="csl-entry">
+Wald, Abraham. 1945. <span>“Sequential Tests of Statistical
+Hypotheses.”</span> <em>The Annals of Mathematical Statistics</em> 16
+(2): 117–86.
+</div>
+<div id="ref-wald1947" class="csl-entry">
+———. 1947. <em>Sequential Analysis</em>. <span>New York</span>:
+<span>Wiley</span>.
+</div>
+</div>
 </div>
 
 
