@@ -1,5 +1,13 @@
 url: https://meikesteinhilber.github.io/sprtt/
 
+navbar:
+  structure:
+    left: [intro, reference, articles, tutorials, news]
+  components:
+    intro:
+      text: Getting Started
+      href: articles/workflow_sprtt.html
+
 template:
   bootstrap: 5
   math-rendering: mathjax

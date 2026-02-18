@@ -1,6 +1,5 @@
 #' @title Draw Samples from a Normal Distribution
 #' @description
-#' `r lifecycle::badge("experimental")`
 #'
 #' Draws exemplary samples with a certain effect size for the sequential one-oway ANOVA or the sequential t-test, see Steinhilber et al. (2023) <doi:10.31234/osf.io/m64ne>
 #' @param k_groups number of groups (levels of factor_A)

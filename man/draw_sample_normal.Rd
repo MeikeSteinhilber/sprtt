@@ -21,8 +21,6 @@ draw_sample_normal(k_groups, f, max_n, sd = NULL, sample_ratio = NULL)
 returns a data.frame with the columns y (observations) and x (factor_A).
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Draws exemplary samples with a certain effect size for the sequential one-oway ANOVA or the sequential t-test, see Steinhilber et al. (2023) \url{doi:10.31234/osf.io/m64ne}
 }
 \examples{
