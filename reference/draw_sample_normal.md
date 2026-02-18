@@ -1,7 +1,5 @@
 # Draw Samples from a Normal Distribution
 
-**\[experimental\]**
-
 Draws exemplary samples with a certain effect size for the sequential
 one-oway ANOVA or the sequential t-test, see Steinhilber et al. (2023)
 <doi:10.31234/osf.io/m64ne>

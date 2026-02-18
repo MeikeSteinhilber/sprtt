@@ -30,10 +30,9 @@
 ## Simulates Data Sets
 
 - [`draw_sample_normal()`](https://meikesteinhilber.github.io/sprtt/reference/draw_sample_normal.md)
-  **\[experimental\]** : Draw Samples from a Normal Distribution
+  : Draw Samples from a Normal Distribution
 - [`draw_sample_mixture()`](https://meikesteinhilber.github.io/sprtt/reference/draw_sample_mixture.md)
-  **\[experimental\]** : Draw Samples from a Gaussian Mixture
-  Distribution
+  : Draw Samples from a Gaussian Mixture Distribution
 
 ## Example Data
 
