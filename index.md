@@ -12,7 +12,7 @@ The package contains:
 
 - [`seq_ttest()`](https://meikesteinhilber.github.io/sprtt/reference/seq_ttest.md),
   [`seq_anova()`](https://meikesteinhilber.github.io/sprtt/reference/seq_anova.md)
-  calculates sequential t-test and sequential one-way ANOVAs
+  calculates sequential *t*-test and sequential one-way ANOVAs
 
 - [`plot_anova()`](https://meikesteinhilber.github.io/sprtt/reference/plot_anova.md)
   plots results of sequential ANOVAs
@@ -26,7 +26,7 @@ The package contains:
   simulation of data sets
 
 - three data sets (`df_income`, `df_stress`, `df_cancer`) to run the
-  examples in the t-test documentation
+  examples in the *t*-test documentation
 
 ## Installation
 
@@ -58,12 +58,8 @@ devtools::install_github("MeikeSteinhilber/sprtt", ref="develop")
 
 Detailed documentation can be found on the [home
 page](https://meikesteinhilber.github.io/sprtt/index.html). There are
-several articles covering the
-[usage](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html)
-of the package, the [theoretical
-background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html)
-of the test, and also an extended [use
-case](https://meikesteinhilber.github.io/sprtt/articles/use-case.html).
+several articles (called vignettes in R) covering the usage of the
+package and its functions.
 
 Short examples can be found in the following paragraph.
 

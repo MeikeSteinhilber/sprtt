@@ -4,9 +4,9 @@
 
 Sample size planning for sequential tests differs fundamentally from
 fixed-design studies. In sequential ANOVA, the final sample size is
-determined by the data itself and remains unknown beforehand – data
-collection continues until either the upper or lower decision boundary
-is reached.
+determined by the evidence in the data itself and consequently remains
+unknown beforehand – data collection continues until either the upper or
+lower decision boundary is reached.
 
 **The challenge:** While this data-driven stopping rule is very
 efficient, it creates practical difficulties. Resource planning requires
@@ -60,11 +60,11 @@ comparisons to traditional ANOVA designs.
 
 ### Pre-computed Simulation Database
 
-To make sample size planning fast and accessible, **sprtt** includes
+To make sample size planning fast and accessible, `sprtt` includes
 access to extensive simulation results. These simulations were conducted
 by:
 
-1.  Generating thousands of datasets for each combination of parameters
+1.  Generating 10,000 of datasets for each combination of parameters
 2.  Running sequential ANOVAs on each dataset
 3.  Recording when each test stopped
 4.  Aggregating these results to get key summary statistics that guide
@@ -86,14 +86,14 @@ to compare three groups. You want to detect medium-sized effects
 
 You set \\\alpha = 0.05\\ to control Type I errors at the standard 5%
 level, ensuring that rejections of the null hypothesis are trustworthy
-in the long run. To minimize Type II errors, you set \\\beta = 0.00\\,
-limiting false acceptances of \\H_0\\ to 5%. However, given limited
+in the long run. To minimize Type II errors, you set \\\beta = 0.05\\,
+limiting false acceptances of \\H_0\\ also to 5%. However, given limited
 resources, you’re willing to accept a 15% non-decision rate, meaning
 you’ll reach a decision 85% of the time.
 
-Critically, when a decision is reached—whether rejecting \\H_0\\
-(favoring \\H_1\\) or accepting \\H_0\\—you can trust it: Type I and II
-errors are controlled at 5% in the long run. Non-decisions, by contrast,
+Critically, this setup reflects a deliberate trade-off: by keeping both
+error rates as low as 5%, you accept that a decision will not always be
+reached — but when it is, it can be trusted. Non-decisions, by contrast,
 indicate that the available evidence was insufficient given your error
 constraints, and more data are required.
 
@@ -120,7 +120,8 @@ When you run this code for the first time, several things happen:
     web browser (if running interactively).
 
 The entire process typically takes a couple of seconds for the initial
-download, then just a few seconds for generating the subsequent report.
+download, then just a few seconds more for generating the subsequent
+report.
 
 ### Function Parameters
 
@@ -148,7 +149,7 @@ plan_sample_size(f_expected = 0.22, k_groups = 3)
 #> Please choose one of 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, or 0.4
 ```
 
-## Practical Use cases
+## Practical Use Cases
 
 ### Case 1: Comparing Different Effect Sizes
 
@@ -251,7 +252,7 @@ This displays:
 
 - The cache directory location on your system
 - Whether simulation data are currently cached
-- The file size (approximately 15 MB when cached)
+- The file size
 
 **Clearing the Cache**
 

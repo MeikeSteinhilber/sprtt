@@ -53,7 +53,7 @@
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Getting Started</h6></li>
     <li><a class="dropdown-item" href="../articles/workflow_sprtt.html">How to use the sprtt package?</a></li>
-    <li><a class="dropdown-item" href="../articles/sprts.html">Introduction to SPRTs</a></li>
+    <li><a class="dropdown-item" href="../articles/sprt.html">Introduction to SPRTs</a></li>
     <li><a class="dropdown-item" href="../articles/use_case.html">Simple t-Test Use Case</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Sequential Tests</h6></li>
@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-18</h4>
+            <h4 data-toc-skip class="date">2026-02-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/plan_sample_size.Rmd" class="external-link"><code>vignettes/plan_sample_size.Rmd</code></a></small>
       <div class="d-none name"><code>plan_sample_size.Rmd</code></div>
@@ -101,9 +101,9 @@ Snijder-Steinhilber</h4>
 </h2>
 <p>Sample size planning for sequential tests differs fundamentally from
 fixed-design studies. In sequential ANOVA, the final sample size is
-determined by the data itself and remains unknown beforehand – data
-collection continues until either the upper or lower decision boundary
-is reached.</p>
+determined by the evidence in the data itself and consequently remains
+unknown beforehand – data collection continues until either the upper or
+lower decision boundary is reached.</p>
 <p><strong>The challenge:</strong> While this data-driven stopping rule
 is very efficient, it creates practical difficulties. Resource planning
 requires knowing whether you might need 100 observations or 1,000.
@@ -153,11 +153,11 @@ designs.</p>
 <div class="section level3">
 <h3 id="pre-computed-simulation-database">Pre-computed Simulation Database<a class="anchor" aria-label="anchor" href="#pre-computed-simulation-database"></a>
 </h3>
-<p>To make sample size planning fast and accessible,
-<strong>sprtt</strong> includes access to extensive simulation results.
-These simulations were conducted by:</p>
+<p>To make sample size planning fast and accessible, <code>sprtt</code>
+includes access to extensive simulation results. These simulations were
+conducted by:</p>
 <ol style="list-style-type: decimal">
-<li>Generating thousands of datasets for each combination of
+<li>Generating 10,000 of datasets for each combination of
 parameters</li>
 <li>Running sequential ANOVAs on each dataset</li>
 <li>Recording when each test stopped</li>
@@ -183,14 +183,16 @@ specific error control.</p>
 <p>You set <span class="math inline">\(\alpha = 0.05\)</span> to control
 Type I errors at the standard 5% level, ensuring that rejections of the
 null hypothesis are trustworthy in the long run. To minimize Type II
-errors, you set <span class="math inline">\(\beta = 0.00\)</span>,
+errors, you set <span class="math inline">\(\beta = 0.05\)</span>,
 limiting false acceptances of <span class="math inline">\(H_0\)</span>
-to 5%. However, given limited resources, you’re willing to accept a 15%
-non-decision rate, meaning you’ll reach a decision 85% of the time.</p>
-<p>Critically, when a decision is reached—whether rejecting <span class="math inline">\(H_0\)</span> (favoring <span class="math inline">\(H_1\)</span>) or accepting <span class="math inline">\(H_0\)</span>—you can trust it: Type I and II
-errors are controlled at 5% in the long run. Non-decisions, by contrast,
-indicate that the available evidence was insufficient given your error
-constraints, and more data are required.</p>
+also to 5%. However, given limited resources, you’re willing to accept a
+15% non-decision rate, meaning you’ll reach a decision 85% of the
+time.</p>
+<p>Critically, this setup reflects a deliberate trade-off: by keeping
+both error rates as low as 5%, you accept that a decision will not
+always be reached — but when it is, it can be trusted. Non-decisions, by
+contrast, indicate that the available evidence was insufficient given
+your error constraints, and more data are required.</p>
 <p>Now let’s see how to generate a sample size planning report for this
 scenario:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -214,8 +216,8 @@ your temporary directory.</li>
 your default web browser (if running interactively).</li>
 </ol>
 <p>The entire process typically takes a couple of seconds for the
-initial download, then just a few seconds for generating the subsequent
-report.</p>
+initial download, then just a few seconds more for generating the
+subsequent report.</p>
 </div>
 <div class="section level3">
 <h3 id="function-parameters">Function Parameters<a class="anchor" aria-label="anchor" href="#function-parameters"></a>
@@ -297,7 +299,7 @@ available options. For example:</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="practical-use-cases">Practical Use cases<a class="anchor" aria-label="anchor" href="#practical-use-cases"></a>
+<h2 id="practical-use-cases">Practical Use Cases<a class="anchor" aria-label="anchor" href="#practical-use-cases"></a>
 </h2>
 <div class="section level3">
 <h3 id="case-1-comparing-different-effect-sizes">Case 1: Comparing Different Effect Sizes<a class="anchor" aria-label="anchor" href="#case-1-comparing-different-effect-sizes"></a>
@@ -388,7 +390,7 @@ occupy:</p>
 <ul>
 <li>The cache directory location on your system</li>
 <li>Whether simulation data are currently cached</li>
-<li>The file size (approximately 15 MB when cached)</li>
+<li>The file size</li>
 </ul>
 <p><strong>Clearing the Cache</strong></p>
 <p>If you need to free up disk space or suspect corrupted data, you can

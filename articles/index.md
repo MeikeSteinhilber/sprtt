@@ -9,7 +9,7 @@
   `sprtt` package.
 
 - [Introduction to
-  SPRTs](https://meikesteinhilber.github.io/sprtt/articles/sprts.md):
+  SPRTs](https://meikesteinhilber.github.io/sprtt/articles/sprt.md):
 
   This vignette describes SPRTs in general.
 

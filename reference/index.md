@@ -1,5 +1,19 @@
 # Package index
 
+## Overview
+
+Function stability is communicated using the `lifecycle` package.
+Functions marked as `experimental` are newly introduced and their user
+interface may change in future releases. This does not reflect on the
+reliability of the function itself, as all functions are thoroughly
+tested before each release. For a detailed overview of all lifecycle
+stages, see
+[`vignette("stages", package = "lifecycle")`](https://lifecycle.r-lib.org/articles/stages.html).
+
+- [`sprtt`](https://meikesteinhilber.github.io/sprtt/reference/sprtt-package.md)
+  [`sprtt-package`](https://meikesteinhilber.github.io/sprtt/reference/sprtt-package.md)
+  : sprtt: Sequential Probability Ratio Tests Toolbox
+
 ## Main Functions
 
 - [`seq_ttest()`](https://meikesteinhilber.github.io/sprtt/reference/seq_ttest.md)

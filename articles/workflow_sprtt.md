@@ -5,7 +5,7 @@ The `sprtt` package is a toolbox for **s**equential **p**robability
 and demonstrates a typical analysis workflow. For more comprehensive
 guides on specific topics, see the other package vignettes. If you are
 unfamiliar with SPRTs, please read first the vignette
-`vignette("sprt")`.
+[`vignette("sprt")`](https://meikesteinhilber.github.io/sprtt/articles/sprt.md).
 
 ## Workflow
 
@@ -39,7 +39,7 @@ For comparisons of different sequential designs (including SPRTs), see:
   Bayes Factor Test vs SPRT
 - Stefan et al. (2022) – Sequential Bayes Factor Test vs SPRT
 
-### 2. Check if SPRTs are the fitting choice
+### 2. When to use SPRTs
 
 Whether a statistical tool is appropriate depends strongly on the
 research context and intended use. SPRTs are recommended when:

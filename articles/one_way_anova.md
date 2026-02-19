@@ -7,7 +7,7 @@ independent groups and can be used as an efficient alternative to the
 classical fixed-sample one-way ANOVA. For detailed information, see
 Steinhilber et al. (2024). For a general introduction to SPRTs, see the
 vignette
-[`vignette("sprts")`](https://meikesteinhilber.github.io/sprtt/articles/sprts.md).
+[`vignette("sprt")`](https://meikesteinhilber.github.io/sprtt/articles/sprt.md).
 
 **Note:** The repeated measures ANOVA is not yet implemented in the
 `sprtt` package.
