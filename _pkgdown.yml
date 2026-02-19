@@ -1,5 +1,4 @@
 url: https://meikesteinhilber.github.io/sprtt/
-
 navbar:
   structure:
     left: [intro, reference, articles, tutorials, news]
@@ -7,57 +6,53 @@ navbar:
     intro:
       text: Getting Started
       href: articles/workflow_sprtt.html
-
 template:
   bootstrap: 5
   math-rendering: mathjax
   css: pkgdown/customize.css
-
 reference:
-- title: Main Functions
-  contents:
-  - seq_ttest
-  - seq_anova
-
-- title: Visualization
-  contents:
-  - plot_anova
-
-- title: Plan Sequential Sample Size
-  contents:
-  - plan_sample_size
-  - download_sample_size_data
-  - load_sample_size_data
-  - cache_clear
-  - cache_info
-
-- title: Simulates Data Sets
-  contents:
-  - draw_sample_normal
-  - draw_sample_mixture
-
-- title: Example Data
-  contents:
-  - df_stress
-  - df_income
-  - df_cancer
-
+  - title: "Overview"
+    desc: >
+      Function stability is communicated using the `lifecycle` package. Functions marked as `experimental` are newly introduced and their user interface may change in future releases. This does not reflect on the reliability of the function itself, as all functions are thoroughly tested before each release. For a detailed overview of all lifecycle stages, see `vignette("stages", package = "lifecycle")`.
+    contents:
+      - sprtt
+  - title: Main Functions
+    contents:
+      - seq_ttest
+      - seq_anova
+  - title: Visualization
+    contents:
+      - plot_anova
+  - title: Plan Sequential Sample Size
+    contents:
+      - plan_sample_size
+      - download_sample_size_data
+      - load_sample_size_data
+      - cache_clear
+      - cache_info
+  - title: Simulates Data Sets
+    contents:
+      - draw_sample_normal
+      - draw_sample_mixture
+  - title: Example Data
+    contents:
+      - df_stress
+      - df_income
+      - df_cancer
 articles:
-- title: Get Started
-  navbar: Getting Started
-  contents:
-  - workflow_sprtt
-  - sprts
-  - use_case
-
-- title: Sequential Tests
-  navbar: Sequential Tests
-  contents:
-  - t_test
-  - one_way_anova
-
-- title: Further Topics
-  navbar: Further Topics
-  contents:
-  - plan_sample_size
-  - developer_guide
+  - title: Get Started
+    navbar: Getting Started
+    contents:
+      - workflow_sprtt
+      - sprt
+      - use_case
+  - title: Sequential Tests
+    navbar: Sequential Tests
+    contents:
+      - t_test
+      - one_way_anova
+  - title: Further Topics
+    navbar: Further Topics
+    contents:
+      - plan_sample_size
+      - developer_guide

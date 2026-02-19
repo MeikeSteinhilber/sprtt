@@ -114,7 +114,7 @@ For comparisons of different sequential designs (including SPRTs), see:
 - @schnuerch2020 -- Group sequential designs vs Sequential Bayes Factor Test vs SPRT
 - @stefan2022 -- Sequential Bayes Factor Test vs SPRT
 
-### 2. Check if SPRTs are the fitting choice
+### 2. When to use SPRTs
 
 Whether a statistical tool is appropriate depends strongly on the research context and intended use.
 SPRTs are recommended when:
