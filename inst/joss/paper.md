@@ -47,6 +47,8 @@ The main focus of the package is on the core implementing sequential tests, but 
 
 *A section that clearly illustrates the research purpose of the software and places it in the context of related work. This should clearly state what problems the software is designed to solve, who the target audience is, and its relation to other work.*
 
+*Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*
+
 While SPRTs are well-known in the statistical literature, they have rarely been implemented in research software and remain relatively unknown to many applied researchers [@steinhilber2024; @erdfelder2021].
 Due to the replication crisis [@opensciencecollaboration2015; @ioannidis2005; @bogdan2025] in empirical fields like psychology and medicine, statistical procedures have been scrutinized and new alternatives have gained attention.
 SPRTs have become increasingly popular in recent years, creating a need for accessible software implementations in the context of simulation studies and practical applications [@schnuerch2020; @stefan2022; @steinhilber2024].
@@ -58,8 +60,6 @@ Translating promising statistical methods into accessible, user-friendly, and op
 
 # State of the field                                                                                                                  
 *A description of how this software compares to other commonly-used packages in the research area. If related tools exist, provide a clear “build vs. contribute” justification explaining your unique scholarly contribution and why existing alternatives are insufficient.*
-
-*Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*
 
 The landscape of sequential testing software is sparse.
 Beyond R, no established software packages for SPRTs appear to exist, though several major technology companies including Netflix, Uber, and Spotify have either published on SPRTs or stated their use, suggesting that proprietary implementations exist in industry [@bibaut2024].
