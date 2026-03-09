@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-02-24</h4>
+            <h4 data-toc-skip class="date">2026-03-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/workflow_sprtt.Rmd" class="external-link"><code>vignettes/workflow_sprtt.Rmd</code></a></small>
       <div class="d-none name"><code>workflow_sprtt.Rmd</code></div>
@@ -311,7 +311,48 @@ effect size for simulation testing</li>
 </h3>
 <p>Guidelines for the reporting of SPRTs can be found in the paper of
 <span class="citation">Schubert et al. (2025)</span> that also
-explicitly covers sequential testing and specifically SPRTs .</p>
+explicitly covers sequential testing and specifically SPRTs.</p>
+<p>A complete SPRT report should include: the specific variant of the
+SPRT used (e.g., sequential <em>t</em>-test), the <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> levels, the effect size or other
+parameters specifying the alternative hypothesis, the starting point of
+the SPRT (the sample size at the first look), the final sample size when
+data collection was stopped, the final likelihood ratio, a plot showing
+the full likelihood progression across all looks, and an effect size
+estimate with confidence interval <span class="citation">(Schubert et
+al., 2025)</span>. Note that effect size estimates in sequential designs
+are often biased and should be interpreted with caution.</p>
+<p><strong>Example report — decision reached (<span class="math inline">\(H_1\)</span> accepted):</strong></p>
+<blockquote>
+<p>We preregistered a sequential <em>t</em>-test <span class="citation">(Schnuerch &amp; Erdfelder, 2020; Wald, 1945)</span>
+with error probabilities <span class="math inline">\(\alpha =
+.05\)</span> and <span class="math inline">\(\beta = .05\)</span>, and a
+minimum effect size of interest of <span class="math inline">\(d =
+0.5\)</span>. The first look took place at <span class="math inline">\(n
+= 5\)</span> per group. Data collection stopped at <span class="math inline">\(N = 48\)</span> (24 per group) when the likelihood
+ratio crossed the upper decision boundary (<span class="math inline">\(LR_{48} = 21.3 &gt; B = 19\)</span>), providing
+sufficient evidence to accept <span class="math inline">\(H_1\)</span>.
+The estimated effect size was <span class="math inline">\(d =
+0.61\)</span> (95% CI [0.21, 1.00]). A plot of the full likelihood
+progression is provided in Figure X. All materials and the
+preregistration are available at [OSF link].</p>
+</blockquote>
+<p><strong>Example report — <span class="math inline">\(N_{max}\)</span>
+reached (non-decision):</strong></p>
+<blockquote>
+<p>We preregistered a sequential <em>t</em>-test <span class="citation">(Schnuerch &amp; Erdfelder, 2020; Wald, 1945)</span>
+with error probabilities <span class="math inline">\(\alpha =
+.05\)</span> and <span class="math inline">\(\beta = .05\)</span>, a
+minimum effect size of interest of <span class="math inline">\(d =
+0.5\)</span>, and a maximum sample size of <span class="math inline">\(N_{max} = 200\)</span> (100 per group). The first
+look took place at <span class="math inline">\(n = 4\)</span> per group.
+Data collection stopped upon reaching <span class="math inline">\(N_{max} = 200\)</span> without the likelihood
+ratio crossing either decision boundary (<span class="math inline">\(LR_{200} = 3.1\)</span>; lower boundary <span class="math inline">\(A = 1/19\)</span>, upper boundary <span class="math inline">\(B = 19\)</span>). This constitutes a non-decision:
+the accumulated evidence was insufficient to accept either <span class="math inline">\(H_0\)</span> or <span class="math inline">\(H_1\)</span> with the prespecified error control.
+The results are therefore inconclusive, though the final likelihood
+ratio indicates that the data are 3.1 times more likely under <span class="math inline">\(H_1\)</span> than under <span class="math inline">\(H_0\)</span>. Note that a non-decision due to
+resource depletion does not constitute evidence for <span class="math inline">\(H_0\)</span>. The estimated effect size was <span class="math inline">\(d = 0.21\)</span> (95% CI <span class="math inline">\([-0.07, 0.49]\)</span>). A plot of the full
+likelihood progression is provided in Figure X.</p>
+</blockquote>
 </div>
 </div>
 <div class="section level2 unnumbered">
