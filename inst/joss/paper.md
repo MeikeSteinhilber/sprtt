@@ -62,14 +62,18 @@ The main focus of the package is on the core implementing sequential tests, but 
 
 *Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*
 
-While SPRTs are well-known in the statistical literature, they have rarely been implemented in research software and remain relatively unknown to many applied researchers [@steinhilber2024; @erdfelder2021].
-Due to the replication crisis [@opensciencecollaboration2015; @ioannidis2005; @bogdan2025] in empirical fields like psychology and medicine, statistical procedures have been scrutinized and new alternatives have gained attention.
-SPRTs have become increasingly popular in recent years, creating a need for accessible software implementations in the context of simulation studies and practical applications [@schnuerch2020; @stefan2022; @steinhilber2024].
-Critically, sequential testing directly addresses one of the most pressing demands in empirical research: the need to minimize resource expenditure and participant burden without sacrificing statistical rigor.
+Due to the replication crisis [@opensciencecollaboration2015; @ioannidis2005; @bogdan2025] in empirical fields like psychology and medicine, statistical procedures have been scrutinized and new alternatives have gained attention [XXX].
+Sequential testing methods have become increasingly popular in recent years as they directly address one of the most pressing demands in empirical research: the need to minimize resource expenditure and participant burden without sacrificing statistical rigor [@schnuerch2020; @stefan2022; @steinhilber2024].
 This is relevant across all empirical research, and particularly vital in clinical and applied settings where continued data collection can carry real ethical costs.
-The `sprtt`package was first published on CRAN in 2021 and has since been downloaded more than 13,000 times [@steinhilber2023a], and has been used in multiple methodological and applied papers [@schubert2025a; @quevedoputter2022; @steinhilber2024; @steinhilber2025].
+Among sequential testing procedures, SPRTs are theoretically well-established [@wald1947; @erdfelder2021; XXX], and specific variants for the statistical tests commonly used in psychological research — such as the sequential *t*-test and sequential ANOVA — have recently been formally validated in simulation studies [@schnuerch2020; @steinhilber2024].
+However, to our knowledge, no dedicated and maintained software implementation of these specific variants existed prior to the `sprtt` package, with the exception of a bare R script provided alongside the original methodological work [@schnuerch2020].
+Translating promising statistical methods into accessible, user-friendly, and open-source software is therefore essential for closing the gap between methodological development and adoption in practice.
+
+![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads.png)
+
+The `sprtt` package was first published on CRAN in 2021 and has since accumulated close to 13,000 downloads, averaging approximately 200 downloads per month in the 12 months preceding March 2026 [@steinhilber2023a].
+The package has been used in applied research [@quevedoputter2022] and methodological and simulation studies [@steinhilber2024; @steinhilber2025], and cited in work on reporting practices [@schubert2025a].
 The target audience includes applied researchers using SPRT variants in their empirical work, as well as methodologists conducting simulation studies to gain further insights into the properties of SPRTs.
-Translating promising statistical methods into accessible, user-friendly, and open-source software is essential for closing the gap between methodological development and adoption in practice.
 
 # State of the field                                                                                                                  
 *A description of how this software compares to other commonly-used packages in the research area. If related tools exist, provide a clear “build vs. contribute” justification explaining your unique scholarly contribution and why existing alternatives are insufficient.*
