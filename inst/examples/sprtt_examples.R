@@ -23,8 +23,6 @@ data <- sprtt::draw_sample_normal(k_groups = 3,
                                   f = 0.15,
                                   sd = c(1, 1, 1),
                                   max_n = 46)
-# look at the data
-head(data)
 
 # calculate sequential ANOVA --------------------------------------------------
 results <- sprtt::seq_anova(y ~ x, f = 0.15, data = data, plot = TRUE)

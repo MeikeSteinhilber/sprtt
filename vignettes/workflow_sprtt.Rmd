@@ -202,6 +202,31 @@ The following test are currently implemented:
 
 ### 5. Reporting of the results
 
-Guidelines for the reporting of SPRTs can be found in the paper of @schubert2025 that also explicitly covers sequential testing and specifically SPRTs .
+Guidelines for the reporting of SPRTs can be found in the paper of @schubert2025 that also explicitly covers sequential testing and specifically SPRTs.
+
+A complete SPRT report should include: the specific variant of the SPRT used (e.g., sequential *t*-test), the $\alpha$ and $\beta$ levels, the effect size or other parameters specifying the alternative hypothesis, the starting point of the SPRT (the sample size at the first look), the final sample size when data collection was stopped, the final likelihood ratio, a plot showing the full likelihood progression across all looks, and an effect size estimate with confidence interval [@schubert2025].
+Note that effect size estimates in sequential designs are often biased and should be interpreted with caution.
+
+**Example report --- decision reached ($H_1$ accepted):**
+
+> We preregistered a sequential *t*-test [@wald1945; @schnuerch2020] with error probabilities $\alpha = .05$ and $\beta = .05$, and a minimum effect size of interest of $d = 0.5$.
+The first look took place at $n = 5$ per group.
+Data collection stopped at $N = 48$ (24 per group) when the likelihood ratio crossed the upper decision boundary ($LR_{48} = 21.3 > B = 19$), providing sufficient evidence to accept $H_1$.
+The estimated effect size was $d = 0.61$ (95% CI [0.21, 1.00]).
+A plot of the full likelihood progression is provided in Figure X.
+All materials and the preregistration are available at [OSF link].
+
+**Example report --- $N_{max}$ reached (non-decision):**
+
+> We preregistered a sequential *t*-test [@wald1945; @schnuerch2020] with error probabilities $\alpha = .05$ and $\beta = .05$, a minimum effect size of interest of $d = 0.5$, and a maximum sample size of $N_{max} = 200$ (100 per group).
+The first look took place at $n = 4$ per group.
+Data collection stopped upon reaching $N_{max} = 200$ without the likelihood ratio crossing either decision boundary ($LR_{200} = 3.1$; lower boundary $A = 1/19$, upper boundary $B = 19$).
+This constitutes a non-decision: the accumulated evidence was insufficient to accept either $H_0$ or $H_1$ with the prespecified error control.
+The results are therefore inconclusive, though the final likelihood ratio 
+indicates that the data are 3.1 times more likely under $H_1$ 
+than under $H_0$.
+Note that a non-decision due to resource depletion does not constitute evidence for $H_0$.
+The estimated effect size was $d = 0.21$ (95% CI $[-0.07, 0.49]$).
+A plot of the full likelihood progression is provided in Figure X.
 
 ## References

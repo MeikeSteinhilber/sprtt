@@ -396,7 +396,7 @@ The actual final sample size in any study may differ substantially from the foll
 | $k$ | Number of groups  |
 | $N$ | Sample size  |
 | $N_{\text{max}}$ | The maximum sample size when the researcher stops collecting data independent of the test decision. This sample size is only reached in the worst-case scenario. |
-| $N_{\text{median}}$ | The median sample size at which a decision is reached across simulations. In a single study, the required sample size is expected to be close to this value.|
+| $N_{\text{median}}$ | The median sample size at which a decision is reached across simulations: 50% of simulated studies required fewer observations and 50% required more.|
 
 
 ### Content
@@ -426,7 +426,7 @@ The analyses below use the following specifications:
  
  - decision rate = `r pick_decision_rate*100`%
  
-<br>
+<br><br><br>
 
 ## I. Influence of $f_{\text{exp}}$ {#chapter-1}
 
@@ -596,9 +596,9 @@ if (pick_f_expected == 0.10){
 It is recommended to set $f_{\text{exp}}$ to the **minimum effect of interest**: power declines quickly for effects smaller than $f_{\text{exp}}$, whereas choosing a much larger $f_{\text{exp}}$ may shorten data collection but risks missing practically relevant effects just below that value.
 :::
 
-<br><br>
 
 
+<br><br><br>
 
 ## II. Sample size recommendations {#chapter-2}
 
@@ -917,6 +917,7 @@ We generally recommend maintaining a low $\beta$ and accepting a lower decision 
 Low error rates combined with a lower decision rate ensure that when the procedure reaches a decision, the result is trustworthy due to strict long-run error control.
 Importantly, non-decisions preserve flexibility: as long as no decision has been reached, data collection can continue if additional resources become available.
 
+<br><br><br>
 
 ## III. Extended insights {#chapter-3}
 
@@ -933,14 +934,11 @@ pick_f_simulated = c(0,
 <!-- ### Required sample sizes {#extended-violin .toc-only} -->
 
 This violin plot shows the distribution of required sample sizes $n$ across simulations for different assumed true effects $f_{\text{true}}$.
-Each violin summarizes how often a given $n$ occurred.
+The violin colors indicate whether the test controls the error rates reliably at a given setting.
 
-The violin colors indicate whether the test achieves the target power at each true effect.
+  - **Green** marks settings where $f_{\text{true}} \geq f_{\text{exp}}$ (or $f_{\text{true}} = 0$), at which the test reliably controls the error rates.
 
-  - **Green** marks settings where $f_{\text{true}} \geq f_{\text{exp}}$ (or $f_{\text{true}} = 0$); at these settings the test reaches the target power $1-\beta$ = `r pick_power`.
-  
-  - **Red** marks settings where power falls short, so such effects would often not be detected with the specified power `r pick_power`. If `f_expected = 0.1` is selected, no red violin is shown as it is outside of the simulated scope.
-
+  - **Red** marks settings where the $f_{\text{true}} < f_{\text{exp}}$ (and $f_{\text{true}} \neq 0$), at which the test no longer reliably controls the error rates and such effects would often go undetected. This is analogous to an underpowered fixed design: the test was not designed for effects this small, and it is not clear what the correct decision would be in such cases. (If `f_expected = 0.1` is selected, no red violin is shown in the plot below as it is outside of the simulated scope.)
 
 The red diamond marks the fixed sample size from an a priori power analysis, and the blue square shows the mean sample size observed across simulations.
 
@@ -959,8 +957,8 @@ p_violin <- df_all %>%
   mutate(
     f_simulated = factor(f_simulated, levels = sort(unique(pick_f_simulated))),
     fill_label = ifelse(f_simulated == pick_f_expected - 0.05,
-                        "not enough power",
-                        "enough power")
+                        "error rates not controlled",
+                        "error rates controlled")
   ) %>%
   filter(
     f_expected == pick_f_expected,
@@ -981,8 +979,8 @@ p_violin <- df_all %>%
   ) +
   scale_fill_manual(
     name = "Power",
-    values = c("enough power" = light_green,
-               "not enough power" = light_red)
+    values = c("error rates controlled" = light_green,
+               "error rates not controlled" = light_red)
   ) +
   
   # red diamond = fixed sample size
@@ -1048,6 +1046,9 @@ p_violin
 
 
 <!-- ### Summary table {#extended-table .toc-only} -->
+
+Extended numeric details are shown in the table below.
+Here you can also see the influence of the required sample sizes for different decision rates.
 
 ```{r}
 num_cols <- c("f_simulated", "decision_error_rate")
@@ -1118,7 +1119,7 @@ table_cases %>%
 
 <!-- ### Sequential vs fixed design -->
 
-<br><br>
+<br><br><br><br>
 
 ### Plot: Sample size and varing $f_{\text{exp}}$ {#sample-size-diff .toc-only}
 
@@ -1200,7 +1201,7 @@ p_violin
 ```
 
 
-<br><br>
+<br><br><br><br>
 
 ### Plot: Cumulative decisions {#extended-cumulative .toc-only}
 

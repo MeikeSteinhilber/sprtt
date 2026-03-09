@@ -29,20 +29,15 @@ bibliography: references.bib
 *A description of the high-level functionality and purpose of the software for a diverse, non-specialist audience.*
 
 
-The `sprtt` package provides a toolbox for Sequential Probability Ratio Tests (SPRTs), implementing modern variants including sequential *t*-tests and sequential ANOVA for applied research and methodological investigations.
-Statistical hypothesis testing based on the Neyman-Pearson framework [-@neyman1933] controls long-run error rates across repeated experiments: the $\alpha$ level defines the upper boundary for Type I errors (false positives) and $\beta$ defines the upper boundary for Type II errors (false negatives).
-Traditional fixed sample designs determine the required sample size $N$ before data collection begins based on the expected effect size.
-This approach has an obvious limitation: evidence accumulating during data collection cannot influence the decision to stop.
-If the true effect is larger than expected, the fixed sample design collects more data than necessary.
-Abraham Wald's Sequential Probability Ratio Test [-@wald1945;-@wald1947] addresses this inefficiency by allowing continuous evaluation of evidence during data collection.
-SPRTs maintain the same error rate control as fixed sample designs but permit stopping as soon as sufficient evidence accumulates for either accepting or rejecting the null hypothesis.
-This sequential approach reduces required sample sizes by 50% or more on average compared to fixed sample alternatives [@wald1945;@steinhilber2024;@schnuerch2020].
-While Wald's original SPRTs were constructed for simple hypotheses, newer variants extend these methods to composite hypotheses through sequential *t*-tests and sequential ANOVA.
-These extensions are essential for fields like psychology and medicine where composite hypotheses are often standard.
-However, Wald's mathematical proofs apply only to simple hypothesis tests, making simulation studies crucial for investigating the efficiency and error rate control of these newer variants.
+The `sprtt` package provides a toolbox for Sequential Probability Ratio Tests (SPRTs), implementing modern variants including sequential *t*-tests and sequential ANOVA for applied and methodological research. 
+While traditional fixed sample designs require researchers to commit to a sample size before data collection begins, SPRTs allow continuous evaluation of evidence and permit stopping as soon as sufficient evidence has accumulated to accept or reject the null hypothesis -- all while maintaining the same long-run Type I and Type II error rate control as Neyman-Pearson fixed sample designs.
+This sequential approach reduces required sample sizes by 50% or more on average compared to fixed sample alternatives [@wald1945].
 
-The `sprtt` package is closely linked to current methodological research, implementing new SPRT procedures after they have demonstrated good performance in extensive simulations.
-The main focus of the package is on the core sequential tests themselves, but it also provides helper functions for sample size planning and visualization to facilitate the adoption of SPRTs in applied research.
+Wald's original SPRTs were constructed for simple hypotheses, but newer variants extend these methods to composite hypotheses through sequential *t*-tests and sequential ANOVA -- designs that are standard in fields like psychology and medicine.
+Because Wald's mathematical proofs do not directly apply to these extensions, their error rate control and efficiency cannot be guaranteed analytically [@wald1945; @schnuerch2020].
+In practice, error rate control is approximate and has been validated through extensive simulation studies under a range of conditions [@schnuerch2020; @steinhilber2024; @stefan2022].
+Despite the long history of SPRTs, the `sprtt` package is the first to provide accessible software implementations for both sequential *t*-tests [@rushton1950; @hajnal1961] and sequential ANOVA [@wetherill1986; @steinhilber2024].
+The package implements these validated procedures and additionally provides example datasets, data generating functions, sample size planning, and visualization tools to facilitate the adoption of SPRTs in applied research.
 
 # Statement of need and research impact
 
