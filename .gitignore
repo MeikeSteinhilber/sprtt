@@ -52,3 +52,5 @@ doc
 Meta
 /doc/
 /Meta/
+revdep/
+test_ANOVA.R

@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 The sequential one-way fixed effects ANOVA is a sequential hypothesis test based on the Sequential Probability Ratio Test (SPRT) framework [@wald1947].
 It extends SPRTs to the comparison of two or more independent groups and can be used as an efficient alternative to the classical fixed-sample one-way ANOVA.
 For detailed information, see @steinhilber2024.
-For a general introduction to SPRTs, see the vignette `vignette("sprts")`.
+For a general introduction to SPRTs, see the vignette `vignette("sprt")`.
 
 **Note:** The repeated measures ANOVA is not yet implemented in the `sprtt` package.
 
