@@ -26,41 +26,26 @@ bibliography: references.bib
 ---
 
 # Summary
-*A description of the high-level functionality and purpose of the software for a diverse, non-specialist audience.*
+[//]: # (*A description of the high-level functionality and purpose of the software for a diverse, non-specialist audience.*)
 
- # shorter variant
 The `sprtt` package provides a toolbox for Sequential Probability Ratio Tests (SPRTs), implementing modern variants including sequential *t*-tests and sequential ANOVA for applied and methodological research. 
-While traditional fixed sample designs require researchers to commit to a sample size before data collection begins, SPRTs allow continuous evaluation of evidence and permit stopping as soon as sufficient evidence has accumulated to accept or reject the null hypothesis -- all while maintaining the same long-run Type I and Type II error rate control as Neyman-Pearson fixed sample designs.
-This sequential approach reduces required sample sizes by 50% or more on average compared to fixed sample alternatives [@wald1945].
+While traditional fixed-sample designs require researchers to commit to a predetermined sample size, SPRTs enable continuous evidence evaluation with predefined stopping rules — terminating data collection as soon as evidence crosses a threshold for rejecting or accepting the null hypothesis.
+Crucially, this flexibility comes without inflating long-run Type I and Type II error rates beyond the levels specified in advance.
+On average, this sequential approach requires 50% fewer observations than a comparable Neyman-Pearson fixed-sample design [@wald1945].
 
 Wald's original SPRTs were constructed for simple hypotheses, but newer variants extend these methods to composite hypotheses through sequential *t*-tests and sequential ANOVA -- designs that are standard in fields like psychology and medicine.
+[XXX needs to be checked again!]
 Because Wald's mathematical proofs do not directly apply to these extensions, their error rate control and efficiency cannot be guaranteed analytically [@wald1945; @schnuerch2020].
 In practice, error rate control is approximate and has been validated through extensive simulation studies under a range of conditions [@schnuerch2020; @steinhilber2024; @stefan2022].
 Despite the long history of SPRTs, the `sprtt` package is the first to provide accessible software implementations for both sequential *t*-tests [@rushton1950; @hajnal1961] and sequential ANOVA [@wetherill1986; @steinhilber2024].
 The package implements these validated procedures and additionally provides example datasets, data generating functions, sample size planning, and visualization tools to facilitate the adoption of SPRTs in applied research.
 
 
-# longer variant
-The `sprtt` package provides a toolbox for Sequential Probability Ratio Tests (SPRTs), implementing modern variants including sequential *t*-tests and sequential ANOVA for applied research and methodological investigations.
-Statistical hypothesis testing based on the Neyman-Pearson framework [-@neyman1933a] controls long-run error rates across repeated experiments: the $\alpha$ level defines the upper boundary for Type I errors (false positives) and $\beta$ defines the upper boundary for Type II errors (false negatives).
-Traditional fixed sample designs determine the required sample size $N$ before data collection begins based on the expected effect size.
-This approach has an obvious limitation: evidence accumulating during data collection cannot influence the decision to stop.
-If the true effect is larger than expected, the fixed sample design collects more data than necessary.
-Abraham Wald's Sequential Probability Ratio Test [-@wald1945;-@wald1947] addresses this inefficiency by allowing continuous evaluation of evidence during data collection.
-SPRTs maintain the same error rate control as fixed sample designs but permit stopping as soon as sufficient evidence accumulates for either accepting or rejecting the null hypothesis.
-This sequential approach reduces required sample sizes by 50% or more on average compared to fixed sample alternatives [@wald1945;@steinhilber2024;@schnuerch2020].
-While Wald's original SPRTs were constructed for simple hypotheses, newer variants extend these methods to composite hypotheses through sequential *t*-tests and sequential ANOVA.
-These extensions are essential for fields like psychology and medicine where composite hypotheses are often standard [@steinhilber2024;@schnuerch2020].
-However, Wald's mathematical proofs apply only to simple hypothesis tests, making simulation studies crucial for investigating the efficiency and error rate control of these newer variants.
-Thus, the `sprtt` package is closely linked to current methodological research [@steinhilber2024;@schnuerch2020; @steinhilber2025], implementing new SPRT procedures after they have demonstrated good performance in extensive simulations.
-The main focus of the package is on the core implementing sequential tests, but it also provides example data sets, data generating functions, functions for sample size planning and visualization to facilitate the adoption of SPRTs in applied research.
-
-
 # Statement of need and research impact
 
-*A section that clearly illustrates the research purpose of the software and places it in the context of related work. This should clearly state what problems the software is designed to solve, who the target audience is, and its relation to other work.*
+[//]: # (*A section that clearly illustrates the research purpose of the software and places it in the context of related work. This should clearly state what problems the software is designed to solve, who the target audience is, and its relation to other work.*)
 
-*Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*
+[//]: # (*Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*)
 
 Due to the replication crisis [@opensciencecollaboration2015; @ioannidis2005; @bogdan2025] in empirical fields like psychology and medicine, statistical procedures have been scrutinized and new alternatives have gained attention [XXX].
 Sequential testing methods have become increasingly popular in recent years as they directly address one of the most pressing demands in empirical research: the need to minimize resource expenditure and participant burden without sacrificing statistical rigor [@schnuerch2020; @stefan2022; @steinhilber2024].
@@ -69,14 +54,14 @@ Among sequential testing procedures, SPRTs are theoretically well-established [@
 However, to our knowledge, no dedicated and maintained software implementation of these specific variants existed prior to the `sprtt` package, with the exception of a bare R script provided alongside the original methodological work [@schnuerch2020].
 Translating promising statistical methods into accessible, user-friendly, and open-source software is therefore essential for closing the gap between methodological development and adoption in practice.
 
-![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads.png)
-
 The `sprtt` package was first published on CRAN in 2021 and has since accumulated close to 13,000 downloads, averaging approximately 200 downloads per month in the 12 months preceding March 2026 [@steinhilber2023a].
-The package has been used in applied research [@quevedoputter2022] and methodological and simulation studies [@steinhilber2024; @steinhilber2025], and cited in work on reporting practices [@schubert2025a].
+The package has been used in applied research [@quevedoputter2022], simulation studies [@steinhilber2024; @steinhilber2025], and has been referenced in methodological work [@schubert2025a; fischer2025].
 The target audience includes applied researchers using SPRT variants in their empirical work, as well as methodologists conducting simulation studies to gain further insights into the properties of SPRTs.
 
+![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads.png)
+
 # State of the field                                                                                                                  
-*A description of how this software compares to other commonly-used packages in the research area. If related tools exist, provide a clear “build vs. contribute” justification explaining your unique scholarly contribution and why existing alternatives are insufficient.*
+[//]: # (*A description of how this software compares to other commonly-used packages in the research area. If related tools exist, provide a clear “build vs. contribute” justification explaining your unique scholarly contribution and why existing alternatives are insufficient.*)
 
 The landscape of sequential testing software is sparse.
 Beyond R, no established software packages for SPRTs appear to exist, though several major technology companies including Netflix, Uber, and Spotify have either published on SPRTs or stated their use, suggesting that proprietary implementations exist in industry [@bibaut2024].
@@ -86,23 +71,42 @@ The `sprtt` package fills this gap directly.
 
 # Software design
 
-*An explanation of the trade-offs you weighed, the design/architecture you chose, and why it matters for your research application. This should demonstrate meaningful design thinking beyond a superficial code structure description.*
+[//]: # (*An explanation of the trade-offs you weighed, the design/architecture you chose, and why it matters for your research application. This should demonstrate meaningful design thinking beyond a superficial code structure description.*)
 
-The sprtt package is built around two main user-facing functions: `seq_ttest()` and `seq_anova()`.
+The sprtt package is built around two main user-facing functions:
+`seq_ttest()` and `seq_anova()`.
 The `seq_ttest()` function implements the sequential *t*-test and deliberately mirrors the interface of the `t.test()` function from the `stats` package to ensure familiarity for R users.
 The `seq_anova()` function follows a similar design philosophy, maintaining consistency across the package's interface.
 
+## Design principle
+
 The core design principle is modularity: each internal function should perform one task well.
 This approach emphasizes simplicity, testability, clear structure, and minimal code repetition.
-The internal architecture is documented in more detail in the developer vignette.
+The internal architecture of the core functions are documented in more detail in the developer vignette.
 
 While the primary focus remains on implementing well-tested SPRT variants with proven efficiency and error rate control, the package continuously expands its functionality to improve user experience.
 Supporting features include example datasets, data simulation functions, visualization tools for sequential ANOVA results, and sample size planning for sequential ANOVA.
-The `lifecycle` package is used throughout to clearly communicate the maturity status of each function, distinguishing stable implementations from more experimental features.
+The `lifecycle` package is used throughout to clearly communicate the maturity status of each function — an important consideration for research software where interface stability directly affects reproducibility.
+The core functions `seq_ttest()`, `seq_anova()`, and the data simulation utilities are stable: we commit to not introducing silent breaking changes to these functions.
+Where changes are unavoidable, users will be informed through deprecation warnings and messaging well in advance.
+Newer additions, including the visualization tools and the sample size planning function, are marked as experimental, reflecting that their interfaces may still undergo substantial revisions as they mature.
 
-The sample size planning function generates an HTML guide based on extensive simulation data.
-To manage computational efficiency, this simulation dataset is maintained in a separate GitHub repository and downloaded on demand (https://github.com/MeikeSteinhilber/sprtt_plan_sample_size).
-A set of helper functions allows users to access, download, or clear this cached data as needed.
+A concrete illustration of why this distinction matters is the plot function for `seq_ttest()`.
+Mirroring the `t.test()` interface was a deliberate choice to lower the barrier to adoption, but as the package grew, a complication emerged: the wide variety of input formats accepted by `t.test()` has so far prevented the implementation of a consistent plot function for `seq_ttest()` — a feature that already exists for `seq_anova()` and is planned for a future release.
+Resolving this may require interface adjustments to `seq_ttest()`, which will be handled through the deprecation-with-messaging approach rather than silent breaking changes.
+
+
+## External data
+
+Sample size planning for sequential tests cannot be derived analytically and instead requires extensive Monte Carlo simulations to characterize sampling behavior across a wide range of parameter combinations.
+The `plan_sample_size()` function addresses this by generating an HTML report based on a pre-computed simulation dataset covering multiple effect sizes, group sizes, and Type II error rates — each estimated from 10,000 replications per condition, run on a high-performance computing cluster.
+Pre-computing this dataset offers several advantages over on-demand simulation: recommendations are returned instantly, all users access identical results ensuring reproducibility, and redundant computation across research groups is avoided.
+The trade-off is that the lookup table only covers pre-specified parameter combinations; users with highly custom scenarios are directed to the simulation functions to generate their own estimates.
+
+However, the comprehensive nature of these simulations produces a dataset too large to bundle directly with the package under CRAN size constraints.
+To resolve this tension, the simulation dataset is maintained in a separate GitHub repository (https://github.com/MeikeSteinhilber/sprtt_plan_sample_size) and downloaded on demand, after which it is cached locally to avoid repeated downloads.
+This separation also serves a transparency purpose: the full simulation pipeline — including the hierarchical SLURM scripts used for cluster execution — is publicly available for inspection and verification.
+To give users direct control over this external dependency, the sprtt package includes dedicated helper functions (`download_sample_size_data()`, `cache_info()`, `cache_clear()`) for manually downloading, inspecting, and clearing the locally cached dataset.
 
 # Software documentation
 
@@ -114,7 +118,7 @@ Finally, further topics are addressed in vignettes on sample size planning and a
 
 # AI usage disclosure
 
-*Transparent disclosure of any use of generative AI in the software creation, documentation, or paper authoring. If no AI tools were used, state this explicitly. If AI tools were used, describe how they were used and how the quality and correctness of AI-generated content was verified.*
+[//]: # (*Transparent disclosure of any use of generative AI in the software creation, documentation, or paper authoring. If no AI tools were used, state this explicitly. If AI tools were used, describe how they were used and how the quality and correctness of AI-generated content was verified.*)
 
 The core `sprtt` implementation, all architectural decisions, and the research contributions are original human intellectual work.
 Development began in February 2021 and predates the widespread availability of modern AI-assisted programming tools, with the majority of the codebase written without AI assistance (CRAN releases: August 2021 and July 2023).
