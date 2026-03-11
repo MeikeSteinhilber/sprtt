@@ -413,41 +413,48 @@ procedures and additionally provides example datasets, data generating
 functions, sample size planning, and visualization tools to facilitate
 the adoption of SPRTs in applied research.</p>
 </div>
-<div id="statement-of-need-and-research-impact" class="section level1">
-<h1>Statement of need and research impact</h1>
+<div id="statement-of-need" class="section level1">
+<h1>Statement of need</h1>
 <p>Due to the replication crisis <span class="citation">(Open Science
 Collaboration 2015; Ioannidis 2005; Bogdan 2025)</span> in empirical
 fields like psychology and medicine, statistical procedures have been
-scrutinized and new alternatives have gained attention [XXX]. Sequential
-testing methods have become increasingly popular in recent years as they
-directly address one of the most pressing demands in empirical research:
-the need to minimize resource expenditure and participant burden without
-sacrificing statistical rigor <span class="citation">(Schnuerch and
-Erdfelder 2020; Stefan et al. 2022; Steinhilber, Schnuerch, and Schubert
-2024)</span>. This is relevant across all empirical research, and
-particularly vital in clinical and applied settings where continued data
-collection can carry real ethical costs. Among sequential testing
-procedures, SPRTs are theoretically well-established [<span class="citation">Wald (1947)</span>; <span class="citation">Erdfelder
-and Schnuerch (2021)</span>; XXX], and specific variants for the
-statistical tests commonly used in psychological research — such as the
-sequential <em>t</em>-test and sequential ANOVA — have recently been
-formally validated in simulation studies <span class="citation">(Schnuerch and Erdfelder 2020; Steinhilber, Schnuerch,
-and Schubert 2024)</span>. However, to our knowledge, no dedicated and
-maintained software implementation of these specific variants existed
-prior to the <code>sprtt</code> package, with the exception of a bare R
-script provided alongside the original methodological work <span class="citation">(Schnuerch and Erdfelder 2020)</span>. Translating
-promising statistical methods into accessible, user-friendly, and
-open-source software is therefore essential for closing the gap between
-methodological development and adoption in practice.</p>
+scrutinized and new alternatives have gained attention <span class="citation">(Cumming 2014; Daniël Lakens, Scheel, and Isager 2018;
+Wagenmakers et al. 2018)</span>. Sequential testing methods have become
+increasingly popular in recent years as they directly address one of the
+most pressing demands in empirical research: the need to minimize
+resource expenditure and participant burden without sacrificing
+statistical rigor <span class="citation">(Schnuerch and Erdfelder 2020;
+Steinhilber, Schnuerch, and Schubert 2024; Ly et al. 2025; Daniel
+Lakens, Pahlke, and Wassmer 2021; Erdfelder and Schnuerch 2021)</span>.
+This is relevant across all empirical research, and particularly vital
+in clinical and applied settings where continued data collection can
+carry real ethical costs. Among sequential testing procedures, SPRTs are
+well-established <span class="citation">(Wald 1947; Siegmund 1985;
+Bartroff, Lai, and Shih 2012; Tartakovsky, Nikiforov, and Basseville
+2014)</span>, and specific variants for the statistical tests commonly
+used in psychological research — such as the sequential <em>t</em>-test
+and sequential ANOVA — have recently been formally validated in
+simulation studies <span class="citation">(Schnuerch and Erdfelder 2020;
+Steinhilber, Schnuerch, and Schubert 2024)</span>. However, to our
+knowledge, no dedicated and maintained software implementation of these
+specific variants existed prior to the <code>sprtt</code> package, with
+the exception of a bare R script provided alongside the original
+methodological work <span class="citation">(Schnuerch and Erdfelder
+2020)</span>. Translating promising statistical methods into accessible,
+user-friendly, and open-source software is therefore essential for
+closing the gap between methodological development and adoption in
+practice.</p>
+</div>
+<div id="research-impact" class="section level1">
+<h1>Research impact</h1>
 <p>The <code>sprtt</code> package was first published on CRAN in 2021
 and has since accumulated close to 13,000 downloads, averaging
 approximately 200 downloads per month in the 12 months preceding March
 2026 <span class="citation">(Steinhilber, Schnuerch, and Schubert
 2023)</span>. The package has been used in applied research <span class="citation">(Quevedo Pütter and Erdfelder 2022)</span>, simulation
 studies <span class="citation">(Steinhilber, Schnuerch, and Schubert
-2024, 2025)</span>, and has been referenced in methodological work
-[<span class="citation">Schubert et al. (2025)</span>; fischer2025]. The
-target audience includes applied researchers using SPRT variants in
+2024, 2025)</span>, and has been referenced in methodological work <span class="citation">(Schubert et al. 2025; Fischer and Ramdas 2025)</span>.
+The target audience includes applied researchers using SPRT variants in
 their empirical work, as well as methodologists conducting simulation
 studies to gain further insights into the properties of SPRTs.</p>
 <div class="float">
@@ -461,26 +468,46 @@ months.</div>
 </div>
 <div id="state-of-the-field" class="section level1">
 <h1>State of the field</h1>
-<p>The landscape of sequential testing software is sparse. Beyond R, no
-established software packages for SPRTs appear to exist, though several
-major technology companies including Netflix, Uber, and Spotify have
-either published on SPRTs or stated their use, suggesting that
-proprietary implementations exist in industry <span class="citation">(Bibaut, Kallus, and Lindon 2024)</span>. In R the
-package <code>SPRT</code> implements Wald’s original sequential test for
-simple hypotheses, the <code>gsDesign</code> package provides a
-<code>binomialSPRT()</code> function for truncated binomial SPRTs, and
-the <code>MSPRT</code> and the <code>Sequential</code> packages cover a
+<p>The landscape of sequential testing software is sparse. Beyond R,
+very view software packages appear to exist, though several major
+technology companies including Netflix, Uber, and Spotify have either
+published on sequential testing and SPRT variants or stated their use,
+suggesting that proprietary implementations may exist in industry <span class="citation">(Bibaut, Kallus, and Lindon 2024; Schultzberg and
+Ankargren 2023; Deb et al. 2018)</span>. The only Python implementation,
+the <code>sprt</code> package on PyPI <span class="citation">(Yu
+2017)</span>, covers Wald’s SPRT for Normal, Binomial, and Poisson
+distributions but has not been updated since its initial release in 2017
+and lacks documentation. No SPRT implementations seem to exist in Julia.
+A JavaScript library for sequential generalized likelihood ratio tests
+<code>SeGLiR</code> <span class="citation">(Øygard 2014)</span> targets
+browser-based A/B testing rather than scientific research, does not
+implement the frequentist SPRT for continuous outcomes, and has not been
+maintained since 2017. JASP <span class="citation">(Love et al.
+2019)</span>, a free and open-source application, implements sequential
+hypothesis testing <span class="citation">(Schönbrodt et al.
+2017)</span>, which monitors a Bayes factor rather than a likelihood
+ratio and requires the specification of prior distributions. Beyond the
+SPRT, anytime-valid inference has emerged as an alternative sequential
+testing framework, using e-values to guarantee validity at any sample
+size <span class="citation">(Ramdas et al. 2023; Grünwald, Heide, and
+Koolen 2023)</span> – current software implementations include the R
+package <code>safestats</code> <span class="citation">(Ly et al. 2024;
+Ly et al. 2025)</span> and the Python package <code>savvi</code> <span class="citation">(Assunção 2024)</span>, In R, the package
+<code>SPRT</code> <span class="citation">(Budihal 2025)</span>
+implements Wald’s original sequential tests for simple hypotheses, the
+<code>gsDesign</code> <span class="citation">(Anderson 2026)</span>
+package provides a function for truncated binomial SPRTs, and the
+<code>MSPRT</code> <span class="citation">(Pramanik, Johnson, and
+Bhattacharya 2020)</span> and <code>Sequential</code> <span class="citation">(Silva and Kulldorff 2025)</span> packages cover a
 variety of truncated SPRT variants. To our knowledge, no publicly
 available software implements sequential <em>t</em>-tests or sequential
-one-way ANOVA as described by <span class="citation">Schnuerch and
-Erdfelder (2020)</span> and <span class="citation">Steinhilber,
-Schnuerch, and Schubert (2024)</span>. The <code>sprtt</code> package
-fills this gap directly.</p>
+one-way ANOVA as described and validated by <span class="citation">Schnuerch and Erdfelder (2020)</span> and <span class="citation">Steinhilber, Schnuerch, and Schubert (2024)</span>. The
+<code>sprtt</code> package fills this gap directly.</p>
 </div>
 <div id="software-design" class="section level1">
 <h1>Software design</h1>
-<p>The sprtt package is built around two main user-facing functions:
-<code>seq_ttest()</code> and <code>seq_anova()</code>. The
+<p>The <code>sprtt</code> package is built around two main user-facing
+functions: <code>seq_ttest()</code> and <code>seq_anova()</code>. The
 <code>seq_ttest()</code> function implements the sequential
 <em>t</em>-test and deliberately mirrors the interface of the
 <code>t.test()</code> function from the <code>stats</code> package to
@@ -597,6 +624,27 @@ Psychology”.</p>
 <div id="references" class="section level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-anderson2026" class="csl-entry">
+Anderson, Keaven. 2026. <span>“gsDesign: <span>Group Sequential
+Design</span> <span><em>(</em></span><span><em>Version</em></span><span>
+<em>3.9.0) [</em></span><span><em>R
+Package</em></span><span><em>]</em></span>.”</span>
+https://CRAN.R-project.org/package=gsDesign.
+</div>
+<div id="ref-assuncao2024" class="csl-entry">
+Assunção, Luís. 2024. <span>“Savvi: <span>Safe Anytime Valid
+Inference</span>
+<span><em>(</em></span><span><em>Version</em></span><span> <em>0.3.1)
+[</em></span><span><em>Python
+Package</em></span><span><em>]</em></span>.”</span>
+https://pypi.org/project/savvi/.
+</div>
+<div id="ref-bartroff2012" class="csl-entry">
+Bartroff, Jay, Tze Leung Lai, and Mei-Chiung Shih. 2012. <em>Sequential
+<span>Experimentation</span> in <span>Clinical Trials</span>:
+<span>Design</span> and <span>Analysis</span></em>. Springer Science
+&amp; Business Media.
+</div>
 <div id="ref-bibaut2024" class="csl-entry">
 Bibaut, Aurelien, Nathan Kallus, and Michael Lindon. 2024.
 <span>“Near-<span>Optimal Non-Parametric Sequential Tests</span> and
@@ -609,11 +657,38 @@ Bogdan, Paul C. 2025. <span>“One <span>Decade Into</span> the
 Changed</span>?”</span> <em>Advances in Methods and Practices in
 Psychological Science</em> 8 (2): 25152459251323480. <a href="https://doi.org/10.1177/25152459251323480">https://doi.org/10.1177/25152459251323480</a>.
 </div>
+<div id="ref-budihal2025" class="csl-entry">
+Budihal, Huchesh. 2025. <span>“SPRT: <span>Sequential Probability Ratio
+Test Method</span>
+<span><em>(</em></span><span><em>Version</em></span><span> <em>1.1.0)
+[</em></span><span><em>R
+Package</em></span><span><em>]</em></span>.”</span>
+https://CRAN.R-project.org/package=SPRT.
+</div>
+<div id="ref-cumming2014" class="csl-entry">
+Cumming, Geoff. 2014. <span>“The New Statistics: <span>Why</span> and
+How.”</span> <em>Psychological Science</em> 25 (1): 7–29. <a href="https://doi.org/10.1177/0956797613504966">https://doi.org/10.1177/0956797613504966</a>.
+</div>
+<div id="ref-deb2018" class="csl-entry">
+Deb, Anirban, Suman Bhattacharya, Jeremy Gu, Tianxia Zhou, Eva Feng, and
+Mandie Liu. 2018. <span>“Under the <span>Hood</span> of
+<span>Uber</span>’s <span>Experimentation Platform</span>.”</span> Uber
+Engineering Blog. <a href="https://www.uber.com/en-EG/blog/xp/">https://www.uber.com/en-EG/blog/xp/</a>.
+</div>
 <div id="ref-erdfelder2021" class="csl-entry">
 Erdfelder, Edgar, and Martin Schnuerch. 2021. <span>“On the Efficiency
 of the Independent Segments Procedure: <span>A</span> Direct Comparison
 with Sequential Probability Ratio Tests.”</span> <em>Psychological
 Methods</em> 26 (4): 501–6. <a href="https://doi.org/10.1037/met0000404">https://doi.org/10.1037/met0000404</a>.
+</div>
+<div id="ref-fischer2025" class="csl-entry">
+Fischer, Lasse, and Aaditya Ramdas. 2025. <span>“Improving
+<span>Wald</span>’s (Approximate) Sequential Probability Ratio Test by
+Avoiding Overshoot.”</span> arXiv. <a href="https://doi.org/10.48550/arXiv.2410.16076">https://doi.org/10.48550/arXiv.2410.16076</a>.
+</div>
+<div id="ref-grunwald2023" class="csl-entry">
+Grünwald, Peter, Rianne de Heide, and Wouter Koolen. 2023. <span>“Safe
+<span>Testing</span>.”</span> arXiv. <a href="https://arxiv.org/abs/1906.07801">https://arxiv.org/abs/1906.07801</a>.
 </div>
 <div id="ref-hajnal1961" class="csl-entry">
 Hajnal, J. 1961. <span>“A Two-Sample Sequential t-Test.”</span>
@@ -623,16 +698,72 @@ Hajnal, J. 1961. <span>“A Two-Sample Sequential t-Test.”</span>
 Ioannidis, John P. A. 2005. <span>“Why Most Published Research Findings
 Are False.”</span> <em>PLoS Medicine</em> 2 (8): e124. <a href="https://doi.org/10.1371/journal.pmed.0020124">https://doi.org/10.1371/journal.pmed.0020124</a>.
 </div>
+<div id="ref-lakens2021b" class="csl-entry">
+Lakens, Daniel, Friedrich Pahlke, and Gernot Wassmer. 2021. <span>“Group
+Sequential Designs: <span>A</span> Tutorial.”</span> Preprint.
+<span>PsyArXiv</span>. <a href="https://doi.org/10.31234/osf.io/x4azm">https://doi.org/10.31234/osf.io/x4azm</a>.
+</div>
+<div id="ref-lakens2018" class="csl-entry">
+Lakens, Daniël, Anne M. Scheel, and Peder M. Isager. 2018.
+<span>“Equivalence <span>Testing</span> for <span>Psychological
+Research</span>: <span>A Tutorial</span>.”</span> <em>Advances in
+Methods and Practices in Psychological Science</em> 1 (2): 259–69. <a href="https://doi.org/10.1177/2515245918770963">https://doi.org/10.1177/2515245918770963</a>.
+</div>
+<div id="ref-love2019" class="csl-entry">
+Love, Jonathon, Ravi Selker, Maarten Marsman, Tahira Jamil, Damian
+Dropmann, Josine Verhagen, Alexander Ly, et al. 2019.
+<span>“<span>JASP</span>: Graphical Statistical Software for Common
+Statistical Designs.”</span> <em>Journal of Statistical Software</em> 88
+(2): 1–17. <a href="https://doi.org/10.18637/jss.v088.i02">https://doi.org/10.18637/jss.v088.i02</a>.
+</div>
+<div id="ref-ly2025" class="csl-entry">
+Ly, Alexander, Udo Boehm, Peter Grunwald, Aaditya Ramdas, and Don van
+Ravenzwaaij. 2025. <span>“A <span>Tutorial</span> on <span>Safe
+Anytime-Valid Inference</span>: <span>Practical Maximally Flexible
+Sampling Designs</span> for <span>Experiments Based</span> on
+e-<span>Values</span>.”</span> <em>PsyArXiv</em>. <a href="https://doi.org/10.31234/osf.io/h5vae">https://doi.org/10.31234/osf.io/h5vae</a>.
+</div>
+<div id="ref-ly2024" class="csl-entry">
+Ly, Alexander, Rosanne Turner, Judith ter Schure, Muriel Pérez-Ortiz,
+and Peter Grünwald. 2024. <span>“Safestats: <span>Safe Anytime-Valid
+Inference</span>
+<span><em>(</em></span><span><em>Version</em></span><span> <em>0.8.7)
+[</em></span><span><em>R
+Package</em></span><span><em>]</em></span>.”</span>
+https://CRAN.R-project.org/package=safestats.
+</div>
 <div id="ref-opensciencecollaboration2015" class="csl-entry">
 Open Science Collaboration. 2015. <span>“Estimating the Reproducibility
 of Psychological Science.”</span> <em>Science</em> 349 (6251):
 aac4716–16. <a href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a>.
+</div>
+<div id="ref-oygard2014" class="csl-entry">
+Øygard, Audun Mathias. 2014. <span>“SeGLiR: <span class="nocase">Javascript Library for Rapid A/B-Testing with Sequential
+Generalized Likelihood Ratio Tests</span>
+<span><em>(</em></span><span><em>Last Commit 2016</em></span><span><em>)
+[</em></span><span><em>JavaScript
+Package</em></span><span><em>]</em></span>.”</span>
+https://github.com/auduno/SeGLiR.
+</div>
+<div id="ref-pramanik2020" class="csl-entry">
+Pramanik, Sandipan, Valen E. Johnson, and Anirban Bhattacharya. 2020.
+<span>“MSPRT: <span>Modified Sequential Probability Ratio Test</span>
+<span><em>(</em></span><span><em>Version</em></span><span> <em>3.0)
+[</em></span><span><em>R
+Package</em></span><span><em>]</em></span>.”</span>
+https://CRAN.R-project.org/package=MSPRT.
 </div>
 <div id="ref-quevedoputter2022" class="csl-entry">
 Quevedo Pütter, J., and E. Erdfelder. 2022. <span>“Alcohol-Induced
 Retrograde Facilitation? <span>Mixed</span> Evidence in a Preregistered
 Replication and Encoding-Maintenance-Retrieval Analysis.”</span>
 <em>Experimental Psychology</em> 69 (6): 335–50. <a href="https://doi.org/10.1027/1618-3169/a000569">https://doi.org/10.1027/1618-3169/a000569</a>.
+</div>
+<div id="ref-ramdas2023" class="csl-entry">
+Ramdas, Aaditya, Peter Grünwald, Vladimir Vovk, and Glenn Shafer. 2023.
+<span>“Game-<span>Theoretic Statistics</span> and <span>Safe
+Anytime-Valid Inference</span>.”</span> <em>Statistical Science</em> 38
+(4): 576–601. <a href="https://doi.org/10.1214/23-STS894">https://doi.org/10.1214/23-STS894</a>.
 </div>
 <div id="ref-rushton1950" class="csl-entry">
 Rushton, S. 1950. <span>“On a Sequential t-Test.”</span>
@@ -644,10 +775,33 @@ Decision Errors with Minimal Costs: <span>The</span> Sequential
 Probability Ratio t Test.”</span> <em>Psychological Methods</em> 25 (2):
 206–26. <a href="https://doi.org/10.1037/met0000234">https://doi.org/10.1037/met0000234</a>.
 </div>
+<div id="ref-schonbrodt2017" class="csl-entry">
+Schönbrodt, Felix D., Eric-Jan Wagenmakers, Michael Zehetleitner, and
+Marco Perugini. 2017. <span>“Sequential Hypothesis Testing with
+<span>Bayes</span> Factors: <span>Efficiently</span> Testing Mean
+Differences.”</span> <em>Psychological Methods</em> 22 (2): 322–39. <a href="https://doi.org/10.1037/met0000061">https://doi.org/10.1037/met0000061</a>.
+</div>
 <div id="ref-schubert2025a" class="csl-entry">
 Schubert, Anna-Lena, Meike Steinhilber, Heemin Kang, and Daniel S.
 Quintana. 2025. <span>“Improving Statistical Reporting in
 Psychology.”</span> <em>Communications Psychology</em> 3 (1): 156.
+</div>
+<div id="ref-schultzberg2023" class="csl-entry">
+Schultzberg, Mårten, and Sebastian Ankargren. 2023. <span>“Choosing a
+<span>Sequential Testing Framework</span> — <span>Comparisons</span> and
+<span>Discussions</span>.”</span> Spotify Engineering Blog. <a href="https://engineering.atspotify.com/2023/03/choosing-sequential-testing-framework-comparisons-and-discussions">https://engineering.atspotify.com/2023/03/choosing-sequential-testing-framework-comparisons-and-discussions</a>.
+</div>
+<div id="ref-siegmund1985" class="csl-entry">
+Siegmund, David. 1985. <em>Sequential <span>Analysis</span></em>.
+Springer <span>Series</span> in <span>Statistics</span>. New York, NY:
+Springer. <a href="https://doi.org/10.1007/978-1-4757-1862-1">https://doi.org/10.1007/978-1-4757-1862-1</a>.
+</div>
+<div id="ref-silva2025" class="csl-entry">
+Silva, Ivair Ramos, and Martin Kulldorff. 2025. <span>“Sequential: <span class="nocase">Exact Sequential Analysis for Poisson and Binomial
+Data</span> <span><em>(</em></span><span><em>Version</em></span><span>
+<em>4.5.2) [</em></span><span><em>R
+Package</em></span><span><em>]</em></span>.”</span>
+https://CRAN.R-project.org/package=Sequential.
 </div>
 <div id="ref-stefan2022" class="csl-entry">
 Stefan, Angelika M., Felix D. Schönbrodt, Nathan J. Evans, and Eric-Jan
@@ -656,10 +810,13 @@ Wagenmakers. 2022. <span>“Efficiency in Sequential Testing:
 Sequential <span>Bayes</span> Factor Test.”</span> <em>Behavior Research
 Methods</em> 54 (6): 3100–3117. <a href="https://doi.org/10.3758/s13428-021-01754-8">https://doi.org/10.3758/s13428-021-01754-8</a>.
 </div>
-<div id="ref-steinhilber2023a" class="csl-entry">
+<div id="ref-steinhilber2023" class="csl-entry">
 Steinhilber, Meike, Martin Schnuerch, and Anna-Lena Schubert. 2023.
-<span>“Sequential Analysis of Variance: <span>Increasing</span>
-Effciency of Hypothesis Testing.”</span> <span>PsyArXiv</span>. <a href="https://doi.org/10.31234/osf.io/m64ne">https://doi.org/10.31234/osf.io/m64ne</a>.
+<span>“Sprtt: <span>Sequential</span> Probability Ratio Test Toolbox
+<span><em>(</em></span><span><em>Version</em></span><span> <em>0.2.0)
+[</em></span><span><em>R
+Package</em></span><span><em>]</em></span>.”</span>
+https://CRAN.R-project.org/package=sprtt.
 </div>
 <div id="ref-steinhilber2024" class="csl-entry">
 ———. 2024. <span>“Sequential Analysis of Variance:
@@ -671,6 +828,18 @@ Effciency of Hypothesis Testing.”</span> <span>PsyArXiv</span>. <a href="https
 Testing</span>: <span>A Simulation Study</span> on <span>Questionable
 Research Practices</span>.”</span> <span>PsyArXiv</span>:
 <span>PsyArXiv</span>. <a href="https://doi.org/10.31234/osf.io/vkbu3_v1">https://doi.org/10.31234/osf.io/vkbu3_v1</a>.
+</div>
+<div id="ref-tartakovsky2014" class="csl-entry">
+Tartakovsky, Alexander, Igor Nikiforov, and Michele Basseville. 2014.
+<em>Sequential <span>Analysis</span>: <span>Hypothesis Testing</span>
+and <span>Changepoint Detection</span></em>. CRC Press.
+</div>
+<div id="ref-wagenmakers2018" class="csl-entry">
+Wagenmakers, Eric-Jan, Maarten Marsman, Tahira Jamil, Alexander Ly,
+Josine Verhagen, Jonathon Love, Ravi Selker, et al. 2018.
+<span>“Bayesian Inference for Psychology. <span>Part I</span>:
+<span>Theoretical</span> Advantages and Practical Ramifications.”</span>
+<em>Psychonomic Bulletin &amp; Review</em> 25 (1): 35–57. <a href="https://doi.org/10.3758/s13423-017-1343-3">https://doi.org/10.3758/s13423-017-1343-3</a>.
 </div>
 <div id="ref-wald1945" class="csl-entry">
 Wald, Abraham. 1945. <span>“Sequential Tests of Statistical
@@ -686,6 +855,13 @@ Wetherill, G. Barrie, and Kevin D. Glazebrook. 1986. <em>Sequential
 Methods in Statistics</em>. 3rd ed. Monographs on Statistics and Applied
 Probability. <span>London ; New York</span>: <span>Chapman and
 Hall</span>.
+</div>
+<div id="ref-yu2017" class="csl-entry">
+Yu, Zhenning. 2017. <span>“Sprt: <span>Sequential Probability Ratio
+Test</span> <span><em>(</em></span><span><em>Version</em></span><span>
+<em>0.0.1) [</em></span><span><em>Python
+Package</em></span><span><em>]</em></span>.”</span>
+https://pypi.org/project/sprt/.
 </div>
 </div>
 </div>
