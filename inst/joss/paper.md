@@ -29,13 +29,11 @@ bibliography: references.bib
 [//]: # (*A description of the high-level functionality and purpose of the software for a diverse, non-specialist audience.*)
 
 The `sprtt` package provides a toolbox for Sequential Probability Ratio Tests (SPRTs), implementing modern variants including sequential *t*-tests and sequential ANOVA for applied and methodological research. 
-While traditional fixed-sample designs require researchers to commit to a predetermined sample size, SPRTs enable continuous evidence evaluation with predefined stopping rules -- terminating data collection as soon as evidence crosses a threshold for rejecting or accepting the null hypothesis.
+While traditional fixed-sample designs require researchers to commit to a predetermined sample size, SPRTs enable continuous evidence evaluation with predefined stopping rules -- terminating data collection as soon as evidence crosses a threshold for rejecting or accepting the null hypothesis [@wald1945].
 Crucially, this flexibility comes without inflating long-run Type I and Type II error rates beyond the levels specified in advance.
-On average, this sequential approach requires 50% fewer observations than a comparable Neyman-Pearson fixed-sample design [@wald1945].
-
-Wald's original SPRTs were constructed for simple hypotheses, but newer variants extend these methods to composite hypotheses through sequential *t*-tests and sequential ANOVA -- designs that are standard in fields like psychology and medicine.
-Because Wald's mathematical proofs do not directly apply to these extensions, their efficiency property and average sample size cannot be derived analytically [@wald1945;@cox1952; @kollerstrom1979; @schnuerch2020].
-Instead, extensive simulation studies have shown that error rates are well-controlled, efficiency remains very high, and the average sample sizes have been estimated across a range of conditions [@schnuerch2020; @steinhilber2024; @stefan2022].
+For Wald’s original SPRT under simple hypotheses, 50% fewer observations are required compared to a Neyman-Pearson fixed-sample design [@wald1945].
+Newer variants extend these methods to composite hypotheses through sequential *t*-tests and sequential ANOVA -- designs standard in fields like psychology and medicine.
+For the composite-hypothesis extensions implemented in `sprtt`, efficiency cannot be derived analytically [@wald1945; @cox1952; @kollerstrom1979; @schnuerch2020], but simulation studies have shown that error rates are well-controlled and efficiency gains remain of similar magnitude [@schnuerch2020; @steinhilber2024; @stefan2022].
 Despite the long history of SPRTs, the `sprtt` package is the first to provide accessible software implementations for both sequential *t*-tests [@rushton1950; @hajnal1961; @schnuerch2020] and sequential ANOVA [@wetherill1986; @steinhilber2024].
 The package implements these validated procedures and additionally provides example datasets, data generating functions, sample size planning, and visualization tools to facilitate the adoption of SPRTs in applied research.
 
@@ -44,8 +42,6 @@ The package implements these validated procedures and additionally provides exam
 
 [//]: # (*A section that clearly illustrates the research purpose of the software and places it in the context of related work. This should clearly state what problems the software is designed to solve, who the target audience is, and its relation to other work.*)
 
-[//]: # (*Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*)
-
 Due to the replication crisis [@opensciencecollaboration2015; @ioannidis2005; @bogdan2025] in empirical fields like psychology and medicine, statistical procedures have been scrutinized, and new alternatives have gained attention [@cumming2014; @lakens2018; @wagenmakers2018].
 Sequential testing methods have become increasingly popular in recent years as they directly address pressing demands in empirical research: the need to minimize resource expenditure and participant burden without sacrificing statistical rigor [@schnuerch2020; @steinhilber2024; @ly2025; @lakens2021b; @erdfelder2021].
 This is relevant across all empirical research, and particularly vital in clinical settings where continued data collection can carry real ethical costs.
@@ -53,18 +49,20 @@ This is relevant across all empirical research, and particularly vital in clinic
 Although SPRTs are well-established in the statistical literature [@wald1947; @siegmund1985; @bartroff2012; @tartakovsky2014], their original formulation relies on simple hypotheses, which are rarely used in applied research: they require researchers to specify nuisance parameters -- such as the variance -- which are rarely known in advance.
 As a first step toward practical applicability, variants based on composite hypotheses were developed, namely the sequential *t*-test [@rushton1950; @hajnal1961] and sequential ANOVA [@wetherill1986].
 As a second step, these variants were recently validated in simulation studies, establishing their statistical properties under realistic conditions [@schnuerch2020; @steinhilber2024].
-As a third step, this methodological progress needed to be matched by accessible software: prior to `sprtt`, the only available implementation was a bare R script provided alongside the validation work [@schnuerch2020].
+As a third step, this methodological progress needed to be matched by accessible software: prior to `sprtt`, the only available implementation was a bare R script provided alongside validation work [@schnuerch2020].
 Translating these promising statistical methods into accessible, user-friendly, and open-source software is therefore essential for finally closing the gap between statistical theory and adoption in practice.
 
 # State of the field                                                                                                                  
 [//]: # (*A description of how this software compares to other commonly-used packages in the research area. If related tools exist, provide a clear “build vs. contribute” justification explaining your unique scholarly contribution and why existing alternatives are insufficient.*)
 
 The landscape of sequential testing software is sparse.
-Beyond R, very view software packages appear to exist, though several major technology companies including Netflix, Uber, and Spotify have either published on sequential testing and SPRT variants or stated their use, suggesting that proprietary implementations may exist in industry [@bibaut2024; @schultzberg2023; @deb2018].
+Beyond R, very few software packages appear to exist, though several major technology companies including Netflix, Uber, and Spotify have either published on sequential testing and SPRT variants or stated their use, suggesting that proprietary implementations may exist in industry [@bibaut2024; @schultzberg2023; @deb2018].
 The only Python implementation, the `sprt` package on PyPI [@yu2017], covers Wald's SPRT for Normal, Binomial, and Poisson distributions but has not been updated since its initial release in 2017 and lacks documentation.
 No SPRT implementations seem to exist in Julia.
 A JavaScript library for sequential generalized likelihood ratio tests `SeGLiR` [@oygard2014] targets browser-based A/B testing and has not been maintained since 2017.
-JASP [@love2019] is a free and open-source application that implements sequential Bayesian hypothesis testing [@schonbrodt2017], using a Bayes factor rather than a likelihood ratio as the monitoring statistic, which requires the specification of prior distributions.
+JASP [@love2019] is a free and open-source application that implements sequential Bayesian hypothesis testing [@schonbrodt2017], using a Bayes Factor rather than a likelihood ratio as the monitoring statistic, which requires the specification of prior distributions.
+These Bayesian tools address an important but different use case.
+The present package is intended for researchers who prefer a frequentist sequential framework, want to control long-run Type I and Type II error rates in familiar Neyman–Pearson terms, or wish to avoid the need to specify prior distributions.
 In R, the package `SPRT` [@budihal2025] implements Wald's original sequential tests for simple hypotheses, the `gsDesign` [@anderson2026] package provides a function for truncated binomial SPRTs, and the `MSPRT` [@pramanik2020] and `Sequential` [@silva2025] packages cover a variety of truncated SPRT variants.
 Beyond the SPRT, anytime-valid inference has emerged as an alternative sequential testing framework, using e-values to guarantee validity at any sample size [@ramdas2023; @grunwald2023] -- current software implementations include the R package `safestats` [@ly2024; @ly2025] and the Python package `savvi` [@assuncao2024].
 To our knowledge, no publicly available software implements sequential *t*-tests or sequential one-way ANOVA as described and validated by @schnuerch2020 and @steinhilber2024.
@@ -72,8 +70,10 @@ The `sprtt` package fills this gap directly.
 
 # Research impact
 
+[//]: # (*Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*)
+
 The `sprtt` package was first published on CRAN in 2021 and has since accumulated close to 13,000 downloads, averaging approximately 200 downloads per month in the 12 months preceding March 2026 [@steinhilber2023].
-The package has been used in applied research [@quevedoputter2022], simulation studies [@steinhilber2024; @steinhilber2025], and has been referenced in methodological work [@schubert2025a; @fischer2025].
+The package has been used in experimental research [@quevedoputter2022], simulation studies [@steinhilber2024; @steinhilber2025], and has been referenced in methodological work [@schubert2025a; @fischer2025].
 The target audience includes applied researchers using SPRT variants in their empirical work, as well as methodologists conducting simulation studies to gain further insights into the properties of SPRTs.
 
 ![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads.png)
@@ -92,7 +92,9 @@ The `seq_anova()` function follows a similar design philosophy, maintaining cons
 
 The core design principle is modularity: each internal function should perform one task well.
 This approach emphasizes simplicity, testability, clear structure, and minimal code repetition.
-The internal architecture of the core functions are documented in more detail in the developer vignette of the `sprtt` package.
+The internal architecture of the core functions is documented in more detail in the developer vignette of the `sprtt` package.
+The package is designed to return interpretable results not only when a stopping boundary is crossed, but also when monitoring remains inconclusive at the current stage of data collection.
+More generally, functions perform input validation to catch common issues such as invalid argument types, missing values, or out-of-range parameters.
 
 While the primary focus remains on implementing well-tested SPRT variants with proven efficiency and error rate control, the package continuously expands its functionality to improve user experience.
 Supporting features include example datasets, data simulation functions, visualization tools for sequential ANOVA results, and sample size planning for sequential ANOVA.
@@ -111,12 +113,13 @@ Resolving this may require interface adjustments to `seq_ttest()`, which will be
 Sample size planning for the implemented tests cannot be derived analytically and instead requires extensive Monte Carlo simulations to characterize sampling behavior across a wide range of parameter combinations.
 The `plan_sample_size()` function addresses this by generating an HTML report based on a pre-computed simulation dataset covering multiple effect sizes, group sizes, and Type II error rates -- each estimated from 10,000 replications per condition, run on a high-performance computing cluster.
 Pre-computing this dataset offers several advantages over on-demand simulation: recommendations are returned instantly, all users access identical results ensuring reproducibility, and redundant computation across research groups is avoided.
-The trade-off is that the lookup table only covers pre-specified parameter combinations; users with highly custom scenarios are directed to the simulation functions to generate their own estimates.
+The trade-off is that the lookup covers only a predefined set of parameter combinations; users with custom scenarios are therefore directed to the simulation functions to generate tailored estimates.
 
 However, the comprehensive nature of these simulations produces a dataset too large to bundle directly with the package under CRAN size constraints.
 To resolve this tension, the simulation dataset is maintained in a separate GitHub repository (https://github.com/MeikeSteinhilber/sprtt_plan_sample_size) and downloaded on demand, after which it is cached locally to avoid repeated downloads.
-This separation also serves a transparency purpose: the full simulation pipeline -- including the hierarchical SLURM scripts used for cluster execution -- is publicly available for inspection and verification.
+This separation also serves a transparency purpose: the full simulation pipeline including the hierarchical SLURM scripts used for cluster execution is publicly available for inspection and verification.
 To give users direct control over this external dependency, the sprtt package includes dedicated helper functions (`download_sample_size_data()`, `cache_info()`, `cache_clear()`) for manually downloading, inspecting, and clearing the locally cached dataset.
+The generated HTML report records the package version and the exact version of the downloaded simulation dataset, allowing users to reproduce recommendations even if the external repository is updated later.
 
 # Software documentation
 
