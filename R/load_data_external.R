@@ -35,25 +35,35 @@ download_sample_size_data <- function(force = FALSE) {
   cache_dir <- get_sprtt_cache_dir()
   data_file <- file.path(cache_dir, "sprtt_external_data_plan_sample_size.rds")
 
+  # Return early if already cached and no force re-download
   if (file.exists(data_file) && !force) {
     message("Simulation data already cached at: ", data_file)
     return(invisible(data_file))
   }
 
-  message("Downloading simulation data for sample size planning...")
-  message("This is a one-time download (~70 MB).")
+  # Ask for consent before downloading in interactive sessions
+  if (interactive()) {
+    answer <- utils::menu(
+      c("Yes", "No"),
+      title = "This will download ~150 MB of simulation data to your local cache. Proceed?"
+    )
+    if (answer != 1) {
+      message("Download cancelled.")
+      return(invisible(NULL))
+    }
+  }
 
+  message("Downloading simulation data for sample size planning...")
+  message("This is a one-time download (~150 MB).")
   tryCatch({
     piggyback::pb_download(
       file = "sprtt_external_data_plan_sample_size.rds",
       repo = "MeikeSteinhilber/sprtt_plan_sample_size",
-      tag = "latest",  # Or use specific tag like "v0.1.0-data"
+      tag  = "latest",
       dest = cache_dir
     )
-
     message("\u2713 Download complete! Data cached at: ", cache_dir)
     invisible(data_file)
-
   }, error = function(e) {
     stop(
       "Failed to download simulation data.\n",
@@ -73,7 +83,7 @@ download_sample_size_data <- function(force = FALSE) {
 #' `r lifecycle::badge("experimental")`
 #'
 #' Loads pre-computed simulation results for SPRT sample size planning.
-#' If not already cached locally, the data (~70 MB) will be downloaded automatically
+#' If not already cached locally, the data (~150 MB) will be downloaded automatically
 #' from GitHub releases. Use this function to access the complete dataset for custom
 #' analysis and visualization. See the **Data Structure** section below for details
 #' on available columns.
@@ -82,10 +92,17 @@ download_sample_size_data <- function(force = FALSE) {
 #' \href{https://github.com/MeikeSteinhilber/sprtt_plan_sample_size}{MeikeSteinhilber/sprtt_plan_sample_size}
 #'
 #'
-#' @return A data frame with simulation results
+#' @return A named list with the following elements:
+#' \itemize{
+#'   \item \code{description}: Short description of the dataset
+#'   \item \code{version}: GitHub release tag of the dataset (e.g., \code{"v0.1.0-data"})
+#'   \item \code{created}: Date the dataset was created (as character string)
+#'   \item \code{n_rep}: Number of simulation iterations per condition
+#'   \item \code{data}: A data frame with simulation results (see **Data Structure**)
+#' }
 #' @export
 #' @section Data Structure:
-#' The downloaded dataset contains simulation results with the following columns:
+#' The \code{data} element contains simulation results with the following columns:
 #'
 #' **Simulation Metadata:**
 #' \itemize{
@@ -134,8 +151,14 @@ download_sample_size_data <- function(force = FALSE) {
 #' @examples
 #' \dontrun{
 #' # Load data (downloads automatically if needed)
-#' df <- load_sample_size_data()
-#' head(df)
+#' loaded <- load_sample_size_data()
+#'
+#' # Access the simulation data frame
+#' head(loaded$data)
+#'
+#' # Check dataset version
+#' loaded$version  # e.g. "v0.1.0-data"
+#' loaded$created
 #' }
 
 load_sample_size_data <- function() {
@@ -144,19 +167,20 @@ load_sample_size_data <- function() {
 
   # Download if not cached
   if (!file.exists(data_file)) {
-    download_sample_size_data()
+    result <- download_sample_size_data()
+    # Return NULL if download was cancelled
+    if (is.null(result)) return(invisible(NULL))
   }
 
   # Load and return
   readRDS(data_file)
 }
-
 #' Clear cached simulation data
 #'
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Removes locally cached simulation data (~70 MB) used by [`plan_sample_size()`].
+#' Removes locally cached simulation data (~150 MB) used by [`plan_sample_size()`].
 #' Data will be automatically re-downloaded on next use of sample size planning functions.
 #'
 #' This function is useful when:
@@ -190,8 +214,9 @@ cache_clear <- function() {
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Displays information about cached simulation data (~70 MB) used by [`plan_sample_size()`].
-#' Shows the cache directory location, whether data is cached, and file size if present.
+#' Displays information about cached simulation data (~150 MB) used by [`plan_sample_size()`].
+#' Shows the cache directory location, whether data is cached, file size, and dataset
+#' version metadata.
 #'
 #' The simulation data is automatically downloaded on first use of sample size planning
 #' functions and stored locally for faster subsequent access.
@@ -200,6 +225,8 @@ cache_clear <- function() {
 #'   * `cache_dir`: Character string with the cache directory path
 #'   * `data_cached`: Logical indicating if simulation data is cached
 #'   * `file_size_mb`: Numeric file size in MB (or `NA` if not cached)
+#'   * `data_version`: GitHub release tag of the cached dataset (or `NA` if not cached)
+#'   * `data_created`: Date the dataset was created (or `NA` if not cached)
 #'
 #' @seealso
 #' * [`cache_clear()`] to remove cached data
@@ -211,14 +238,26 @@ cache_info <- function() {
   cache_dir <- get_sprtt_cache_dir()
   data_file <- file.path(cache_dir, "sprtt_external_data_plan_sample_size.rds")
 
+  data_cached <- file.exists(data_file)
+
+  # Extract version metadata if data is cached
+  if (data_cached) {
+    loaded       <- readRDS(data_file)
+    data_version <- loaded$version
+    data_created <- loaded$created
+    file_size_mb <- round(file.size(data_file) / 1e6, 2)
+  } else {
+    data_version <- NA
+    data_created <- NA
+    file_size_mb <- NA
+  }
+
   info <- list(
-    cache_dir = cache_dir,
-    data_cached = file.exists(data_file),
-    file_size_mb = if (file.exists(data_file)) {
-      round(file.size(data_file) / 1e6, 2)
-    } else {
-      NA
-    }
+    cache_dir    = cache_dir,
+    data_cached  = data_cached,
+    file_size_mb = file_size_mb,
+    data_version = data_version,
+    data_created = data_created
   )
 
   cat("SPRTT Simulation Data Cache\n")
@@ -227,6 +266,8 @@ cache_info <- function() {
   cat("Data cached:", info$data_cached, "\n")
   if (info$data_cached) {
     cat("File size:", info$file_size_mb, "MB\n")
+    cat("Dataset version:", info$data_version, "\n")
+    cat("Dataset created:", info$data_created, "\n")
   }
 
   invisible(info)

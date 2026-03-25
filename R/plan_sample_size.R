@@ -50,18 +50,12 @@
 #' plan_sample_size(
 #'   f_expected = 0.25,
 #'   k_groups = 3,
-#'   power = 0.9,
 #'   decision_rate = 0.9
 #' )
 #'
 #' # Prevent overwriting an existing file:
 #' plan_sample_size(0.25, 3, overwrite = FALSE)
 #' }
-#'
-#'
-#' @export
-
-
 plan_sample_size <- function(f_expected,
                              k_groups,
                              beta = 0.05,
@@ -75,15 +69,28 @@ plan_sample_size <- function(f_expected,
   stopifnot(length(beta) == 1, is.numeric(beta), beta > 0, beta < 1)
   stopifnot(length(k_groups) == 1, is.numeric(k_groups), k_groups >= 2)
 
+  power <- NULL  # suppress R CMD check note
 
   # check input parameters
-  if (!decision_rate %in% c(0.75,0.80,0.85,0.90,0.95)) {
+  if (!decision_rate %in% c(0.75, 0.80, 0.85, 0.90, 0.95)) {
     stop(
       glue("`decision_rate` = {decision_rate} is not available. Please choose one of {glue_collapse(shQuote(c(0.75,0.80,0.85,0.90,0.95)), ', ', last = ' or ')}")
     )
   }
 
-  df_all <- load_sample_size_data()
+  # Load data — may trigger download prompt
+  loaded <- load_sample_size_data()
+  if (is.null(loaded)) {
+    stop(
+      "The simulation data is required to generate the report.\n",
+      "Please run `download_sample_size_data()` and accept the download.",
+      call. = FALSE
+    )
+  }
+  df_all       <- loaded$data
+  data_version <- loaded$version
+  data_created <- loaded$created
+
   df <- df_all %>%
     distinct(f_expected, power, k_groups)
 
@@ -92,7 +99,7 @@ plan_sample_size <- function(f_expected,
       glue("`f_expected` = {f_expected} is not available. Please choose one of {glue_collapse(shQuote(sort(unique(df$f_expected))), ', ', last = ' or ')}")
     )
   }
-  if (!beta %in% c(0.20,0.10,0.05)) {
+  if (!beta %in% c(0.20, 0.10, 0.05)) {
     stop(
       glue("`beta` = {beta} is not available. Please choose one of {glue_collapse(shQuote(c(0.20,0.10,0.05)), ', ', last = ' or ')}")
     )
@@ -136,18 +143,19 @@ plan_sample_size <- function(f_expected,
   output <- rmarkdown::render(
     rmd_path,
     params = list(
-      f_expected = f_expected,
-      beta = beta,
-      k_groups = k_groups,
-      df_all = df_all,
-      decision_rate = decision_rate
+      f_expected   = f_expected,
+      beta         = beta,
+      k_groups     = k_groups,
+      df_all       = df_all,
+      decision_rate = decision_rate,
+      data_version = data_version,
+      data_created = data_created
     ),
     output_file = output_file,
     output_dir  = output_dir,
     envir = new.env(parent = globalenv())
-    )
+  )
 
   if (open) utils::browseURL(output)
   invisible(output)
 }
-

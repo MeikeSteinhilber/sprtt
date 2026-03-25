@@ -32,9 +32,26 @@ test_that("force download works", {
 test_that("data loads correctly", {
   skip_if_offline()
 
-  df_all <- load_sample_size_data()
+  loaded <- load_sample_size_data()
 
-  # Basic structure checks
+  # Check returned object is a list with version metadata
+  expect_type(loaded, "list")
+  expect_true("data" %in% names(loaded))
+  expect_true("version" %in% names(loaded))
+  expect_true("created" %in% names(loaded))
+  expect_true("n_rep" %in% names(loaded))
+  expect_true("description" %in% names(loaded))
+
+  # Check version metadata is non-empty
+  expect_type(loaded$version, "character")
+  expect_false(is.na(loaded$version))
+  expect_type(loaded$created, "character")
+  expect_false(is.na(loaded$created))
+  expect_type(loaded$n_rep, "double")
+  expect_false(is.na(loaded$n_rep))
+
+  # Check data element is a data frame
+  df_all <- loaded$data
   expect_s3_class(df_all, "data.frame")
   expect_true(nrow(df_all) > 0)
 
@@ -66,8 +83,9 @@ test_that("load triggers download if not cached", {
   expect_message(load_sample_size_data(), "Downloading")
 
   # Second load should be silent (no download message)
-  df <- suppressMessages(load_sample_size_data())
-  expect_s3_class(df, "data.frame")
+  loaded <- suppressMessages(load_sample_size_data())
+  expect_type(loaded, "list")
+  expect_s3_class(loaded$data, "data.frame")
 })
 
 test_that("cache_clear works correctly", {
@@ -120,10 +138,14 @@ test_that("cache_info returns correct information", {
   expect_true("cache_dir" %in% names(info))
   expect_true("data_cached" %in% names(info))
   expect_true("file_size_mb" %in% names(info))
+  expect_true("data_version" %in% names(info))
+  expect_true("data_created" %in% names(info))
 
   expect_true(info$data_cached)
   expect_true(info$file_size_mb > 0)
   expect_true(dir.exists(info$cache_dir))
+  expect_false(is.na(info$data_version))
+  expect_false(is.na(info$data_created))
 
   # Test without cached data
   cache_clear()
@@ -131,6 +153,8 @@ test_that("cache_info returns correct information", {
 
   expect_false(info_empty$data_cached)
   expect_true(is.na(info_empty$file_size_mb))
+  expect_true(is.na(info_empty$data_version))
+  expect_true(is.na(info_empty$data_created))
 })
 
 test_that("cache directory is created if missing", {
@@ -156,6 +180,8 @@ test_that("cache_info produces expected output", {
   expect_output(cache_info(), "Cache directory:")
   expect_output(cache_info(), "Data cached:")
   expect_output(cache_info(), "File size:")
+  expect_output(cache_info(), "Dataset version:")
+  expect_output(cache_info(), "Dataset created:")
 })
 
 test_that("download handles missing internet gracefully", {
@@ -172,7 +198,8 @@ test_that("download handles missing internet gracefully", {
 test_that("data structure contains all documented columns", {
   skip_if_offline()
 
-  df <- suppressMessages(load_sample_size_data())
+  loaded <- suppressMessages(load_sample_size_data())
+  df <- loaded$data
 
   # Simulation metadata
   metadata_cols <- c("batch", "iteration", "source_file")

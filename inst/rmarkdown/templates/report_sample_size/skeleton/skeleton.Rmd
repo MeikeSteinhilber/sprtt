@@ -21,6 +21,8 @@ params:
   beta: 0.05
   k_groups: 3
   decision_rate: 0.85
+  data_version: "v.0.0-test"
+  data_created: "0-0-0000"
 ---
 
 
@@ -210,6 +212,8 @@ pick_power =          1 - params$beta
 pick_beta =           params$beta
 pick_k_groups =       params$k_groups
 pick_decision_rate =  params$decision_rate
+data_version <- params$data_version
+data_created <- params$data_created
 
 pick_decision_rate_var = case_when(
   pick_decision_rate == 0.75 ~ "q75_n",
@@ -425,6 +429,9 @@ The analyses below use the following specifications:
  - $\beta$ = `r pick_beta`
  
  - decision rate = `r pick_decision_rate*100`%
+ 
+ - Simulation dataset: version `r data_version` (released: `r data_created`, [view on GitHub](https://github.com/MeikeSteinhilber/sprtt_plan_sample_size/releases/tag/`r data_version`))
+  
  
 <br><br><br>
 

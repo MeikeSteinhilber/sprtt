@@ -91,7 +91,7 @@ set.seed(333)
 
 # load library ----------------------------------------------------------------
 library(sprtt)
-#> Note: Sample size planning functions require simulation data (~70 MB).
+#> Note: Sample size planning functions require simulation data (~150 MB).
 #> Data will download automatically on first use.
 #> See ?download_sample_size_data for more information.
 
@@ -176,7 +176,7 @@ in the .md file must be changed by hand. Otherwise the picture is not found on t
 
 ### Sample Size Planning
 
-The sample size planning function requires simulation data (~70 MB). On
+The sample size planning function requires simulation data (~150 MB). On
 first use, this data will be downloaded and chached automatically:
 
 ``` r
