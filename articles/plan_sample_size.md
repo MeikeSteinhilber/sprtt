@@ -273,9 +273,20 @@ analyses or visualizations. You can load the data directly into your R
 session:
 
 ``` r
-# Load the complete simulation database
-df_all <- load_sample_size_data()
+# Load the complete simulation dataset (downloads automatically if not yet cached)
+loaded <- load_sample_size_data()
+
+# Access the simulation data frame
+df_all <- loaded$data
+
+# Check which dataset version this report is based on
+loaded$description  # short description
+loaded$version      # e.g. "v0.1.0-data"
+loaded$created      # date the dataset was created
+loaded$n_rep        # number of simulation iterations per condition
 ```
 
-This data frame contains all simulation results and can be filtered,
-summarized, or visualized using standard R tools.
+The data frame `df_all` contains all simulation results and can be
+filtered, summarized, or visualized using standard R tools. See
+[`?load_sample_size_data`](https://meikesteinhilber.github.io/sprtt/reference/load_sample_size_data.md)
+for a full description of all available columns.

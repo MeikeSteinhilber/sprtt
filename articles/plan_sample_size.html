@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Meike
 Snijder-Steinhilber</h4>
             
-            <h4 data-toc-skip class="date">2026-03-24</h4>
+            <h4 data-toc-skip class="date">2026-03-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/vignettes/plan_sample_size.Rmd" class="external-link"><code>vignettes/plan_sample_size.Rmd</code></a></small>
       <div class="d-none name"><code>plan_sample_size.Rmd</code></div>
@@ -404,10 +404,21 @@ clear the cache:</p>
 analyses or visualizations. You can load the data directly into your R
 session:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the complete simulation database</span></span>
-<span><span class="va">df_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_sample_size_data.html">load_sample_size_data</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This data frame contains all simulation results and can be filtered,
-summarized, or visualized using standard R tools.</p>
+<code class="sourceCode R"><span><span class="co"># Load the complete simulation dataset (downloads automatically if not yet cached)</span></span>
+<span><span class="va">loaded</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_sample_size_data.html">load_sample_size_data</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Access the simulation data frame</span></span>
+<span><span class="va">df_all</span> <span class="op">&lt;-</span> <span class="va">loaded</span><span class="op">$</span><span class="va">data</span></span>
+<span></span>
+<span><span class="co"># Check which dataset version this report is based on</span></span>
+<span><span class="va">loaded</span><span class="op">$</span><span class="va">description</span>  <span class="co"># short description</span></span>
+<span><span class="va">loaded</span><span class="op">$</span><span class="va">version</span>      <span class="co"># e.g. "v0.1.0-data"</span></span>
+<span><span class="va">loaded</span><span class="op">$</span><span class="va">created</span>      <span class="co"># date the dataset was created</span></span>
+<span><span class="va">loaded</span><span class="op">$</span><span class="va">n_rep</span>        <span class="co"># number of simulation iterations per condition</span></span></code></pre></div>
+<p>The data frame <code>df_all</code> contains all simulation results
+and can be filtered, summarized, or visualized using standard R tools.
+See <code><a href="../reference/load_sample_size_data.html">?load_sample_size_data</a></code> for a full description of all
+available columns.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

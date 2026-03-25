@@ -152,7 +152,7 @@ variables are stored in a data frame.
 
 ``` r
 library(sprtt)
-## Note: Sample size planning functions require simulation data (~70 MB).
+## Note: Sample size planning functions require simulation data (~150 MB).
 ## Data will download automatically on first use.
 ## See ?download_sample_size_data for more information.
 # show data frame --------------------------------------------------------------
