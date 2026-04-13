@@ -7,13 +7,20 @@
 load_sample_size_data()
 }
 \value{
-A data frame with simulation results
+A named list with the following elements:
+\itemize{
+\item \code{description}: Short description of the dataset
+\item \code{version}: GitHub release tag of the dataset (e.g., \code{"v0.1.0-data"})
+\item \code{created}: Date the dataset was created (as character string)
+\item \code{n_rep}: Number of simulation iterations per condition
+\item \code{data}: A data frame with simulation results (see \strong{Data Structure})
+}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Loads pre-computed simulation results for SPRT sample size planning.
-If not already cached locally, the data (~70 MB) will be downloaded automatically
+If not already cached locally, the data (~150 MB) will be downloaded automatically
 from GitHub releases. Use this function to access the complete dataset for custom
 analysis and visualization. See the \strong{Data Structure} section below for details
 on available columns.
@@ -23,7 +30,7 @@ Data is hosted at:
 }
 \section{Data Structure}{
 
-The downloaded dataset contains simulation results with the following columns:
+The \code{data} element contains simulation results with the following columns:
 
 \strong{Simulation Metadata:}
 \itemize{
@@ -74,7 +81,13 @@ Cumulative decision rates at various percentages of maximum sample size
 \examples{
 \dontrun{
 # Load data (downloads automatically if needed)
-df <- load_sample_size_data()
-head(df)
+loaded <- load_sample_size_data()
+
+# Access the simulation data frame
+head(loaded$data)
+
+# Check dataset version
+loaded$version  # e.g. "v0.1.0-data"
+loaded$created
 }
 }

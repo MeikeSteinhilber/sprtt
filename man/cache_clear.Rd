@@ -12,7 +12,7 @@ Invisibly returns \code{TRUE} if cache was cleared, \code{FALSE} if no cache exi
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Removes locally cached simulation data (~70 MB) used by \code{\link[=plan_sample_size]{plan_sample_size()}}.
+Removes locally cached simulation data (~150 MB) used by \code{\link[=plan_sample_size]{plan_sample_size()}}.
 Data will be automatically re-downloaded on next use of sample size planning functions.
 
 This function is useful when:

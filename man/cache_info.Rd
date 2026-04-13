@@ -12,13 +12,16 @@ Invisibly returns a list with:
 \item \code{cache_dir}: Character string with the cache directory path
 \item \code{data_cached}: Logical indicating if simulation data is cached
 \item \code{file_size_mb}: Numeric file size in MB (or \code{NA} if not cached)
+\item \code{data_version}: GitHub release tag of the cached dataset (or \code{NA} if not cached)
+\item \code{data_created}: Date the dataset was created (or \code{NA} if not cached)
 }
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Displays information about cached simulation data (~70 MB) used by \code{\link[=plan_sample_size]{plan_sample_size()}}.
-Shows the cache directory location, whether data is cached, and file size if present.
+Displays information about cached simulation data (~150 MB) used by \code{\link[=plan_sample_size]{plan_sample_size()}}.
+Shows the cache directory location, whether data is cached, file size, and dataset
+version metadata.
 
 The simulation data is automatically downloaded on first use of sample size planning
 functions and stored locally for faster subsequent access.
