@@ -2,6 +2,7 @@
 
 test_that("Check error rates", {
   # load packages
+  testthat::skip_if_not_installed("testthis")
   library(testthis)
   library(dplyr)
 
