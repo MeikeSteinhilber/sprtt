@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/MeikeSteinhilber/sprtt/blob/develop/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/MeikeSteinhilber/sprtt/blob/master/DESCRIPTION)
 
 Snijder-Steinhilber M, Schnuerch M, Schubert A (2026). *sprtt:
 Sequential Probability Ratio Tests Toolbox*. R package version 0.3.0,
