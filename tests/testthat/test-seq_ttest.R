@@ -296,8 +296,6 @@ sprt.t.test <- function(...) UseMethod(".sprt")
 #-----------------------------------------------------------------
 
 
-context("seq_ttest: test main function")
-
 test_that("seq_ttest: comparison results with original script from m. schnuerch", {
 
   x <- rnorm(50)

@@ -1,0 +1,232 @@
+---
+title: "How to use the sprtt package?"
+author: "Meike Snijder-Steinhilber"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+description: >
+  This vignette describes the sequential t-test and the usage of the
+  `sprtt` package.
+vignette: >
+  %\VignetteIndexEntry{How to use the sprtt package}
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: references.bib
+csl: "apa.csl"
+---
+
+
+
+<style>
+/* Use custom class names to avoid Bootstrap conflicts */
+.custom-info-box {
+  background-color: white !important;
+  border: 2px solid #2c3e50 !important;
+  border-left: 5px solid #2c3e50 !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-info-box::before {
+  content: "🛈";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+.custom-warning-box {
+  background-color: white !important;
+  border: 2px solid #18bc9c !important;
+  border-left: 5px solid #18bc9c !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-warning-box::before {
+  content: "⚠";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #18bc9c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+</style>
+
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `sprtt` package is a toolbox for **s**equential **p**robability **r**atio **t**ests (SPRTs).
+This vignette introduces the core functions and demonstrates a typical analysis workflow.
+For more comprehensive guides on specific topics, see the other package vignettes.
+If you are unfamiliar with SPRTs, please read first the vignette `vignette("sprt")`.
+
+
+## Workflow
+
+### 1. Understand the theoretical background of SPRTs
+
+The foundational literature [@wald1945; @wald1947] established the mathematical framework for SPRTs.
+While these original papers provide theoretical depth, they require strong mathematical statistics background and focus primarily on abstract theory rather than practical application.
+
+For practical implementation, we strongly recommend starting with the following simulation studies, which demonstrate robustness to assumption violations, explain common pitfalls, and provide actionable guidance:
+
+**Essential reading:**
+
+- **Sequential *t*-tests**: @schnuerch2020 — Demonstrates performance under various assumption violations and provides practical guidance
+- **Sequential one-way ANOVA**: @steinhilber2024 — Extends SPRTs to the one-way ANOVA design with comprehensive simulation evidence
+- **Understanding questionable research practices in sequential designs**: @steinhilber2025 — Critical for avoiding misuse and ensuring appropriate application
+
+
+For comparisons of different sequential designs (including SPRTs), see:
+
+- @schnuerch2020 -- Group sequential designs vs Sequential Bayes Factor Test vs SPRT
+- @stefan2022 -- Sequential Bayes Factor Test vs SPRT
+
+### 2. When to use SPRTs
+
+Whether a statistical tool is appropriate depends strongly on the research context and intended use.
+SPRTs are recommended when:
+
+- Resources are limited and efficiency is a priority
+- The research question translates to a clear hypothesis test: Concluding in favor of either $H_0$ (no effect) or $H_1$ (effect) provides useful information for your research question.
+- Data can be collected sequentially
+- Data can be analyzed sequentially (ideally after each new observation)
+- Long-term error rates need to be controlled (both $\alpha$ and $\beta$ error rates)
+
+
+SPRTs are **not** recommended when:
+
+- Data are collected all at once or only in very large batches, see here fixed designs or Group Sequential Designs
+- Multiple hypotheses must be tested on the same dataset (theoretically possible but not yet implemented)
+- Groups cannot be sampled somewhat equally over time (e.g., collecting all participants from one group before starting the other)
+- Sufficient literature already establishes the existence of the effect and the main goal is precise effect size estimation (see @steinhilber2024)
+
+
+<!-- ### 3. Plan your resources -->
+
+<!-- The `plan_sample_size()` function helps establish realistic expectations for data requirements and resource planning. -->
+
+<!-- Unlike traditional designs, SPRTs do not require classical a priori power analysis because power ($1-\beta$) is controlled through the stopping boundaries. -->
+<!-- This allows starting data collection immediately and stopping once the test reaches a decision. -->
+<!-- However, planning necessary resources remains important for practical concerns as it will not always be possible to collect data until a decision is reached. -->
+<!-- While the upper and lower boundaries of a SPRT control for the $\alpha$ and $\beta$ error rate in the long run, they do not guarantee that you will have enough resources to collect enough data to reach a decision in the first place. -->
+
+<!-- Thus, two sample sizes are relevant for planning: -->
+
+<!-- - **Expected sample size** ($N_{\text{median}}$): The median sample size required to reach a decision. Most studies will finish near this value. -->
+<!-- - **Maximum sample size** ($N_{\text{max}}$): The maximum affordable sample size. Choose settings where $N_{\text{max}}$ yields a decision rate of at least 80% (i.e., the test reaches a decision in at least 80% of cases where the maximum sample is reached). -->
+
+<!-- The `plan_sample_size()`function provides tables and plots to guide. -->
+
+<!-- For more details see the vignette *XXX*. -->
+
+### 3. Plan your resources
+
+The `plan_sample_size()` function helps establish realistic expectations for data requirements and resource planning.
+
+Unlike traditional designs, SPRTs do not require classical a priori power analysis.
+Power is controlled through the stopping boundaries, allowing you to start data collection immediately and stop once the test reaches a decision.
+
+However, resource planning remains essential.
+While the boundaries control $\alpha$ and $\beta$ error rates in the long run, they cannot guarantee you will collect enough data to reach a decision within your available resources.
+
+Two sample sizes are relevant for planning:
+
+- **Expected sample size** ($N_{\text{median}}$): The median sample size required to reach a decision. Most studies will finish near this value.
+- **Maximum sample size** ($N_{\text{max}}$): The maximum affordable sample size. Choose settings where $N_{\text{max}}$ yields a decision rate of at least 80% (i.e., the test reaches a decision in at least 80% of cases where the maximum sample is reached).
+
+The `plan_sample_size()` function provides tables and plots to help you find appropriate design parameters that balance efficiency with feasibility.
+
+For detailed examples and guidance, see the vignette `vignette("plan_sample_size")`.
+
+
+### 4. Plan the data collection and register your test specifications
+
+A thoughtful data collection plan is highly recommended to keep groups somewhat balanced and to track and balance (or randomize) potential confounders.
+
+::: {.custom-info-box}
+**Outliers**
+
+The question of how one should deal with outliers in sequential testing is still an ongoing research topic. Note, that implementing a naive sequential outlier analysis can lead to a inflation of the $\alpha$ error rate, see @steinhilber2025.
+:::
+
+As SPRTs are best suited for confirmatory research, preregistering the data collection plan, hypothesis, and test specifications (e.g., effect size of interest, $\alpha$ and $\beta$ levels) is strongly recommended.
+
+Preparing an analysis script in advance enables a smooth process for continuously analyzing incoming data.
+This ensures data collection stops immediately once the stopping criterion is reached, avoiding unnecessary additional data collection.
+
+To test the analysis pipeline, use either:
+
+- The example datasets included in the `sprtt` package
+- The data generating functions, which allow specifying the true effect size for simulation testing
+
+### 5. Collect the data and apply the SPRTs
+
+The following test are currently implemented:
+
+- sequential *t*-tests, see `vignette("t_test")`
+- sequential one-way ANOVA with independent groups, see `vignette("one_way_anova")`
+
+
+### 5. Reporting of the results
+
+Guidelines for the reporting of SPRTs can be found in the paper of @schubert2025 that also explicitly covers sequential testing and specifically SPRTs.
+
+A complete SPRT report should include: the specific variant of the SPRT used (e.g., sequential *t*-test), the $\alpha$ and $\beta$ levels, the effect size or other parameters specifying the alternative hypothesis, the starting point of the SPRT (the sample size at the first look), the final sample size when data collection was stopped, the final likelihood ratio, a plot showing the full likelihood progression across all looks, and an effect size estimate with confidence interval [@schubert2025].
+Note that effect size estimates in sequential designs are often biased and should be interpreted with caution.
+
+**Example report --- decision reached ($H_1$ accepted):**
+
+> We preregistered a sequential *t*-test [@wald1945; @schnuerch2020] with error probabilities $\alpha = .05$ and $\beta = .05$, and a minimum effect size of interest of $d = 0.5$.
+The first look took place at $n = 5$ per group.
+Data collection stopped at $N = 48$ (24 per group) when the likelihood ratio crossed the upper decision boundary ($LR_{48} = 21.3 > B = 19$), providing sufficient evidence to accept $H_1$.
+The estimated effect size was $d = 0.61$ (95% CI [0.21, 1.00]).
+A plot of the full likelihood progression is provided in Figure X.
+All materials and the preregistration are available at [OSF link].
+
+**Example report --- $N_{max}$ reached (non-decision):**
+
+> We preregistered a sequential *t*-test [@wald1945; @schnuerch2020] with error probabilities $\alpha = .05$ and $\beta = .05$, a minimum effect size of interest of $d = 0.5$, and a maximum sample size of $N_{max} = 200$ (100 per group).
+The first look took place at $n = 4$ per group.
+Data collection stopped upon reaching $N_{max} = 200$ without the likelihood ratio crossing either decision boundary ($LR_{200} = 3.1$; lower boundary $A = 1/19$, upper boundary $B = 19$).
+This constitutes a non-decision: the accumulated evidence was insufficient to accept either $H_0$ or $H_1$ with the prespecified error control.
+The results are therefore inconclusive, though the final likelihood ratio 
+indicates that the data are 3.1 times more likely under $H_1$ 
+than under $H_0$.
+Note that a non-decision due to resource depletion does not constitute evidence for $H_0$.
+The estimated effect size was $d = 0.21$ (95% CI $[-0.07, 0.49]$).
+A plot of the full likelihood progression is provided in Figure X.
+
+## References

@@ -1,7 +1,6 @@
 #* @testing
 # set.seed(26753)
 
-context("calc_t_statistic: Check output")
 test_that("calc_t_statistic", {
   arguments <- new("seq_ttest_arguments",
                    x = rnorm(15),

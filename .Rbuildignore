@@ -19,3 +19,4 @@
 ^revdep$
 ^lastMiKTeXException$
 ^CRAN-SUBMISSION$
+^\.codecov\.yml$

@@ -28,29 +28,34 @@ variable giving the data values and rhs either 1 for a one-sample test or a
 factor with two levels giving the corresponding groups.
 }}
 
-\item{y}{an optional (non-empty) numeric vector of data values.}
+\item{y}{An optional (non-empty) numeric vector of data values.
+Only used for two-sample tests when \code{x} is numeric.}
 
-\item{data}{an optional \code{data.frame}, which you can use only in combination
-with a \code{"formula input"} in argument \code{x}.}
+\item{data}{An optional data frame containing the variables specified in the formula.
+Only used when \code{x} is a formula.}
 
 \item{mu}{a number indicating the true value of the mean (or difference in
 means if you are performing a two sample test).}
 
-\item{d}{a number indicating the specified effect size (Cohen's d)}
+\item{d}{a number indicating the specified (expected) effect size (Cohen's d)}
 
-\item{alpha}{the type I error. A number between 0 and 1.}
+\item{alpha}{Type I error rate (alpha level). The probability of rejecting H0
+when it is true. Default is 0.05. Must be between 0 and 1.}
 
-\item{power}{1 - beta (beta is the type II error probability). A number
-between 0 and 1.}
+\item{power}{Statistical power (1 - beta), where beta is the Type II error rate.
+The probability of correctly rejecting H0 when H1 is true with effect size d.
+Default is 0.95. Must be between 0 and 1. Higher values lead to wider
+stopping boundaries and potentially larger sample sizes.}
 
 \item{alternative}{a character string specifying the alternative hypothesis,
 must be one of \code{two.sided} (default), \code{greater} or \code{less}.
 You can specify just the initial letter.}
 
-\item{paired}{a logical indicating whether you want a paired t-test.}
+\item{paired}{Logical indicating whether to perform a paired t-test.
+Default is \code{FALSE}.}
 
 \item{na.rm}{a logical value indicating whether \code{NA} values should be
-stripped before the computation proceeds.}
+removed before the computation proceeds.}
 
 \item{verbose}{a logical value whether you want a verbose output or not.}
 }
@@ -62,8 +67,18 @@ To get access to the object use the
 See the examples below.
 }
 \description{
-Performs one and two sample sequential t-tests on vectors of
-data. For more information on the sequential t-test, see Schnuerch & Erdfelder (2019) \url{doi:10.1037/met0000234}.
+Performs one-sample, two-sample, and paired sequential t-tests, which are variants of
+Sequential Probability Ratio Tests (SPRT). The test allows for continuous
+monitoring of data collection and provides stopping boundaries based on
+likelihood ratios, offering efficiency gains over traditional fixed-N designs.
+
+The sequential t-test continuously evaluates the likelihood ratio after each
+observation (or pair of observations), stopping when sufficient evidence
+accumulates for either H0 or H1.
+
+For methodological details, see Schnuerch & Erdfelder (2019)
+\url{doi:10.1037/met0000234}. For practical guidance, see
+\code{vignette("t_test", package = "sprtt")}.
 }
 \examples{
 # set seed --------------------------------------------------------------------
@@ -100,4 +115,13 @@ seq_ttest(stress_level ~ sex, d = 0.8, na.rm = TRUE)
 
 # work with dataset (data are in the package included) ------------------------
 seq_ttest(monthly_income ~ sex, data = df_income, d = 0.8)
+}
+\seealso{
+\itemize{
+\item \code{\link[=seq_anova]{seq_anova()}} for sequential one-way ANOVA
+\item \code{\link[=draw_sample_normal]{draw_sample_normal()}} for simulating test data
+\item \code{vignette("t_test", package = "sprtt")} for detailed tutorial
+\item \code{vignette("usage_sprtt", package = "sprtt")} for package overview
+\item Schnuerch & Erdfelder (2019) \url{doi:10.1037/met0000234} for theoretical background
+}
 }

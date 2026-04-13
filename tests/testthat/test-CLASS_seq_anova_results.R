@@ -1,4 +1,3 @@
-context("CLASS_seq_anova_results: Check class")
 
 test_that("CLASS_seq_anova_results: Check access to class", {
   data <- draw_sample_normal(4, 0.23, 35)

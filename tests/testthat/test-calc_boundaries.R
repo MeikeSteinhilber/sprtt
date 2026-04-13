@@ -1,4 +1,3 @@
-context("calc_boundaries")
 
 test_that("calc_boundaries: ", {
   power <- 0.95

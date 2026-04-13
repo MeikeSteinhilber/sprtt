@@ -1,11 +1,12 @@
 ---
-title: "Use Case"
-author: "Meike Steinhilber"
+title: "Simple t-Test Use Case"
+author: "Meike Snijder-Steinhilber"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 4
+    css: "customize.css"
 vignette: >
   %\VignetteIndexEntry{Use Case}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,6 +14,66 @@ vignette: >
 bibliography: references.bib
 csl: "apa.csl"
 ---
+
+<style>
+/* Use custom class names to avoid Bootstrap conflicts */
+.custom-info-box {
+  background-color: white !important;
+  border: 2px solid #2c3e50 !important;
+  border-left: 5px solid #2c3e50 !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-info-box::before {
+  content: "🛈";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+.custom-warning-box {
+  background-color: white !important;
+  border: 2px solid #18bc9c !important;
+  border-left: 5px solid #18bc9c !important;
+  color: #2c3e50 !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1.5em !important;
+  border-radius: 4px !important;
+  padding: 15px !important;
+  padding-left: 50px !important;
+  position: relative !important;
+}
+.custom-warning-box::before {
+  content: "⚠";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #18bc9c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 2px 0 0 2px;
+}
+
+</style>
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -22,7 +83,7 @@ knitr::opts_chunk$set(
 library(sprtt)
 ```
 
-## Note
+::: {.custom-info-box}
 
 -   The data set `df_stress` is included in the `sprtt` package. Thus, the data set is available when the package is loaded.
 
@@ -32,29 +93,29 @@ library(sprtt)
     -   `function()`: is R code
     -   `#> results of function()`: is console output
 
-## Overview
+:::
 
-The `sprtt` package is a **s**equential **p**robability **r**atio **t**ests toolbox (**sprtt**). This vignette describes an exemplary use case to improve the understanding of the package and the sequential t-test.
 
-Other recommended vignettes cover:
-
--   [the theoretical background](https://meikesteinhilber.github.io/sprtt/articles/sequential_testing.html) and
-
--   a [general guide](https://meikesteinhilber.github.io/sprtt/articles/usage-sprtt.html), how to use the package.
+This vignette describes an exemplary use case to improve the understanding of the package and the sequential t-test.
 
 ## Use Case
 
-A team of researchers wants to know if the stress of the employees increased in the company itFlow AG over the last year. The Human Resources department has gathered data from a new self-care tool they implemented for the employees. It is difficult to predict how many employees will participate at the second measurement point (one year after the baseline). The team suggests using a sequential *t*-test instead of a Students *t*-test, because the sequential procedure can reduce the required sample size and is stopped right after the decision for one of the hypotheses is made. Furthermore, the sequential *t*-test is able to gather evidence for both the alternative and the null hypothesis.
+A team of researchers wants to know if the stress of the employees increased in the company itFlow AG over the last year. 
+The Human Resources department has gathered data from a new self-care tool they implemented for the employees. It is difficult to predict how many employees will participate at the second measurement point (one year after the baseline). 
+The team suggests using a sequential *t*-test instead of a Students *t*-test, because the sequential procedure can reduce the required sample size and is stopped right after the decision for one of the hypotheses is made.
+Furthermore, the sequential *t*-test is able to gather evidence for both the alternative and the null hypothesis.
 
 ### Hypothesis
 
-The researchers know that the company has received more orders than in the year before. Thus, they expect an increase in self-reported stress.
+The researchers know that the company has received more orders than in the year before.
+Thus, they expect an increase in self-reported stress.
 
 ### Data Analysis
 
 The parameters of the sequential *t*-test are specified as follows:
 
--   The researchers expect an increase in stress but they have no prior knowledge about the expected effect size. Thus, they define the lower limit of a substantial effect of interest.
+-   The researchers expect an increase in stress but they have no prior knowledge about the expected effect size.
+Thus, they define the lower limit of a substantial effect of interest.
 
     ```{r, echo=TRUE}
     d <- 0.2
@@ -80,7 +141,8 @@ The parameters of the sequential *t*-test are specified as follows:
     alternative <- "greater"
     ```
 
-The HR department receives the new data piece by piece and passes it directly on to the researchers. The test is performed for the first time and starts with the first two data points.
+The HR department receives the new data piece by piece and passes it directly on to the researchers.
+The test is performed for the first time and starts with the first two data points.
 
 ```{r, echo=TRUE}
 # first data from the Human Resources department ---
@@ -138,7 +200,8 @@ results <- seq_ttest(df$one_year_stress,
 results@decision
 ```
 
-This process is repeated until the decision is made for one of the two hypotheses. To simulate this sequential process, a while-loop embraces the sequential *t*-test function in the code below, which will not stop until one of the hypotheses is accepted or the maximum of the data is reached.
+This process is repeated until the decision is made for one of the two hypotheses.
+To simulate this sequential process, a while-loop embraces the sequential *t*-test function in the code below, which will not stop until one of the hypotheses is accepted or the maximum of the data is reached.
 
 ```{r, echo=TRUE}
 # define the starting point
@@ -217,10 +280,12 @@ d_upper <- round(d_results$conf.int[[2]], digits = 2)
 d_upper
 ```
 
-Starting at *N* = 2, the test stops sampling at a total sample size of *N* = `r N` with *LR*~`r N`~ = `r LR`. This ratio indicates that the data are about 20 times more likely under H~1~ than under H~0~. Thus, we accept the alternative hypothesis: The perceived stress at the second measurement (*M* = `r mean_t2`, *SD* = `r sd_t2`) is higher than one year ago at the baseline measurement (*M* = `r mean_t1`, *SD* = `r sd_t1`), Cohen\`s *d* = `r d`, 95% CI [`r d_lower`, `r d_upper`].[^1]^,^[^2]
+Starting at *N* = 2, the test stops sampling at a total sample size of *N* = `r N` with *LR*~`r N`~ = `r LR`.
+This ratio indicates that the data are about 20 times more likely under H~1~ than under H~0~.
+Thus, we accept the alternative hypothesis: The perceived stress at the second measurement (*M* = `r mean_t2`, *SD* = `r sd_t2`) is higher than one year ago at the baseline measurement (*M* = `r mean_t1`, *SD* = `r sd_t1`), Cohen's *d* = `r d`, 95% CI [`r d_lower`, `r d_upper`].[^1]^,^[^2]
 
 ## References
 
-[^1]: The citation style was taken from @schnuerch2020a.
+[^1]: see @schnuerch2020.
 
 [^2]: Note that this estimate of Cohen's d as well as the CI are based on the assumption of a fixed sample size and, thus, might be biased toward an overestimation of the true effect size. See for details @schnuerch2020a.
