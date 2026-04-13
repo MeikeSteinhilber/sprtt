@@ -6,12 +6,14 @@
     }
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Cache information — cache_info"><meta name="description" content="
-Displays information about cached simulation data (~70 MB) used by plan_sample_size().
-Shows the cache directory location, whether data is cached, and file size if present.
+Displays information about cached simulation data (~150 MB) used by plan_sample_size().
+Shows the cache directory location, whether data is cached, file size, and dataset
+version metadata.
 The simulation data is automatically downloaded on first use of sample size planning
 functions and stored locally for faster subsequent access."><meta property="og:description" content="
-Displays information about cached simulation data (~70 MB) used by plan_sample_size().
-Shows the cache directory location, whether data is cached, and file size if present.
+Displays information about cached simulation data (~150 MB) used by plan_sample_size().
+Shows the cache directory location, whether data is cached, file size, and dataset
+version metadata.
 The simulation data is automatically downloaded on first use of sample size planning
 functions and stored locally for faster subsequent access."><meta property="og:image" content="https://meikesteinhilber.github.io/sprtt/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -59,14 +61,15 @@ functions and stored locally for faster subsequent access."><meta property="og:i
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Cache information</h1>
-      <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/R/load_data_external.R" class="external-link"><code>R/load_data_external.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/R/load_data_external.R" class="external-link"><code>R/load_data_external.R</code></a></small>
       <div class="d-none name"><code>cache_info.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p>
-<p>Displays information about cached simulation data (~70 MB) used by <code><a href="plan_sample_size.html">plan_sample_size()</a></code>.
-Shows the cache directory location, whether data is cached, and file size if present.</p>
+<p>Displays information about cached simulation data (~150 MB) used by <code><a href="plan_sample_size.html">plan_sample_size()</a></code>.
+Shows the cache directory location, whether data is cached, file size, and dataset
+version metadata.</p>
 <p>The simulation data is automatically downloaded on first use of sample size planning
 functions and stored locally for faster subsequent access.</p>
     </div>
@@ -81,6 +84,8 @@ functions and stored locally for faster subsequent access.</p>
     <p>Invisibly returns a list with:</p><ul><li><p><code>cache_dir</code>: Character string with the cache directory path</p></li>
 <li><p><code>data_cached</code>: Logical indicating if simulation data is cached</p></li>
 <li><p><code>file_size_mb</code>: Numeric file size in MB (or <code>NA</code> if not cached)</p></li>
+<li><p><code>data_version</code>: GitHub release tag of the cached dataset (or <code>NA</code> if not cached)</p></li>
+<li><p><code>data_created</code>: Date the dataset was created (or <code>NA</code> if not cached)</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

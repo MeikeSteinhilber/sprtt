@@ -2,7 +2,7 @@
 
 **\[experimental\]**
 
-Removes locally cached simulation data (~70 MB) used by
+Removes locally cached simulation data (~150 MB) used by
 [`plan_sample_size()`](https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.md).
 Data will be automatically re-downloaded on next use of sample size
 planning functions.
