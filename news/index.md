@@ -26,7 +26,7 @@
   displays information about cached simulation data used by
   [`plan_sample_size()`](https://meikesteinhilber.github.io/sprtt/reference/plan_sample_size.md)
 
-- **Breaking change:**
+- **Breaking change to experimental function:**
   [`plot_anova()`](https://meikesteinhilber.github.io/sprtt/reference/plot_anova.md)
   argument `position_lr_x` now uses absolute x-axis coordinates (e.g.,
   `position_lr_x = 30` places the label at x = 30) instead of relative
