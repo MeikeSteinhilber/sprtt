@@ -42,7 +42,9 @@ download_sample_size_data <- function(force = FALSE) {
   }
 
   # Ask for consent before downloading in interactive sessions
-  if (interactive()) {
+  auto_consent <- isTRUE(as.logical(Sys.getenv("SPRTT_CONSENT_DOWNLOAD", "false")))
+
+  if (interactive() && !auto_consent) {
     answer <- utils::menu(
       c("Yes", "No"),
       title = "This will download ~150 MB of simulation data to your local cache. Proceed?"

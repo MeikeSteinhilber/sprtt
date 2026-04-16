@@ -188,7 +188,7 @@ test_that("draw_sample_normal: check error messages", {
 })
 
 # mixture distribution ---------------------------------------------------------
-test_that("III draw_sample_normal: check correct behaviour of show", {
+test_that("III draw_sample_mixture: check correct behaviour of show", {
   set.seed(333)
   testthat::local_edition(3)
 
@@ -205,15 +205,18 @@ test_that("III draw_sample_normal: check correct behaviour of show", {
   )
 
   expect_snapshot(
-    show(
-      draw_sample_mixture(k_groups = 4, f = 1, max_n = 30, verbose = TRUE)
+    suppressMessages(
+      show(
+        draw_sample_mixture(k_groups = 4, f = 1, max_n = 30, verbose = TRUE)
+      )
     ),
     transform = round_nums
   )
-
   expect_snapshot(
-    show(
-      draw_sample_mixture(k_groups = 3, f = 0.12, max_n = 50, verbose = TRUE)
+    suppressMessages(
+      show(
+        draw_sample_mixture(k_groups = 3, f = 0.12, max_n = 50, verbose = TRUE)
+      )
     ),
     transform = round_nums
   )

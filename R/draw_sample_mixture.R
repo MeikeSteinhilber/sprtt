@@ -84,7 +84,7 @@ draw_sample_mixture <- function(
   sigma1 = sqrt(variance_12 * factor)
   sigma2 = sqrt(variance_12 * (1-factor))
 
-  if (verbose) {print(glue::glue("{rep('\n',k_groups)}group{1:k_groups}:\nmean1 = {mean1}, mean2 = {mean2},\nsigma1 = {sigma1}, sigma2 = {sigma2}"))}
+  if (verbose) {message(glue::glue("{rep('\n',k_groups)}group{1:k_groups}:\nmean1 = {mean1}, mean2 = {mean2},\nsigma1 = {sigma1}, sigma2 = {sigma2}"))}
 
   position <- 1
   data <- matrix(double(total_sample_size*2), ncol = 2)

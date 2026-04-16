@@ -1,7 +1,7 @@
 Type: Package
 Package: sprtt
 Title: Sequential Probability Ratio Tests Toolbox
-Version: 0.3.0
+Version: 0.3.1
 Date: 2026-04-13
 Authors@R:
     c(person(given = "Meike",
