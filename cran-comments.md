@@ -8,14 +8,9 @@ ubuntu-latest (release)
 * macOS builder
 * win-builder
 
-R CMD check results on CRAN's r-oldrelease Windows builder
-One check showed: Package required but not available: 'MBESS'
-This appears to be a transient issue on that builder — MBESS is available
-on CRAN and passes checks locally and on win-builder r-release/r-devel.
-
 ## R CMD check results
-── R CMD check results ──────────────────────────────────────────────────── sprtt 0.3.0 ────
-Duration: 7m 27.2s
+── R CMD check results ──────────────────────────────────────────────────── sprtt 0.3.1 ────
+Duration: 6m 49.5s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
