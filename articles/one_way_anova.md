@@ -146,6 +146,7 @@ you would use actual data as it arrives from your ongoing data
 collection.
 
 ``` r
+
 set.seed(333)
 # Generate data with a medium effect
 data <- sprtt::draw_sample_normal(
@@ -158,6 +159,7 @@ data <- sprtt::draw_sample_normal(
 Let’s examine the structure of the simulated data:
 
 ``` r
+
 # View the first few rows
 head(data)
 ##             y x
@@ -184,6 +186,7 @@ We can perform the first sequential ANOVA after collecting at least 2
 observations per group (minimum \\n = 6\\ total for 3 groups).
 
 ``` r
+
 # Calculate the sequential ANOVA
 anova_results <- sprtt::seq_anova(
   y ~ x,
@@ -222,6 +225,7 @@ Let’s assume we’ve now collected 20 observations total. We recalculate
 the sequential ANOVA with the updated dataset:
 
 ``` r
+
 # Calculate sequential ANOVA with larger sample
 anova_results <- sprtt::seq_anova(
   y ~ x,
@@ -254,6 +258,7 @@ definitive decision to accept \\H_0\\ or \\H_1\\.
 ### Step 4: Final Analysis
 
 ``` r
+
 # Calculate sequential ANOVA with complete dataset
 anova_results <- sprtt::seq_anova(
   y ~ x,
@@ -291,6 +296,7 @@ You can access specific components of the results object using the `@`
 operator:
 
 ``` r
+
 # Access the decision
 anova_results@decision
 ## [1] "accept H1"
@@ -324,6 +330,7 @@ See
 for details on the `plot` and `seq_steps` arguments and other options.
 
 ``` r
+
 set.seed(333)
 data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 22)
 
@@ -365,6 +372,7 @@ In this example, we start the sequential testing after 12 observations
 ratio after each subsequent observation.
 
 ``` r
+
 set.seed(333)
 # Generate unbalanced data with a 1:1:2 sampling ratio -------------------------
 data <- sprtt::draw_sample_normal(3, f = 0.25, max_n = 37, sample_ratio = c(1,1,2))

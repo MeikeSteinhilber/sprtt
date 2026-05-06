@@ -40,6 +40,7 @@ The parameters of the sequential *t*-test are specified as follows:
   limit of a substantial effect of interest.
 
   ``` r
+
   d <- 0.2
   ```
 
@@ -48,6 +49,7 @@ The parameters of the sequential *t*-test are specified as follows:
   \beta\\).
 
   ``` r
+
   alpha <- 0.05
   power <- 0.95
   ```
@@ -56,6 +58,7 @@ The parameters of the sequential *t*-test are specified as follows:
   sequential *t*-test.
 
   ``` r
+
   paired <- TRUE
   ```
 
@@ -65,6 +68,7 @@ The parameters of the sequential *t*-test are specified as follows:
   `(mean(one_year_stress) - mean(baseline_stress)) > 0`
 
   ``` r
+
   alternative <- "greater"
   ```
 
@@ -73,6 +77,7 @@ directly on to the researchers. The test is performed for the first time
 and starts with the first two data points.
 
 ``` r
+
 # first data from the Human Resources department ---
 # current sample size
 n_person <- 2
@@ -111,6 +116,7 @@ results
 The decision from the first test is:
 
 ``` r
+
 results@decision
 #> [1] "continue sampling"
 ```
@@ -119,6 +125,7 @@ As a result, the researchers take one more data point and run the test
 again.
 
 ``` r
+
 # new data from the Human Resources department ---
 # get one more person
 n_person <- n_person + 1
@@ -153,6 +160,7 @@ until one of the hypotheses is accepted or the maximum of the data is
 reached.
 
 ``` r
+
 # define the starting point
 decision <- "continue sampling"
 n_person <- 3
@@ -209,6 +217,7 @@ The while-loop comes to an end after 48 data points.
 ### Report Results
 
 ``` r
+
 # Required results for the report
 
 # likelihood ratio (LR)
@@ -262,7 +271,7 @@ about 20 times more likely under H₁ than under H₀. Thus, we accept the
 alternative hypothesis: The perceived stress at the second measurement
 (*M* = 5.47, *SD* = 1.53) is higher than one year ago at the baseline
 measurement (*M* = 4.99, *SD* = 1.02), Cohen’s *d* = 0.34, 95% CI
-\[0.11, 0.57\].[¹](#fn1)^(,)[²](#fn2)
+\[0.11, 0.57\].[^1]^(,)[^2]
 
 ## References
 
@@ -275,11 +284,9 @@ hypothesis tests for multinomial processing tree models. *Journal of
 Mathematical Psychology*, *95*, 102326.
 <https://doi.org/10.1016/j.jmp.2020.102326>
 
-------------------------------------------------------------------------
+[^1]: see Schnuerch & Erdfelder (2020).
 
-1.  see Schnuerch & Erdfelder (2020).
-
-2.  Note that this estimate of Cohen’s d as well as the CI are based on
-    the assumption of a fixed sample size and, thus, might be biased
+[^2]: Note that this estimate of Cohen’s d as well as the CI are based
+    on the assumption of a fixed sample size and, thus, might be biased
     toward an overestimation of the true effect size. See for details
     Schnuerch et al. (2020).

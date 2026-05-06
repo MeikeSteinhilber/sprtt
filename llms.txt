@@ -35,6 +35,7 @@ The package contains:
 This is the recommended version for a normal user.
 
 ``` r
+
 # installs the package
 install.packages("sprtt")
 ```
@@ -45,6 +46,7 @@ To get a bug fix or to use a feature from the development version, you
 can install the latest version from GitHub.
 
 ``` r
+
 # the installation requires the "devtools" package
 # install.packages("devtools")
 # stable GitHub version
@@ -76,6 +78,7 @@ Short examples can be found in the following paragraph.
 > `#> results of function()`: is console output
 
 ``` r
+
 # set seed --------------------------------------------------------------------
 set.seed(333)
 
@@ -150,6 +153,7 @@ sprtt::plot_anova(results)
 
 ``` r
 
+
 # save the plot ----------------------------------------------------------------
 ggplot2::ggsave(
   "man/figures/readme_example.png",       # define the path
@@ -164,6 +168,7 @@ The sample size planning function requires simulation data (~150 MB). On
 first use, this data will be downloaded and chached automatically:
 
 ``` r
+
 sprtt::plan_sample_size(f_expected = 0.25,
                         k_groups = 3,
                         beta = 0.05,
@@ -176,6 +181,7 @@ necessary.
 **Managing cached data**
 
 ``` r
+
 # Check cache status
 sprtt::cache_info()
 

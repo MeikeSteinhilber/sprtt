@@ -151,6 +151,7 @@ variables are stored in a data frame.
 #### *Two-sample test*
 
 ``` r
+
 library(sprtt)
 ## Note: Sample size planning functions require simulation data (~150 MB).
 ## Data will download automatically on first use.
@@ -196,6 +197,7 @@ The `mu` argument is also required, which specifies the mean value that
 one wants to test against.
 
 ``` r
+
 # show data frame --------------------------------------------------------------
 head(df_income)
 ##   monthly_income    sex
@@ -244,6 +246,7 @@ in addition to `x`. If the data are stored in a data frame, the `$`
 operator is essential to get access to the variables.
 
 ``` r
+
 # show data frame --------------------------------------------------------------
 head(df_cancer)
 ##   treatment_group control_group
@@ -296,6 +299,7 @@ is additionally required, which specifies the mean which one wants to
 test against.
 
 ``` r
+
 # show data frame --------------------------------------------------------------
 head(df_cancer)
 ##   treatment_group control_group
@@ -347,6 +351,7 @@ The `paired` argument states if the data are paired. To perform a paired
 sequential *t*-test, `paired` has to be set to `TRUE`.
 
 ``` r
+
 # show data frame --------------------------------------------------------------
 head(df_stress)
 ##   baseline_stress one_year_stress
@@ -393,6 +398,7 @@ performed:
 - one-sided: `"less"` or `"greater"`.
 
 ``` r
+
 # show data frame --------------------------------------------------------------
 head(df_income)
 ##   monthly_income    sex
@@ -443,6 +449,7 @@ console. If set to `TRUE` (default value), the output will be elaborate,
 if set to `FALSE` the output will be short.
 
 ``` r
+
 # sequential t-test: verbose FALSE ---------------------------------------------
 seq_ttest(df_cancer$treatment_group, # x argument
           df_cancer$control_group,   # y argument
@@ -496,6 +503,7 @@ be an S4 class. Therefore the access operator is the `@` sign or the
 `[]` brackets.
 
 ``` r
+
 # save the resuts in a object 
 results <- seq_ttest(df_cancer$treatment_group,
                      df_cancer$control_group,  

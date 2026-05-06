@@ -101,6 +101,7 @@ Now let’s see how to generate a sample size planning report for this
 scenario:
 
 ``` r
+
 plan_sample_size(
   f_expected = 0.25,   # Expected effect size
   k_groups = 3,        # Number of groups
@@ -125,15 +126,15 @@ report.
 
 ### Function Parameters
 
-| Parameter     | Type      | Default                                                    | Description                                                                                                   |
-|---------------|-----------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `f_expected`  | numeric   | *required*                                                 | Expected standardized effect size (Cohen’s *f*). Must be one of: 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, or 0.40. |
-| `k_groups`    | integer   | *required*                                                 | Number of groups to compare. Must be 2, 3, or 4.                                                              |
-| `beta`        | numeric   | 0.05                                                       | Beta error rate. Must be 0.20, 0.10, or 0.05.                                                                 |
-| `output_dir`  | character | [`tempdir()`](https://rdrr.io/r/base/tempfile.html)        | Directory where the HTML report will be saved.                                                                |
-| `output_file` | character | `"sprtt-report-sample-size-planning.html"`                 | Filename for the generated report.                                                                            |
-| `open`        | logical   | [`interactive()`](https://rdrr.io/r/base/interactive.html) | Whether to open the report in your browser after generation. Set to `FALSE` for batch processing.             |
-| `overwrite`   | logical   | FALSE                                                      | Whether to overwrite an existing file with the same name without prompting.                                   |
+| Parameter | Type | Default | Description |
+|----|----|----|----|
+| `f_expected` | numeric | *required* | Expected standardized effect size (Cohen’s *f*). Must be one of: 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, or 0.40. |
+| `k_groups` | integer | *required* | Number of groups to compare. Must be 2, 3, or 4. |
+| `beta` | numeric | 0.05 | Beta error rate. Must be 0.20, 0.10, or 0.05. |
+| `output_dir` | character | [`tempdir()`](https://rdrr.io/r/base/tempfile.html) | Directory where the HTML report will be saved. |
+| `output_file` | character | `"sprtt-report-sample-size-planning.html"` | Filename for the generated report. |
+| `open` | logical | [`interactive()`](https://rdrr.io/r/base/interactive.html) | Whether to open the report in your browser after generation. Set to `FALSE` for batch processing. |
+| `overwrite` | logical | FALSE | Whether to overwrite an existing file with the same name without prompting. |
 
 ### Input Validation
 
@@ -143,6 +144,7 @@ you’ll receive an informative error message listing the available
 options. For example:
 
 ``` r
+
 # This will produce an error:
 plan_sample_size(f_expected = 0.22, k_groups = 3)
 #> Error: `f_expected` = 0.22 is not available. 
@@ -157,6 +159,7 @@ The expected effect size has a large impact on required sample size.
 Here’s how to generate reports for different scenarios:
 
 ``` r
+
 # report 1
 plan_sample_size(f_expected = 0.15, k_groups = 3, beta = 0.05)
 
@@ -170,6 +173,7 @@ By default, reports are saved to a temporary directory. For reports you
 want to keep, specify a custom location:
 
 ``` r
+
 plan_sample_size(
   f_expected = 0.25,
   k_groups = 4,
@@ -188,6 +192,7 @@ When preparing grant applications or pre-registrations, you might want
 to explore multiple scenarios (e.g., different effect size assumptions):
 
 ``` r
+
 # Define scenarios to compare
 scenarios <- data.frame(
   effect = c(0.15, 0.20, 0.25),
@@ -223,6 +228,7 @@ downloads data automatically when needed, you can also download it
 explicitly:
 
 ``` r
+
 # Download simulation data manually
 download_sample_size_data()
 ```
@@ -237,6 +243,7 @@ To force a re-download (for example, after a package update with new
 simulation data):
 
 ``` r
+
 download_sample_size_data(force = TRUE)
 ```
 
@@ -245,6 +252,7 @@ download_sample_size_data(force = TRUE)
 To see whether data are cached and how much disk space they occupy:
 
 ``` r
+
 cache_info()
 ```
 
@@ -260,6 +268,7 @@ If you need to free up disk space or suspect corrupted data, you can
 clear the cache:
 
 ``` r
+
 cache_clear()
 ```
 
@@ -273,6 +282,7 @@ analyses or visualizations. You can load the data directly into your R
 session:
 
 ``` r
+
 # Load the complete simulation dataset (downloads automatically if not yet cached)
 loaded <- load_sample_size_data()
 
