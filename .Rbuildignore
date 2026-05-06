@@ -21,3 +21,5 @@
 ^CRAN-SUBMISSION$
 ^\.codecov\.yml$
 ^README_files$
+^\.positai$
+^\.claude$
