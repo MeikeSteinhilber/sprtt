@@ -1,21 +1,21 @@
 # sprtt: Sequential Probability Ratio Tests Toolbox
 
-It is a toolbox for Sequential Probability Ratio Tests (SPRT), Wald
+A toolbox for Sequential Probability Ratio Tests (SPRT) based on Wald
 (1945)
 [doi:10.2134/agronj1947.00021962003900070011x](https://doi.org/10.2134/agronj1947.00021962003900070011x)
-. SPRTs are applied to the data during the sampling process, ideally
-after each observation. At any stage, the test will return a decision to
-either continue sampling or terminate and accept one of the specified
-hypotheses. The seq_ttest() function performs one-sample, two-sample,
-and paired t-tests for testing one- and two-sided hypotheses (Schnuerch
-& Erdfelder (2019)
+. SPRTs are applied during the sampling process, ideally after each
+observation, and at every stage return a decision to either continue
+sampling or terminate and accept one of the specified hypotheses. The
+\`seq_ttest()\` function performs one-sample, two-sample, and paired
+t-tests for one- and two-sided hypotheses (Schnuerch & Erdfelder (2019)
 [doi:10.1037/met0000234](https://doi.org/10.1037/met0000234) ). The
-seq_anova() function allows to perform a sequential one-way fixed
-effects ANOVA (Steinhilber et al. (2024)
-[doi:10.1037/met0000677](https://doi.org/10.1037/met0000677) ). Learn
-more about the package by using vignettes "browseVignettes(package =
-"sprtt")" or go to the website
-<https://meikesteinhilber.github.io/sprtt/>.
+\`seq_anova()\` function performs a sequential one-way fixed effects
+ANOVA (Steinhilber et al. (2024)
+[doi:10.1037/met0000677](https://doi.org/10.1037/met0000677) ). The
+\`plan_sample_size()\` function helps plan sequential studies by
+simulating required sample sizes across a range of effect sizes. For
+more information, see the vignettes browseVignettes(package = "sprtt")
+or the package website <https://meikesteinhilber.github.io/sprtt/>.
 
 ## See also
 
