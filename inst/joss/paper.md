@@ -76,7 +76,7 @@ The `sprtt` package was first published on CRAN in 2021 and has since accumulate
 The package has been used in experimental research [@quevedoputter2022], simulation studies [@steinhilber2024; @steinhilber2025], and has been referenced in methodological work [@schubert2025a; @fischer2025].
 The target audience includes applied researchers using SPRT variants in their empirical work, as well as methodologists conducting simulation studies to gain further insights into the properties of SPRTs.
 
-![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads.png)
+![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads_2026-05-20.png)
 
 
 # Software design
