@@ -14,16 +14,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/MeikeSteinhilber/sprtt/blob/0.3.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/MeikeSteinhilber/sprtt/blob/develop/DESCRIPTION)
 
 Snijder-Steinhilber M, Schnuerch M, Schubert A (2026). *sprtt:
-Sequential Probability Ratio Tests Toolbox*. R package version 0.3.1,
+Sequential Probability Ratio Tests Toolbox*. R package version 0.3.0,
 <https://meikesteinhilber.github.io/sprtt/>.
 
     @Manual{,
       title = {sprtt: Sequential Probability Ratio Tests Toolbox},
       author = {Meike Snijder-Steinhilber and Martin Schnuerch and Anna-Lena Schubert},
       year = {2026},
-      note = {R package version 0.3.1},
+      note = {R package version 0.3.0},
       url = {https://meikesteinhilber.github.io/sprtt/},
     }
