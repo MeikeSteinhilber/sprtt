@@ -135,7 +135,7 @@ Finally, further topics are addressed in vignettes on sample size planning and a
 
 The core `sprtt` implementation, all architectural decisions, and the research contributions are original human intellectual work.
 Development began in February 2021 and predates the widespread availability of modern AI-assisted programming tools, with the majority of the codebase written without AI assistance (CRAN releases: August 2021 and July 2023).
-For the latest release, generative AI (Claude, Anthropic) was used to assist with debugging new code, writing unit tests, and reviewing the package documentation for improvements.
+For the latest release in May 2026, generative AI (Claude by Anthropic) was used to assist with debugging new code, writing unit tests, and reviewing the package documentation for improvements.
 For this manuscript, AI was additionally used to support writing tasks such as improving grammar and spelling, formatting of references, and suggesting manuscript structure.
 In all cases, AI served an assistive role only, and all output was thoroughly reviewed and verified by the authors.
 
