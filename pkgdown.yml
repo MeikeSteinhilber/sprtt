@@ -1,5 +1,5 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   developer_guide: developer_guide.html
@@ -9,7 +9,7 @@ articles:
   t_test: t_test.html
   use_case: use_case.html
   workflow_sprtt: workflow_sprtt.html
-last_built: 2026-05-20T12:32Z
+last_built: 2026-08-04T12:45Z
 urls:
   reference: https://meikesteinhilber.github.io/sprtt/reference
   article: https://meikesteinhilber.github.io/sprtt/articles
