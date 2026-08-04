@@ -72,11 +72,11 @@ The `sprtt` package fills this gap directly.
 
 [//]: # (*Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*)
 
-The `sprtt` package was first published on CRAN in 2021 and has since accumulated close to 13,000 downloads, averaging approximately 200 downloads per month in the 12 months preceding March 2026 [@steinhilber2023].
+The `sprtt` package was first published on CRAN in 2021 and has since accumulated more than 14,000 downloads, averaging approximately 250 downloads per month in the 12 months preceding August 2026 [@steinhilber2023].
 The package has been used in experimental research [@quevedoputter2022], simulation studies [@steinhilber2024; @steinhilber2025], and has been referenced in methodological work [@schubert2025a; @fischer2025].
 The target audience includes applied researchers using SPRT variants in their empirical work, as well as methodologists conducting simulation studies to gain further insights into the properties of SPRTs.
 
-![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads_2026-05-20.png)
+![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads_2026-08-04.png)
 
 
 # Software design
