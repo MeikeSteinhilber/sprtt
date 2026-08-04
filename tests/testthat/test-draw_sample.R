@@ -212,6 +212,7 @@ test_that("III draw_sample_mixture: check correct behaviour of show", {
     ),
     transform = round_nums
   )
+
   expect_snapshot(
     suppressMessages(
       show(

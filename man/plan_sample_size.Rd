@@ -77,10 +77,13 @@ otherwise, an error is thrown.
 plan_sample_size(
   f_expected = 0.25,
   k_groups = 3,
+  power = 0.9,
   decision_rate = 0.9
 )
 
 # Prevent overwriting an existing file:
 plan_sample_size(0.25, 3, overwrite = FALSE)
 }
+
+
 }
