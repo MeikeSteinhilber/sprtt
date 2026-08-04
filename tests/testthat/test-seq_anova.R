@@ -1,6 +1,7 @@
 #* @testing seq_anova
 
 test_that("Compare ttest with anova results (two groups)", {
+  testthat::skip_if_not_installed("testthis")
   # load packages
   # library(testthis)
   # library(dplyr)

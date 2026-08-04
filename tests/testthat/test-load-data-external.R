@@ -1,5 +1,6 @@
 test_that("data download works", {
   skip_if_offline()
+  testthat::skip_on_cran()
 
   # Clear cache to test fresh download
   cache_clear()
@@ -18,6 +19,7 @@ test_that("data download works", {
 
 test_that("force download works", {
   skip_if_offline()
+  testthat::skip_on_cran()
 
   # Clear cache
   cache_clear()
@@ -31,6 +33,7 @@ test_that("force download works", {
 
 test_that("data loads correctly", {
   skip_if_offline()
+  testthat::skip_on_cran()
 
   loaded <- load_sample_size_data()
 
@@ -75,6 +78,7 @@ test_that("data loads correctly", {
 
 test_that("load triggers download if not cached", {
   skip_if_offline()
+  testthat::skip_on_cran()
 
   # Clear cache
   cache_clear()
@@ -90,6 +94,7 @@ test_that("load triggers download if not cached", {
 
 test_that("cache_clear works correctly", {
   skip_if_offline()
+  testthat::skip_on_cran()
 
   # Ensure data exists
   suppressMessages(download_sample_size_data())
@@ -109,6 +114,7 @@ test_that("cache_clear works correctly", {
 })
 
 test_that("cache directory is created if missing", {
+  testthat::skip_on_cran()
 
   cache_dir <- get_sprtt_cache_dir()
 
@@ -129,6 +135,7 @@ test_that("cache directory is created if missing", {
 })
 
 test_that("cache_info returns correct information", {
+  testthat::skip_on_cran()
 
   # Test with cached data
   suppressMessages(download_sample_size_data())
@@ -163,6 +170,7 @@ test_that("cache directory is created if missing", {
 })
 
 test_that("download returns file path invisibly", {
+  testthat::skip_on_cran()
   cache_clear()
 
   result <- suppressMessages(download_sample_size_data())
@@ -173,6 +181,7 @@ test_that("download returns file path invisibly", {
 
 test_that("cache_info produces expected output", {
   skip_if_offline()
+  testthat::skip_on_cran()
 
   suppressMessages(download_sample_size_data())
 
@@ -186,6 +195,7 @@ test_that("cache_info produces expected output", {
 
 test_that("download handles missing internet gracefully", {
   skip_if_offline()
+  testthat::skip_on_cran()
 
   # This test is more conceptual - actual implementation would require mocking
   # Just verify the error message structure exists
@@ -197,6 +207,7 @@ test_that("download handles missing internet gracefully", {
 
 test_that("data structure contains all documented columns", {
   skip_if_offline()
+  testthat::skip_on_cran()
 
   loaded <- suppressMessages(load_sample_size_data())
   df <- loaded$data

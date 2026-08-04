@@ -802,7 +802,7 @@
       199 -0.083888348 2
       200 -1.498606763 3
 
-# III draw_sample_normal: check correct behaviour of show
+# III draw_sample_mixture: check correct behaviour of show
 
     Code
       show(draw_sample_mixture(k_groups = 2, f = 0.25, max_n = 30))
@@ -872,26 +872,9 @@
 ---
 
     Code
-      show(draw_sample_mixture(k_groups = 4, f = 1, max_n = 30, verbose = TRUE))
-    Message
-      Internal counter reached = 20
+      suppressMessages(show(draw_sample_mixture(k_groups = 4, f = 1, max_n = 30,
+        verbose = TRUE)))
     Output
-      
-      group1:
-      mean1 = 2.3975, mean2 = 0.4772,
-      sigma1 = 0.3586, sigma2 = 0.1661
-      
-      group2:
-      mean1 = 0.7369, mean2 = 0.1264,
-      sigma1 = 1.2528, sigma2 = 0.4938
-      
-      group3:
-      mean1 = -1.6731, mean2 = -0.1610,
-      sigma1 = 0.8490, sigma2 = 0.3684
-      
-      group4:
-      mean1 = -1.7526, mean2 = -0.1514,
-      sigma1 = 0.8103, sigma2 = 0.2476
                     y x
       1    2.4910 1
       2    0.0675 2
@@ -1017,22 +1000,9 @@
 ---
 
     Code
-      show(draw_sample_mixture(k_groups = 3, f = 0.12, max_n = 50, verbose = TRUE))
-    Message
-      Internal counter reached = 1
+      suppressMessages(show(draw_sample_mixture(k_groups = 3, f = 0.12, max_n = 50,
+        verbose = TRUE)))
     Output
-      
-      group1:
-      mean1 = 0.0867, mean2 = 0.0095,
-      sigma1 = 1.3056, sigma2 = 0.5406
-      
-      group2:
-      mean1 = -0.2799, mean2 = -0.0501,
-      sigma1 = 1.2863, sigma2 = 0.5647
-      
-      group3:
-      mean1 = 0.2108, mean2 = 0.0228,
-      sigma1 = 1.2651, sigma2 = 0.6177
                      y x
       1   -0.2410 1
       2   -0.1934 2

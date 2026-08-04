@@ -10,7 +10,7 @@
 
 -   Add: `cache_info()` displays information about cached simulation data used by `plan_sample_size()`
 
--   **Breaking change:** `plot_anova()` argument `position_lr_x` now uses absolute x-axis coordinates (e.g., `position_lr_x = 30` places the label at x = 30) instead of relative positioning, providing more intuitive and precise control of label placement.
+-   **Breaking change to experimental function:** `plot_anova()` argument `position_lr_x` now uses absolute x-axis coordinates (e.g., `position_lr_x = 30` places the label at x = 30) instead of relative positioning, providing more intuitive and precise control of label placement.
 
 -   Add: `plot_anova()` gains new argument `position_lr_y` to control the y-axis position of the likelihood ratio label using absolute coordinates.
 

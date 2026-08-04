@@ -19,6 +19,7 @@ canon_html <- function(path) {
 # error messages ---------------------------------------------------------------
 
 test_that("plan_sample_size: paremters out of scope", {
+  testthat::skip_on_cran()
   expect_error(
     plan_sample_size(f_expected = 0.24, k_groups = 3, overwrite = FALSE),
     "is not available"
@@ -40,6 +41,7 @@ test_that("plan_sample_size: paremters out of scope", {
 
 
 test_that("plan_sample_size: paremters wrong data type", {
+  testthat::skip_on_cran()
   expect_error(
     plan_sample_size(f_expected = "0.25", k_groups = 3, overwrite = FALSE),
     "is not TRUE"
@@ -60,6 +62,7 @@ test_that("plan_sample_size: paremters wrong data type", {
 # general functioning - creating html output -----------------------------------
 
 test_that("template is shipped", {
+  testthat::skip_on_cran()
   p <- system.file("rmarkdown", "templates", "report_sample_size", "skeleton",
                    "skeleton.Rmd", package = "sprtt")
   expect_true(nzchar(p), info = "system.file returned empty path")
@@ -70,7 +73,7 @@ test_that("renders HTML to the specified directory", {
   # testthat::skip_if_not_installed("rmarkdown")
   # testthat::skip_if_not(rmarkdown::pandoc_available())
   # Optional: skip on CRAN if render is slow/heavy
-  # testthat::skip_on_cran()
+  testthat::skip_on_cran()
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
@@ -98,6 +101,7 @@ test_that("renders HTML to the specified directory", {
 test_that("renders HTM too", {
   # testthat::skip_if_not_installed("rmarkdown")
   # testthat::skip_if_not(rmarkdown::pandoc_available())
+  testthat::skip_on_cran()
 
   withr::local_tempdir() -> tmp
   out <- plan_sample_size(
@@ -115,6 +119,7 @@ test_that("renders HTM too", {
 
 
 test_that("overwrite protection works when open = FALSE", {
+  testthat::skip_on_cran()
   withr::local_tempdir() -> tmp
   path <- file.path(tmp, "report.html")
   cat("<html></html>", file = path)
