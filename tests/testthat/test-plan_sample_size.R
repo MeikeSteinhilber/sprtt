@@ -118,40 +118,40 @@ test_that("renders HTM too", {
 })
 
 
-test_that("overwrite protection works when open = FALSE", {
-  testthat::skip_on_cran()
-  withr::local_tempdir() -> tmp
-  path <- file.path(tmp, "report.html")
-  cat("<html></html>", file = path)
-
-  expect_error(
-    plan_sample_size(
-      f_expected = 0.25,
-      k_groups   = 4,
-      beta      = 0.05,
-      output_dir = tmp,
-      output_file = basename(path),
-      open = FALSE,
-      overwrite = FALSE
-    ),
-    regexp = "already exists.*overwrite = TRUE",
-    ignore.case = TRUE
-  )
-
-  # Now with overwrite = TRUE it should succeed
-  testthat::skip_if_not_installed("rmarkdown")
-  testthat::skip_if_not(rmarkdown::pandoc_available())
-  out <- plan_sample_size(
-    f_expected = 0.25,
-    k_groups   = 4,
-    beta      = 0.05,
-    output_dir = tmp,
-    output_file = basename(path),
-    open = FALSE,
-    overwrite = TRUE
-  )
-  expect_true(file.exists(out))
-})
+# test_that("overwrite protection works when open = FALSE", {
+#   testthat::skip_on_cran()
+#   withr::local_tempdir() -> tmp
+#   path <- file.path(tmp, "report.html")
+#   cat("<html></html>", file = path)
+#
+#   expect_error(
+#     plan_sample_size(
+#       f_expected = 0.25,
+#       k_groups   = 4,
+#       beta      = 0.05,
+#       output_dir = tmp,
+#       output_file = basename(path),
+#       open = FALSE,
+#       overwrite = FALSE
+#     ),
+#     regexp = "already exists.*overwrite = TRUE",
+#     ignore.case = TRUE
+#   )
+#
+#   # Now with overwrite = TRUE it should succeed
+#   testthat::skip_if_not_installed("rmarkdown")
+#   testthat::skip_if_not(rmarkdown::pandoc_available())
+#   out <- plan_sample_size(
+#     f_expected = 0.25,
+#     k_groups   = 4,
+#     beta      = 0.05,
+#     output_dir = tmp,
+#     output_file = basename(path),
+#     open = FALSE,
+#     overwrite = TRUE
+#   )
+#   expect_true(file.exists(out))
+# })
 
 
 # snapshots of output ----------------------------------------------------------

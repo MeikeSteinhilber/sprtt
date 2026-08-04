@@ -21,6 +21,9 @@ get_sprtt_cache_dir <- function() {
 #'
 #' @param force Logical. If TRUE, re-download even if data exists. Default FALSE.
 #' @return Invisibly returns the path to the cached data file.
+#' @details
+#' In non-interactive sessions, or when the environment variable
+#' `SPRTT_CONSENT_DOWNLOAD` is set to `"true"`, the consent prompt is skipped.
 #' @export
 #' @examples
 #' \dontrun{
@@ -44,7 +47,8 @@ download_sample_size_data <- function(force = FALSE) {
   # Ask for consent before downloading in interactive sessions
   auto_consent <- isTRUE(as.logical(Sys.getenv("SPRTT_CONSENT_DOWNLOAD", "false")))
 
-  if (interactive() && !auto_consent) {
+  # if (interactive() && !auto_consent) {
+  if (interactive() && !auto_consent && !testthat::is_testing()) {
     answer <- utils::menu(
       c("Yes", "No"),
       title = "This will download ~150 MB of simulation data to your local cache. Proceed?"

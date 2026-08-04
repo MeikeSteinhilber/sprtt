@@ -53,9 +53,9 @@ Imports:
     gt,
     ggtext,
     scales,
-    piggyback
+    piggyback,
+    testthat (>= 3.0.0)
 Suggests:
-    testthat (>= 3.0.0),
     testthis,
     withr,
     xml2,
