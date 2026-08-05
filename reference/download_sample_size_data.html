@@ -21,7 +21,7 @@ MeikeSteinhilber/sprtt_plan_sample_size"><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">sprtt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@ MeikeSteinhilber/sprtt_plan_sample_size"><meta property="og:image" content="http
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Download simulation data for sample size planning</h1>
-      <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/develop/R/load_data_external.R" class="external-link"><code>R/load_data_external.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MeikeSteinhilber/sprtt/blob/master/R/load_data_external.R" class="external-link"><code>R/load_data_external.R</code></a></small>
       <div class="d-none name"><code>download_sample_size_data.Rd</code></div>
     </div>
 
@@ -87,6 +87,11 @@ Data is cached locally and only needs to be downloaded once.</p>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Invisibly returns the path to the cached data file.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>In non-interactive sessions, or when the environment variable
+<code>SPRTT_CONSENT_DOWNLOAD</code> is set to <code>"true"</code>, the consent prompt is skipped.</p>
     </div>
 
     <div class="section level2">

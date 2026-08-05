@@ -24,6 +24,12 @@ download_sample_size_data(force = FALSE)
 
 Invisibly returns the path to the cached data file.
 
+## Details
+
+In non-interactive sessions, or when the environment variable
+`SPRTT_CONSENT_DOWNLOAD` is set to `"true"`, the consent prompt is
+skipped.
+
 ## Examples
 
 ``` r

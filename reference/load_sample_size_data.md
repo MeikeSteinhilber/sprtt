@@ -3,7 +3,7 @@
 **\[experimental\]**
 
 Loads pre-computed simulation results for SPRT sample size planning. If
-not already cached locally, the data (~70 MB) will be downloaded
+not already cached locally, the data (~150 MB) will be downloaded
 automatically from GitHub releases. Use this function to access the
 complete dataset for custom analysis and visualization. See the **Data
 Structure** section below for details on available columns.
@@ -19,11 +19,21 @@ load_sample_size_data()
 
 ## Value
 
-A data frame with simulation results
+A named list with the following elements:
+
+- `description`: Short description of the dataset
+
+- `version`: GitHub release tag of the dataset (e.g., `"v0.1.0-data"`)
+
+- `created`: Date the dataset was created (as character string)
+
+- `n_rep`: Number of simulation iterations per condition
+
+- `data`: A data frame with simulation results (see **Data Structure**)
 
 ## Data Structure
 
-The downloaded dataset contains simulation results with the following
+The `data` element contains simulation results with the following
 columns:
 
 **Simulation Metadata:**
@@ -99,7 +109,13 @@ columns:
 ``` r
 if (FALSE) { # \dontrun{
 # Load data (downloads automatically if needed)
-df <- load_sample_size_data()
-head(df)
+loaded <- load_sample_size_data()
+
+# Access the simulation data frame
+head(loaded$data)
+
+# Check dataset version
+loaded$version  # e.g. "v0.1.0-data"
+loaded$created
 } # }
 ```

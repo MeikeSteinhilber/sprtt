@@ -1,8 +1,5 @@
 # sprtt
 
-> ⚠️⚠️⚠️ **The documentation and website are currently under
-> construction for the next release.** ⚠️⚠️⚠️
-
 ## Overview
 
 The `sprtt` package is a **s**equential **p**robability **r**atio
@@ -84,7 +81,7 @@ set.seed(333)
 
 # load library ----------------------------------------------------------------
 library(sprtt)
-#> Note: Sample size planning functions require simulation data (~150 MB).
+#> Note: Sample size planning functions require simulation data (~70 MB).
 #> Data will download automatically on first use.
 #> See ?download_sample_size_data for more information.
 
@@ -109,15 +106,6 @@ data <- sprtt::draw_sample_normal(k_groups = 3,
                                   f = 0.15,
                                   sd = c(1, 1, 1),
                                   max_n = 46)
-# look at the data
-head(data)
-#>            y x
-#> 1  0.2762330 1
-#> 2 -1.3415005 2
-#> 3 -0.4521177 3
-#> 4  1.2315479 1
-#> 5  0.8180678 2
-#> 6  0.1697634 3
 
 # calculate sequential ANOVA --------------------------------------------------
 results <- sprtt::seq_anova(y ~ x, f = 0.15, data = data, plot = TRUE)
@@ -149,7 +137,7 @@ results
 sprtt::plot_anova(results)
 ```
 
-![](reference/figures/readme_example.png)
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)
 
 ``` r
 
