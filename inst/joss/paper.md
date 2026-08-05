@@ -72,11 +72,11 @@ The `sprtt` package fills this gap directly.
 
 [//]: # (*Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*)
 
-The `sprtt` package was first published on CRAN in 2021 and has since accumulated close to 13,000 downloads, averaging approximately 200 downloads per month in the 12 months preceding March 2026 [@steinhilber2023].
+The `sprtt` package was first published on CRAN in 2021 and has since accumulated more than 14,000 downloads, averaging approximately 250 downloads per month in the 12 months preceding August 2026 [@steinhilber2023].
 The package has been used in experimental research [@quevedoputter2022], simulation studies [@steinhilber2024; @steinhilber2025], and has been referenced in methodological work [@schubert2025a; @fischer2025].
 The target audience includes applied researchers using SPRT variants in their empirical work, as well as methodologists conducting simulation studies to gain further insights into the properties of SPRTs.
 
-![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](sprtt_downloads.png)
+![Monthly CRAN downloads of the `sprtt` package since its first release in August 2021. Dashed vertical lines indicate CRAN release versions. The LOESS trend line with 95% confidence band reflects the overall download trajectory across complete months.](figures/sprtt_downloads_2026-08-05.png)
 
 
 # Software design
@@ -116,15 +116,14 @@ Pre-computing this dataset offers several advantages over on-demand simulation: 
 The trade-off is that the lookup covers only a predefined set of parameter combinations; users with custom scenarios are therefore directed to the simulation functions to generate tailored estimates.
 
 However, the comprehensive nature of these simulations produces a dataset too large to bundle directly with the package under CRAN size constraints.
-To resolve this tension, the simulation dataset is maintained in a separate GitHub repository (https://github.com/MeikeSteinhilber/sprtt_plan_sample_size) and downloaded on demand, after which it is cached locally to avoid repeated downloads.
+To resolve this tension, the simulation dataset is maintained in a separate GitHub repository (<https://github.com/MeikeSteinhilber/sprtt_plan_sample_size>) and downloaded on demand, after which it is cached locally to avoid repeated downloads.
 This separation also serves a transparency purpose: the full simulation pipeline including the hierarchical SLURM scripts used for cluster execution is publicly available for inspection and verification.
 To give users direct control over this external dependency, the sprtt package includes dedicated helper functions (`download_sample_size_data()`, `cache_info()`, `cache_clear()`) for manually downloading, inspecting, and clearing the locally cached dataset.
 The generated HTML report records the package version and the exact version of the downloaded simulation dataset, allowing users to reproduce recommendations even if the external repository is updated later.
 
 # Software documentation
 
-The `sprtt` package is documented through a dedicated website (https://meikesteinhilber.github.io/sprtt/), a README on both the main GitHub repository and the supplementary repository hosting simulation code and results for the `plan_sample_size()` function.
-The package further includes a comprehensive set of vignettes.
+The `sprtt` package is documented through a dedicated website (<https://meikesteinhilber.github.io/sprtt/>). The package further includes a comprehensive set of vignettes.
 Introductory vignettes cover general package usage and a recommended workflow and an introduction to SPRTs, complemented by a simple *t*-test use case.
 More advanced vignettes provide dedicated guidance on the sequential *t*-test and sequential one-way ANOVA.
 Finally, further topics are addressed in vignettes on sample size planning and a developer guide for users who want to contribute to or extend the package.
@@ -135,7 +134,7 @@ Finally, further topics are addressed in vignettes on sample size planning and a
 
 The core `sprtt` implementation, all architectural decisions, and the research contributions are original human intellectual work.
 Development began in February 2021 and predates the widespread availability of modern AI-assisted programming tools, with the majority of the codebase written without AI assistance (CRAN releases: August 2021 and July 2023).
-For the latest release, generative AI (Claude, Anthropic) was used to assist with debugging new code, writing unit tests, and reviewing the package documentation for improvements.
+For the latest release in May 2026, generative AI (Claude by Anthropic) was used to assist with debugging new code, writing unit tests, and reviewing the package documentation for improvements.
 For this manuscript, AI was additionally used to support writing tasks such as improving grammar and spelling, formatting of references, and suggesting manuscript structure.
 In all cases, AI served an assistive role only, and all output was thoroughly reviewed and verified by the authors.
 
