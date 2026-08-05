@@ -21,6 +21,10 @@ Data is cached locally and only needs to be downloaded once.
 Data is hosted at:
 \href{https://github.com/MeikeSteinhilber/sprtt_plan_sample_size}{MeikeSteinhilber/sprtt_plan_sample_size}
 }
+\details{
+In non-interactive sessions, or when the environment variable
+\code{SPRTT_CONSENT_DOWNLOAD} is set to \code{"true"}, the consent prompt is skipped.
+}
 \examples{
 \dontrun{
 # Download data (only needed once)

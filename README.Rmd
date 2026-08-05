@@ -30,9 +30,9 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 <!-- badges: end -->
 
->⚠️⚠️⚠️
->**The documentation and website are currently under construction for the next release.**
->⚠️⚠️⚠️
+<!-- >⚠️⚠️⚠️ -->
+<!-- >**The documentation and website are currently under construction for the next release.** -->
+<!-- >⚠️⚠️⚠️ -->
 
 ## Overview
 
